@@ -68,22 +68,6 @@ const TinyGu = () => (
   </>
 );
 
-// Test Data
-/* const comments = [
-  {
-    name: "Nic",
-    avatar: "https://i.pravatar.cc/300?1",
-    message: "I love Go, go go go.",
-    upvotes: 0
-  },
-  {
-    name: "Gareth",
-    avatar: "https://i.pravatar.cc/300?2",
-    message: "This is a test comment, test test test.",
-    upvotes: 10
-  }
-]; */
-
 const Filters: React.FC<{ initialFilters: DiscussionOptions }> = ({
   initialFilters = defaultDiscussionOptions
 }) => {
