@@ -55,7 +55,7 @@ export interface DiscussionResponse {
 }
 
 export interface DiscussionOptions {
-  orderBy: "newest" | "oldest" | "popular";
+  orderBy: "newest" | "oldest" | "mostrecommended";
   pageSize: number;
   displayThreaded: boolean;
   maxResponses: number;

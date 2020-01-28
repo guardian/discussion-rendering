@@ -69,7 +69,7 @@ const TinyGu = () => (
 );
 
 interface FilterOptions {
-  orderBy: "newest" | "oldest" | "popular";
+  orderBy: "newest" | "oldest" | "mostrecommended";
   pageSize: number;
   threads: "collapsed" | "expanded" | "unthreaded";
 }
@@ -101,7 +101,7 @@ const Filters: React.FC<{
       >
         <option value="newest">Newest</option>
         <option value="oldest">Oldest</option>
-        <option value="recommendation">Recommendations</option>
+        <option value="mostrecommended">Recommendations</option>
       </select>
 
       <label htmlFor="pageSize">Show</label>
@@ -192,9 +192,16 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
   const useFilterState = createPersistedState("discussion-filters");
   const [filters, setFilters] = useFilterState(defaultFilterOptions);
 
+  const discussionOptions = {
+    orderBy: filters.orderBy,
+    pageSize: filters.pageSize,
+    displayThreaded: filters.threads != "unthreaded",
+    maxResponses: 3
+  };
+
   // TODO configure in UI later on (for nice DX)
   useEffect(() => {
-    const discussion = getDiscussion("/p/d6nqa", defaultDiscussionOptions);
+    const discussion = getDiscussion("/p/d6nqa", discussionOptions);
     discussion.then(json => setDiscussion(json));
   });
 
