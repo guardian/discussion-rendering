@@ -68,19 +68,29 @@ const TinyGu = () => (
   </>
 );
 
-const Filters: React.FC<{ initialFilters: DiscussionOptions }> = ({
-  initialFilters = defaultDiscussionOptions
+interface FilterOptions {
+  orderBy: "newest" | "oldest" | "popular";
+  pageSize: number;
+  threads: "collapsed" | "expanded" | "unthreaded";
+}
+
+const defaultFilterOptions: FilterOptions = {
+  orderBy: "newest",
+  pageSize: 25,
+  threads: "unthreaded"
+};
+
+const Filters: React.FC<{ initialFilters: FilterOptions }> = ({
+  initialFilters = defaultFilterOptions
 }) => {
   const useFilterState = createPersistedState("discussion-filters");
-  const [orderBy, setOrderBy] = useFilterState(
-    initialFilters.orderBy as string
-  );
-  const [threads, setThreads] = useFilterState(
+  const [filters, setFilters] = useFilterState(initialFilters);
+  /*   const [threads, setThreads] = useFilterState(
     initialFilters.displayThreaded ? "Expanded" : "Collapsed"
   );
   const [pageSize, setPageSize] = useFilterState(
     initialFilters.pageSize.toString
-  );
+  ); */
 
   return (
     <form>
@@ -88,8 +98,14 @@ const Filters: React.FC<{ initialFilters: DiscussionOptions }> = ({
       <select
         name="orderBy"
         id="orderBy"
-        onChange={e => setOrderBy(e.target.value)}
-        value={orderBy}
+        onChange={
+          e =>
+            setFilters({
+              ...filters,
+              orderBy: e.target.value
+            } as FilterOptions) // hacky
+        }
+        value={filters.orderBy}
       >
         <option value="newest">Newest</option>
         <option value="oldest">Oldest</option>
@@ -100,8 +116,13 @@ const Filters: React.FC<{ initialFilters: DiscussionOptions }> = ({
       <select
         name="pageSize"
         id="pageSize"
-        onChange={e => setPageSize(e.target.value)}
-        value={pageSize}
+        onChange={e =>
+          setFilters({
+            ...filters,
+            pageSize: Number(e.target.value)
+          } as FilterOptions)
+        }
+        value={filters.pageSize}
       >
         <option value="25">25</option>
         <option value="50">50</option>
@@ -112,8 +133,13 @@ const Filters: React.FC<{ initialFilters: DiscussionOptions }> = ({
       <select
         name="threads"
         id="threads"
-        onChange={e => setThreads(e.target.value)}
-        value={threads}
+        onChange={e =>
+          setFilters({
+            ...filters,
+            threads: e.target.value
+          } as FilterOptions)
+        }
+        value={filters.threads}
       >
         <option value="collapsed">Collapsed</option>
         <option value="expanded">Expanded</option>
@@ -231,7 +257,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
         </div>
 
         {/* Filter bar */}
-        <Filters initialFilters={defaultDiscussionOptions} />
+        <Filters initialFilters={defaultFilterOptions} />
 
         {/* Comments */}
         {comments.map(comment => (
