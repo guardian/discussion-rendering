@@ -5,8 +5,10 @@ import {
   getDiscussion,
   defaultDiscussionOptions,
   DiscussionResponse,
-  Comment as CommentModel
+  Comment as CommentModel,
+  DiscussionOptions
 } from "./api";
+import createPersistedState from "use-persisted-state";
 
 // CSS
 
@@ -81,6 +83,61 @@ const TinyGu = () => (
     upvotes: 10
   }
 ]; */
+
+const Filters: React.FC<{ initialFilters: DiscussionOptions }> = ({
+  initialFilters = defaultDiscussionOptions
+}) => {
+  const useFilterState = createPersistedState("discussion-filters");
+  const [orderBy, setOrderBy] = useFilterState(
+    initialFilters.orderBy as string
+  );
+  const [threads, setThreads] = useFilterState(
+    initialFilters.displayThreaded ? "Expanded" : "Collapsed"
+  );
+  const [pageSize, setPageSize] = useFilterState(
+    initialFilters.pageSize.toString
+  );
+
+  return (
+    <form>
+      <label htmlFor="orderBy">Order by</label>
+      <select
+        name="orderBy"
+        id="orderBy"
+        onChange={e => setOrderBy(e.target.value)}
+        value={orderBy}
+      >
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="recommendation">Recommendations</option>
+      </select>
+
+      <label htmlFor="pageSize">Show</label>
+      <select
+        name="pageSize"
+        id="pageSize"
+        onChange={e => setPageSize(e.target.value)}
+        value={pageSize}
+      >
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+
+      <label htmlFor="threads">Threads</label>
+      <select
+        name="threads"
+        id="threads"
+        onChange={e => setThreads(e.target.value)}
+        value={threads}
+      >
+        <option value="collapsed">Collapsed</option>
+        <option value="expanded">Expanded</option>
+        <option value="unthreaded">Unthreaded</option>
+      </select>
+    </form>
+  );
+};
 
 const Comment: React.FC<{ comment: CommentModel }> = ({ comment }) => {
   return (
@@ -190,11 +247,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
         </div>
 
         {/* Filter bar */}
-        <ul className={filterBar}>
-          <li>Order by</li>
-          <li>Show</li>
-          <li>Threads</li>
-        </ul>
+        <Filters initialFilters={defaultDiscussionOptions} />
 
         {/* Comments */}
         {comments.map(comment => (

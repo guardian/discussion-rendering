@@ -54,7 +54,7 @@ export interface DiscussionResponse {
   discussion: Discussion;
 }
 
-interface DiscussionOptions {
+export interface DiscussionOptions {
   orderBy: "newest" | "oldest" | "popular";
   pageSize: number;
   displayThreaded: boolean;
