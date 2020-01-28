@@ -203,7 +203,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
   useEffect(() => {
     const discussion = getDiscussion("/p/d6nqa", discussionOptions);
     discussion.then(json => setDiscussion(json));
-  });
+  }, [filters]);
 
   const [body, setBody] = useState("");
   const [showPreview, setShowPreview] = useState(false);
