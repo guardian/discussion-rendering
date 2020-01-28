@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch } from "react";
 import { css, cx } from "emotion";
 import { neutral, space } from "@guardian/src-foundations";
 import {
@@ -80,18 +80,10 @@ const defaultFilterOptions: FilterOptions = {
   threads: "unthreaded"
 };
 
-const Filters: React.FC<{ initialFilters: FilterOptions }> = ({
-  initialFilters = defaultFilterOptions
-}) => {
-  const useFilterState = createPersistedState("discussion-filters");
-  const [filters, setFilters] = useFilterState(initialFilters);
-  /*   const [threads, setThreads] = useFilterState(
-    initialFilters.displayThreaded ? "Expanded" : "Collapsed"
-  );
-  const [pageSize, setPageSize] = useFilterState(
-    initialFilters.pageSize.toString
-  ); */
-
+const Filters: React.FC<{
+  filters: FilterOptions;
+  setFilters: React.Dispatch<FilterOptions>;
+}> = ({ filters, setFilters }) => {
   return (
     <form>
       <label htmlFor="orderBy">Order by</label>
@@ -197,6 +189,9 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
 }) => {
   const [discussion, setDiscussion] = useState(initDiscussion);
 
+  const useFilterState = createPersistedState("discussion-filters");
+  const [filters, setFilters] = useFilterState(defaultFilterOptions);
+
   // TODO configure in UI later on (for nice DX)
   useEffect(() => {
     const discussion = getDiscussion("/p/d6nqa", defaultDiscussionOptions);
@@ -257,7 +252,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
         </div>
 
         {/* Filter bar */}
-        <Filters initialFilters={defaultFilterOptions} />
+        <Filters filters={filters} setFilters={setFilters} />
 
         {/* Comments */}
         {comments.map(comment => (
