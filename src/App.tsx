@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { css } from 'emotion';
+import { css } from "emotion";
 
 function App() {
   return (
