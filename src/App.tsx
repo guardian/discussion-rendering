@@ -6,7 +6,8 @@ import {
   defaultDiscussionOptions,
   DiscussionResponse,
   Comment as CommentModel,
-  DiscussionOptions
+  DiscussionOptions,
+  preview
 } from "./api";
 import createPersistedState from "use-persisted-state";
 
@@ -201,12 +202,22 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
 
   // TODO configure in UI later on (for nice DX)
   useEffect(() => {
-    const discussion = getDiscussion("/p/d6nqa", discussionOptions);
+    const discussion = getDiscussion("/p/3htd7", discussionOptions);
     discussion.then(json => setDiscussion(json));
   }, [filters]);
 
   const [body, setBody] = useState("");
+  const [previewBody, setPreviewBody] = useState(body);
   const [showPreview, setShowPreview] = useState(false);
+
+  const requestPreview = (body: string) => {
+    preview(body)
+      .then(text => {
+        console.log("preview body is: " + text);
+        setPreviewBody(text);
+      })
+      .then(() => setShowPreview(!showPreview));
+  };
 
   if (!discussion) {
     return null;
@@ -233,7 +244,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
           <button
             onClick={e => {
               e.preventDefault();
-              setShowPreview(!showPreview);
+              requestPreview(body);
             }}
           >
             Preview
@@ -241,7 +252,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
           <button type="submit">Post your comment</button>
         </form>
 
-        {showPreview && <p>{body}</p>}
+        {showPreview && <p>{previewBody}</p>}
 
         {/* All Picks */}
         <div>

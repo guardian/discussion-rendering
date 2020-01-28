@@ -68,7 +68,7 @@ const defaultDiscussionOptions: DiscussionOptions = {
   maxResponses: 3
 };
 
-const baseURL = "https://discussion.theguardian.com/discussion-api";
+const baseURL = "https://discussion.code.dev-theguardian.com/discussion-api";
 
 const objAsParams = (obj: any): string => {
   const params = Object.keys(obj)
@@ -92,6 +92,23 @@ const getDiscussion = (
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
+const preview = (body: string): Promise<string> => {
+  const url = baseURL + "/comment/preview";
+  const data = new URLSearchParams();
+  data.append("body", body);
+
+  return fetch(url, {
+    method: "POST",
+    body: data,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+    .then(resp => resp.json())
+    .then(json => json.commentBody)
+    .catch(error => console.error(`Error fetching ${url}`, error));
+};
+
 const getProfile = () => {
   const url = baseURL + "/profile/me";
   return fetch(url, { credentials: "include" })
@@ -103,4 +120,4 @@ const reportAbuse = () => {};
 
 const recommend = (commentID: string) => {};
 
-export { getDiscussion, defaultDiscussionOptions, getProfile };
+export { getDiscussion, defaultDiscussionOptions, getProfile, preview };
