@@ -116,8 +116,80 @@ const getProfile = () => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-const reportAbuse = () => {};
+const comment = (shortURL: string, body: string): Promise<string> => {
+  const url = baseURL + `/discussion/${shortURL}/comment`;
+  const data = new URLSearchParams();
+  data.append("body", body);
 
-const recommend = (commentID: string) => {};
+  return fetch(url, {
+    method: "POST",
+    body: data,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+    .then(resp => resp.json())
+    .then(json => json.message);
+};
 
-export { getDiscussion, defaultDiscussionOptions, getProfile, preview };
+const reply = (
+  shortURL: string,
+  body: string,
+  parentCommentID: string
+): Promise<string> => {
+  const url =
+    baseURL + `/discussion/${shortURL}/comment/${parentCommentID}/reply`;
+
+  const data = new URLSearchParams();
+  data.append("body", body);
+
+  return fetch(url, {
+    method: "POST",
+    body: data,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+    .then(resp => resp.json())
+    .then(json => json.message);
+};
+
+const reportAbuse = (
+  commentID: string,
+  categoryID: number,
+  reason?: string
+) => {
+  const url = baseURL + `/comment/${commentID}/reportAbuse`;
+
+  const data = new URLSearchParams();
+  data.append("categoryId", categoryID.toString());
+  reason && data.append("reason", reason);
+
+  return fetch(url, {
+    method: "POST",
+    body: data,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+    .then(resp => resp.json())
+    .then(json => json.message);
+};
+
+const recommend = (commentID: string): Promise<string> => {
+  const url = baseURL + `/comment/${commentID}/recommend`;
+
+  return fetch(url, { method: "POST" })
+    .then(resp => resp.json())
+    .then(json => json.message); // note message isn't very useful for this endpoint
+};
+
+export {
+  getDiscussion,
+  defaultDiscussionOptions,
+  getProfile,
+  preview,
+  comment,
+  reply,
+  recommend
+};
