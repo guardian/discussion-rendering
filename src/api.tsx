@@ -17,7 +17,7 @@ interface ResponseTo {
   commentWebUrl: string;
 }
 
-interface Comment {
+export interface Comment {
   id: number;
   body: string;
   date: string;
@@ -45,7 +45,7 @@ interface Discussion {
   comments: Comment[];
 }
 
-interface DiscussionResponse {
+export interface DiscussionResponse {
   status: string;
   currentPage: number;
   pages: number;
