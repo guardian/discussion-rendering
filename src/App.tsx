@@ -205,6 +205,9 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
     discussion.then(json => setDiscussion(json));
   });
 
+  const [body, setBody] = useState("");
+  const [showPreview, setShowPreview] = useState(false);
+
   if (!discussion) {
     return null;
   }
@@ -222,10 +225,23 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
       </div>
       <div className={rightCol}>
         {/* Comment Form */}
-        <div>
-          <textarea placeholder="Join the discussion"></textarea>
-          <button>Post your comment</button>
-        </div>
+        <form>
+          <textarea
+            placeholder="Join the discussion"
+            onChange={e => setBody(e.target.value)}
+          ></textarea>
+          <button
+            onClick={e => {
+              e.preventDefault();
+              setShowPreview(!showPreview);
+            }}
+          >
+            Preview
+          </button>
+          <button type="submit">Post your comment</button>
+        </form>
+
+        {showPreview && <p>{body}</p>}
 
         {/* All Picks */}
         <div>
