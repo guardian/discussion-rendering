@@ -1,6 +1,7 @@
 import React from "react";
 import { css } from "emotion";
 import { space, neutral } from "@guardian/src-foundations";
+import { textSans } from "@guardian/src-foundations/typography";
 
 interface FilterOptions {
   orderBy: "newest" | "oldest" | "mostrecommended";
@@ -20,10 +21,35 @@ const filterBar = css`
   border-top: 1px solid ${neutral[97]};
   display: flex;
   list-style: none;
+  ${textSans.small()};
+  color: ${neutral[46]};
 
   li {
     flex: 1;
   }
+`;
+
+const filterLabel = css`
+  position: relative;
+  :not(:first-of-type):after {
+    content: "";
+    display: block;
+    width: 1px;
+    background-color: ${neutral[86]};
+    position: absolute;
+    top: -5px;
+    bottom: -5px;
+    left: -10px;
+  }
+`;
+
+const filterStyle = css`
+  border: none;
+  background: #fff;
+  ${textSans.small()};
+  font-weight: bold;
+  color: ${neutral[46]};
+  margin-right: ${space[5]}px;
 `;
 
 export const Filters: React.FC<{
@@ -32,10 +58,13 @@ export const Filters: React.FC<{
 }> = ({ filters, setFilters }) => {
   return (
     <form className={filterBar}>
-      <label htmlFor="orderBy">Order by</label>
+      <label htmlFor="orderBy" className={filterLabel}>
+        Order by
+      </label>
       <select
         name="orderBy"
         id="orderBy"
+        className={filterStyle}
         onChange={
           e =>
             setFilters({
@@ -50,10 +79,13 @@ export const Filters: React.FC<{
         <option value="mostrecommended">Recommendations</option>
       </select>
 
-      <label htmlFor="pageSize">Show</label>
+      <label htmlFor="pageSize" className={filterLabel}>
+        Show
+      </label>
       <select
         name="pageSize"
         id="pageSize"
+        className={filterStyle}
         onChange={e =>
           setFilters({
             ...filters,
@@ -67,10 +99,13 @@ export const Filters: React.FC<{
         <option value="100">100</option>
       </select>
 
-      <label htmlFor="threads">Threads</label>
+      <label htmlFor="threads" className={filterLabel}>
+        Threads
+      </label>
       <select
         name="threads"
         id="threads"
+        className={filterStyle}
         onChange={e =>
           setFilters({
             ...filters,
