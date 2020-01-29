@@ -6,7 +6,8 @@ import {
   DiscussionResponse,
   preview,
   getPicks,
-  comment
+  comment,
+  getProfile
 } from "./api";
 
 import { Filters, defaultFilterOptions } from "./Filters";
@@ -49,11 +50,19 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
   // TODO configure in UI later on (for nice DX)
   useEffect(() => {
     const asyncStuff = async () => {
-      const discussion = await getDiscussion(state.shortURL, state.filters);
-      dispatch({ type: "SET_DISCUSSION", discussion });
+      try {
+        const discussion = await getDiscussion(state.shortURL, state.filters);
+        dispatch({ type: "SET_DISCUSSION", discussion });
 
-      const staffPicks = await getPicks(state.shortURL);
-      dispatch({ type: "SET_STAFF_PICKS", staffPicks });
+        const staffPicks = await getPicks(state.shortURL);
+        dispatch({ type: "SET_STAFF_PICKS", staffPicks });
+
+        // do this last as normal for it to fail (i.e. user hasn't commented)
+        const profile = await getProfile();
+        dispatch({ type: "SET_PROFILE", profile });
+      } catch (e) {
+        return;
+      }
     };
 
     asyncStuff();
@@ -76,9 +85,11 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
             ({state.discussion.discussion.commentCount})
           </span>
         </h3>
+
         {/* User Details */}
-        <UserDetails />
+        {state.profile && <UserDetails profile={state.profile} />}
       </div>
+
       <div className="">
         {/* Comment Form */}
         <CommentForm

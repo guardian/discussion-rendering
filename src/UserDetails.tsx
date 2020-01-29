@@ -2,6 +2,7 @@ import React from "react";
 import { avatar } from "./Comment";
 import { css } from "emotion";
 import { space } from "@guardian/src-foundations";
+import { UserProfile } from "./api";
 
 const profileStyles = css`
   display: flex;
@@ -14,12 +15,18 @@ const textStyles = css`
   padding-left: ${space[3]}px;
 `;
 
-export const UserDetails: React.FC = () => {
+export const UserDetails: React.FC<{ profile: UserProfile }> = ({
+  profile
+}) => {
   return (
     <div className={profileStyles}>
-      <img src="https://i.pravatar.cc/300" alt="" className={avatar(36)} />
+      <img
+        src={profile.avatar}
+        alt="your avatar image"
+        className={avatar(36)}
+      />
       <p className={textStyles}>
-        You are signed in as <strong>username</strong>
+        You are signed in as <strong>{profile.displayName}</strong>
       </p>
     </div>
   );
