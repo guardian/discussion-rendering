@@ -3,11 +3,11 @@ import { css, cx } from "emotion";
 import { Button } from "@guardian/src-button";
 import { SvgClose } from "@guardian/src-svgs";
 
-interface Props {}
+interface Props { }
 
-const Form: React.FC<{}> = ({}) => (
+const Form: React.FC<{setShowForm: (value: React.SetStateAction<boolean>) => void}> = ({setShowForm}) => (
   <form>
-    <Button size="small" iconSide="right" icon={<SvgClose />} />
+    <Button size="small" iconSide="right" icon={<SvgClose />} onClick={e => { e.preventDefault(); setShowForm(false) }} />
 
     <label htmlFor="category">Category</label>
     <select name="category" id="category">
@@ -44,7 +44,7 @@ export const AbuseReportForm: React.FC<Props> = ({}: Props) => {
   return (
     <div>
       <a onClick={e => preventDefault(e, () => setShowForm(true))}>Report</a>
-      {showForm && <Form />}
+      {showForm && <Form setShowForm={setShowForm} />}
     </div>
   );
 };
