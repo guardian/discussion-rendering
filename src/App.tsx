@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { css } from "emotion";
 
-import { getDiscussion, DiscussionResponse, preview } from "./api";
+import { getDiscussion, DiscussionResponse, preview, getPicks } from "./api";
 
 import { Filters, defaultFilterOptions } from "./Filters";
 import { Comment } from "./Comment";
@@ -35,10 +35,15 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
 
   // TODO configure in UI later on (for nice DX)
   useEffect(() => {
-    const discussion = getDiscussion(state.shortURL, state.filters);
-    discussion.then(json =>
-      dispatch({ type: "SET_DISCUSSION", discussion: json })
-    );
+    const asyncStuff = async () => {
+      const discussion = await getDiscussion(state.shortURL, state.filters);
+      dispatch({ type: "SET_DISCUSSION", discussion });
+
+      const staffPicks = await getPicks(state.shortURL);
+      dispatch({ type: "SET_STAFF_PICKS", staffPicks });
+    };
+
+    asyncStuff();
   }, [state.filters]);
 
   // APP
@@ -68,7 +73,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
         {/* All Picks */}
         <div>
           {/* Single Pick */}
-          <Pick />
+          <Pick comments={state.staffPicks} />
         </div>
 
         {/* Filter bar */}

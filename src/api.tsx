@@ -166,6 +166,15 @@ const reply = (
     .then(json => json.message);
 };
 
+const getPicks = (shortURL: string): Promise<Comment[]> => {
+  const url = baseURL + `/discussion/${shortURL}/topcomments`;
+
+  return fetch(url)
+    .then(resp => resp.json())
+    .then(json => json.discussion.comments)
+    .catch(error => console.error(`Error fetching ${url}`, error));
+};
+
 const reportAbuse = (
   commentID: string,
   categoryID: number,
@@ -196,4 +205,12 @@ const recommend = (commentID: string): Promise<string> => {
     .then(json => json.message); // note message isn't very useful for this endpoint
 };
 
-export { getDiscussion, getProfile, preview, comment, reply, recommend };
+export {
+  getDiscussion,
+  getProfile,
+  preview,
+  comment,
+  reply,
+  recommend,
+  getPicks
+};
