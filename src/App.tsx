@@ -252,7 +252,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
           <button type="submit">Post your comment</button>
         </form>
 
-        {showPreview && <p>{previewBody}</p>}
+        {showPreview && <p dangerouslySetInnerHTML={{ __html: previewBody}}/>}
 
         {/* All Picks */}
         <div>
