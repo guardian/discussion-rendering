@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { css } from "emotion";
 
-import { getDiscussion, DiscussionResponse, preview, getPicks } from "./api";
+import {
+  getDiscussion,
+  DiscussionResponse,
+  preview,
+  getPicks,
+  comment
+} from "./api";
 
 import { Filters, defaultFilterOptions } from "./Filters";
 import { Comment } from "./Comment";
@@ -11,6 +17,8 @@ import { Pick } from "./Pick";
 
 import { Pillar } from "./types";
 import { reducer } from "./reducer";
+import { headline } from "@guardian/src-foundations/typography";
+import { palette } from "@guardian/src-foundations";
 
 const pillar: Pillar = "sport";
 
@@ -21,19 +29,19 @@ const wrapper = css`
   max-width: 600px;
 `;
 
-const leftCol = css`
-  float: left;
-  width: 25%;
-`;
-const rightCol = css`
-  float: right;
-  width: 75%;
-`;
-
 const initialState = {
   shortURL: "/p/3htd7",
   filters: defaultFilterOptions
 };
+
+const commentCountStyles = css`
+  margin: 0;
+  ${headline.xxsmall({ lineHeight: "regular", fontWeight: "bold" })};
+`;
+
+const countCountNumStyles = css`
+  color: ${palette.neutral[46]};
+`;
 
 const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -61,11 +69,17 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
 
   return (
     <div className={wrapper}>
-      <div className={leftCol}>
+      <div className="">
+        <h3 className={commentCountStyles}>
+          comments{" "}
+          <span className={countCountNumStyles}>
+            ({state.discussion.discussion.commentCount})
+          </span>
+        </h3>
         {/* User Details */}
         <UserDetails />
       </div>
-      <div className={rightCol}>
+      <div className="">
         {/* Comment Form */}
         <CommentForm
           dispatch={dispatch}
