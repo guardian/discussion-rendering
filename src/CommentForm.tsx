@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "emotion";
 import { Button } from "@guardian/src-button";
-import { space } from "@guardian/src-foundations";
+import { space, neutral } from "@guardian/src-foundations";
 import { Action } from "./reducer";
 import { comment, preview } from "./api";
 
@@ -15,6 +15,24 @@ const commentTextArea = css`
   width: 100%;
   min-height: 120px;
   margin-bottom: ${space[3]}px;
+`;
+
+const arrowSize = 15;
+const bg = neutral[93];
+const previewStyle = css`
+  padding: ${space[2]}px;
+  background-color: ${bg};
+  border-radius: 5px;
+  margin-bottom: ${arrowSize + 5}px;
+  position: relative;
+
+  :before {
+    content: "";
+    position: absolute;
+    border-right: ${arrowSize}px solid transparent;
+    border-top: ${arrowSize}px solid ${bg};
+    bottom: -${arrowSize - 1}px;
+  }
 `;
 
 const postComment = (
@@ -86,7 +104,10 @@ export const CommentForm: React.FC<{
       </form>
 
       {showPreview && (
-        <p dangerouslySetInnerHTML={{ __html: previewBody || "" }} />
+        <p
+          className={previewStyle}
+          dangerouslySetInnerHTML={{ __html: previewBody || "" }}
+        />
       )}
     </>
   );
