@@ -16,6 +16,11 @@ const pillar: Pillar = "sport";
 
 // CSS
 
+const wrapper = css`
+  margin: 20px auto 0;
+  max-width: 600px;
+`;
+
 const leftCol = css`
   float: left;
   width: 25%;
@@ -55,7 +60,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
   const comments = state.discussion.discussion.comments;
 
   return (
-    <div className="App">
+    <div className={wrapper}>
       <div className={leftCol}>
         {/* User Details */}
         <UserDetails />
