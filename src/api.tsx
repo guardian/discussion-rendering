@@ -1,6 +1,6 @@
 import { FilterOptions } from "./reducer"; // TODO this should live here
 
-interface UserProfile {
+export interface UserProfile {
   userId: string;
   displayName: string;
   webUrl: string;
@@ -8,6 +8,13 @@ interface UserProfile {
   avatar: string;
   secureAvatarUrl: string;
   badge: any[];
+
+  // only included from /profile/me endpoint
+  privateFields?: {
+    canPostComment: boolean;
+    isPremoderated: boolean;
+    hasCommented: boolean;
+  };
 }
 
 interface ResponseTo {
@@ -119,10 +126,11 @@ const preview = (body: string): Promise<string> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-const getProfile = () => {
+const getProfile = (): Promise<UserProfile> => {
   const url = baseURL + "/profile/me";
   return fetch(url, { credentials: "include" })
     .then(resp => resp.json())
+    .then(json => json.userProfile)
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 

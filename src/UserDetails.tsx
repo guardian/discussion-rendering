@@ -1,13 +1,33 @@
 import React from "react";
 import { avatar } from "./Comment";
+import { css } from "emotion";
+import { space } from "@guardian/src-foundations";
+import { UserProfile } from "./api";
 
-export const UserDetails: React.FC = () => {
+const profileStyles = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: ${space[2]}px 0;
+`;
+
+const textStyles = css`
+  padding-left: ${space[3]}px;
+`;
+
+export const UserDetails: React.FC<{ profile: UserProfile }> = ({
+  profile
+}) => {
   return (
-    <>
-      <img src="https://i.pravatar.cc/300" alt="" className={avatar(80)} />
-      <p>
-        You are signed in as <a href="">Username</a>
+    <div className={profileStyles}>
+      <img
+        src={profile.avatar}
+        alt="your avatar image"
+        className={avatar(36)}
+      />
+      <p className={textStyles}>
+        You are signed in as <strong>{profile.displayName}</strong>
       </p>
-    </>
+    </div>
   );
 };

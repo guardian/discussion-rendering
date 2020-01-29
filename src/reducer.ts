@@ -1,4 +1,4 @@
-import { DiscussionResponse, Comment } from "./api";
+import { DiscussionResponse, Comment, UserProfile } from "./api";
 
 export interface FilterOptions {
   orderBy: "newest" | "oldest" | "mostrecommended";
@@ -55,6 +55,11 @@ interface StaffPicks {
   staffPicks: Comment[];
 }
 
+interface Profile {
+  type: "SET_PROFILE";
+  profile: UserProfile;
+}
+
 export type Action =
   | OrderBy
   | PageSize
@@ -64,7 +69,8 @@ export type Action =
   | Body
   | Preview
   | ShowPreview
-  | StaffPicks;
+  | StaffPicks
+  | Profile;
 
 interface State {
   shortURL: string;
@@ -74,6 +80,7 @@ interface State {
   body?: string;
   previewBody?: string;
   showPreview?: boolean;
+  profile?: UserProfile;
 }
 
 export const reducer = (state: State, action: Action) => {
@@ -120,6 +127,11 @@ export const reducer = (state: State, action: Action) => {
       return {
         ...state,
         staffPicks: action.staffPicks
+      };
+    case "SET_PROFILE":
+      return {
+        ...state,
+        profile: action.profile
       };
   }
 };

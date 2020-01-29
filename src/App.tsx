@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { css } from "emotion";
 
-import { getDiscussion, DiscussionResponse, preview, getPicks } from "./api";
+import {
+  getDiscussion,
+  DiscussionResponse,
+  preview,
+  getPicks,
+  comment,
+  getProfile
+} from "./api";
 
 import { Filters, defaultFilterOptions } from "./Filters";
 import { Comment } from "./Comment";
@@ -11,18 +18,16 @@ import { Pick } from "./Pick";
 
 import { Pillar } from "./types";
 import { reducer } from "./reducer";
+import { headline } from "@guardian/src-foundations/typography";
+import { palette } from "@guardian/src-foundations";
 
 const pillar: Pillar = "sport";
 
 // CSS
 
-const leftCol = css`
-  float: left;
-  width: 25%;
-`;
-const rightCol = css`
-  float: right;
-  width: 75%;
+const wrapper = css`
+  margin: 20px auto 0;
+  max-width: 600px;
 `;
 
 const initialState = {
@@ -30,17 +35,34 @@ const initialState = {
   filters: defaultFilterOptions
 };
 
+const commentCountStyles = css`
+  margin: 0;
+  ${headline.xxsmall({ lineHeight: "regular", fontWeight: "bold" })};
+`;
+
+const countCountNumStyles = css`
+  color: ${palette.neutral[46]};
+`;
+
 const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // TODO configure in UI later on (for nice DX)
   useEffect(() => {
     const asyncStuff = async () => {
-      const discussion = await getDiscussion(state.shortURL, state.filters);
-      dispatch({ type: "SET_DISCUSSION", discussion });
+      try {
+        const discussion = await getDiscussion(state.shortURL, state.filters);
+        dispatch({ type: "SET_DISCUSSION", discussion });
 
-      const staffPicks = await getPicks(state.shortURL);
-      dispatch({ type: "SET_STAFF_PICKS", staffPicks });
+        const staffPicks = await getPicks(state.shortURL);
+        dispatch({ type: "SET_STAFF_PICKS", staffPicks });
+
+        // do this last as normal for it to fail (i.e. user hasn't commented)
+        const profile = await getProfile();
+        dispatch({ type: "SET_PROFILE", profile });
+      } catch (e) {
+        return;
+      }
     };
 
     asyncStuff();
@@ -55,12 +77,20 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
   const comments = state.discussion.discussion.comments;
 
   return (
-    <div className="App">
-      <div className={leftCol}>
+    <div className={wrapper}>
+      <div className="">
+        <h3 className={commentCountStyles}>
+          comments{" "}
+          <span className={countCountNumStyles}>
+            ({state.discussion.discussion.commentCount})
+          </span>
+        </h3>
+
         {/* User Details */}
-        <UserDetails />
+        {state.profile && <UserDetails profile={state.profile} />}
       </div>
-      <div className={rightCol}>
+
+      <div className="">
         {/* Comment Form */}
         <CommentForm
           dispatch={dispatch}
