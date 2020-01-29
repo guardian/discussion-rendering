@@ -5,6 +5,7 @@ import { Comment as CommentModel } from "./api";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { Pillar } from "./types";
+import { AbuseReportForm } from "./AbuseReportForm";
 
 const commentControls = css`
   display: flex;
@@ -74,7 +75,9 @@ export const Comment: React.FC<{ comment: CommentModel; pillar: Pillar }> = ({
           <li>reply</li>
           <li>share</li>
           <li>pick</li>
-          <li>report</li>
+          <li>
+            <AbuseReportForm />
+          </li>
         </div>
       </div>
     </div>

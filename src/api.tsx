@@ -1,3 +1,5 @@
+import { FilterOptions } from "./reducer"; // TODO this should live here
+
 interface UserProfile {
   userId: string;
   displayName: string;
@@ -54,19 +56,19 @@ export interface DiscussionResponse {
   discussion: Discussion;
 }
 
-export interface DiscussionOptions {
+interface DiscussionOptions {
   orderBy: "newest" | "oldest" | "mostrecommended";
   pageSize: number;
   displayThreaded: boolean;
   maxResponses: number;
 }
 
-const defaultDiscussionOptions: DiscussionOptions = {
+/* const defaultDiscussionOptions: DiscussionOptions = {
   orderBy: "newest",
   pageSize: 20,
   displayThreaded: false,
   maxResponses: 3
-};
+}; */
 
 const baseURL = "https://discussion.code.dev-theguardian.com/discussion-api";
 
@@ -82,9 +84,16 @@ const objAsParams = (obj: any): string => {
 
 const getDiscussion = (
   shortURL: string,
-  opts: DiscussionOptions
+  opts: FilterOptions
 ): Promise<DiscussionResponse> => {
-  const params = objAsParams(opts);
+  const apiOpts: DiscussionOptions = {
+    orderBy: opts.orderBy,
+    pageSize: opts.pageSize,
+    displayThreaded: opts.threads !== "unthreaded",
+    maxResponses: 3
+  };
+  const params = objAsParams(apiOpts);
+
   const url = baseURL + `/discussion/${shortURL}` + params;
 
   return fetch(url)
@@ -186,12 +195,4 @@ const recommend = (commentID: string): Promise<string> => {
     .then(json => json.message); // note message isn't very useful for this endpoint
 };
 
-export {
-  getDiscussion,
-  defaultDiscussionOptions,
-  getProfile,
-  preview,
-  comment,
-  reply,
-  recommend
-};
+export { getDiscussion, getProfile, preview, comment, reply, recommend };

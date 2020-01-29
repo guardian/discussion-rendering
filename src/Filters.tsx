@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "emotion";
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
+import { Action, OrderByValues, ThreadValues } from "./reducer";
 
 interface FilterOptions {
   orderBy: "newest" | "oldest" | "mostrecommended";
@@ -54,8 +55,8 @@ const filterStyle = css`
 
 export const Filters: React.FC<{
   filters: FilterOptions;
-  setFilters: React.Dispatch<FilterOptions>;
-}> = ({ filters, setFilters }) => {
+  dispatch: React.Dispatch<Action>;
+}> = ({ filters, dispatch }) => {
   return (
     <form className={filterBar}>
       <label htmlFor="orderBy" className={filterLabel}>
@@ -65,12 +66,11 @@ export const Filters: React.FC<{
         name="orderBy"
         id="orderBy"
         className={filterStyle}
-        onChange={
-          e =>
-            setFilters({
-              ...filters,
-              orderBy: e.target.value
-            } as FilterOptions) // hacky
+        onChange={e =>
+          dispatch({
+            type: "SET_ORDER_BY",
+            orderBy: e.target.value as OrderByValues
+          })
         }
         value={filters.orderBy}
       >
@@ -87,10 +87,10 @@ export const Filters: React.FC<{
         id="pageSize"
         className={filterStyle}
         onChange={e =>
-          setFilters({
-            ...filters,
+          dispatch({
+            type: "SET_PAGE_SIZE",
             pageSize: Number(e.target.value)
-          } as FilterOptions)
+          })
         }
         value={filters.pageSize}
       >
@@ -107,10 +107,10 @@ export const Filters: React.FC<{
         id="threads"
         className={filterStyle}
         onChange={e =>
-          setFilters({
-            ...filters,
-            threads: e.target.value
-          } as FilterOptions)
+          dispatch({
+            type: "SET_THREADS",
+            threads: e.target.value as ThreadValues
+          })
         }
         value={filters.threads}
       >
