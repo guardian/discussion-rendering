@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "emotion";
 import { space, neutral } from "@guardian/src-foundations";
 import { avatar } from "./Comment";
+import { Comment } from "./api";
 
 const pick = css`
   width: 200px;
@@ -25,9 +26,9 @@ const TinyGu = () => (
   </>
 );
 
-export const Pick: React.FC = () => {
+export const Pick: React.FC<{ comments?: Comment[] }> = ({ comments }) => {
   if (!false) {
-    return (<p>No picks.</p>)
+    return <p>No picks.</p>;
   }
 
   return (

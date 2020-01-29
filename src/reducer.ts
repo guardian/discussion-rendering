@@ -1,4 +1,4 @@
-import { DiscussionResponse } from "./api";
+import { DiscussionResponse, Comment } from "./api";
 
 export interface FilterOptions {
   orderBy: "newest" | "oldest" | "mostrecommended";
@@ -30,7 +30,7 @@ interface Discussion {
   discussion: DiscussionResponse;
 }
 
-interface Comment {
+interface PostComment {
   type: "POST_COMMENT";
   body: string;
 }
@@ -50,20 +50,27 @@ interface ShowPreview {
   showPreview: boolean;
 }
 
+interface StaffPicks {
+  type: "SET_STAFF_PICKS";
+  staffPicks: Comment[];
+}
+
 export type Action =
   | OrderBy
   | PageSize
   | Threads
   | Discussion
-  | Comment
+  | PostComment
   | Body
   | Preview
-  | ShowPreview;
+  | ShowPreview
+  | StaffPicks;
 
 interface State {
   shortURL: string;
   filters: FilterOptions;
   discussion?: DiscussionResponse;
+  staffPicks?: Comment[];
   body?: string;
   previewBody?: string;
   showPreview?: boolean;
@@ -109,5 +116,10 @@ export const reducer = (state: State, action: Action) => {
       };
     case "POST_COMMENT":
       return state; // eventually we should display the new comment or a success message
+    case "SET_STAFF_PICKS":
+      return {
+        ...state,
+        staffPicks: action.staffPicks
+      };
   }
 };
