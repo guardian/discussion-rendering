@@ -10,6 +10,11 @@ import { CommentForm } from "./CommentForm";
 import { UserDetails } from "./UserDetails";
 import { Pick } from "./Pick";
 
+import { Pillar } from "./types";
+
+const pillar: Pillar = "sport";
+const shortURL = "/p/3htd7";
+
 // CSS
 
 const leftCol = css`
@@ -20,8 +25,6 @@ const rightCol = css`
   float: right;
   width: 75%;
 `;
-
-const shortURL = "/p/3htd7";
 
 const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
   initDiscussion = undefined
@@ -98,7 +101,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
 
         {/* Comments */}
         {comments.map(comment => (
-          <Comment comment={comment} />
+          <Comment comment={comment} pillar={pillar} />
         ))}
       </div>
     </div>

@@ -26,6 +26,10 @@ const TinyGu = () => (
 );
 
 export const Pick: React.FC = () => {
+  if (!false) {
+    return (<p>No picks.</p>)
+  }
+
   return (
     <div className={pick}>
       <div className={pickComment}>
