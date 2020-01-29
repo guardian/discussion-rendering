@@ -43,7 +43,7 @@ export const AbuseReportForm: React.FC<Props> = ({}: Props) => {
 
   return (
     <div>
-      <a onClick={e => preventDefault(e, () => setShowForm(true))}>report</a>
+      <a onClick={e => preventDefault(e, () => setShowForm(true))}>Report</a>
       {showForm && <Form />}
     </div>
   );

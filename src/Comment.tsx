@@ -7,12 +7,24 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { Pillar } from "./types";
 import { AbuseReportForm } from "./AbuseReportForm";
 
-const commentControls = css`
-  display: flex;
-  list-style: none;
 
-  li {
-    flex: 1;
+const commentControls = (pillar: Pillar) => css`
+  list-style: none;
+  ${textSans.xsmall()};
+
+  * {
+    display: inline-block;
+  }
+
+  *:not(:last-child) {
+    font-weight: bold;
+    margin-right: ${space[2]}px;
+    color: ${palette[pillar][400]};
+  }
+
+  *:last-child {
+    float: right;
+    font-weight: normal;
   }
 `;
 
@@ -71,13 +83,11 @@ export const Comment: React.FC<{ comment: CommentModel; pillar: Pillar }> = ({
           dangerouslySetInnerHTML={{ __html: comment.body }}
         ></p>
         <p>{comment.numRecommends}</p>
-        <div className={commentControls}>
-          <li>reply</li>
-          <li>share</li>
-          <li>pick</li>
-          <li>
-            <AbuseReportForm />
-          </li>
+        <div className={commentControls(pillar)}>
+          <li>Reply</li>
+          <li>Share</li>
+          <li>Pick</li>
+          <li><AbuseReportForm /></li>
         </div>
       </div>
     </div>
