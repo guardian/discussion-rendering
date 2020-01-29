@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@guardian/src-button";
 
 export const CommentForm: React.FC<{
   setBody: React.Dispatch<string>;
@@ -14,15 +15,18 @@ export const CommentForm: React.FC<{
           placeholder="Join the discussion"
           onChange={e => setBody(e.target.value)}
         ></textarea>
-        <button
+        <Button
+          size="small"
           onClick={e => {
             e.preventDefault();
             requestPreview(body);
           }}
         >
           Preview
-        </button>
-        <button type="submit">Post your comment</button>
+        </Button>
+        <Button type="submit" size="small">
+          Post your comment
+        </Button>
       </form>
 
       {showPreview && <p dangerouslySetInnerHTML={{ __html: previewBody }} />}

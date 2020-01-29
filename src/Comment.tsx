@@ -46,8 +46,8 @@ export const Comment: React.FC<{ comment: CommentModel }> = ({ comment }) => {
           display: block;
           clear: left;
         `}
+              dangerouslySetInnerHTML={{ __html: comment.body}} 
       >
-        {comment.body}
       </p>
       <p>{comment.numRecommends}</p>
       <div className={commentControls}>
