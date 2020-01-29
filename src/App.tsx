@@ -1,15 +1,17 @@
-import React, { useState, useEffect, Dispatch } from "react";
+import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
+import createPersistedState from "use-persisted-state";
+
 import { neutral, space } from "@guardian/src-foundations";
+
 import {
   getDiscussion,
-  defaultDiscussionOptions,
   DiscussionResponse,
   Comment as CommentModel,
-  DiscussionOptions,
   preview
 } from "./api";
-import createPersistedState from "use-persisted-state";
+
+import { Filters, defaultFilterOptions } from './Filters';
 
 // CSS
 
@@ -36,18 +38,6 @@ const pickComment = css`
   background-color: ${neutral[97]};
 `;
 
-const filterBar = css`
-  padding: ${space[3]}px 0;
-  border-bottom: 1px solid ${neutral[97]};
-  border-top: 1px solid ${neutral[97]};
-  display: flex;
-  list-style: none;
-
-  li {
-    flex: 1;
-  }
-`;
-
 const commentControls = css`
   display: flex;
 
@@ -68,79 +58,6 @@ const TinyGu = () => (
     </svg>
   </>
 );
-
-interface FilterOptions {
-  orderBy: "newest" | "oldest" | "mostrecommended";
-  pageSize: number;
-  threads: "collapsed" | "expanded" | "unthreaded";
-}
-
-const defaultFilterOptions: FilterOptions = {
-  orderBy: "newest",
-  pageSize: 25,
-  threads: "unthreaded"
-};
-
-const Filters: React.FC<{
-  filters: FilterOptions;
-  setFilters: React.Dispatch<FilterOptions>;
-}> = ({ filters, setFilters }) => {
-  return (
-    <form>
-      <label htmlFor="orderBy">Order by</label>
-      <select
-        name="orderBy"
-        id="orderBy"
-        onChange={
-          e =>
-            setFilters({
-              ...filters,
-              orderBy: e.target.value
-            } as FilterOptions) // hacky
-        }
-        value={filters.orderBy}
-      >
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option value="mostrecommended">Recommendations</option>
-      </select>
-
-      <label htmlFor="pageSize">Show</label>
-      <select
-        name="pageSize"
-        id="pageSize"
-        onChange={e =>
-          setFilters({
-            ...filters,
-            pageSize: Number(e.target.value)
-          } as FilterOptions)
-        }
-        value={filters.pageSize}
-      >
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-      </select>
-
-      <label htmlFor="threads">Threads</label>
-      <select
-        name="threads"
-        id="threads"
-        onChange={e =>
-          setFilters({
-            ...filters,
-            threads: e.target.value
-          } as FilterOptions)
-        }
-        value={filters.threads}
-      >
-        <option value="collapsed">Collapsed</option>
-        <option value="expanded">Expanded</option>
-        <option value="unthreaded">Unthreaded</option>
-      </select>
-    </form>
-  );
-};
 
 const Comment: React.FC<{ comment: CommentModel }> = ({ comment }) => {
   return (
@@ -188,6 +105,8 @@ const Comment: React.FC<{ comment: CommentModel }> = ({ comment }) => {
 const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
   initDiscussion = undefined
 }) => {
+
+  // STATE AND UPDATE
   const [discussion, setDiscussion] = useState(initDiscussion);
 
   const useFilterState = createPersistedState("discussion-filters");
@@ -196,7 +115,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
   const discussionOptions = {
     orderBy: filters.orderBy,
     pageSize: filters.pageSize,
-    displayThreaded: filters.threads != "unthreaded",
+    displayThreaded: filters.threads !== "unthreaded",
     maxResponses: 3
   };
 
@@ -218,6 +137,8 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
       })
       .then(() => setShowPreview(!showPreview));
   };
+
+  // APP
 
   if (!discussion) {
     return null;
