@@ -11,8 +11,9 @@ import {
 } from "./api";
 
 import { Filters, defaultFilterOptions } from './Filters';
-import { Comment, avatar } from './Comment'
-import { CommentForm  } from './CommentForm'
+import { Comment, avatar } from './Comment';
+import { CommentForm } from './CommentForm';
+import { UserDetails } from './UserDetails';
 
 // CSS
 
@@ -95,10 +96,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
     <div className="App">
       <div className={leftCol}>
         {/* User Details */}
-        <img src="https://i.pravatar.cc/300" alt="" className={avatar(80)} />
-        <p>
-          You are signed in as <a href="">Username</a>
-        </p>
+        <UserDetails/>
       </div>
       <div className={rightCol}>
         {/* Comment Form */}
