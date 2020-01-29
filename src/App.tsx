@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { css, cx } from "emotion";
+import { css } from "emotion";
 import createPersistedState from "use-persisted-state";
 
 import { neutral, space } from "@guardian/src-foundations";
@@ -11,7 +11,8 @@ import {
 } from "./api";
 
 import { Filters, defaultFilterOptions } from './Filters';
-import { Comment, avatar  } from './Comment'
+import { Comment, avatar } from './Comment'
+import { CommentForm  } from './CommentForm'
 
 // CSS
 
@@ -101,23 +102,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
       </div>
       <div className={rightCol}>
         {/* Comment Form */}
-        <form>
-          <textarea
-            placeholder="Join the discussion"
-            onChange={e => setBody(e.target.value)}
-          ></textarea>
-          <button
-            onClick={e => {
-              e.preventDefault();
-              requestPreview(body);
-            }}
-          >
-            Preview
-          </button>
-          <button type="submit">Post your comment</button>
-        </form>
-
-        {showPreview && <p dangerouslySetInnerHTML={{ __html: previewBody}}/>}
+        <CommentForm setBody={setBody} previewBody={previewBody} requestPreview={requestPreview} body={body} showPreview={showPreview} />
 
         {/* All Picks */}
         <div>
