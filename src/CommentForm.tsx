@@ -18,13 +18,27 @@ const commentTextArea = css`
 export const CommentForm: React.FC<{
   setBody: React.Dispatch<string>;
   requestPreview: (body: string) => void;
+  postComment: (body: string) => void;
   previewBody: string;
   showPreview: boolean;
   body: string;
-}> = ({ setBody, requestPreview, previewBody, showPreview, body }) => {
+}> = ({
+  setBody,
+  requestPreview,
+  postComment,
+  previewBody,
+  showPreview,
+  body
+}) => {
   return (
     <>
-      <form className={commentForm}>
+      <form
+        className={commentForm}
+        onSubmit={e => {
+          e.preventDefault();
+          postComment(body);
+        }}
+      >
         <textarea
           placeholder="Join the discussion"
           className={commentTextArea}
@@ -36,7 +50,7 @@ export const CommentForm: React.FC<{
             e.preventDefault();
             requestPreview(body);
           }}
-          >
+        >
           Preview
         </Button>
         <Button type="submit" size="small">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 import createPersistedState from "use-persisted-state";
 
-import { getDiscussion, DiscussionResponse, preview } from "./api";
+import { getDiscussion, DiscussionResponse, preview, comment } from "./api";
 
 import { Filters, defaultFilterOptions } from "./Filters";
 import { Comment } from "./Comment";
@@ -20,6 +20,8 @@ const rightCol = css`
   float: right;
   width: 75%;
 `;
+
+const shortURL = "/p/3htd7";
 
 const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
   initDiscussion = undefined
@@ -39,7 +41,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
 
   // TODO configure in UI later on (for nice DX)
   useEffect(() => {
-    const discussion = getDiscussion("/p/3htd7", discussionOptions);
+    const discussion = getDiscussion(shortURL, discussionOptions);
     discussion.then(json => setDiscussion(json));
   }, [filters]);
 
@@ -54,6 +56,10 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
         setPreviewBody(text);
       })
       .then(() => setShowPreview(!showPreview));
+  };
+
+  const postComment = (body: string) => {
+    comment(shortURL, body);
   };
 
   // APP
@@ -76,6 +82,7 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
           setBody={setBody}
           previewBody={previewBody}
           requestPreview={requestPreview}
+          postComment={postComment}
           body={body}
           showPreview={showPreview}
         />

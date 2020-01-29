@@ -126,7 +126,8 @@ const comment = (shortURL: string, body: string): Promise<string> => {
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
-    }
+    },
+    credentials: "include"
   })
     .then(resp => resp.json())
     .then(json => json.message);
@@ -148,7 +149,8 @@ const reply = (
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
-    }
+    },
+    credentials: "include"
   })
     .then(resp => resp.json())
     .then(json => json.message);
