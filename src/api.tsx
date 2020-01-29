@@ -32,6 +32,7 @@ export interface Comment {
   isHighlighted: boolean;
   userProfile: UserProfile;
   responseTo: ResponseTo;
+  responses?: Comment[];
 }
 
 interface Discussion {

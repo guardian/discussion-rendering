@@ -34,10 +34,11 @@ const commentCss = css`
   ${textSans.small()}
 `;
 
-const commentWrapper = css`
-  border-bottom: 1px solid ${neutral[97]};
+const commentWrapper = (nested: boolean) => css`
+  border-top: 1px solid ${neutral[97]};
   display: flex;
   padding: ${space[2]}px 0;
+  margin-left: ${nested ? space[12]+'px' : 0}
 `;
 
 const commentAvatar = css`
@@ -62,12 +63,14 @@ export const avatar = (avatarSize: number): string => css`
   height: ${avatarSize}px;
 `;
 
-export const Comment: React.FC<{ comment: CommentModel; pillar: Pillar }> = ({
+export const Comment: React.FC<{ comment: CommentModel; pillar: Pillar; nested?: boolean; }> = ({
   comment,
-  pillar
+    pillar,
+  nested = false
 }) => {
-  return (
-    <div className={commentWrapper}>
+    return (
+      <>
+    <div className={commentWrapper(nested)}>
       <img
         src={comment.userProfile.avatar}
         alt={comment.userProfile.displayName}
@@ -89,7 +92,9 @@ export const Comment: React.FC<{ comment: CommentModel; pillar: Pillar }> = ({
           <li>Pick</li>
           <li><AbuseReportForm /></li>
         </div>
+          </div>
       </div>
-    </div>
+            {comment.responses && comment.responses.map(comment => <Comment comment={comment} pillar={pillar} nested={true} />)}
+            </>
   );
 };
