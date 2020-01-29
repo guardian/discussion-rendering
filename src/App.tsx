@@ -4,16 +4,12 @@ import createPersistedState from "use-persisted-state";
 
 import { neutral, space } from "@guardian/src-foundations";
 
-import {
-  getDiscussion,
-  DiscussionResponse,
-  preview
-} from "./api";
+import { getDiscussion, DiscussionResponse, preview } from "./api";
 
-import { Filters, defaultFilterOptions } from './Filters';
-import { Comment, avatar } from './Comment';
-import { CommentForm } from './CommentForm';
-import { UserDetails } from './UserDetails';
+import { Filters, defaultFilterOptions } from "./Filters";
+import { Comment, avatar } from "./Comment";
+import { CommentForm } from "./CommentForm";
+import { UserDetails } from "./UserDetails";
 
 // CSS
 
@@ -51,7 +47,6 @@ const TinyGu = () => (
 const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
   initDiscussion = undefined
 }) => {
-
   // STATE AND UPDATE
   const [discussion, setDiscussion] = useState(initDiscussion);
 
@@ -96,11 +91,17 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
     <div className="App">
       <div className={leftCol}>
         {/* User Details */}
-        <UserDetails/>
+        <UserDetails />
       </div>
       <div className={rightCol}>
         {/* Comment Form */}
-        <CommentForm setBody={setBody} previewBody={previewBody} requestPreview={requestPreview} body={body} showPreview={showPreview} />
+        <CommentForm
+          setBody={setBody}
+          previewBody={previewBody}
+          requestPreview={requestPreview}
+          body={body}
+          showPreview={showPreview}
+        />
 
         {/* All Picks */}
         <div>
