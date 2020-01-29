@@ -1,5 +1,19 @@
 import React from "react";
+import { css } from "emotion";
 import { Button } from "@guardian/src-button";
+import { space } from "@guardian/src-foundations";
+
+const commentForm = css`
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: ${space[5]}px;
+`;
+
+const commentTextArea = css`
+  width: 100%;
+  min-height: 120px;
+  margin-bottom: ${space[3]}px;
+`;
 
 export const CommentForm: React.FC<{
   setBody: React.Dispatch<string>;
@@ -10,9 +24,10 @@ export const CommentForm: React.FC<{
 }> = ({ setBody, requestPreview, previewBody, showPreview, body }) => {
   return (
     <>
-      <form>
+      <form className={commentForm}>
         <textarea
           placeholder="Join the discussion"
+          className={commentTextArea}
           onChange={e => setBody(e.target.value)}
         ></textarea>
         <Button
@@ -21,7 +36,7 @@ export const CommentForm: React.FC<{
             e.preventDefault();
             requestPreview(body);
           }}
-        >
+          >
           Preview
         </Button>
         <Button type="submit" size="small">
