@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { css } from "emotion";
-import createPersistedState from "use-persisted-state";
 
-import { getDiscussion, DiscussionResponse, preview, comment } from "./api";
+import { getDiscussion, DiscussionResponse, preview } from "./api";
 
 import { Filters, defaultFilterOptions } from "./Filters";
 import { Comment } from "./Comment";
@@ -14,7 +13,6 @@ import { Pillar } from "./types";
 import { reducer } from "./reducer";
 
 const pillar: Pillar = "sport";
-const shortURL = "/p/3htd7";
 
 // CSS
 
@@ -27,14 +25,13 @@ const rightCol = css`
   width: 75%;
 `;
 
-const initialState = { shortURL: "/p/3htd7", filters: defaultFilterOptions };
+const initialState = {
+  shortURL: "/p/3htd7",
+  filters: defaultFilterOptions
+};
 
 const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  /*   // STATE AND UPDATE
-  const useFilterState = createPersistedState("discussion-filters");
-  const [filters, setFilters] = useFilterState(defaultFilterOptions); */
 
   // TODO configure in UI later on (for nice DX)
   useEffect(() => {
@@ -43,23 +40,6 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
       dispatch({ type: "SET_DISCUSSION", discussion: json })
     );
   }, [state.filters]);
-
-  const [body, setBody] = useState("");
-  const [previewBody, setPreviewBody] = useState(body);
-  const [showPreview, setShowPreview] = useState(false);
-
-  const requestPreview = (body: string) => {
-    preview(body)
-      .then(text => {
-        console.log("preview body is: " + text);
-        setPreviewBody(text);
-      })
-      .then(() => setShowPreview(!showPreview));
-  };
-
-  const postComment = (body: string) => {
-    comment(shortURL, body);
-  };
 
   // APP
 
@@ -78,12 +58,11 @@ const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
       <div className={rightCol}>
         {/* Comment Form */}
         <CommentForm
-          setBody={setBody}
-          previewBody={previewBody}
-          requestPreview={requestPreview}
-          postComment={postComment}
-          body={body}
-          showPreview={showPreview}
+          dispatch={dispatch}
+          shortURL={state.shortURL}
+          body={state.body}
+          showPreview={state.showPreview}
+          previewBody={state.previewBody}
         />
 
         {/* All Picks */}

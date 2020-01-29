@@ -30,12 +30,43 @@ interface Discussion {
   discussion: DiscussionResponse;
 }
 
-export type Action = OrderBy | PageSize | Threads | Discussion;
+interface Comment {
+  type: "POST_COMMENT";
+  body: string;
+}
+
+interface Body {
+  type: "SET_BODY";
+  body: string;
+}
+
+interface Preview {
+  type: "SET_PREVIEW";
+  body: string;
+}
+
+interface ShowPreview {
+  type: "SET_SHOW_PREVIEW";
+  showPreview: boolean;
+}
+
+export type Action =
+  | OrderBy
+  | PageSize
+  | Threads
+  | Discussion
+  | Comment
+  | Body
+  | Preview
+  | ShowPreview;
 
 interface State {
   shortURL: string;
   filters: FilterOptions;
   discussion?: DiscussionResponse;
+  body?: string;
+  previewBody?: string;
+  showPreview?: boolean;
 }
 
 export const reducer = (state: State, action: Action) => {
@@ -60,5 +91,23 @@ export const reducer = (state: State, action: Action) => {
         ...state,
         discussion: action.discussion
       };
+    case "SET_BODY":
+      return {
+        ...state,
+        body: action.body
+      };
+    case "SET_PREVIEW":
+      return {
+        ...state,
+        previewBody: action.body,
+        showPreview: true
+      };
+    case "SET_SHOW_PREVIEW":
+      return {
+        ...state,
+        showPreview: action.showPreview
+      };
+    case "POST_COMMENT":
+      return state; // eventually we should display the new comment or a success message
   }
 };
