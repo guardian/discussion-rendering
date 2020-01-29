@@ -7,11 +7,11 @@ import { neutral, space } from "@guardian/src-foundations";
 import {
   getDiscussion,
   DiscussionResponse,
-  Comment as CommentModel,
   preview
 } from "./api";
 
 import { Filters, defaultFilterOptions } from './Filters';
+import { Comment, avatar  } from './Comment'
 
 // CSS
 
@@ -24,11 +24,6 @@ const rightCol = css`
   width: 75%;
 `;
 
-const avatar = (avatarSize: number): string => css`
-  border-radius: ${avatarSize}px;
-  width: ${avatarSize}px;
-  height: ${avatarSize}px;
-`;
 const pick = css`
   width: 200px;
 `;
@@ -36,14 +31,6 @@ const pick = css`
 const pickComment = css`
   padding: ${space[3]}px;
   background-color: ${neutral[97]};
-`;
-
-const commentControls = css`
-  display: flex;
-
-  li {
-    flex: 1;
-  }
 `;
 
 // Components
@@ -58,49 +45,6 @@ const TinyGu = () => (
     </svg>
   </>
 );
-
-const Comment: React.FC<{ comment: CommentModel }> = ({ comment }) => {
-  return (
-    <div
-      className={css`
-        border-bottom: 1px solid ${neutral[97]};
-      `}
-    >
-      <img
-        src={comment.userProfile.avatar}
-        alt={comment.userProfile.displayName}
-        className={cx(
-          avatar(60),
-          css`
-            float: left;
-          `
-        )}
-      />
-      <p
-        className={css`
-          float: left;
-        `}
-      >
-        {comment.userProfile.displayName}
-      </p>
-      <p
-        className={css`
-          display: block;
-          clear: left;
-        `}
-      >
-        {comment.body}
-      </p>
-      <p>{comment.numRecommends}</p>
-      <div className={commentControls}>
-        <li>reply</li>
-        <li>share</li>
-        <li>pick</li>
-        <li>report</li>
-      </div>
-    </div>
-  );
-};
 
 const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({
   initDiscussion = undefined
