@@ -20,6 +20,7 @@
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
     "typescript": "^3.7.5",
+    "use-persisted-reducer": "^2.1.0",
     "use-persisted-state": "^0.3.0"
   },
   "scripts": {

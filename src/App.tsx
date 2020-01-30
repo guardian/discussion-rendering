@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useReducer } from "react";
+import  createPersistedReducer   from 'use-persisted-reducer';
 import { css } from "emotion";
 
 import { getDiscussion, DiscussionResponse, preview } from "./api";
@@ -30,8 +31,9 @@ const initialState = {
   filters: defaultFilterOptions
 };
 
-const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const App: React.FC<{ initDiscussion?: DiscussionResponse }> = ({ }) => {
+  const usePersistedReducer = createPersistedReducer(`comments_${initialState.shortURL}`);
+  const [state, dispatch] = usePersistedReducer(reducer, initialState);
 
   // TODO configure in UI later on (for nice DX)
   useEffect(() => {
