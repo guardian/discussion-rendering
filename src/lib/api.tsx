@@ -22,7 +22,7 @@ interface ResponseTo {
   commentApiUrl: string;
   isoDateTime: Date;
   date: string;
-  commentId: string;
+  commentId: number;
   commentWebUrl: string;
 }
 
@@ -154,10 +154,10 @@ const comment = (shortURL: string, body: string): Promise<string> => {
 const reply = (
   shortURL: string,
   body: string,
-  parentCommentID: string
+  parentCommentId: number
 ): Promise<string> => {
   const url =
-    baseURL + `/discussion/${shortURL}/comment/${parentCommentID}/reply`;
+    baseURL + `/discussion/${shortURL}/comment/${parentCommentId}/reply`;
 
   const data = new URLSearchParams();
   data.append("body", body);
@@ -184,20 +184,20 @@ const getPicks = (shortURL: string): Promise<Comment[]> => {
 };
 
 export const reportAbuse = ({
-  commentID,
-  categoryID,
+  commentId,
+  categoryId,
   email,
   reason
 }: {
-  commentID: string;
-  categoryID: number;
+  commentId: number;
+  categoryId: number;
   reason?: string;
   email?: string;
 }) => {
-  const url = baseURL + `/comment/${commentID}/reportAbuse`;
+  const url = baseURL + `/comment/${commentId}/reportAbuse`;
 
   const data = new URLSearchParams();
-  data.append("categoryId", categoryID.toString());
+  data.append("categoryId", categoryId.toString());
   email && data.append("email", email.toString());
   reason && data.append("reason", reason);
 
@@ -212,8 +212,8 @@ export const reportAbuse = ({
     .then(json => json.message);
 };
 
-const recommend = (commentID: string): Promise<string> => {
-  const url = baseURL + `/comment/${commentID}/recommend`;
+const recommend = (commentId: number): Promise<string> => {
+  const url = baseURL + `/comment/${commentId}/recommend`;
 
   return fetch(url, { method: "POST" })
     .then(resp => resp.json())
