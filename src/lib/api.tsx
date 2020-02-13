@@ -1,4 +1,5 @@
 import { FilterOptions } from "./reducer"; // TODO this should live here
+import { DateFromISOStringC } from "io-ts-types/lib/DateFromISOString";
 
 export interface UserProfile {
   userId: string;
@@ -20,7 +21,7 @@ export interface UserProfile {
 interface ResponseTo {
   displayName: string;
   commentApiUrl: string;
-  isoDateTime: Date;
+  isoDateTime: DateFromISOStringC;
   date: string;
   commentId: number;
   commentWebUrl: string;
@@ -38,7 +39,7 @@ export interface Comment {
   id: number;
   body: string;
   date: string;
-  isoDateTime: Date;
+  isoDateTime: DateFromISOStringC;
   status: string;
   webUrl: string;
   apiUrl: string;
