@@ -7,7 +7,6 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { Pillar } from "../../types";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 
-
 const commentControls = (pillar: Pillar) => css`
   list-style: none;
   ${textSans.xsmall()};
@@ -38,7 +37,7 @@ const commentWrapper = (nested: boolean) => css`
   border-top: 1px solid ${neutral[97]};
   display: flex;
   padding: ${space[2]}px 0;
-  margin-left: ${nested ? space[12]+'px' : 0}
+  margin-left: ${nested ? space[12] + "px" : 0};
 `;
 
 const commentAvatar = css`
@@ -63,38 +62,43 @@ export const avatar = (avatarSize: number): string => css`
   height: ${avatarSize}px;
 `;
 
-export const Comment: React.FC<{ comment: CommentModel; pillar: Pillar; nested?: boolean; }> = ({
-  comment,
-    pillar,
-  nested = false
-}) => {
-    return (
-      <>
-    <div className={commentWrapper(nested)}>
-      <img
-        src={comment.userProfile.avatar}
-        alt={comment.userProfile.displayName}
-        className={cx(avatar(50), commentAvatar)}
-      />
+export const Comment: React.FC<{
+  comment: CommentModel;
+  pillar: Pillar;
+  nested?: boolean;
+}> = ({ comment, pillar, nested = false }) => {
+  return (
+    <>
+      <div className={commentWrapper(nested)}>
+        <img
+          src={comment.userProfile.avatar}
+          alt={comment.userProfile.displayName}
+          className={cx(avatar(50), commentAvatar)}
+        />
 
-      <div className={commentDetails}>
-        <p className={commentProfileName(pillar)}>
-          {comment.userProfile.displayName}
-        </p>
-        <p
-          className={commentCss}
-          dangerouslySetInnerHTML={{ __html: comment.body }}
-        ></p>
-        <p>{comment.numRecommends}</p>
-        <div className={commentControls(pillar)}>
-          <li>Reply</li>
-          <li>Share</li>
-          <li>Pick</li>
-          <li><AbuseReportForm /></li>
-        </div>
+        <div className={commentDetails}>
+          <p className={commentProfileName(pillar)}>
+            {comment.userProfile.displayName}
+          </p>
+          <p
+            className={commentCss}
+            dangerouslySetInnerHTML={{ __html: comment.body }}
+          ></p>
+          <p>{comment.numRecommends}</p>
+          <div className={commentControls(pillar)}>
+            <li>Reply</li>
+            <li>Share</li>
+            <li>Pick</li>
+            <li>
+              <AbuseReportForm />
+            </li>
           </div>
+        </div>
       </div>
-            {comment.responses && comment.responses.map(comment => <Comment comment={comment} pillar={pillar} nested={true} />)}
-            </>
+      {comment.responses &&
+        comment.responses.map(comment => (
+          <Comment comment={comment} pillar={pillar} nested={true} />
+        ))}
+    </>
   );
 };
