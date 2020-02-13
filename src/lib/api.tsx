@@ -26,6 +26,14 @@ interface ResponseTo {
   commentWebUrl: string;
 }
 
+export interface CommentMetadata {
+  commentCount: number;
+  staffCommenterCount: number;
+  editorsPickCount: number;
+  blockedCount: number;
+  responseCount: number;
+}
+
 export interface Comment {
   id: number;
   body: string;
@@ -38,8 +46,9 @@ export interface Comment {
   numRecommends: number;
   isHighlighted: boolean;
   userProfile: UserProfile;
-  responseTo: ResponseTo;
+  responseTo?: ResponseTo;
   responses?: Comment[];
+  metaData?: CommentMetadata;
 }
 
 interface Discussion {

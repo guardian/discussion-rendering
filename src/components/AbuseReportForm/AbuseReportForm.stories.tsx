@@ -43,7 +43,7 @@ export const AbuseReportFormDialogWithError = () => (
       reasonText="The best reason"
       emailOnChange={() => {}}
       emailText="bestemail@example.com"
-      error={{ category: "some error" }}
+      errors={{ category: "some error" }}
     />
   </div>
 );
