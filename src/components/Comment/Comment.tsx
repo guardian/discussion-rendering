@@ -1,11 +1,11 @@
 import React from "react";
 import { css, cx } from "emotion";
 import { neutral, space, palette } from "@guardian/src-foundations";
-import { Comment as CommentModel } from "./api";
+import { Comment as CommentModel } from "../../lib/api";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Pillar } from "./types";
-import { AbuseReportForm } from "./AbuseReportForm";
+import { Pillar } from "../../types";
+import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 
 
 const commentControls = (pillar: Pillar) => css`

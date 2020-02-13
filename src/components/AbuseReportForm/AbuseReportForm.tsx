@@ -5,7 +5,7 @@ import { SvgClose } from "@guardian/src-svgs";
 
 interface Props { }
 
-const Form: React.FC<{setShowForm: (value: React.SetStateAction<boolean>) => void}> = ({setShowForm}) => (
+export const Form: React.FC<{setShowForm: (value: React.SetStateAction<boolean>) => void}> = ({setShowForm}) => (
   <form>
     <Button size="small" iconSide="right" icon={<SvgClose />} onClick={e => { e.preventDefault(); setShowForm(false) }} />
 

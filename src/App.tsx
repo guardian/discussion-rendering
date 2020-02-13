@@ -8,16 +8,16 @@ import {
   getPicks,
   comment,
   getProfile
-} from "./api";
+} from "./lib/api";
 
-import { Filters, defaultFilterOptions } from "./Filters";
-import { Comment } from "./Comment";
-import { CommentForm } from "./CommentForm";
-import { UserDetails } from "./UserDetails";
-import { Pick } from "./Pick";
+import { Filters, defaultFilterOptions } from "./components/Filters/Filters";
+import { Comment } from "./components/Comment/Comment";
+import { CommentForm } from "./components/CommentForm/CommentForm";
+import { UserDetails } from "./components/UserDetails/UserDetails";
+import { Pick } from "./components/Pick/Pick";
 
 import { Pillar } from "./types";
-import { reducer } from "./reducer";
+import { reducer } from "./lib/reducer";
 import { headline } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
 
