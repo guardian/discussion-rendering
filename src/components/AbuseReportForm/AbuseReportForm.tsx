@@ -7,11 +7,12 @@ import { SvgClose } from "@guardian/src-svgs";
 
 import { reportAbuse } from "../../lib/api";
 
-interface Props {
-  commentID: number;
-  categoryID?: number;
-  reason?: string;
-}
+const validate = ({ categoryID }: { categoryID: number }) =>
+  !categoryID ? { category: errors.category } : null;
+
+const errors = {
+  category: "Please select a category"
+};
 
 const formWrapper = css`
   position: absolute;
@@ -22,7 +23,8 @@ const formWrapper = css`
 `;
 
 const inputWrapper = css`
-  display: block;
+  display: flex;
+  flex-direction: column;
   margin-bottom: ${space[2]}px;
 
   label {
@@ -40,8 +42,25 @@ const inputWrapper = css`
 
 export const Form: React.FC<{
   toggleSetShowForm: () => void;
-  reportAbuse: () => void;
-}> = ({ toggleSetShowForm, reportAbuse }) => (
+  submitForm: () => void;
+  selectedCategory: number;
+  categoryOnChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  reasonOnChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  reasonText?: string;
+  emailOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  emailText?: string;
+  error?: { category: string };
+}> = ({
+  toggleSetShowForm,
+  submitForm,
+  selectedCategory,
+  categoryOnChange,
+  reasonOnChange,
+  reasonText,
+  emailOnChange,
+  emailText,
+  error
+}) => (
   <form className={formWrapper}>
     <div
       className={css`
@@ -60,7 +79,12 @@ export const Form: React.FC<{
 
     <div className={inputWrapper}>
       <label htmlFor="category">Category</label>
-      <select name="category" id="category">
+      <select
+        name="category"
+        id="category"
+        onChange={categoryOnChange}
+        value={selectedCategory}
+      >
         <option selected value="0">
           Please select
         </option>
@@ -74,16 +98,34 @@ export const Form: React.FC<{
         <option value="8">Spam</option>
         <option value="9">Other</option>
       </select>
+      {error && error.category && (
+        <span
+          className={css`
+            color: red;
+          `}
+        >
+          {error.category}
+        </span>
+      )}
     </div>
 
     <div className={inputWrapper}>
       <label htmlFor="reason">Reason (optional)</label>
-      <textarea name="reason"></textarea>
+      <textarea
+        name="reason"
+        onChange={reasonOnChange}
+        value={reasonText}
+      ></textarea>
     </div>
 
     <div className={inputWrapper}>
       <label htmlFor="email">Email (optional)</label>
-      <input type="email" name="email"></input>
+      <input
+        type="email"
+        name="email"
+        onChange={emailOnChange}
+        value={emailText}
+      ></input>
     </div>
 
     <div
@@ -91,20 +133,42 @@ export const Form: React.FC<{
         float: right;
       `}
     >
-      <Button onClick={reportAbuse} type="submit" size="small">
+      <Button onClick={submitForm} type="submit" size="small">
         Report
       </Button>
     </div>
   </form>
 );
 
-export const AbuseReportForm: React.FC<Props> = ({
-  commentID,
-  categoryID,
-  reason
-}: Props) => {
+export const AbuseReportForm: React.FC<{
+  commentID: string;
+}> = ({ commentID }) => {
   const [showForm, setShowForm] = useState(false);
   const toggleSetShowForm = () => setShowForm(!showForm);
+
+  const [formState, setFormState] = useState({
+    categoryID: 0,
+    reason: "",
+    email: ""
+  });
+
+  const categoryOnChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
+    setFormState({ ...formState, categoryID: Number(event.target.value) });
+
+  const reasonOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setFormState({ ...formState, reason: event.target.value });
+
+  const emailOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setFormState({ ...formState, email: event.target.value });
+
+  const submitForm = () => {
+    const errors = validate({ categoryID: formState.categoryID });
+    if (errors) return;
+    reportAbuse({ ...formState, commentID });
+    //TODO:
+    // close dialog
+    // - submission sucess?
+  };
 
   return (
     <div
@@ -114,7 +178,16 @@ export const AbuseReportForm: React.FC<Props> = ({
     >
       <button onClick={toggleSetShowForm}>Report</button>
       {showForm && (
-        <Form toggleSetShowForm={toggleSetShowForm} reportAbuse={reportAbuse} />
+        <Form
+          toggleSetShowForm={toggleSetShowForm}
+          submitForm={submitForm}
+          categoryOnChange={categoryOnChange}
+          selectedCategory={formState.categoryID}
+          reasonOnChange={reasonOnChange}
+          reasonText={formState.reason}
+          emailOnChange={emailOnChange}
+          emailText={formState.email}
+        />
       )}
     </div>
   );

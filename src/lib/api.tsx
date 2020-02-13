@@ -183,15 +183,22 @@ const getPicks = (shortURL: string): Promise<Comment[]> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-export const reportAbuse = (
-  commentID: string,
-  categoryID: number,
-  reason?: string
-) => {
+export const reportAbuse = ({
+  commentID,
+  categoryID,
+  email,
+  reason
+}: {
+  commentID: string;
+  categoryID: number;
+  reason?: string;
+  email?: string;
+}) => {
   const url = baseURL + `/comment/${commentID}/reportAbuse`;
 
   const data = new URLSearchParams();
   data.append("categoryId", categoryID.toString());
+  email && data.append("email", email.toString());
   reason && data.append("reason", reason);
 
   return fetch(url, {

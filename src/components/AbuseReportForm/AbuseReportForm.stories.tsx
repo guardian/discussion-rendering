@@ -14,12 +14,36 @@ const wrapperStyles = css`
 
 export const AbuseReportFormContainer = () => (
   <div className={wrapperStyles}>
-    <AbuseReportForm />
+    <AbuseReportForm commentID="hello" />
   </div>
 );
 
 export const AbuseReportFormDialog = () => (
   <div className={wrapperStyles}>
-    <Form toggleSetShowForm={() => {}} />
+    <Form
+      toggleSetShowForm={() => {}}
+      submitForm={() => {}}
+      selectedCategory={1}
+      categoryOnChange={() => {}}
+      reasonOnChange={() => {}}
+      reasonText="The best reason"
+      emailOnChange={() => {}}
+      emailText="bestemail@example.com"
+    />
+  </div>
+);
+export const AbuseReportFormDialogWithError = () => (
+  <div className={wrapperStyles}>
+    <Form
+      toggleSetShowForm={() => {}}
+      submitForm={() => {}}
+      selectedCategory={1}
+      categoryOnChange={() => {}}
+      reasonOnChange={() => {}}
+      reasonText="The best reason"
+      emailOnChange={() => {}}
+      emailText="bestemail@example.com"
+      error={{ category: "some error" }}
+    />
   </div>
 );
