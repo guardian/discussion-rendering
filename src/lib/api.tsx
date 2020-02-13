@@ -34,7 +34,7 @@ export interface Comment {
   status: string;
   webUrl: string;
   apiUrl: string;
-  numResponses: number;
+  numResponses?: number;
   numRecommends: number;
   isHighlighted: boolean;
   userProfile: UserProfile;

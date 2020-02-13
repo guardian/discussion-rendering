@@ -47,9 +47,10 @@ const commentAvatar = css`
 `;
 
 const commentProfileName = (pillar: Pillar) => css`
-  font-weight: bold;
   margin-top: 0;
   color: ${palette[pillar][400]};
+  ${textSans.small()};
+  font-weight: bold;
 `;
 
 const commentDetails = css`
