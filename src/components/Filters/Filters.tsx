@@ -3,16 +3,21 @@ import { css } from "emotion";
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
+type Props = {
+  filters: FilterOptions;
+  setFilters: (newFilterObject: FilterOptions) => void;
+};
+
 type orderByType = "newest" | "oldest" | "mostrecommended";
 type threadsType = "collapsed" | "expanded" | "unthreaded";
 
 export type FilterOptions = {
-  orderBy?: orderByType;
-  pageSize?: number;
-  threads?: threadsType;
+  orderBy: orderByType;
+  pageSize: number;
+  threads: threadsType;
 };
 
-export const defaultFilterOptions = {
+export const defaultFilterOptions: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,
   threads: "unthreaded"
@@ -55,10 +60,7 @@ const filterStyle = css`
   margin-right: ${space[5]}px;
 `;
 
-export const Filters: React.FC<{
-  filters: FilterOptions;
-  setFilters: (newFilterObject: FilterOptions) => void;
-}> = ({ filters, setFilters }) => {
+export const Filters = ({ filters, setFilters }: Props) => {
   return (
     <form className={filterBar}>
       <label htmlFor="orderBy" className={filterLabel}>
