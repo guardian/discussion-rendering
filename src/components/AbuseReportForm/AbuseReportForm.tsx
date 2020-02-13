@@ -3,11 +3,21 @@ import { css, cx } from "emotion";
 import { Button } from "@guardian/src-button";
 import { SvgClose } from "@guardian/src-svgs";
 
-interface Props { }
+interface Props {}
 
-export const Form: React.FC<{setShowForm: (value: React.SetStateAction<boolean>) => void}> = ({setShowForm}) => (
+export const Form: React.FC<{
+  setShowForm: (value: React.SetStateAction<boolean>) => void;
+}> = ({ setShowForm }) => (
   <form>
-    <Button size="small" iconSide="right" icon={<SvgClose />} onClick={e => { e.preventDefault(); setShowForm(false) }} />
+    <Button
+      size="small"
+      iconSide="right"
+      icon={<SvgClose />}
+      onClick={e => {
+        e.preventDefault();
+        setShowForm(false);
+      }}
+    />
 
     <label htmlFor="category">Category</label>
     <select name="category" id="category">
