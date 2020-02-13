@@ -2,8 +2,8 @@ import React from "react";
 import { css } from "emotion";
 import { Button } from "@guardian/src-button";
 import { space, neutral } from "@guardian/src-foundations";
-import { Action } from "./reducer";
-import { comment, preview } from "./api";
+import { Action } from "../../lib/reducer";
+import { comment, preview } from "../../lib/api";
 
 const commentForm = css`
   display: flex;

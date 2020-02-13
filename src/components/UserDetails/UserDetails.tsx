@@ -1,8 +1,8 @@
 import React from "react";
-import { avatar } from "./Comment";
+import { avatar } from "../Comment/Comment";
 import { css } from "emotion";
 import { space } from "@guardian/src-foundations";
-import { UserProfile } from "./api";
+import { UserProfile } from "../../lib/api";
 
 const profileStyles = css`
   display: flex;

@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "emotion";
 import { space, neutral } from "@guardian/src-foundations";
-import { avatar } from "./Comment";
-import { Comment } from "./api";
+import { avatar } from "../Comment/Comment";
+import { Comment } from "../../lib/api";
 
 const pick = css`
   width: 200px;

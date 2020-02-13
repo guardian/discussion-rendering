@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "emotion";
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
-import { Action, OrderByValues, ThreadValues } from "./reducer";
+import { Action, OrderByValues, ThreadValues } from "../../lib/reducer";
 
 interface FilterOptions {
   orderBy: "newest" | "oldest" | "mostrecommended";
