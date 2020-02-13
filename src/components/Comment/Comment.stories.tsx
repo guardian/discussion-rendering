@@ -10,7 +10,7 @@ const commentData: CommentModel = {
   body:
     "<p>Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!</p>",
   date: "26 July 2013 4:13pm",
-  isoDateTime: new Date("2013-07-26T15:13:20Z"),
+  isoDateTime: "2013-07-26T15:13:20Z",
   status: "visible",
   webUrl: "https://discussion.theguardian.com/comment-permalink/25487686",
   apiUrl: "https://discussion.guardianapis.com/discussion-api/comment/25487686",
@@ -50,9 +50,9 @@ const threadComment: CommentModel = {
     displayName: "FrankDeFord",
     commentApiUrl:
       "https://discussion.guardianapis.com/discussion-api/comment/25487686",
-    isoDateTime: new Date("2013-07-26T15:13:20Z"),
+    isoDateTime: "2013-07-26T15:13:20Z",
     date: "26 July 2013 4:13pm",
-    commentId: "25487686",
+    commentId: 25487686,
     commentWebUrl:
       "https://discussion.theguardian.com/comment-permalink/25487686"
   },
