@@ -49,7 +49,7 @@ export const Form: React.FC<{
   reasonText?: string;
   emailOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   emailText?: string;
-  error?: { category: string };
+  errors?: { category?: string; response?: string };
 }> = ({
   toggleSetShowForm,
   submitForm,
@@ -59,7 +59,7 @@ export const Form: React.FC<{
   reasonText,
   emailOnChange,
   emailText,
-  error
+  errors
 }) => (
   <form className={formWrapper}>
     <div
@@ -76,6 +76,16 @@ export const Form: React.FC<{
         onClick={toggleSetShowForm}
       />
     </div>
+
+    {errors && errors.response && (
+      <span
+        className={css`
+          color: red;
+        `}
+      >
+        {errors.response}
+      </span>
+    )}
 
     <div className={inputWrapper}>
       <label htmlFor="category">Category</label>
@@ -98,13 +108,13 @@ export const Form: React.FC<{
         <option value="8">Spam</option>
         <option value="9">Other</option>
       </select>
-      {error && error.category && (
+      {errors && errors.category && (
         <span
           className={css`
             color: red;
           `}
         >
-          {error.category}
+          {errors.category}
         </span>
       )}
     </div>
@@ -146,14 +156,18 @@ export const AbuseReportForm: React.FC<{
   const [showForm, setShowForm] = useState(false);
   const toggleSetShowForm = () => setShowForm(!showForm);
 
+  const [errors, setErrors] = useState({});
+
   const [formState, setFormState] = useState({
     categoryID: 0,
     reason: "",
     email: ""
   });
 
-  const categoryOnChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
+  const categoryOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setErrors({ ...errors, category: null });
     setFormState({ ...formState, categoryID: Number(event.target.value) });
+  };
 
   const reasonOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
     setFormState({ ...formState, reason: event.target.value });
@@ -161,13 +175,20 @@ export const AbuseReportForm: React.FC<{
   const emailOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setFormState({ ...formState, email: event.target.value });
 
-  const submitForm = () => {
-    const errors = validate({ categoryID: formState.categoryID });
-    if (errors) return;
-    reportAbuse({ ...formState, commentID });
-    //TODO:
-    // close dialog
-    // - submission sucess?
+  const submitForm = async () => {
+    const submitErrors = validate({ categoryID: formState.categoryID });
+    if (submitErrors) {
+      setErrors({ ...errors, category: submitErrors.category });
+    } else {
+      setErrors({ ...errors, category: null });
+      const { status, json } = await reportAbuse({ ...formState, commentID });
+      if (status !== 200) {
+        setErrors({ ...errors, response: json().message });
+      } else {
+        toggleSetShowForm();
+        // TODO: display sucess?
+      }
+    }
   };
 
   return (
@@ -187,6 +208,7 @@ export const AbuseReportForm: React.FC<{
           reasonText={formState.reason}
           emailOnChange={emailOnChange}
           emailText={formState.email}
+          errors={errors}
         />
       )}
     </div>
