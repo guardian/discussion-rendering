@@ -1,28 +1,34 @@
 import React, { useState } from "react";
 import { css, cx } from "emotion";
+
+import { space } from "@guardian/src-foundations";
 import { Button } from "@guardian/src-button";
 import { SvgClose } from "@guardian/src-svgs";
 
 interface Props {}
 
 export const Form: React.FC<{
-  setShowForm: (value: React.SetStateAction<boolean>) => void;
-}> = ({ setShowForm }) => (
-  <form>
+  toggleSetShowForm: () => void;
+}> = ({ toggleSetShowForm }) => (
+  <form
+    className={css`
+      position: absolute;
+      width: 300px;
+      padding: ${space[3]}px;
+      background-color: white;
+    `}
+  >
     <Button
       size="small"
       iconSide="right"
       icon={<SvgClose />}
-      onClick={e => {
-        e.preventDefault();
-        setShowForm(false);
-      }}
+      onClick={toggleSetShowForm}
     />
 
     <label htmlFor="category">Category</label>
     <select name="category" id="category">
       <option selected value="default">
-        Please select{" "}
+        Please select
       </option>
       <option value="personalAbuse">Personal abuse</option>
       <option value="offTopic">Off topic</option>
@@ -42,19 +48,16 @@ export const Form: React.FC<{
 
 export const AbuseReportForm: React.FC<Props> = ({}: Props) => {
   const [showForm, setShowForm] = useState(false);
-
-  const preventDefault = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    fn: () => void
-  ): void => {
-    e.preventDefault();
-    fn();
-  };
+  const toggleSetShowForm = () => setShowForm(!showForm);
 
   return (
-    <div>
-      <a onClick={e => preventDefault(e, () => setShowForm(true))}>Report</a>
-      {showForm && <Form setShowForm={setShowForm} />}
+    <div
+      className={css`
+        position: relative;
+      `}
+    >
+      <button onClick={toggleSetShowForm}>Report</button>
+      {showForm && <Form toggleSetShowForm={toggleSetShowForm} />}
     </div>
   );
 };

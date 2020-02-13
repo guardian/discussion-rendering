@@ -3,5 +3,8 @@ import { AbuseReportForm } from "./AbuseReportForm";
 
 export default { title: "Abuse Report Form" };
 
-export const firstDemo = () => <div>Hello</div>;
-export const secondDemo = () => <AbuseReportForm />;
+export const secondDemo = () => (
+  <div style={{ height: "200px", backgroundColor: "blue" }}>
+    <AbuseReportForm />
+  </div>
+);
