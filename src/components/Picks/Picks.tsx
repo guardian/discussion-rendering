@@ -3,9 +3,12 @@ import { css, cx } from "emotion";
 import { space, neutral } from "@guardian/src-foundations";
 import { avatar } from "../Comment/Comment";
 import { Comment as CommentModel } from "../../lib/api";
+import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 
 const pick = css`
-  width: 200px;
+  display: inline-block;
+  position: relative;
+  width: 100%;
 `;
 
 const pickComment = css`
@@ -31,18 +34,32 @@ const Pick = ({ comment }: { comment: CommentModel }) => (
     <div className={pickComment}>
       <p dangerouslySetInnerHTML={{ __html: comment.body }}></p>
     </div>
-    <div>
-      <img
-        src={comment.userProfile.avatar}
-        alt={""}
-        className={cx(avatar(50), comment.userProfile.avatar)}
-      />
-      <p>{comment.userProfile.displayName}</p>
-      <time>1 hr ago</time>
-      <p>
-        <TinyGu /> staff pick
-      </p>
-      <p>{comment.numRecommends}</p>
+    <div
+      className={css`
+        display: flex;
+        justify-content: space-between;
+        padding-top: ${space[2]}px;
+      `}
+    >
+      <div>
+        <img
+          src={comment.userProfile.avatar}
+          alt={""}
+          className={cx(avatar(50), comment.userProfile.avatar)}
+        />
+        <p>{comment.userProfile.displayName}</p>
+        <time>1 hr ago</time>
+        <p>
+          <TinyGu /> staff pick
+        </p>
+      </div>
+      <div>
+        <RecommendationCount
+          commentId={comment.id}
+          initialCount={comment.numRecommends}
+          alreadyRecommended={false}
+        />
+      </div>
     </div>
   </div>
 );
@@ -53,10 +70,15 @@ export const Picks = ({ comments }: { comments: CommentModel[] }) => {
   }
 
   return (
-    <>
+    <div
+      className={css`
+        column-count: 4;
+        column-gap: 1em;
+      `}
+    >
       {comments.map(comment => (
         <Pick comment={comment} />
       ))}
-    </>
+    </div>
   );
 };
