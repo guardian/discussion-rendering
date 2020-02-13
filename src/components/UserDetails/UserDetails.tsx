@@ -4,6 +4,8 @@ import { css } from "emotion";
 import { space } from "@guardian/src-foundations";
 import { UserProfile } from "../../lib/api";
 
+type Props = { profile: UserProfile };
+
 const profileStyles = css`
   display: flex;
   flex-direction: row;
@@ -15,9 +17,7 @@ const textStyles = css`
   padding-left: ${space[3]}px;
 `;
 
-export const UserDetails: React.FC<{ profile: UserProfile }> = ({
-  profile
-}) => {
+export const UserDetails: React.FC<Props> = ({ profile }: Props) => {
   return (
     <div className={profileStyles}>
       <img

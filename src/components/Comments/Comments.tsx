@@ -1,10 +1,12 @@
 import React from "react";
 import { css } from "emotion";
+
+import { Comment as CommentModel } from "../../lib/api";
 // import { textSans } from "@guardian/src-foundations/typography";
 // import { palette } from "@guardian/src-foundations";
 
 type Props = {
-  //   commentId: number;
+  comments: CommentModel[];
 };
 
 const containerStyles = css`

@@ -7,6 +7,12 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { Pillar } from "../../types";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 
+type Props = {
+  comment: CommentModel;
+  pillar: Pillar;
+  nested?: boolean;
+};
+
 const commentControls = (pillar: Pillar) => css`
   list-style: none;
   ${textSans.xsmall()};
@@ -63,11 +69,11 @@ export const avatar = (avatarSize: number): string => css`
   height: ${avatarSize}px;
 `;
 
-export const Comment: React.FC<{
-  comment: CommentModel;
-  pillar: Pillar;
-  nested?: boolean;
-}> = ({ comment, pillar, nested = false }) => {
+export const Comment: React.FC<Props> = ({
+  comment,
+  pillar,
+  nested = false
+}: Props) => {
   return (
     <>
       <div className={commentWrapper(nested)}>

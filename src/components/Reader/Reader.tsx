@@ -4,7 +4,10 @@ import { css } from "emotion";
 // import { palette } from "@guardian/src-foundations";
 
 type Props = {
-  //   commentId: number;
+  displayname: string;
+  profileUrl: string;
+  commentId: number;
+  commentDate: Date;
 };
 
 const containerStyles = css`

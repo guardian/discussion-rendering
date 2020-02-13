@@ -4,7 +4,7 @@ import { css } from "emotion";
 // import { palette } from "@guardian/src-foundations";
 
 type Props = {
-  //   commentId: number;
+  // picks: ?
 };
 
 const containerStyles = css`

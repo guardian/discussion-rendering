@@ -4,6 +4,8 @@ import { space, neutral } from "@guardian/src-foundations";
 import { avatar } from "../Comment/Comment";
 import { Comment } from "../../lib/api";
 
+type Props = { comments?: Comment[] };
+
 const pick = css`
   width: 200px;
 `;
@@ -26,7 +28,7 @@ const TinyGu = () => (
   </>
 );
 
-export const Pick: React.FC<{ comments?: Comment[] }> = ({ comments }) => {
+export const Pick: React.FC<Props> = ({ comments }: Props) => {
   if (!false) {
     return <p>No picks.</p>;
   }
