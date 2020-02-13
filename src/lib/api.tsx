@@ -183,7 +183,7 @@ const getPicks = (shortURL: string): Promise<Comment[]> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-const reportAbuse = (
+export const reportAbuse = (
   commentID: string,
   categoryID: number,
   reason?: string
