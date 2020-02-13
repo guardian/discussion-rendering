@@ -2,15 +2,17 @@ import React from "react";
 import { css } from "emotion";
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
-import { Action, OrderByValues, ThreadValues } from "../../lib/reducer";
 
-interface FilterOptions {
-  orderBy: "newest" | "oldest" | "mostrecommended";
-  pageSize: number;
-  threads: "collapsed" | "expanded" | "unthreaded";
-}
+type orderByType = "newest" | "oldest" | "mostrecommended";
+type threadsType = "collapsed" | "expanded" | "unthreaded";
 
-export const defaultFilterOptions: FilterOptions = {
+export type FilterOptions = {
+  orderBy?: orderByType;
+  pageSize?: number;
+  threads?: threadsType;
+};
+
+export const defaultFilterOptions = {
   orderBy: "newest",
   pageSize: 25,
   threads: "unthreaded"
@@ -55,8 +57,8 @@ const filterStyle = css`
 
 export const Filters: React.FC<{
   filters: FilterOptions;
-  dispatch: React.Dispatch<Action>;
-}> = ({ filters, dispatch }) => {
+  setFilters: (newFilterObject: FilterOptions) => void;
+}> = ({ filters, setFilters }) => {
   return (
     <form className={filterBar}>
       <label htmlFor="orderBy" className={filterLabel}>
@@ -67,9 +69,9 @@ export const Filters: React.FC<{
         id="orderBy"
         className={filterStyle}
         onChange={e =>
-          dispatch({
-            type: "SET_ORDER_BY",
-            orderBy: e.target.value as OrderByValues
+          setFilters({
+            ...filters,
+            orderBy: e.target.value as orderByType
           })
         }
         value={filters.orderBy}
@@ -87,9 +89,9 @@ export const Filters: React.FC<{
         id="pageSize"
         className={filterStyle}
         onChange={e =>
-          dispatch({
-            type: "SET_PAGE_SIZE",
-            pageSize: Number(e.target.value)
+          setFilters({
+            ...filters,
+            pageSize: Number(e.target.value) as number
           })
         }
         value={filters.pageSize}
@@ -107,9 +109,9 @@ export const Filters: React.FC<{
         id="threads"
         className={filterStyle}
         onChange={e =>
-          dispatch({
-            type: "SET_THREADS",
-            threads: e.target.value as ThreadValues
+          setFilters({
+            ...filters,
+            threads: e.target.value as threadsType
           })
         }
         value={filters.threads}
