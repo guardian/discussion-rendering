@@ -73,7 +73,7 @@ export interface DiscussionResponse {
   discussion: Discussion;
 }
 
-interface DiscussionOptions {
+export interface DiscussionOptions {
   orderBy: "newest" | "oldest" | "mostrecommended";
   pageSize: number;
   displayThreaded: boolean;
