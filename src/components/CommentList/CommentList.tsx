@@ -15,5 +15,9 @@ const containerStyles = css`
 `;
 
 export const CommentList = ({ comments }: Props) => {
-  return <div className={containerStyles}>{JSON.stringify(comments)}</div>;
+  return (
+    <div className={containerStyles}>{`Comments: ${JSON.stringify(
+      comments
+    )}`}</div>
+  );
 };
