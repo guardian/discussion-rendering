@@ -59,7 +59,6 @@ const chevronStyles = (selected: boolean) => css`
 
   > svg {
     fill: ${selected ? palette.neutral[100] : palette.neutral[46]};
-    transform: rotate(180deg);
   }
 `;
 
@@ -68,49 +67,120 @@ const elipsisStyles = css`
   margin-left: 5px;
 `;
 
-const ChevronRight = () => (
+const rotateSvg = css`
+  svg {
+    transform: rotate(180deg);
+  }
+`;
+
+const ChevronBack = () => (
   <svg width="6" height="12" viewBox="0 0 6 12">
     <path d="M6 11.5L1.5 6 6 .5 5.5 0 0 5.75v.5L5.5 12l.5-.5z"></path>
   </svg>
 );
 
+const Forward = ({ page, setPage }: { page: number; setPage: Function }) => (
+  <button
+    key={"last"}
+    className={chevronStyles(false)}
+    onClick={() => setPage(page + 1)}
+  >
+    <div className={rotateSvg}>
+      <ChevronBack />
+    </div>
+  </button>
+);
+
+const Back = ({ page, setPage }: { page: number; setPage: Function }) => (
+  <button
+    key={"last"}
+    className={chevronStyles(false)}
+    onClick={() => setPage(page - 1 < 0 ? 0 : page - 1)}
+  >
+    <ChevronBack />
+  </button>
+);
+
+const PageButton = ({
+  page,
+  setPage,
+  selected
+}: {
+  page: number;
+  setPage: Function;
+  selected: boolean;
+}) => (
+  <button
+    key={page}
+    className={buttonStyles(selected)}
+    onClick={() => setPage(page)}
+  >
+    {page}
+  </button>
+);
+
+const decideSecondPage = ({ page, pages }: { page: number; pages: number }) => {
+  if (page < 4) return 2;
+  if (page > pages - 2) return pages - 2;
+  return page - 1;
+};
+
+const decideThirdPage = ({ page, pages }: { page: number; pages: number }) => {
+  if (page < 4) return 3;
+  if (page > pages - 2) return pages - 1;
+  return page;
+};
+
+const decideForthPage = ({ page, pages }: { page: number; pages: number }) => {
+  if (page < 4) return 4;
+  if (page > pages - 2) return pages;
+  return page + 1;
+};
+
 export const Pagination = ({ pages, page, setPage }: Props) => {
-  // Build an array of page numbers from the total cont of pages so
-  // we can easily map over them in our jsx
-  const pageArray = [];
-  for (let page = 1; page <= pages; page++) {
-    pageArray.push(page);
-  }
+  // Don't show pagination is there's less than 2 pages, no point
+  if (pages < 2) return null;
+
+  // Make decisions aobut which pagination elements to show
+  const showBackButton = pages > 4 && page > 1;
+  const showFirstElipsis = pages > 4 && page > 3;
+  const secondPage = decideSecondPage({ page, pages });
+  const thirdPage = decideThirdPage({ page, pages });
+  const forthPage = decideForthPage({ page, pages });
+  const showLastPage = page === pages - 2;
+  const lastPage = pages;
+  const showSecondElipsis = pages > 4 && page < pages - 2;
+  const showForwardButton = pages > 4 && page !== pages;
 
   return (
     <div className={containerStyles}>
-      {pageArray.length < 5
-        ? pageArray.map(pageNumber => (
-            <button
-              key={pageNumber}
-              className={buttonStyles(pageNumber === page)}
-              onClick={() => setPage(pageNumber)}
-            >
-              {pageNumber}
-            </button>
-          ))
-        : pageArray.slice(0, 4).map(pageNumber => (
-            <button
-              key={pageNumber}
-              className={buttonStyles(pageNumber === page)}
-              onClick={() => setPage(pageNumber)}
-            >
-              {pageNumber}
-            </button>
-          ))}
-      <div className={elipsisStyles}>...</div>
-      <button
-        key={"last"}
-        className={chevronStyles(page === pageArray.length)}
-        onClick={() => setPage(pageArray.length)}
-      >
-        <ChevronRight />
-      </button>
+      {showBackButton && <Back page={page} setPage={setPage} />}
+      <PageButton page={1} setPage={setPage} selected={page === 1} />
+      {showFirstElipsis && <div className={elipsisStyles}>...</div>}
+      <PageButton
+        page={secondPage}
+        setPage={setPage}
+        selected={page === secondPage}
+      />
+      <PageButton
+        page={thirdPage}
+        setPage={setPage}
+        selected={page === thirdPage}
+      />
+      <PageButton
+        page={forthPage}
+        setPage={setPage}
+        selected={page === forthPage}
+      />
+      {showLastPage && (
+        <PageButton
+          page={lastPage}
+          setPage={setPage}
+          selected={page === lastPage}
+        />
+      )}
+      {showSecondElipsis && <div className={elipsisStyles}>...</div>}
+      {showForwardButton && <Forward page={page} setPage={setPage} />}
     </div>
   );
 };
