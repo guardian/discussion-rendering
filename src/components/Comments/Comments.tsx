@@ -58,6 +58,7 @@ const getDiscussion = (
 export const Comments = ({ shortUrl }: Props) => {
   const [comments, setComments] = useState<CommentModel[]>([]);
   const [filters, setFilters] = useState<FilterOptions>(defaultFilterOptions);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const filtersUpdated = (filters: FilterOptions) => {
     setFilters(filters);
@@ -69,7 +70,9 @@ export const Comments = ({ shortUrl }: Props) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     getDiscussion(shortUrl, filters).then(json => {
+      setLoading(false);
       setComments(json.discussion.comments);
     });
   }, [filters]);
@@ -79,7 +82,11 @@ export const Comments = ({ shortUrl }: Props) => {
       {/* <CreateComment onAdd={commentAdded} /> */}
       {/* TopPicks */}
       <Filters filters={filters} setFilters={filtersUpdated} />
-      <CommentList comments={comments} />
+      {loading ? (
+        <p>TODO loading component goes here...</p>
+      ) : (
+        <CommentList comments={comments} />
+      )}
       {/* <CreateComment onAdd={commentAdded} /> */}
     </div>
   );
