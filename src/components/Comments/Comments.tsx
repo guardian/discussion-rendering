@@ -85,12 +85,12 @@ export const Comments = ({ shortUrl }: Props) => {
       setComments(json.discussion.comments);
       setPages(json.pages);
     });
-  }, [filters]);
+  }, [filters, shortUrl]);
 
   return (
     <div className={containerStyles}>
       {/* <CreateComment onAdd={commentAdded} /> */}
-      <TopPicks />
+      <TopPicks shortUrl={shortUrl} />
       <Filters filters={filters} setFilters={filtersUpdated} pages={pages} />
       {loading ? (
         <p>TODO loading component goes here...</p>
