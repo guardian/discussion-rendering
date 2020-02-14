@@ -7,10 +7,6 @@ import { SvgClose } from "@guardian/src-svgs";
 
 import { reportAbuse } from "../../lib/api";
 
-type Props = {
-  commentId: number;
-};
-
 const validate = ({ categoryID }: { categoryID: number }) =>
   !categoryID ? { category: errors.category } : null;
 
@@ -154,9 +150,7 @@ export const Form: React.FC<{
   </form>
 );
 
-export const AbuseReportForm: React.FC<{
-  commentId: number;
-}> = ({ commentId }: Props) => {
+export const AbuseReportForm = ({ commentID }: { commentID: string }) => {
   const [showForm, setShowForm] = useState(false);
   const toggleSetShowForm = () => setShowForm(!showForm);
 

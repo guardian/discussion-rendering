@@ -196,20 +196,20 @@ const getPicks = (shortURL: string): Promise<Comment[]> => {
 };
 
 export const reportAbuse = ({
-  commentId,
-  categoryId,
+  commentID,
+  categoryID,
   email,
   reason
 }: {
-  commentId: number;
-  categoryId: number;
+  commentID: string;
+  categoryID: number;
   reason?: string;
   email?: string;
 }) => {
-  const url = baseURL + `/comment/${commentId}/reportAbuse`;
+  const url = baseURL + `/comment/${commentID}/reportAbuse`;
 
   const data = new URLSearchParams();
-  data.append("categoryId", categoryId.toString());
+  data.append("categoryId", categoryID.toString());
   email && data.append("email", email.toString());
   reason && data.append("reason", reason);
 

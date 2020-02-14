@@ -24,10 +24,10 @@
     "use-persisted-state": "^0.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
     "storybook": "start-storybook",
     "lint": "eslint . --ext .ts,.tsx"
   },
@@ -55,6 +55,8 @@
     "@storybook/react": "^5.3.13",
     "husky": "^4.2.3",
     "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1"
+    "pretty-quick": "^2.0.1",
+    "react-app-rewired": "^2.1.5",
+    "webpack": "4.41.2"
   }
 }

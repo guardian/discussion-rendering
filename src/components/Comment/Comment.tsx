@@ -93,7 +93,8 @@ export const Comment = ({ comment, pillar, nested = false }: Props) => {
             <li>Share</li>
             <li>Pick</li>
             <li>
-              <AbuseReportForm commentId={comment.id} />
+              {/* TODO: need to not cast to string */}
+              <AbuseReportForm commentID={String(comment.id)} />
             </li>
           </div>
         </div>

@@ -6,8 +6,6 @@ import { textSans } from "@guardian/src-foundations/typography";
 
 import { comment, preview } from "../../lib/api";
 
-type Props = { shortUrl: string };
-
 const formWrapper = css`
   display: flex;
   flex-wrap: wrap;
@@ -59,7 +57,7 @@ const wrapperHeaderTextStyles = css`
   width: 100%;
 `;
 
-export const CommentForm = ({ shortUrl }: Props) => {
+export const CommentForm = ({ shortUrl }: { shortUrl: string }) => {
   const [isActive, setIsActive] = useState(false);
   const [body, updateBody] = useState("");
   const [previewBody, updatePreviewBody] = useState("");
