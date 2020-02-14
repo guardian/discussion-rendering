@@ -11,8 +11,8 @@ type Props = {
   commentId: number;
 };
 
-const validate = ({ categoryID }: { categoryID: number }) =>
-  !categoryID ? { category: errors.category } : null;
+const validate = ({ categoryId }: { categoryId: number }) =>
+  !categoryId ? { category: errors.category } : null;
 
 const errors = {
   category: "Please select a category"
@@ -163,14 +163,14 @@ export const AbuseReportForm: React.FC<{
   const [errors, setErrors] = useState({});
 
   const [formState, setFormState] = useState({
-    categoryID: 0,
+    categoryId: 0,
     reason: "",
     email: ""
   });
 
   const categoryOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setErrors({ ...errors, category: null });
-    setFormState({ ...formState, categoryID: Number(event.target.value) });
+    setFormState({ ...formState, categoryId: Number(event.target.value) });
   };
 
   const reasonOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -180,12 +180,12 @@ export const AbuseReportForm: React.FC<{
     setFormState({ ...formState, email: event.target.value });
 
   const submitForm = async () => {
-    const submitErrors = validate({ categoryID: formState.categoryID });
+    const submitErrors = validate({ categoryId: formState.categoryId });
     if (submitErrors) {
       setErrors({ ...errors, category: submitErrors.category });
     } else {
       setErrors({ ...errors, category: null });
-      const { status, json } = await reportAbuse({ ...formState, commentID });
+      const { status, json } = await reportAbuse({ ...formState, commentId });
       if (status !== 200) {
         setErrors({ ...errors, response: json().message });
       } else {
@@ -207,7 +207,7 @@ export const AbuseReportForm: React.FC<{
           toggleSetShowForm={toggleSetShowForm}
           submitForm={submitForm}
           categoryOnChange={categoryOnChange}
-          selectedCategory={formState.categoryID}
+          selectedCategory={formState.categoryId}
           reasonOnChange={reasonOnChange}
           reasonText={formState.reason}
           emailOnChange={emailOnChange}

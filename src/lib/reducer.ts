@@ -73,7 +73,7 @@ export type Action =
   | Profile;
 
 interface State {
-  shortURL: string;
+  shortUrl: string;
   filters: FilterOptions;
   discussion?: DiscussionResponse;
   staffPicks?: Comment[];

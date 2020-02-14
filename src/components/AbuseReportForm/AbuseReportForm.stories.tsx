@@ -14,7 +14,7 @@ const wrapperStyles = css`
 
 export const AbuseReportFormContainer = () => (
   <div className={wrapperStyles}>
-    <AbuseReportForm commentID="hello" />
+    <AbuseReportForm commentId="hello" />
   </div>
 );
 

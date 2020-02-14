@@ -102,7 +102,7 @@ const objAsParams = (obj: any): string => {
 };
 
 const getDiscussion = (
-  shortURL: string,
+  shortUrl: string,
   opts: FilterOptions
 ): Promise<DiscussionResponse> => {
   const apiOpts: DiscussionOptions = {
@@ -114,7 +114,7 @@ const getDiscussion = (
   };
   const params = objAsParams(apiOpts);
 
-  const url = baseURL + `/discussion/${shortURL}` + params;
+  const url = baseURL + `/discussion/${shortUrl}` + params;
 
   return fetch(url)
     .then(resp => resp.json())
@@ -146,8 +146,8 @@ const getProfile = (): Promise<UserProfile> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-const comment = (shortURL: string, body: string): Promise<string> => {
-  const url = baseURL + `/discussion/${shortURL}/comment`;
+const comment = (shortUrl: string, body: string): Promise<string> => {
+  const url = baseURL + `/discussion/${shortUrl}/comment`;
   const data = new URLSearchParams();
   data.append("body", body);
 
@@ -164,12 +164,12 @@ const comment = (shortURL: string, body: string): Promise<string> => {
 };
 
 const reply = (
-  shortURL: string,
+  shortUrl: string,
   body: string,
   parentCommentId: number
 ): Promise<string> => {
   const url =
-    baseURL + `/discussion/${shortURL}/comment/${parentCommentId}/reply`;
+    baseURL + `/discussion/${shortUrl}/comment/${parentCommentId}/reply`;
 
   const data = new URLSearchParams();
   data.append("body", body);
@@ -186,8 +186,8 @@ const reply = (
     .then(json => json.message);
 };
 
-const getPicks = (shortURL: string): Promise<Comment[]> => {
-  const url = baseURL + `/discussion/${shortURL}/topcomments`;
+const getPicks = (shortUrl: string): Promise<Comment[]> => {
+  const url = baseURL + `/discussion/${shortUrl}/topcomments`;
 
   return fetch(url)
     .then(resp => resp.json())
