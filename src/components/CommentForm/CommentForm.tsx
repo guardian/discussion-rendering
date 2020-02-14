@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "emotion";
 import { Button } from "@guardian/src-button";
 import { space, neutral } from "@guardian/src-foundations";
-import { Action } from "../../lib/reducer";
+import { textSans } from "@guardian/src-foundations/typography";
+
 import { comment, preview } from "../../lib/api";
 
-const commentForm = css`
+const formWrapper = css`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: ${space[5]}px;
@@ -15,6 +16,12 @@ const commentTextArea = css`
   width: 100%;
   min-height: 120px;
   margin-bottom: ${space[3]}px;
+  padding: 8px 10px 10px 8px;
+  ${textSans.small()};
+  ::placeholder {
+    font-weight: bold;
+    color: black;
+  }
 `;
 
 const arrowSize = 15;
@@ -35,72 +42,110 @@ const previewStyle = css`
   }
 `;
 
-const postComment = (
-  shortURL: string,
-  body: string,
-  dispatch: React.Dispatch<Action>
-): Promise<void> => {
-  if (!body) {
-    return Promise.reject("body cannot be empty"); // TODO really this should be a dispatched event
+const buttonContainerStyles = css`
+  button {
+    margin: 5px;
   }
+`;
+const headerTextStyles = css`
+  margin: 0;
+  ${textSans.xsmall()};
+`;
+const wrapperHeaderTextStyles = css`
+  background-color: #f6f6f6;
+  padding: 8px 10px 10px 8px;
+  width: 100%;
+`;
 
-  return comment(shortURL, body).then(() =>
-    dispatch({ type: "POST_COMMENT", body: body })
-  );
-};
+export const CommentForm = ({ shortURL }: { shortURL: string }) => {
+  const [isActive, setIsActive] = useState(false);
+  const [body, updateBody] = useState("");
+  const [previewBody, updatePreviewBody] = useState("");
+  const [showPreview, updateShowPreview] = useState(false);
 
-const updateBody = (body: string, dispatch: React.Dispatch<Action>) => {
-  console.log("BODY is: " + body);
-  dispatch({ type: "SET_BODY", body: body });
-};
+  const fetchShowPreview = async () => {
+    // TODO: add error management
+    if (!body) return;
 
-const requestPreview = (
-  body: string,
-  dispatch: React.Dispatch<Action>,
-  showPreview: boolean
-) => {
-  if (showPreview) {
-    return dispatch({ type: "SET_SHOW_PREVIEW", showPreview: false });
-  }
+    try {
+      const response = await preview(body);
+      updatePreviewBody(response);
+      updateShowPreview(true);
+    } catch (e) {
+      // TODO: add error management
+      console.error(`Preview call failed: ${e}`);
+      updatePreviewBody("");
+      updateShowPreview(false);
+    }
+  };
 
-  return preview(body).then(previewBody =>
-    dispatch({ type: "SET_PREVIEW", body: previewBody })
-  );
-};
+  const submitForm = async () => {
+    if (body) {
+      await comment(shortURL, body);
+      updateBody("");
+      updateShowPreview(false);
+      // TODO: used HTTP code and support error message
+    } else {
+      // TODO: add error management
+    }
+  };
 
-export const CommentForm: React.FC<{
-  dispatch: React.Dispatch<Action>;
-  shortURL: string;
-  body?: string;
-  showPreview?: boolean;
-  previewBody?: string;
-}> = ({ dispatch, shortURL, body, showPreview, previewBody }) => {
   return (
     <>
       <form
-        className={commentForm}
+        className={formWrapper}
         onSubmit={e => {
           e.preventDefault();
-          body && postComment(shortURL, body, dispatch);
+          submitForm();
         }}
       >
+        <div className={wrapperHeaderTextStyles}>
+          <p className={headerTextStyles}>
+            Please keep comments respectful and abide by the{" "}
+            <a href="/community-standards">community guidelines</a>.
+          </p>
+        </div>
         <textarea
-          placeholder="Join the discussion"
+          placeholder={!isActive ? "Join the discussion" : ""}
           className={commentTextArea}
-          onChange={e => updateBody(e.target.value || "", dispatch)}
-        ></textarea>
-        <Button
-          size="small"
-          onClick={e => {
-            e.preventDefault();
-            body && requestPreview(body, dispatch, showPreview ?? false);
+          onChange={e => {
+            updateBody(e.target.value || "");
           }}
-        >
-          Preview
-        </Button>
-        <Button type="submit" size="small">
-          Post your comment
-        </Button>
+          value={body}
+          onFocus={() => setIsActive(true)}
+          onBlur={() => setIsActive(false)}
+        />
+        <div>
+          <div className={buttonContainerStyles}>
+            <Button type="submit" size="small">
+              Post your comment
+            </Button>
+            {(isActive || body) && (
+              <>
+                <Button size="small" onClick={fetchShowPreview}>
+                  Preview
+                </Button>
+                <Button
+                  size="small"
+                  onClick={() => {
+                    updateShowPreview(false);
+                    updateBody("");
+                  }}
+                >
+                  Cancel
+                </Button>
+              </>
+            )}
+          </div>
+          {/* <div>
+            <ul>
+              <li>B</li>
+              <li>i</li>
+              <li>"</li>
+              <li>Link</li>
+            </ul>
+          </div> */}
+        </div>
       </form>
 
       {showPreview && (
