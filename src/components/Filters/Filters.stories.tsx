@@ -9,7 +9,7 @@ export const FiltersStory = () => {
     orderBy: "newest",
     pageSize: 5,
     threads: "collapsed",
-    currentPage: 1
+    page: 1
   });
   return <Filters filters={filters} setFilters={setFilters} pages={3} />;
 };

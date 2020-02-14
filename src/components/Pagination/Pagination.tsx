@@ -5,7 +5,7 @@ import { palette } from "@guardian/src-foundations";
 
 type Props = {
   pages: number;
-  currentPage: number;
+  page: number;
   setPage: Function;
 };
 
@@ -48,7 +48,7 @@ const chevronStyles = (selected: boolean) => css`
   border-width: 0.0625rem;
   border-style: solid;
   box-sizing: border-box;
-  background-color: ${palette.neutral[100]};
+  background-color: ${selected ? palette.neutral[46] : palette.neutral[100]};
   border-color: ${palette.neutral[86]};
   :hover {
     border-color: ${palette.neutral[60]};
@@ -58,7 +58,7 @@ const chevronStyles = (selected: boolean) => css`
   margin-left: 5px;
 
   > svg {
-    fill: ${palette.neutral[46]};
+    fill: ${selected ? palette.neutral[100] : palette.neutral[46]};
     transform: rotate(180deg);
   }
 `;
@@ -74,7 +74,7 @@ const ChevronRight = () => (
   </svg>
 );
 
-export const Pagination = ({ pages, currentPage, setPage }: Props) => {
+export const Pagination = ({ pages, page, setPage }: Props) => {
   // Build an array of page numbers from the total cont of pages so
   // we can easily map over them in our jsx
   const pageArray = [];
@@ -85,28 +85,28 @@ export const Pagination = ({ pages, currentPage, setPage }: Props) => {
   return (
     <div className={containerStyles}>
       {pageArray.length < 5
-        ? pageArray.map(page => (
+        ? pageArray.map(pageNumber => (
             <button
-              key={page}
-              className={buttonStyles(currentPage === page)}
-              onClick={() => setPage(page)}
+              key={pageNumber}
+              className={buttonStyles(pageNumber === page)}
+              onClick={() => setPage(pageNumber)}
             >
-              {page}
+              {pageNumber}
             </button>
           ))
-        : pageArray.slice(0, 4).map(page => (
+        : pageArray.slice(0, 4).map(pageNumber => (
             <button
-              key={page}
-              className={buttonStyles(currentPage === page)}
-              onClick={() => setPage(page)}
+              key={pageNumber}
+              className={buttonStyles(pageNumber === page)}
+              onClick={() => setPage(pageNumber)}
             >
-              {page}
+              {pageNumber}
             </button>
           ))}
       <div className={elipsisStyles}>...</div>
       <button
         key={"last"}
-        className={chevronStyles(currentPage === pageArray.length)}
+        className={chevronStyles(page === pageArray.length)}
         onClick={() => setPage(pageArray.length)}
       >
         <ChevronRight />

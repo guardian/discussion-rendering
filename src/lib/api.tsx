@@ -67,7 +67,7 @@ interface Discussion {
 
 export interface DiscussionResponse {
   status: string;
-  currentPage: number;
+  page: number;
   pages: number;
   pageSize: number;
   orderBy: string;
@@ -79,7 +79,7 @@ export interface DiscussionOptions {
   pageSize: number;
   displayThreaded: boolean;
   maxResponses: number;
-  currentPage: number;
+  page: number;
 }
 
 /* const defaultDiscussionOptions: DiscussionOptions = {
@@ -110,7 +110,7 @@ const getDiscussion = (
     pageSize: opts.pageSize,
     displayThreaded: opts.threads !== "unthreaded",
     maxResponses: 3,
-    currentPage: 1
+    page: 1
   };
   const params = objAsParams(apiOpts);
 

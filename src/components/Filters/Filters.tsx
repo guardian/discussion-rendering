@@ -19,14 +19,14 @@ export type FilterOptions = {
   orderBy: orderByType;
   pageSize: number;
   threads: threadsType;
-  currentPage: number;
+  page: number;
 };
 
 export const defaultFilterOptions: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,
   threads: "unthreaded",
-  currentPage: 1
+  page: 1
 };
 
 const filterBar = css`
@@ -140,11 +140,11 @@ export const Filters = ({ filters, setFilters, pages }: Props) => {
         <div>
           <Pagination
             pages={pages}
-            currentPage={filters.currentPage}
+            page={filters.page}
             setPage={(page: number) => {
               setFilters({
                 ...filters,
-                currentPage: page
+                page: page
               });
             }}
           />

@@ -44,11 +44,11 @@ const getDiscussion = (
     pageSize: opts.pageSize,
     displayThreaded: opts.threads !== "unthreaded",
     maxResponses: 3,
-    currentPage: opts.currentPage
+    page: opts.page
   };
   const params = objAsParams(apiOpts);
   const url = baseURL + `/discussion/${shortUrl}` + params;
-
+  console.log("url", url);
   return fetch(url)
     .then(resp => resp.json())
     .catch(error => console.error(`Error fetching ${url}`, error));
@@ -71,8 +71,10 @@ export const Comments = ({ shortUrl }: Props) => {
 
   useEffect(() => {
     setLoading(true);
+    console.log("effect filters", filters);
     getDiscussion(shortUrl, filters).then(json => {
       setLoading(false);
+      console.log("json.discussion.comments", json.discussion.comments);
       setComments(json.discussion.comments);
       setPages(json.pages);
     });
