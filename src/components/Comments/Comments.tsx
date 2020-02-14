@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
 import {
@@ -48,10 +48,7 @@ const getDiscussion = (
     maxResponses: 3
   };
   const params = objAsParams(apiOpts);
-
   const url = baseURL + `/discussion/${shortURL}` + params;
-
-  console.log("url", url);
 
   return fetch(url)
     .then(resp => resp.json())
@@ -64,7 +61,6 @@ export const Comments = ({ shortUrl }: Props) => {
 
   const filtersUpdated = (filters: FilterOptions) => {
     setFilters(filters);
-    updateComments(filters);
   };
 
   const commentAdded = (comment: CommentModel) => {
@@ -72,25 +68,18 @@ export const Comments = ({ shortUrl }: Props) => {
     // api call to refresh them all
   };
 
-  const updateComments = (filters: FilterOptions) => {
-    // make an api call using filters and then setComments
-    console.log(`Make an api call using ${JSON.stringify(filters)}`);
+  useEffect(() => {
     getDiscussion(shortUrl, filters).then(json => {
-      console.log("json:", json);
       setComments(json.discussion.comments);
     });
-  };
+  }, [filters]);
 
   return (
     <div className={containerStyles}>
-      {/* CreateComment */}
       {/* <CreateComment onAdd={commentAdded} /> */}
       {/* TopPicks */}
-      {/* Filters */}
       <Filters filters={filters} setFilters={filtersUpdated} />
-      {/* CommentsList */}
       <CommentList comments={comments} />
-      {/* CreateComment */}
       {/* <CreateComment onAdd={commentAdded} /> */}
     </div>
   );
