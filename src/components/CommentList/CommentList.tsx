@@ -21,7 +21,7 @@ export const CommentList = ({ comments }: Props) => {
   return (
     <div className={containerStyles}>
       {comments?.map(comment => (
-        <Comment comment={comment} pillar="news" />
+        <Comment key={comment.id} comment={comment} pillar="news" />
       ))}
     </div>
   );
