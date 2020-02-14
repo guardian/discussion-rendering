@@ -36,7 +36,7 @@ const objAsParams = (obj: any): string => {
 };
 
 const getDiscussion = (
-  shortURL: string,
+  shortUrl: string,
   opts: FilterOptions
 ): Promise<DiscussionResponse> => {
   const apiOpts: DiscussionOptions = {
@@ -47,7 +47,7 @@ const getDiscussion = (
     currentPage: opts.currentPage
   };
   const params = objAsParams(apiOpts);
-  const url = baseURL + `/discussion/${shortURL}` + params;
+  const url = baseURL + `/discussion/${shortUrl}` + params;
 
   return fetch(url)
     .then(resp => resp.json())
