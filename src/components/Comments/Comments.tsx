@@ -7,10 +7,8 @@ import {
   DiscussionResponse
 } from "../../lib/api";
 
-// import { textSans } from "@guardian/src-foundations/typography";
-// import { palette } from "@guardian/src-foundations";
-
 import { CommentList } from "../CommentList/CommentList";
+import { TopPicks } from "../TopPicks/TopPicks";
 import { Filters } from "../Filters/Filters";
 // import { CreateComment } from "../CreateComment/CreateComment";
 
@@ -80,7 +78,7 @@ export const Comments = ({ shortUrl }: Props) => {
   return (
     <div className={containerStyles}>
       {/* <CreateComment onAdd={commentAdded} /> */}
-      {/* TopPicks */}
+      <TopPicks />
       <Filters filters={filters} setFilters={filtersUpdated} />
       {loading ? (
         <p>TODO loading component goes here...</p>
