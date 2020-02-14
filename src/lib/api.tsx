@@ -79,6 +79,7 @@ export interface DiscussionOptions {
   pageSize: number;
   displayThreaded: boolean;
   maxResponses: number;
+  currentPage: number;
 }
 
 /* const defaultDiscussionOptions: DiscussionOptions = {
@@ -108,7 +109,8 @@ const getDiscussion = (
     orderBy: opts.orderBy,
     pageSize: opts.pageSize,
     displayThreaded: opts.threads !== "unthreaded",
-    maxResponses: 3
+    maxResponses: 3,
+    currentPage: 1
   };
   const params = objAsParams(apiOpts);
 

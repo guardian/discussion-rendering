@@ -93,7 +93,7 @@ export const Comment = ({ comment, pillar, nested = false }: Props) => {
             <li>Share</li>
             <li>Pick</li>
             <li>
-              <AbuseReportForm />
+              <AbuseReportForm commentId={comment.id} />
             </li>
           </div>
         </div>

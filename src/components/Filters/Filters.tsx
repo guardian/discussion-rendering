@@ -1,11 +1,15 @@
 import React from "react";
 import { css } from "emotion";
+
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
+
+import { Pagination } from "../Pagination/Pagination";
 
 type Props = {
   filters: FilterOptions;
   setFilters: (newFilterObject: FilterOptions) => void;
+  pages: number;
 };
 
 type orderByType = "newest" | "oldest" | "mostrecommended";
@@ -15,12 +19,14 @@ export type FilterOptions = {
   orderBy: orderByType;
   pageSize: number;
   threads: threadsType;
+  currentPage: number;
 };
 
 export const defaultFilterOptions: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,
-  threads: "unthreaded"
+  threads: "unthreaded",
+  currentPage: 1
 };
 
 const filterBar = css`
@@ -60,68 +66,90 @@ const filterStyle = css`
   margin-right: ${space[5]}px;
 `;
 
-export const Filters = ({ filters, setFilters }: Props) => {
+const flexContainer = css`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const Filters = ({ filters, setFilters, pages }: Props) => {
   return (
-    <form className={filterBar}>
-      <label htmlFor="orderBy" className={filterLabel}>
-        Order by
-      </label>
-      <select
-        name="orderBy"
-        id="orderBy"
-        className={filterStyle}
-        onChange={e =>
-          setFilters({
-            ...filters,
-            orderBy: e.target.value as orderByType
-          })
-        }
-        value={filters.orderBy}
-      >
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option value="mostrecommended">Recommendations</option>
-      </select>
+    <div className={filterBar}>
+      <div className={flexContainer}>
+        <div>
+          <label htmlFor="orderBy" className={filterLabel}>
+            Order by
+          </label>
+          <select
+            name="orderBy"
+            id="orderBy"
+            className={filterStyle}
+            onChange={e =>
+              setFilters({
+                ...filters,
+                orderBy: e.target.value as orderByType
+              })
+            }
+            value={filters.orderBy}
+          >
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="mostrecommended">Recommendations</option>
+          </select>
 
-      <label htmlFor="pageSize" className={filterLabel}>
-        Show
-      </label>
-      <select
-        name="pageSize"
-        id="pageSize"
-        className={filterStyle}
-        onChange={e =>
-          setFilters({
-            ...filters,
-            pageSize: Number(e.target.value) as number
-          })
-        }
-        value={filters.pageSize}
-      >
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-      </select>
+          <label htmlFor="pageSize" className={filterLabel}>
+            Show
+          </label>
+          <select
+            name="pageSize"
+            id="pageSize"
+            className={filterStyle}
+            onChange={e =>
+              setFilters({
+                ...filters,
+                pageSize: Number(e.target.value) as number
+              })
+            }
+            value={filters.pageSize}
+          >
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
 
-      <label htmlFor="threads" className={filterLabel}>
-        Threads
-      </label>
-      <select
-        name="threads"
-        id="threads"
-        className={filterStyle}
-        onChange={e =>
-          setFilters({
-            ...filters,
-            threads: e.target.value as threadsType
-          })
-        }
-        value={filters.threads}
-      >
-        <option value="collapsed">Collapsed</option>
-        <option value="expanded">Expanded</option>
-        <option value="unthreaded">Unthreaded</option>
-      </select>
-    </form>
+          <label htmlFor="threads" className={filterLabel}>
+            Threads
+          </label>
+          <select
+            name="threads"
+            id="threads"
+            className={filterStyle}
+            onChange={e =>
+              setFilters({
+                ...filters,
+                threads: e.target.value as threadsType
+              })
+            }
+            value={filters.threads}
+          >
+            <option value="collapsed">Collapsed</option>
+            <option value="expanded">Expanded</option>
+            <option value="unthreaded">Unthreaded</option>
+          </select>
+        </div>
+        <div>
+          <Pagination
+            pages={pages}
+            currentPage={filters.currentPage}
+            setPage={(page: number) => {
+              setFilters({
+                ...filters,
+                currentPage: page
+              });
+            }}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
