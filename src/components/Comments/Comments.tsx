@@ -10,7 +10,7 @@ import {
 import { CommentList } from "../CommentList/CommentList";
 import { TopPicks } from "../TopPicks/TopPicks";
 import { Filters } from "../Filters/Filters";
-// import { CreateComment } from "../CreateComment/CreateComment";
+import { CommentForm } from "../CommentForm/CommentForm";
 
 import { FilterOptions, defaultFilterOptions } from "../Filters/Filters";
 
@@ -80,7 +80,7 @@ export const Comments = ({ shortUrl }: Props) => {
 
   return (
     <div className={containerStyles}>
-      {/* <CreateComment onAdd={commentAdded} /> */}
+      <CommentForm shortUrl={shortUrl} />
       <TopPicks shortUrl={shortUrl} />
       <Filters filters={filters} setFilters={filtersUpdated} pages={pages} />
       {loading ? (
@@ -88,7 +88,7 @@ export const Comments = ({ shortUrl }: Props) => {
       ) : (
         <CommentList comments={comments} />
       )}
-      {/* <CreateComment onAdd={commentAdded} /> */}
+      <CommentForm shortUrl={shortUrl} />
     </div>
   );
 };
