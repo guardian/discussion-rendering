@@ -2,8 +2,7 @@ import React from "react";
 import { css } from "emotion";
 
 import { Comment as CommentModel } from "../../lib/api";
-// import { textSans } from "@guardian/src-foundations/typography";
-// import { palette } from "@guardian/src-foundations";
+import { Comment } from "../Comment/Comment";
 
 type Props = {
   comments?: CommentModel[];
@@ -11,13 +10,19 @@ type Props = {
 
 const containerStyles = css`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 export const CommentList = ({ comments }: Props) => {
+  if (!comments?.length) {
+    return <p>TODO: No comment component goes here</p>;
+  }
+
   return (
-    <div className={containerStyles}>{`Comments: ${JSON.stringify(
-      comments
-    )}`}</div>
+    <div className={containerStyles}>
+      {comments?.map(comment => (
+        <Comment comment={comment} pillar="news" />
+      ))}
+    </div>
   );
 };
