@@ -8,6 +8,11 @@ import { comment, preview } from "../../lib/api";
 
 type Props = { shortUrl: string };
 
+const boldString = "<b></b>";
+const italicsString = "<i></i>";
+const quoteString = "<blockquote></blockquote>";
+const linkStringFunc = (url: string) => `<a href="${url}">${url}</a>`;
+
 const formWrapper = css`
   display: flex;
   flex-wrap: wrap;
@@ -49,14 +54,47 @@ const buttonContainerStyles = css`
     margin: 5px;
   }
 `;
+
 const headerTextStyles = css`
   margin: 0;
   ${textSans.xsmall()};
 `;
+
 const wrapperHeaderTextStyles = css`
   background-color: #f6f6f6;
   padding: 8px 10px 10px 8px;
   width: 100%;
+`;
+
+const commentAddOns = css`
+  font-size: 13px;
+  line-height: 17px;
+  // font-family: "Guardian Text Sans Web","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+  // display: inline-block;
+  border: 1px solid #dcdcdc;
+  color: #767676;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 4px;
+  padding: 2px 5px 0px 5px;
+  min-width: 11px;
+  line-height: 17px;
+  list-style-type: none;
+`;
+
+const addOnsContainer = css`
+  display: flex;
+  flex-direction: row;
+`;
+
+const bottomContainer = css`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: space-between;
 `;
 
 export const CommentForm = ({ shortUrl }: Props) => {
@@ -117,7 +155,7 @@ export const CommentForm = ({ shortUrl }: Props) => {
           onFocus={() => setIsActive(true)}
           onBlur={() => setIsActive(false)}
         />
-        <div>
+        <div className={bottomContainer}>
           <div className={buttonContainerStyles}>
             <Button type="submit" size="small">
               Post your comment
@@ -139,14 +177,15 @@ export const CommentForm = ({ shortUrl }: Props) => {
               </>
             )}
           </div>
-          {/* <div>
-            <ul>
-              <li>B</li>
-              <li>i</li>
-              <li>"</li>
-              <li>Link</li>
+          <div>
+            <ul className={addOnsContainer}>
+              {/* TODO: add functionality https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement */}
+              <li className={commentAddOns}>B</li>
+              <li className={commentAddOns}>i</li>
+              <li className={commentAddOns}>"</li>
+              <li className={commentAddOns}>Link</li>
             </ul>
-          </div> */}
+          </div>
         </div>
       </form>
 
