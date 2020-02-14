@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "emotion";
-// import { textSans } from "@guardian/src-foundations/typography";
-// import { palette } from "@guardian/src-foundations";
+import { textSans } from "@guardian/src-foundations/typography";
+import { palette } from "@guardian/src-foundations";
 
 type Props = {
   pages: number;
@@ -15,12 +15,30 @@ const containerStyles = css`
 `;
 
 const buttonStyles = (selected: boolean) => css`
-  cursor: pointer;
-  width: 1.1875rem;
-  height: 1.1875rem;
-  background-color: ${selected ? "blue" : "#f6f6f6"};
+  ${textSans.xsmall({ fontWeight: "bold" })}
+
+  text-decoration: none;
   border-radius: 62.5rem;
+  box-sizing: border-box;
+
+  color: ${selected ? palette.neutral[100] : palette.neutral[46]};
+  background-color: ${selected ? palette.neutral[46] : palette.neutral[100]};
   border: none;
+  :hover {
+    border-width: 0.0625rem;
+    border-style: solid;
+    border-color: ${palette.neutral[46]};
+  }
+
+  margin-left: 5px;
+  padding: 0 0.125rem;
+  min-width: 1.5rem;
+  text-align: center;
+
+  height: 1.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Pagination = ({ pages, currentPage, setPage }: Props) => {
