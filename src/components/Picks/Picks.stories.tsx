@@ -1,5 +1,6 @@
 import React from "react";
 import { Picks } from "./Picks";
+import { css } from "emotion";
 
 export default { component: Picks, title: "Pick" };
 
@@ -116,5 +117,14 @@ const commentArray = [
   }
 ];
 
-export const Default = () => <Picks comments={commentArray} />;
+export const Default = () => (
+  <div
+    className={css`
+      width: 100%;
+      max-width: 600px;
+    `}
+  >
+    <Picks comments={commentArray} />
+  </div>
+);
 Default.story = { name: "Picks" };

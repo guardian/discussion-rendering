@@ -1,19 +1,46 @@
 import React from "react";
 import { css, cx } from "emotion";
 import { space, neutral } from "@guardian/src-foundations";
+import { textSans } from "@guardian/src-foundations/typography";
 import { avatar } from "../Comment/Comment";
 import { Comment as CommentModel } from "../../lib/api";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 
-const pick = css`
-  display: inline-block;
-  position: relative;
-  width: 100%;
+const picksWrapper = css`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
+const pick = css`
+  max-width: 300px;
+  min-width: 250px;
+  flex: 0 0 49%;
+  ${textSans.small()};
+`;
+
+const arrowSize = 15;
+const bg = neutral[93];
 const pickComment = css`
   padding: ${space[3]}px;
-  background-color: ${neutral[97]};
+  background-color: ${bg};
+  border-radius: 5px;
+  margin-bottom: ${arrowSize + 5}px;
+  position: relative;
+
+  :before {
+    content: "";
+    position: absolute;
+    border-right: ${arrowSize}px solid transparent;
+    border-top: ${arrowSize}px solid ${bg};
+    bottom: -${arrowSize - 1}px;
+  }
+`;
+
+const pickMetaWrapper = css`
+  display: flex;
+  justify-content: space-between;
+  padding-top: ${space[2]}px;
 `;
 
 // Components
@@ -32,15 +59,17 @@ const TinyGu = () => (
 const Pick = ({ comment }: { comment: CommentModel }) => (
   <div className={pick}>
     <div className={pickComment}>
+      <h3
+        className={css`
+          ${textSans.small()};
+          font-weight: bold;
+        `}
+      >
+        Guardian Pick
+      </h3>
       <p dangerouslySetInnerHTML={{ __html: comment.body }}></p>
     </div>
-    <div
-      className={css`
-        display: flex;
-        justify-content: space-between;
-        padding-top: ${space[2]}px;
-      `}
-    >
+    <div className={pickMetaWrapper}>
       <div>
         <img
           src={comment.userProfile.avatar}
@@ -70,12 +99,7 @@ export const Picks = ({ comments }: { comments: CommentModel[] }) => {
   }
 
   return (
-    <div
-      className={css`
-        column-count: 4;
-        column-gap: 1em;
-      `}
-    >
+    <div className={picksWrapper}>
       {comments.map(comment => (
         <Pick comment={comment} />
       ))}
