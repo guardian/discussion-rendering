@@ -64,10 +64,10 @@ export const Comments = ({ shortUrl }: Props) => {
     setFilters(filters);
   };
 
-  const commentAdded = (comment: CommentModel) => {
-    // Either we merge comments and this new comment or just make an
-    // api call to refresh them all
-  };
+  // const commentAdded = (comment: CommentModel) => {
+  // Either we merge comments and this new comment or just make an
+  // api call to refresh them all
+  // };
 
   useEffect(() => {
     setLoading(true);
