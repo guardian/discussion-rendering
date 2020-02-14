@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "emotion";
 import { textSans } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
+import { DateFromISOStringC } from "io-ts-types/lib/DateFromISOString";
 
 import { dateFormatter } from "../../lib/dateFormatter";
 
@@ -9,8 +10,6 @@ type Props = {
   date: Date;
   permalink: string;
 };
-
-const isoDateTime = "2010-11-18T14:22:39Z";
 
 const containerStyles = css`
   display: flex;
@@ -24,7 +23,11 @@ const countStyles = css`
 `;
 
 // TODO: on hover + link
-export const Timestamp = () => {
+export const Timestamp = ({
+  isoDateTime
+}: {
+  isoDateTime: DateFromISOStringC;
+}) => {
   return (
     <div className={containerStyles}>
       <div className={countStyles}>{dateFormatter(isoDateTime)}</div>

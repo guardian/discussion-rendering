@@ -8,7 +8,7 @@ export const Default = () => (
   <div
     className={css`
       width: 100%;
-      max-width: 600px;
+      max-width: 620px;
     `}
   >
     <TopPicks shortUrl="/p/39f5z" />

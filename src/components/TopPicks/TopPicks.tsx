@@ -5,6 +5,7 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { avatar } from "../Comment/Comment";
 import { Comment as CommentModel, getPicks } from "../../lib/api";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
+import { Timestamp } from "../Timestamp/Timestamp";
 
 const picksWrapper = css`
   display: flex;
@@ -13,7 +14,7 @@ const picksWrapper = css`
 `;
 
 const pick = css`
-  max-width: 300px;
+  max-width: 310px;
   min-width: 250px;
   flex: 0 0 49%;
   ${textSans.small()};
@@ -77,7 +78,7 @@ const Pick = ({ comment }: { comment: CommentModel }) => (
           className={cx(avatar(50), comment.userProfile.avatar)}
         />
         <p>{comment.userProfile.displayName}</p>
-        <time>1 hr ago</time>
+        <Timestamp isoDateTime={comment.isoDateTime} />
         <p>
           <TinyGu /> staff pick
         </p>
