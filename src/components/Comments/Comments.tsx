@@ -49,8 +49,6 @@ const getDiscussion = (
   const params = objAsParams(apiOpts);
   const url = baseURL + `/discussion/${shortURL}` + params;
 
-  console.log("url", url);
-
   return fetch(url)
     .then(resp => resp.json())
     .catch(error => console.error(`Error fetching ${url}`, error));
@@ -61,15 +59,10 @@ export const Comments = ({ shortUrl }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(defaultFilterOptions);
   const [loading, setLoading] = useState<boolean>(true);
   const [pages, setPages] = useState<number>(0);
-  // const [currentPage, setCurrentPage] = useState<number>(1);
 
   const filtersUpdated = (filters: FilterOptions) => {
     setFilters(filters);
   };
-
-  // const pageUpdated = (newPage: number) => {
-  //   setCurrentPage(newPage);
-  // };
 
   const commentAdded = (comment: CommentModel) => {
     // Either we merge comments and this new comment or just make an
@@ -78,9 +71,7 @@ export const Comments = ({ shortUrl }: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log("effect filters", filters);
     getDiscussion(shortUrl, filters).then(json => {
-      console.log("json", json);
       setLoading(false);
       setComments(json.discussion.comments);
       setPages(json.pages);
