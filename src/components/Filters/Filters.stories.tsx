@@ -8,7 +8,8 @@ export const FiltersStory = () => {
   const [filters, setFilters] = useState<FilterOptions>({
     orderBy: "newest",
     pageSize: 5,
-    threads: "collapsed"
+    threads: "collapsed",
+    currentPage: 1
   });
-  return <Filters filters={filters} setFilters={setFilters} />;
+  return <Filters filters={filters} setFilters={setFilters} pages={5} />;
 };
