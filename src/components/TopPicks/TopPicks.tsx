@@ -98,7 +98,6 @@ export const TopPicks = ({ shortUrl }: { shortUrl: string }) => {
 
   useEffect(() => {
     getPicks(shortUrl).then(json => {
-      console.log(json);
       setComments(json);
     });
   }, [shortUrl]);
