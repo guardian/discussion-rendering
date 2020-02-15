@@ -8,7 +8,7 @@ import { comment, preview } from "../../lib/api";
 
 type Props = {
   shortUrl: string;
-  onAdd: () => void;
+  onAdd: (commentId: number, body: string) => void;
 };
 
 const formWrapper = css`
@@ -86,8 +86,9 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
 
   const submitForm = async () => {
     if (body) {
-      await comment(shortUrl, body);
-      onAdd();
+      const commentId = await comment(shortUrl, body);
+      // commentId is the id of the comment that was created on the server
+      onAdd(parseInt(commentId), body);
       setBody("");
       setShowPreview(false);
       // TODO: used HTTP code and support error message
