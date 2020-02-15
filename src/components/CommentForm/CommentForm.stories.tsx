@@ -5,6 +5,8 @@ export default { component: CommentForm, title: "CommentForm" };
 
 const shortUrl = "/p/39f5z";
 
-export const Default = () => <CommentForm shortUrl={shortUrl} />;
+export const Default = () => (
+  <CommentForm shortUrl={shortUrl} onAdd={() => {}} />
+);
 
 Default.story = { name: "default" };

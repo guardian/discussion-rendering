@@ -6,7 +6,10 @@ import { textSans } from "@guardian/src-foundations/typography";
 
 import { comment, preview } from "../../lib/api";
 
-type Props = { shortUrl: string };
+type Props = {
+  shortUrl: string;
+  onAdd: (commentId: number, body: string) => void;
+};
 
 const formWrapper = css`
   display: flex;
@@ -59,11 +62,11 @@ const wrapperHeaderTextStyles = css`
   width: 100%;
 `;
 
-export const CommentForm = ({ shortUrl }: Props) => {
-  const [isActive, setIsActive] = useState(false);
-  const [body, updateBody] = useState("");
-  const [previewBody, updatePreviewBody] = useState("");
-  const [showPreview, updateShowPreview] = useState(false);
+export const CommentForm = ({ shortUrl, onAdd }: Props) => {
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [body, setBody] = useState<string>("");
+  const [previewBody, setPreviewBody] = useState<string>("");
+  const [showPreview, setShowPreview] = useState<boolean>(false);
 
   const fetchShowPreview = async () => {
     // TODO: add error management
@@ -71,21 +74,23 @@ export const CommentForm = ({ shortUrl }: Props) => {
 
     try {
       const response = await preview(body);
-      updatePreviewBody(response);
-      updateShowPreview(true);
+      setPreviewBody(response);
+      setShowPreview(true);
     } catch (e) {
       // TODO: add error management
       console.error(`Preview call failed: ${e}`);
-      updatePreviewBody("");
-      updateShowPreview(false);
+      setPreviewBody("");
+      setShowPreview(false);
     }
   };
 
   const submitForm = async () => {
     if (body) {
-      await comment(shortUrl, body);
-      updateBody("");
-      updateShowPreview(false);
+      const commentId = await comment(shortUrl, body);
+      // commentId is the id of the comment that was created on the server
+      onAdd(parseInt(commentId), body);
+      setBody("");
+      setShowPreview(false);
       // TODO: used HTTP code and support error message
     } else {
       // TODO: add error management
@@ -111,7 +116,7 @@ export const CommentForm = ({ shortUrl }: Props) => {
           placeholder={!isActive ? "Join the discussion" : ""}
           className={commentTextArea}
           onChange={e => {
-            updateBody(e.target.value || "");
+            setBody(e.target.value || "");
           }}
           value={body}
           onFocus={() => setIsActive(true)}
@@ -130,8 +135,8 @@ export const CommentForm = ({ shortUrl }: Props) => {
                 <Button
                   size="small"
                   onClick={() => {
-                    updateShowPreview(false);
-                    updateBody("");
+                    setShowPreview(false);
+                    setBody("");
                   }}
                 >
                   Cancel

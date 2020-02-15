@@ -110,7 +110,7 @@ const getDiscussion = (
     pageSize: opts.pageSize,
     displayThreaded: opts.threads !== "unthreaded",
     maxResponses: 3,
-    page: 1
+    page: opts.page
   };
   const params = objAsParams(apiOpts);
 

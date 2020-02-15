@@ -1,58 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
-import {
-  Comment as CommentModel,
-  DiscussionOptions,
-  DiscussionResponse
-} from "../../lib/api";
+import { Comment as CommentModel, getDiscussion } from "../../lib/api";
 
 import { CommentList } from "../CommentList/CommentList";
 import { TopPicks } from "../TopPicks/TopPicks";
-import { Filters } from "../Filters/Filters";
 import { CommentForm } from "../CommentForm/CommentForm";
-
-import { FilterOptions, defaultFilterOptions } from "../Filters/Filters";
+import {
+  Filters,
+  FilterOptions,
+  defaultFilterOptions
+} from "../Filters/Filters";
 
 type Props = {
   shortUrl: string;
 };
 
-const baseURL = "https://discussion.code.dev-theguardian.com/discussion-api";
-
 const containerStyles = css`
   display: flex;
   flex-direction: column;
 `;
-
-const objAsParams = (obj: any): string => {
-  const params = Object.keys(obj)
-    .map(key => {
-      return `${key}=${obj[key]}`; // type issues here cannot be avoided
-    })
-    .join("&");
-
-  return "?" + params;
-};
-
-const getDiscussion = (
-  shortUrl: string,
-  opts: FilterOptions
-): Promise<DiscussionResponse> => {
-  const apiOpts: DiscussionOptions = {
-    orderBy: opts.orderBy,
-    pageSize: opts.pageSize,
-    displayThreaded: opts.threads !== "unthreaded",
-    maxResponses: 3,
-    page: opts.page
-  };
-  const params = objAsParams(apiOpts);
-  const url = baseURL + `/discussion/${shortUrl}` + params;
-  console.log("url", url);
-  return fetch(url)
-    .then(resp => resp.json())
-    .catch(error => console.error(`Error fetching ${url}`, error));
-};
 
 export const Comments = ({ shortUrl }: Props) => {
   const [comments, setComments] = useState<CommentModel[]>([]);
@@ -64,17 +31,46 @@ export const Comments = ({ shortUrl }: Props) => {
     setFilters(filters);
   };
 
-  // const commentAdded = (comment: CommentModel) => {
-  // Either we merge comments and this new comment or just make an
-  // api call to refresh them all
-  // };
+  const simulateNewComment = (commentId: number, body: string) => {
+    // The returned object below is a simulation of the comment that was created that
+    // we add to our local state so that the reader has immediate feedback. We do
+    // this because the api has a 1 minute cache expiry so simply refreshing the
+    // main list of comments often won't return the comment just added.
+    // Edge case: If the user _does_ refresh then this local state will be overridden
+    // by the new api response and - if the refresh was within 60 seconds - the
+    // reader's comment will not be present. The same edge case is present in frontend.
+    return {
+      id: commentId,
+      body,
+      date: Date(),
+      isoDateTime: new Date(),
+      status: "visible",
+      webUrl: "TODO",
+      apiUrl: "TODO",
+      numRecommends: 0,
+      isHighlighted: true,
+      userProfile: {
+        userId: "TODO",
+        displayName: "TODO",
+        webUrl: "TODO",
+        apiUrl: "TODO",
+        avatar: "TODO",
+        secureAvatarUrl: "TODO",
+        badge: []
+      }
+    };
+  };
+
+  const commentAdded = (commentId: number, body: string) => {
+    comments.pop(); // Remove last item from our local array
+    // Replace it with this new comment at the start
+    setComments([simulateNewComment(commentId, body), ...comments]);
+  };
 
   useEffect(() => {
     setLoading(true);
-    console.log("effect filters", filters);
     getDiscussion(shortUrl, filters).then(json => {
       setLoading(false);
-      console.log("json.discussion.comments", json.discussion.comments);
       setComments(json.discussion.comments);
       setPages(json.pages);
     });
@@ -82,7 +78,7 @@ export const Comments = ({ shortUrl }: Props) => {
 
   return (
     <div className={containerStyles}>
-      <CommentForm shortUrl={shortUrl} />
+      <CommentForm shortUrl={shortUrl} onAdd={commentAdded} />
       <TopPicks shortUrl={shortUrl} />
       <Filters filters={filters} setFilters={filtersUpdated} pages={pages} />
       {loading ? (
@@ -90,7 +86,7 @@ export const Comments = ({ shortUrl }: Props) => {
       ) : (
         <CommentList comments={comments} />
       )}
-      <CommentForm shortUrl={shortUrl} />
+      <CommentForm shortUrl={shortUrl} onAdd={commentAdded} />
     </div>
   );
 };

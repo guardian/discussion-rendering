@@ -2,7 +2,11 @@ import React from "react";
 import { Comments } from "./Comments";
 import { css } from "emotion";
 
+import { mockSignIn } from "../../lib/mockSignIn";
+
 export default { component: Comments, title: "Comments" };
+
+mockSignIn();
 
 export const Default = () => (
   <div

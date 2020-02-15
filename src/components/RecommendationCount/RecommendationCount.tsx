@@ -59,7 +59,10 @@ export const RecommendationCount = ({
 
     //makeApi call
     fetch(
-      `https://discussion.theguardian.com/discussion-api/comment/${commentId}/recommend`
+      `https://discussion.theguardian.com/discussion-api/comment/${commentId}/recommend`,
+      {
+        method: "POST"
+      }
     ).then(response => {
       if (!response.ok) {
         setCount(newCount - 1);

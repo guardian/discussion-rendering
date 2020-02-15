@@ -4,6 +4,7 @@ export interface FilterOptions {
   orderBy: "newest" | "oldest" | "mostrecommended";
   pageSize: number;
   threads: "collapsed" | "expanded" | "unthreaded";
+  page: number;
 }
 
 export type OrderByValues = "newest" | "oldest" | "mostrecommended";
