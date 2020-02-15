@@ -6,7 +6,10 @@ import { textSans } from "@guardian/src-foundations/typography";
 
 import { comment, preview } from "../../lib/api";
 
-type Props = { shortUrl: string };
+type Props = {
+  shortUrl: string;
+  onAdd: () => void;
+};
 
 const formWrapper = css`
   display: flex;
@@ -59,7 +62,7 @@ const wrapperHeaderTextStyles = css`
   width: 100%;
 `;
 
-export const CommentForm = ({ shortUrl }: Props) => {
+export const CommentForm = ({ shortUrl, onAdd }: Props) => {
   const [isActive, setIsActive] = useState(false);
   const [body, updateBody] = useState("");
   const [previewBody, updatePreviewBody] = useState("");
@@ -84,6 +87,7 @@ export const CommentForm = ({ shortUrl }: Props) => {
   const submitForm = async () => {
     if (body) {
       await comment(shortUrl, body);
+      onAdd();
       updateBody("");
       updateShowPreview(false);
       // TODO: used HTTP code and support error message

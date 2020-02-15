@@ -48,7 +48,6 @@ const getDiscussion = (
   };
   const params = objAsParams(apiOpts);
   const url = baseURL + `/discussion/${shortUrl}` + params;
-  console.log("url", url);
   return fetch(url)
     .then(resp => resp.json())
     .catch(error => console.error(`Error fetching ${url}`, error));
@@ -64,17 +63,19 @@ export const Comments = ({ shortUrl }: Props) => {
     setFilters(filters);
   };
 
-  // const commentAdded = (comment: CommentModel) => {
-  // Either we merge comments and this new comment or just make an
-  // api call to refresh them all
-  // };
+  const commentAdded = () => {
+    setLoading(true);
+    getDiscussion(shortUrl, filters).then(json => {
+      setLoading(false);
+      setComments(json.discussion.comments);
+      setPages(json.pages);
+    });
+  };
 
   useEffect(() => {
     setLoading(true);
-    console.log("effect filters", filters);
     getDiscussion(shortUrl, filters).then(json => {
       setLoading(false);
-      console.log("json.discussion.comments", json.discussion.comments);
       setComments(json.discussion.comments);
       setPages(json.pages);
     });
@@ -82,7 +83,7 @@ export const Comments = ({ shortUrl }: Props) => {
 
   return (
     <div className={containerStyles}>
-      <CommentForm shortUrl={shortUrl} />
+      <CommentForm shortUrl={shortUrl} onAdd={commentAdded} />
       <TopPicks shortUrl={shortUrl} />
       <Filters filters={filters} setFilters={filtersUpdated} pages={pages} />
       {loading ? (
@@ -90,7 +91,7 @@ export const Comments = ({ shortUrl }: Props) => {
       ) : (
         <CommentList comments={comments} />
       )}
-      <CommentForm shortUrl={shortUrl} />
+      <CommentForm shortUrl={shortUrl} onAdd={commentAdded} />
     </div>
   );
 };
