@@ -63,10 +63,10 @@ const wrapperHeaderTextStyles = css`
 `;
 
 export const CommentForm = ({ shortUrl, onAdd }: Props) => {
-  const [isActive, setIsActive] = useState(false);
-  const [body, setBody] = useState("");
-  const [previewBody, setPreviewBody] = useState("");
-  const [showPreview, setShowPreview] = useState(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [body, setBody] = useState<string>("");
+  const [previewBody, setPreviewBody] = useState<string>("");
+  const [showPreview, setShowPreview] = useState<boolean>(false);
 
   const fetchShowPreview = async () => {
     // TODO: add error management
