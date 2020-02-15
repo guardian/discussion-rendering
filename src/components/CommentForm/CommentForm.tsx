@@ -64,9 +64,9 @@ const wrapperHeaderTextStyles = css`
 
 export const CommentForm = ({ shortUrl, onAdd }: Props) => {
   const [isActive, setIsActive] = useState(false);
-  const [body, updateBody] = useState("");
-  const [previewBody, updatePreviewBody] = useState("");
-  const [showPreview, updateShowPreview] = useState(false);
+  const [body, setBody] = useState("");
+  const [previewBody, setPreviewBody] = useState("");
+  const [showPreview, setShowPreview] = useState(false);
 
   const fetchShowPreview = async () => {
     // TODO: add error management
@@ -74,13 +74,13 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
 
     try {
       const response = await preview(body);
-      updatePreviewBody(response);
-      updateShowPreview(true);
+      setPreviewBody(response);
+      setShowPreview(true);
     } catch (e) {
       // TODO: add error management
       console.error(`Preview call failed: ${e}`);
-      updatePreviewBody("");
-      updateShowPreview(false);
+      setPreviewBody("");
+      setShowPreview(false);
     }
   };
 
@@ -88,8 +88,8 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
     if (body) {
       await comment(shortUrl, body);
       onAdd();
-      updateBody("");
-      updateShowPreview(false);
+      setBody("");
+      setShowPreview(false);
       // TODO: used HTTP code and support error message
     } else {
       // TODO: add error management
@@ -115,7 +115,7 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
           placeholder={!isActive ? "Join the discussion" : ""}
           className={commentTextArea}
           onChange={e => {
-            updateBody(e.target.value || "");
+            setBody(e.target.value || "");
           }}
           value={body}
           onFocus={() => setIsActive(true)}
@@ -134,8 +134,8 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
                 <Button
                   size="small"
                   onClick={() => {
-                    updateShowPreview(false);
-                    updateBody("");
+                    setShowPreview(false);
+                    setBody("");
                   }}
                 >
                   Cancel
