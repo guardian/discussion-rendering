@@ -1,11 +1,11 @@
 import React from "react";
 
 import { Comment } from "./Comment";
-import { Comment as CommentModel } from "../../lib/api";
+import { CommentType } from "../../types";
 
 export default { title: "Comment" };
 
-const commentData: CommentModel = {
+const commentData: CommentType = {
   id: 25487686,
   body:
     "<p>Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!</p>",
@@ -36,7 +36,7 @@ const commentData: CommentModel = {
   }
 };
 
-const threadComment: CommentModel = {
+const threadComment: CommentType = {
   id: 25488498,
   body: "<p>It's still there FrankDeFord - and thanks, I will pass that on</p>",
   date: "26 July 2013 4:35pm",
@@ -72,7 +72,7 @@ const threadComment: CommentModel = {
   }
 };
 
-const commentDataThreaded: CommentModel = {
+const commentDataThreaded: CommentType = {
   ...commentData,
   ...{
     responses: [threadComment]

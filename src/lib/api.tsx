@@ -1,93 +1,10 @@
-import { FilterOptions } from "./reducer"; // TODO this should live here
-import { DateFromISOStringC } from "io-ts-types/lib/DateFromISOString";
-
-export interface UserProfile {
-  userId: string;
-  displayName: string;
-  webUrl: string;
-  apiUrl: string;
-  avatar: string;
-  secureAvatarUrl: string;
-  badge: any[];
-
-  // only included from /profile/me endpoint
-  privateFields?: {
-    canPostComment: boolean;
-    isPremoderated: boolean;
-    hasCommented: boolean;
-  };
-}
-
-interface ResponseTo {
-  displayName: string;
-  commentApiUrl: string;
-  isoDateTime: DateFromISOStringC;
-  date: string;
-  commentId: number;
-  commentWebUrl: string;
-}
-
-export interface CommentMetadata {
-  commentCount: number;
-  staffCommenterCount: number;
-  editorsPickCount: number;
-  blockedCount: number;
-  responseCount: number;
-}
-
-export interface Comment {
-  id: number;
-  body: string;
-  date: string;
-  isoDateTime: DateFromISOStringC;
-  status: string;
-  webUrl: string;
-  apiUrl: string;
-  numResponses?: number;
-  numRecommends: number;
-  isHighlighted: boolean;
-  userProfile: UserProfile;
-  responseTo?: ResponseTo;
-  responses?: Comment[];
-  metaData?: CommentMetadata;
-}
-
-interface Discussion {
-  key: string;
-  webUrl: string;
-  apiUrl: string;
-  commentCount: number;
-  topLevelCommentCount: number;
-  isClosedForComments: boolean;
-  isClosedForRecommendation: boolean;
-  isThreaded: boolean;
-  title: string;
-  comments: Comment[];
-}
-
-export interface DiscussionResponse {
-  status: string;
-  page: number;
-  pages: number;
-  pageSize: number;
-  orderBy: string;
-  discussion: Discussion;
-}
-
-export interface DiscussionOptions {
-  orderBy: "newest" | "oldest" | "mostrecommended";
-  pageSize: number;
-  displayThreaded: boolean;
-  maxResponses: number;
-  page: number;
-}
-
-/* const defaultDiscussionOptions: DiscussionOptions = {
-  orderBy: "newest",
-  pageSize: 20,
-  displayThreaded: false,
-  maxResponses: 3
-}; */
+import {
+  FilterOptions,
+  DiscussionResponse,
+  DiscussionOptions,
+  UserProfile,
+  CommentType
+} from "../types";
 
 const baseURL = "https://discussion.code.dev-theguardian.com/discussion-api";
 
@@ -186,7 +103,7 @@ const reply = (
     .then(json => json.message);
 };
 
-const getPicks = (shortUrl: string): Promise<Comment[]> => {
+const getPicks = (shortUrl: string): Promise<CommentType[]> => {
   const url = baseURL + `/discussion/${shortUrl}/topcomments`;
 
   return fetch(url)

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
+
+import { CommentType } from "../../types";
+
 import { space, neutral, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
+
 import { avatar } from "../Comment/Comment";
-import { Comment as CommentModel, getPicks } from "../../lib/api";
+import { getPicks } from "../../lib/api";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { Timestamp } from "../Timestamp/Timestamp";
 
@@ -91,7 +95,7 @@ const GuStaff = () => (
   </div>
 );
 
-const Pick = ({ comment }: { comment: CommentModel }) => (
+const Pick = ({ comment }: { comment: CommentType }) => (
   <div className={pick}>
     <div className={pickComment}>
       <h3
@@ -131,7 +135,7 @@ const Pick = ({ comment }: { comment: CommentModel }) => (
 );
 
 export const TopPicks = ({ shortUrl }: { shortUrl: string }) => {
-  const [comments, setComments] = useState<CommentModel[]>([]);
+  const [comments, setComments] = useState<CommentType[]>([]);
 
   useEffect(() => {
     getPicks(shortUrl).then(json => {
