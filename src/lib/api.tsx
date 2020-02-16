@@ -145,7 +145,9 @@ export const reportAbuse = ({
 const recommend = (commentId: number): Promise<boolean> => {
   const url = baseURL + `/comment/${commentId}/recommend`;
 
-  return fetch(url, { method: "POST" }).then(resp => resp.ok);
+  return fetch(url, { method: "POST", credentials: "include" }).then(
+    resp => resp.ok
+  );
 };
 
 export {
