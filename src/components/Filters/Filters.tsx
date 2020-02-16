@@ -16,8 +16,8 @@ type Props = {
 
 const filterBar = css`
   padding: ${space[3]}px 0;
-  border-bottom: 1px solid ${neutral[97]};
-  border-top: 1px solid ${neutral[97]};
+  border-bottom: 1px solid ${neutral[86]};
+  border-top: 1px solid ${neutral[86]};
   display: flex;
   list-style: none;
   ${textSans.small()};

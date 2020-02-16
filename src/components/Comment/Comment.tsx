@@ -43,7 +43,7 @@ const commentCss = css`
 `;
 
 const commentWrapper = css`
-  border-top: 1px solid ${neutral[86]};
+  border-bottom: 1px solid ${neutral[86]};
   display: flex;
   padding: ${space[2]}px 0;
 `;
