@@ -8,7 +8,7 @@ import { getDiscussion } from "./lib/api";
 import { CommentList } from "./components/CommentList/CommentList";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
-import { Filters, defaultFilterOptions } from "./components/Filters/Filters";
+import { Filters } from "./components/Filters/Filters";
 
 type Props = {
   shortUrl: string;
@@ -21,7 +21,12 @@ const containerStyles = css`
 
 export const App = ({ shortUrl }: Props) => {
   const [comments, setComments] = useState<CommentType[]>([]);
-  const [filters, setFilters] = useState<FilterOptions>(defaultFilterOptions);
+  const [filters, setFilters] = useState<FilterOptions>({
+    orderBy: "newest",
+    pageSize: 25,
+    threads: "unthreaded",
+    page: 1
+  });
   const [loading, setLoading] = useState<boolean>(true);
   const [pages, setPages] = useState<number>(0);
 

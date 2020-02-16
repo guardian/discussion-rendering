@@ -14,13 +14,6 @@ type Props = {
   pages: number;
 };
 
-export const defaultFilterOptions: FilterOptions = {
-  orderBy: "newest",
-  pageSize: 25,
-  threads: "unthreaded",
-  page: 1
-};
-
 const filterBar = css`
   padding: ${space[3]}px 0;
   border-bottom: 1px solid ${neutral[97]};
