@@ -12,13 +12,13 @@ const wrapperStyles = css`
   background-color: blue;
 `;
 
-export const AbuseReportFormContainer = () => (
+export const Container = () => (
   <div className={wrapperStyles}>
     <AbuseReportForm commentId={123} />
   </div>
 );
 
-export const AbuseReportFormDialog = () => (
+export const Dialog = () => (
   <div className={wrapperStyles}>
     <Form
       toggleSetShowForm={() => {}}
@@ -32,7 +32,8 @@ export const AbuseReportFormDialog = () => (
     />
   </div>
 );
-export const AbuseReportFormDialogWithError = () => (
+
+export const DialogWithError = () => (
   <div className={wrapperStyles}>
     <Form
       toggleSetShowForm={() => {}}

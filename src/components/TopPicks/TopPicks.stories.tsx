@@ -2,7 +2,7 @@ import React from "react";
 import { TopPicks } from "./TopPicks";
 import { css } from "emotion";
 
-export default { component: TopPicks, title: "Pick" };
+export default { component: TopPicks, title: "TopPicks" };
 
 export const Default = () => (
   <div
@@ -14,4 +14,4 @@ export const Default = () => (
     <TopPicks shortUrl="/p/39f5z" />
   </div>
 );
-Default.story = { name: "Picks" };
+Default.story = { name: "default" };
