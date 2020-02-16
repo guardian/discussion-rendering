@@ -1,16 +1,17 @@
 import React from "react";
 import { css, cx } from "emotion";
+
 import { neutral, space, palette } from "@guardian/src-foundations";
-import { CommentType } from "../../types";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Pillar } from "../../types";
+import { Pillar, CommentType } from "../../types";
+
+import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 
 type Props = {
   comment: CommentType;
   pillar: Pillar;
-  nested?: boolean;
 };
 
 const commentControls = (pillar: Pillar) => css`
@@ -37,13 +38,20 @@ const commentCss = css`
   display: block;
   clear: left;
   ${textSans.small()}
+  margin-top: 0.375rem;
+  margin-bottom: 0.5rem;
 `;
 
-const commentWrapper = (nested: boolean) => css`
-  border-top: 1px solid ${neutral[97]};
+const commentWrapper = css`
+  border-top: 1px solid ${neutral[86]};
   display: flex;
   padding: ${space[2]}px 0;
-  margin-left: ${nested ? space[12] + "px" : 0};
+`;
+
+const nestingStyles = css`
+  list-style-type: none;
+  padding-left: ${space[2]}px;
+  margin-left: ${space[12] + "px"};
 `;
 
 const commentAvatar = css`
@@ -63,16 +71,22 @@ const commentDetails = css`
   flex-grow: 1;
 `;
 
+const headerStyles = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
   height: ${avatarSize}px;
 `;
 
-export const Comment = ({ comment, pillar, nested = false }: Props) => {
+export const Comment = ({ comment, pillar }: Props) => {
   return (
-    <>
-      <div className={commentWrapper(nested)}>
+    <li>
+      <div className={commentWrapper}>
         <img
           src={comment.userProfile.avatar}
           alt={comment.userProfile.displayName}
@@ -80,14 +94,20 @@ export const Comment = ({ comment, pillar, nested = false }: Props) => {
         />
 
         <div className={commentDetails}>
-          <p className={commentProfileName(pillar)}>
-            {comment.userProfile.displayName}
-          </p>
-          <p
+          <header className={headerStyles}>
+            <div className={commentProfileName(pillar)}>
+              {comment.userProfile.displayName}
+            </div>
+            <RecommendationCount
+              commentId={comment.id}
+              initialCount={comment.numRecommends}
+              alreadyRecommended={false}
+            />
+          </header>
+          <div
             className={commentCss}
             dangerouslySetInnerHTML={{ __html: comment.body }}
-          ></p>
-          <p>{comment.numRecommends}</p>
+          />
           <div className={commentControls(pillar)}>
             <li>Reply</li>
             <li>Share</li>
@@ -98,10 +118,13 @@ export const Comment = ({ comment, pillar, nested = false }: Props) => {
           </div>
         </div>
       </div>
-      {comment.responses &&
-        comment.responses.map(comment => (
-          <Comment comment={comment} pillar={pillar} nested={true} />
-        ))}
-    </>
+      {comment.responses && (
+        <ul className={nestingStyles}>
+          {comment.responses.map(comment => (
+            <Comment comment={comment} pillar={pillar} />
+          ))}
+        </ul>
+      )}
+    </li>
   );
 };
