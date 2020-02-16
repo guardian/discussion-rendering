@@ -32,6 +32,13 @@ export interface CommentType {
   };
 }
 
+export type CommentResponse = {
+  status: "ok" | "error";
+  statusCode: number;
+  message: string;
+  errorCode?: string;
+};
+
 export type OrderByType = "newest" | "oldest" | "mostrecommended";
 export type ThreadsType = "collapsed" | "expanded" | "unthreaded";
 
