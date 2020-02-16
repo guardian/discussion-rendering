@@ -224,12 +224,10 @@ export const reportAbuse = ({
     .then(json => json.message);
 };
 
-const recommend = (commentId: number): Promise<string> => {
+const recommend = (commentId: number): Promise<boolean> => {
   const url = baseURL + `/comment/${commentId}/recommend`;
 
-  return fetch(url, { method: "POST" })
-    .then(resp => resp.json())
-    .then(json => json.message); // note message isn't very useful for this endpoint
+  return fetch(url, { method: "POST" }).then(resp => resp.ok);
 };
 
 export {
