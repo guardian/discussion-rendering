@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
-import { CommentType, FilterOptions } from "../../types";
+import { CommentType, FilterOptions } from "./types";
 
-import { getDiscussion } from "../../lib/api";
+import { getDiscussion } from "./lib/api";
 
-import { CommentList } from "../CommentList/CommentList";
-import { TopPicks } from "../TopPicks/TopPicks";
-import { CommentForm } from "../CommentForm/CommentForm";
-import { Filters, defaultFilterOptions } from "../Filters/Filters";
+import { CommentList } from "./components/CommentList/CommentList";
+import { TopPicks } from "./components/TopPicks/TopPicks";
+import { CommentForm } from "./components/CommentForm/CommentForm";
+import { Filters, defaultFilterOptions } from "./components/Filters/Filters";
 
 type Props = {
   shortUrl: string;
@@ -19,7 +19,7 @@ const containerStyles = css`
   flex-direction: column;
 `;
 
-export const Comments = ({ shortUrl }: Props) => {
+export const App = ({ shortUrl }: Props) => {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [filters, setFilters] = useState<FilterOptions>(defaultFilterOptions);
   const [loading, setLoading] = useState<boolean>(true);
