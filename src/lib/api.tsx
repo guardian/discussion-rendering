@@ -3,7 +3,8 @@ import {
   DiscussionResponse,
   DiscussionOptions,
   UserProfile,
-  CommentType
+  CommentType,
+  CommentResponse
 } from "../types";
 
 const baseURL = "https://discussion.code.dev-theguardian.com/discussion-api";
@@ -63,7 +64,7 @@ const getProfile = (): Promise<UserProfile> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-const comment = (shortUrl: string, body: string): Promise<string> => {
+const comment = (shortUrl: string, body: string): Promise<CommentResponse> => {
   const url = baseURL + `/discussion/${shortUrl}/comment`;
   const data = new URLSearchParams();
   data.append("body", body);
@@ -77,7 +78,7 @@ const comment = (shortUrl: string, body: string): Promise<string> => {
     credentials: "include"
   })
     .then(resp => resp.json())
-    .then(json => json.message);
+    .then(json => json);
 };
 
 const reply = (
