@@ -1,14 +1,14 @@
 import React from "react";
 import { css, cx } from "emotion";
 import { neutral, space, palette } from "@guardian/src-foundations";
-import { Comment as CommentModel } from "../../lib/api";
+import { CommentType } from "../../types";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { Pillar } from "../../types";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 
 type Props = {
-  comment: CommentModel;
+  comment: CommentType;
   pillar: Pillar;
   nested?: boolean;
 };

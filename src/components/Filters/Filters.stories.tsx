@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { Filters, FilterOptions } from "./Filters";
+import { FilterOptions } from "../../types";
+
+import { Filters } from "./Filters";
 
 export default { title: "Filters" };
 

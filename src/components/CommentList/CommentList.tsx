@@ -1,11 +1,11 @@
 import React from "react";
 import { css } from "emotion";
 
-import { Comment as CommentModel } from "../../lib/api";
+import { CommentType } from "../../types";
 import { Comment } from "../Comment/Comment";
 
 type Props = {
-  comments?: CommentModel[];
+  comments?: CommentType[];
 };
 
 const containerStyles = css`
