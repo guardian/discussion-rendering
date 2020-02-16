@@ -82,9 +82,9 @@ const commentDataThreaded: CommentModel = {
 export const defaultStory = () => (
   <Comment comment={commentData} pillar={"sport"} />
 );
-defaultStory.story = { name: "Comment" };
+defaultStory.story = { name: "default" };
 
 export const threadedComment = () => (
   <Comment comment={commentDataThreaded} pillar={"lifestyle"} />
 );
-threadedComment.story = { name: "Comment Threaded" };
+threadedComment.story = { name: "threaded" };
