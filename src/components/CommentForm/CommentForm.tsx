@@ -247,7 +247,11 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
             </Button>
             {(isActive || body) && (
               <>
-                <Button size="small" onClick={fetchShowPreview}>
+                <Button
+                  size="small"
+                  onClick={fetchShowPreview}
+                  priority="secondary"
+                >
                   Preview
                 </Button>
                 <Button
@@ -255,6 +259,7 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
                   onClick={() => {
                     resetForm();
                   }}
+                  priority="tertiary"
                 >
                   Cancel
                 </Button>
