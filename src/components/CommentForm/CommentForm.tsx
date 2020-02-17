@@ -18,7 +18,8 @@ type Props = {
 const boldString = (text: string) => `<b>${text}</b>`;
 const italicsString = (text: string) => `<i>${text}</i>`;
 const quoteString = (text: string) => `<blockquote>${text}</blockquote>`;
-const linkStringFunc = (url: string) => `<a href="${url}">${url}</a>`;
+const linkStringFunc = (url: string, highlightedText?: string) =>
+  `<a href="${url}">${highlightedText ? highlightedText : url}</a>`;
 
 const formWrapper = css`
   display: flex;
@@ -28,13 +29,17 @@ const formWrapper = css`
 
 const commentTextArea = css`
   width: 100%;
-  min-height: 120px;
   margin-bottom: ${space[3]}px;
   padding: 8px 10px 10px 8px;
   ${textSans.small()};
+  border-color: #dcdcdc;
   ::placeholder {
     font-weight: bold;
     color: black;
+  }
+  :focus {
+    border-color: #767676;
+    outline: none;
   }
 `;
 
@@ -82,13 +87,12 @@ const wrapperHeaderTextStyles = css`
   padding: 8px 10px 10px 8px;
   width: 100%;
   margin-top: 8px;
+  margin-bottom: 2px;
 `;
 
 const commentAddOns = css`
   font-size: 13px;
   line-height: 17px;
-  // font-family: "Guardian Text Sans Web","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-  // display: inline-block;
   border: 1px solid #dcdcdc;
   color: #767676;
   text-align: center;
@@ -122,11 +126,15 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
   const [previewBody, setPreviewBody] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [showPreview, setShowPreview] = useState<boolean>(false);
-  const textAreaRef = useRef(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const transformText = (
-    transfromFunc: (highlightedString: string) => string
-  ) => {
+  const getHighlightedString = ():
+    | {
+        highlightedString: string;
+        startString: string;
+        endString: string;
+      }
+    | undefined => {
     if (!textAreaRef || !textAreaRef.current) return;
     const selectionStart = textAreaRef.current.selectionStart;
     const selectionEnd = textAreaRef.current.selectionEnd;
@@ -135,8 +143,27 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
     const startString = value.substring(0, selectionStart);
     const highlightedString = value.substring(selectionStart, selectionEnd);
     const endString = value.substring(selectionEnd, value.length);
+    return { startString, highlightedString, endString };
+  };
 
+  const transformText = (
+    transfromFunc: (highlightedString: string) => string
+  ) => {
+    const textAreaStrings = getHighlightedString();
+    if (!textAreaStrings) return;
+    const { startString, highlightedString, endString } = textAreaStrings;
     setBody(startString.concat(transfromFunc(highlightedString), endString));
+  };
+
+  const transformLink = () => {
+    const url = prompt("Your URL:", "http://www.");
+    if (url === null) return;
+    const textAreaStrings = getHighlightedString();
+    if (!textAreaStrings) return;
+    const { startString, highlightedString, endString } = textAreaStrings;
+    setBody(
+      startString.concat(linkStringFunc(url, highlightedString), endString)
+    );
   };
 
   const fetchShowPreview = async () => {
@@ -174,6 +201,7 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
     setError("");
     setBody("");
     setShowPreview(false);
+    setIsActive(false);
   };
 
   if (firstPost) {
@@ -205,12 +233,12 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
           placeholder={!isActive ? "Join the discussion" : ""}
           className={commentTextArea}
           ref={textAreaRef}
+          style={{ height: isActive ? "132px" : "50px" }}
           onChange={e => {
             setBody(e.target.value || "");
           }}
           value={body}
           onFocus={() => setIsActive(true)}
-          onBlur={() => setIsActive(false)}
         />
         <div className={bottomContainer}>
           <div className={buttonContainerStyles}>
@@ -235,7 +263,6 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
           </div>
           <div>
             <ul className={addOnsContainer}>
-              {/* TODO: add functionality https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement */}
               <li
                 onClick={e => transformText(boldString)}
                 className={commentAddOns}
@@ -254,7 +281,9 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
               >
                 "
               </li>
-              <li className={commentAddOns}>Link</li>
+              <li onClick={e => transformLink()} className={commentAddOns}>
+                Link
+              </li>
             </ul>
           </div>
         </div>
