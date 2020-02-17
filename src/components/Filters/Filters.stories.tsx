@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
-import { Filters, FilterOptions } from "./Filters";
+import { FilterOptions } from "../../types";
+
+import { Filters } from "./Filters";
 
 export default { title: "Filters" };
 
-export const FiltersStory = () => {
+export const Default = () => {
   const [filters, setFilters] = useState<FilterOptions>({
     orderBy: "newest",
     pageSize: 5,
@@ -13,3 +15,4 @@ export const FiltersStory = () => {
   });
   return <Filters filters={filters} setFilters={setFilters} pages={3} />;
 };
+Default.story = { name: "default" };

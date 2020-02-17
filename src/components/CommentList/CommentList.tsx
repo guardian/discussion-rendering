@@ -1,16 +1,18 @@
 import React from "react";
 import { css } from "emotion";
 
-import { Comment as CommentModel } from "../../lib/api";
+import { CommentType } from "../../types";
 import { Comment } from "../Comment/Comment";
 
 type Props = {
-  comments?: CommentModel[];
+  comments?: CommentType[];
 };
 
 const containerStyles = css`
   display: flex;
   flex-direction: column;
+  list-style-type: none;
+  padding-left: 0;
 `;
 
 export const CommentList = ({ comments }: Props) => {
@@ -19,10 +21,10 @@ export const CommentList = ({ comments }: Props) => {
   }
 
   return (
-    <div className={containerStyles}>
+    <ul className={containerStyles}>
       {comments?.map(comment => (
         <Comment key={comment.id} comment={comment} pillar="news" />
       ))}
-    </div>
+    </ul>
   );
 };

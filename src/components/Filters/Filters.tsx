@@ -6,33 +6,18 @@ import { textSans } from "@guardian/src-foundations/typography";
 
 import { Pagination } from "../Pagination/Pagination";
 
+import { FilterOptions, OrderByType, ThreadsType } from "../../types";
+
 type Props = {
   filters: FilterOptions;
   setFilters: (newFilterObject: FilterOptions) => void;
   pages: number;
 };
 
-type orderByType = "newest" | "oldest" | "mostrecommended";
-type threadsType = "collapsed" | "expanded" | "unthreaded";
-
-export type FilterOptions = {
-  orderBy: orderByType;
-  pageSize: number;
-  threads: threadsType;
-  page: number;
-};
-
-export const defaultFilterOptions: FilterOptions = {
-  orderBy: "newest",
-  pageSize: 25,
-  threads: "unthreaded",
-  page: 1
-};
-
 const filterBar = css`
   padding: ${space[3]}px 0;
-  border-bottom: 1px solid ${neutral[97]};
-  border-top: 1px solid ${neutral[97]};
+  border-bottom: 1px solid ${neutral[86]};
+  border-top: 1px solid ${neutral[86]};
   display: flex;
   list-style: none;
   ${textSans.small()};
@@ -87,7 +72,7 @@ export const Filters = ({ filters, setFilters, pages }: Props) => {
             onChange={e =>
               setFilters({
                 ...filters,
-                orderBy: e.target.value as orderByType
+                orderBy: e.target.value as OrderByType
               })
             }
             value={filters.orderBy}
@@ -127,7 +112,7 @@ export const Filters = ({ filters, setFilters, pages }: Props) => {
             onChange={e =>
               setFilters({
                 ...filters,
-                threads: e.target.value as threadsType
+                threads: e.target.value as ThreadsType
               })
             }
             value={filters.threads}

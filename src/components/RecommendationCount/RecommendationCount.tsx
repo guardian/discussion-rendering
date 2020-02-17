@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { css } from "emotion";
+
 import { textSans } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
+
+import { recommend } from "../../lib/api";
 
 type Props = {
   commentId: number;
@@ -28,19 +31,19 @@ const ArrowUp = () => (
 );
 
 const buttonStyles = (recommended: Boolean) => css`
-  cursor: pointer;
+  cursor: ${recommended ? "default" : "pointer"};
   width: 1.1875rem;
   height: 1.1875rem;
-  background-color: ${recommended ? "blue" : "#f6f6f6"};
+  background-color: ${recommended ? "#00b2ff" : "#f6f6f6"};
   border-radius: 62.5rem;
   border: none;
 `;
 
-const arrowStyles = css`
-  margin-left: -4px;
+const arrowStyles = (recommended: Boolean) => css`
+  margin-left: -5px;
   margin-bottom: -2px;
   svg {
-    fill: ${palette.neutral[46]};
+    fill: ${recommended ? palette.neutral[100] : palette.neutral[46]};
   }
 `;
 
@@ -52,16 +55,14 @@ export const RecommendationCount = ({
   const [count, setCount] = useState(initialCount);
   const [recommended, setRecommended] = useState(alreadyRecommended);
 
-  const recommend = () => {
+  const tryToRecommend = () => {
     const newCount = count + 1;
     setCount(newCount);
     setRecommended(true);
 
     //makeApi call
-    fetch(
-      `https://discussion.theguardian.com/discussion-api/comment/${commentId}/recommend`
-    ).then(response => {
-      if (!response.ok) {
+    recommend(commentId).then(accepted => {
+      if (!accepted) {
         setCount(newCount - 1);
         setRecommended(alreadyRecommended);
       }
@@ -71,8 +72,12 @@ export const RecommendationCount = ({
   return (
     <div className={flexStyles}>
       <div className={countStyles}>{count}</div>
-      <button className={buttonStyles(recommended)} onClick={() => recommend()}>
-        <div className={arrowStyles}>
+      <button
+        className={buttonStyles(recommended)}
+        onClick={() => tryToRecommend()}
+        disabled={recommended}
+      >
+        <div className={arrowStyles(recommended)}>
           <ArrowUp />
         </div>
       </button>

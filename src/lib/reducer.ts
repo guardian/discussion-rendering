@@ -1,16 +1,15 @@
-import { DiscussionResponse, Comment, UserProfile } from "./api";
-
-export interface FilterOptions {
-  orderBy: "newest" | "oldest" | "mostrecommended";
-  pageSize: number;
-  threads: "collapsed" | "expanded" | "unthreaded";
-}
-
-export type OrderByValues = "newest" | "oldest" | "mostrecommended";
+import {
+  DiscussionResponse,
+  CommentType,
+  UserProfile,
+  OrderByType,
+  FilterOptions,
+  ThreadsType
+} from "../types";
 
 interface OrderBy {
   type: "SET_ORDER_BY";
-  orderBy: OrderByValues;
+  orderBy: OrderByType;
 }
 
 interface PageSize {
@@ -18,11 +17,9 @@ interface PageSize {
   pageSize: number;
 }
 
-export type ThreadValues = "collapsed" | "expanded" | "unthreaded";
-
 interface Threads {
   type: "SET_THREADS";
-  threads: ThreadValues;
+  threads: ThreadsType;
 }
 
 interface Discussion {
@@ -52,7 +49,7 @@ interface ShowPreview {
 
 interface StaffPicks {
   type: "SET_STAFF_PICKS";
-  staffPicks: Comment[];
+  staffPicks: CommentType[];
 }
 
 interface Profile {
@@ -60,7 +57,7 @@ interface Profile {
   profile: UserProfile;
 }
 
-export type Action =
+type Action =
   | OrderBy
   | PageSize
   | Threads
@@ -76,7 +73,7 @@ interface State {
   shortUrl: string;
   filters: FilterOptions;
   discussion?: DiscussionResponse;
-  staffPicks?: Comment[];
+  staffPicks?: CommentType[];
   body?: string;
   previewBody?: string;
   showPreview?: boolean;

@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Comments } from "./components/Comments/Comments";
+import { App } from "./App";
 
-ReactDOM.render(
-  <Comments shortUrl="/p/39f5z" />,
-  document.getElementById("root")
-);
+ReactDOM.render(<App shortUrl="/p/39f5z" />, document.getElementById("root"));

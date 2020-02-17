@@ -6,7 +6,14 @@ import { textSans } from "@guardian/src-foundations/typography";
 
 import { comment, preview } from "../../lib/api";
 
-type Props = { shortUrl: string };
+import { CommentResponse } from "../../types";
+
+import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
+
+type Props = {
+  shortUrl: string;
+  onAdd: (commentId: number, body: string) => void;
+};
 
 const boldString = "<b></b>";
 const italicsString = "<i></i>";
@@ -60,10 +67,21 @@ const headerTextStyles = css`
   ${textSans.xsmall()};
 `;
 
+const errorTextStyles = css`
+  margin: 0;
+  ${textSans.xsmall()};
+  color: red;
+`;
+
+const errorContainerStyles = css`
+  margin-top: 8px;
+`;
+
 const wrapperHeaderTextStyles = css`
   background-color: #f6f6f6;
   padding: 8px 10px 10px 8px;
   width: 100%;
+  margin-top: 8px;
 `;
 
 const commentAddOns = css`
@@ -97,11 +115,13 @@ const bottomContainer = css`
   align-content: space-between;
 `;
 
-export const CommentForm = ({ shortUrl }: Props) => {
-  const [isActive, setIsActive] = useState(false);
-  const [body, updateBody] = useState("");
-  const [previewBody, updatePreviewBody] = useState("");
-  const [showPreview, updateShowPreview] = useState(false);
+export const CommentForm = ({ shortUrl, onAdd }: Props) => {
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [firstPost, setFirstPost] = useState<boolean>(false);
+  const [body, setBody] = useState<string>("");
+  const [previewBody, setPreviewBody] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [showPreview, setShowPreview] = useState<boolean>(false);
 
   const fetchShowPreview = async () => {
     // TODO: add error management
@@ -109,26 +129,40 @@ export const CommentForm = ({ shortUrl }: Props) => {
 
     try {
       const response = await preview(body);
-      updatePreviewBody(response);
-      updateShowPreview(true);
+      setPreviewBody(response);
+      setShowPreview(true);
     } catch (e) {
-      // TODO: add error management
-      console.error(`Preview call failed: ${e}`);
-      updatePreviewBody("");
-      updateShowPreview(false);
+      setError("Preview request failed, please try again");
+      setPreviewBody("");
+      setShowPreview(false);
     }
   };
 
   const submitForm = async () => {
     if (body) {
-      await comment(shortUrl, body);
-      updateBody("");
-      updateShowPreview(false);
-      // TODO: used HTTP code and support error message
-    } else {
-      // TODO: add error management
+      const response: CommentResponse = await comment(shortUrl, body);
+      if (response.statusCode === 420) {
+        setError(
+          "You can only post one comment every minute. Please try again in a moment."
+        );
+      } else if (response.message === "USERNAME_MISSING") {
+        // Reader has never posted before and needs to choose a username
+        setFirstPost(true);
+      } else if (response.status === "ok")
+        // response.message is the id of the comment that was created on the server
+        onAdd(parseInt(response.message), body);
     }
   };
+
+  const resetForm = () => {
+    setError("");
+    setBody("");
+    setShowPreview(false);
+  };
+
+  if (firstPost) {
+    return <FirstCommentWelcome />;
+  }
 
   return (
     <>
@@ -136,9 +170,15 @@ export const CommentForm = ({ shortUrl }: Props) => {
         className={formWrapper}
         onSubmit={e => {
           e.preventDefault();
+          resetForm();
           submitForm();
         }}
       >
+        {error && (
+          <div className={errorContainerStyles}>
+            <p className={errorTextStyles}>{error}</p>
+          </div>
+        )}
         <div className={wrapperHeaderTextStyles}>
           <p className={headerTextStyles}>
             Please keep comments respectful and abide by the{" "}
@@ -149,7 +189,7 @@ export const CommentForm = ({ shortUrl }: Props) => {
           placeholder={!isActive ? "Join the discussion" : ""}
           className={commentTextArea}
           onChange={e => {
-            updateBody(e.target.value || "");
+            setBody(e.target.value || "");
           }}
           value={body}
           onFocus={() => setIsActive(true)}
@@ -168,8 +208,7 @@ export const CommentForm = ({ shortUrl }: Props) => {
                 <Button
                   size="small"
                   onClick={() => {
-                    updateShowPreview(false);
-                    updateBody("");
+                    resetForm();
                   }}
                 >
                   Cancel

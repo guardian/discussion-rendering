@@ -1,93 +1,11 @@
-import { FilterOptions } from "./reducer"; // TODO this should live here
-import { DateFromISOStringC } from "io-ts-types/lib/DateFromISOString";
-
-export interface UserProfile {
-  userId: string;
-  displayName: string;
-  webUrl: string;
-  apiUrl: string;
-  avatar: string;
-  secureAvatarUrl: string;
-  badge: any[];
-
-  // only included from /profile/me endpoint
-  privateFields?: {
-    canPostComment: boolean;
-    isPremoderated: boolean;
-    hasCommented: boolean;
-  };
-}
-
-interface ResponseTo {
-  displayName: string;
-  commentApiUrl: string;
-  isoDateTime: DateFromISOStringC;
-  date: string;
-  commentId: number;
-  commentWebUrl: string;
-}
-
-export interface CommentMetadata {
-  commentCount: number;
-  staffCommenterCount: number;
-  editorsPickCount: number;
-  blockedCount: number;
-  responseCount: number;
-}
-
-export interface Comment {
-  id: number;
-  body: string;
-  date: string;
-  isoDateTime: DateFromISOStringC;
-  status: string;
-  webUrl: string;
-  apiUrl: string;
-  numResponses?: number;
-  numRecommends: number;
-  isHighlighted: boolean;
-  userProfile: UserProfile;
-  responseTo?: ResponseTo;
-  responses?: Comment[];
-  metaData?: CommentMetadata;
-}
-
-interface Discussion {
-  key: string;
-  webUrl: string;
-  apiUrl: string;
-  commentCount: number;
-  topLevelCommentCount: number;
-  isClosedForComments: boolean;
-  isClosedForRecommendation: boolean;
-  isThreaded: boolean;
-  title: string;
-  comments: Comment[];
-}
-
-export interface DiscussionResponse {
-  status: string;
-  page: number;
-  pages: number;
-  pageSize: number;
-  orderBy: string;
-  discussion: Discussion;
-}
-
-export interface DiscussionOptions {
-  orderBy: "newest" | "oldest" | "mostrecommended";
-  pageSize: number;
-  displayThreaded: boolean;
-  maxResponses: number;
-  page: number;
-}
-
-/* const defaultDiscussionOptions: DiscussionOptions = {
-  orderBy: "newest",
-  pageSize: 20,
-  displayThreaded: false,
-  maxResponses: 3
-}; */
+import {
+  FilterOptions,
+  DiscussionResponse,
+  DiscussionOptions,
+  UserProfile,
+  CommentType,
+  CommentResponse
+} from "../types";
 
 const baseURL = "https://discussion.code.dev-theguardian.com/discussion-api";
 
@@ -110,7 +28,7 @@ const getDiscussion = (
     pageSize: opts.pageSize,
     displayThreaded: opts.threads !== "unthreaded",
     maxResponses: 3,
-    page: 1
+    page: opts.page
   };
   const params = objAsParams(apiOpts);
 
@@ -146,7 +64,7 @@ const getProfile = (): Promise<UserProfile> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-const comment = (shortUrl: string, body: string): Promise<string> => {
+const comment = (shortUrl: string, body: string): Promise<CommentResponse> => {
   const url = baseURL + `/discussion/${shortUrl}/comment`;
   const data = new URLSearchParams();
   data.append("body", body);
@@ -160,7 +78,7 @@ const comment = (shortUrl: string, body: string): Promise<string> => {
     credentials: "include"
   })
     .then(resp => resp.json())
-    .then(json => json.message);
+    .then(json => json);
 };
 
 const reply = (
@@ -186,7 +104,7 @@ const reply = (
     .then(json => json.message);
 };
 
-const getPicks = (shortUrl: string): Promise<Comment[]> => {
+const getPicks = (shortUrl: string): Promise<CommentType[]> => {
   const url = baseURL + `/discussion/${shortUrl}/topcomments`;
 
   return fetch(url)
@@ -224,12 +142,12 @@ export const reportAbuse = ({
     .then(json => json.message);
 };
 
-const recommend = (commentId: number): Promise<string> => {
+const recommend = (commentId: number): Promise<boolean> => {
   const url = baseURL + `/comment/${commentId}/recommend`;
 
-  return fetch(url, { method: "POST" })
-    .then(resp => resp.json())
-    .then(json => json.message); // note message isn't very useful for this endpoint
+  return fetch(url, { method: "POST", credentials: "include" }).then(
+    resp => resp.ok
+  );
 };
 
 export {
