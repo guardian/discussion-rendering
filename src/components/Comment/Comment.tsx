@@ -5,7 +5,7 @@ import { neutral, space, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { Pillar, CommentType } from "../../types";
-
+import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 
@@ -77,6 +77,11 @@ const headerStyles = css`
   justify-content: space-between;
 `;
 
+const iconWrapper = css`
+  padding: 2px;
+  white-space: nowrap;
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
@@ -95,8 +100,30 @@ export const Comment = ({ comment, pillar }: Props) => {
 
         <div className={commentDetails}>
           <header className={headerStyles}>
-            <div className={commentProfileName(pillar)}>
-              {comment.userProfile.displayName}
+            <div
+              className={css`
+                display: flex;
+                flex-direction: column;
+              `}
+            >
+              <div className={commentProfileName(pillar)}>
+                {comment.userProfile.displayName}
+              </div>
+              <div
+                className={css`
+                  display: flex;
+                  flex-direction: row;
+                `}
+              >
+                <div className={iconWrapper}>
+                  {comment.userProfile.badge.filter(
+                    obj => obj["name"] === "Staff"
+                  ) && <GuardianStaff />}
+                </div>
+                <div className={iconWrapper}>
+                  {comment.isHighlighted && <GuardianPick />}
+                </div>
+              </div>
             </div>
             <RecommendationCount
               commentId={comment.id}

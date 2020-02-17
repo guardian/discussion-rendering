@@ -112,9 +112,6 @@ export const App = ({ shortUrl, user }: Props) => {
           }}
         />
       </footer>
-      {user && (
-        <CommentForm shortUrl={shortUrl} onAdd={commentAdded} user={user} />
-      )}
     </div>
   );
 };
