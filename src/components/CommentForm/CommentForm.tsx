@@ -223,12 +223,14 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
             <p className={errorTextStyles}>{error}</p>
           </div>
         )}
-        <div className={wrapperHeaderTextStyles}>
-          <p className={headerTextStyles}>
-            Please keep comments respectful and abide by the{" "}
-            <a href="/community-standards">community guidelines</a>.
-          </p>
-        </div>
+        {isActive && (
+          <div className={wrapperHeaderTextStyles}>
+            <p className={headerTextStyles}>
+              Please keep comments respectful and abide by the{" "}
+              <a href="/community-standards">community guidelines</a>.
+            </p>
+          </div>
+        )}
         <textarea
           placeholder={!isActive ? "Join the discussion" : ""}
           className={commentTextArea}
@@ -266,31 +268,33 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
               </>
             )}
           </div>
-          <div>
-            <ul className={addOnsContainer}>
-              <li
-                onClick={e => transformText(boldString)}
-                className={commentAddOns}
-              >
-                B
-              </li>
-              <li
-                onClick={e => transformText(italicsString)}
-                className={commentAddOns}
-              >
-                i
-              </li>
-              <li
-                onClick={e => transformText(quoteString)}
-                className={commentAddOns}
-              >
-                "
-              </li>
-              <li onClick={e => transformLink()} className={commentAddOns}>
-                Link
-              </li>
-            </ul>
-          </div>
+          {isActive && (
+            <div>
+              <ul className={addOnsContainer}>
+                <li
+                  onClick={e => transformText(boldString)}
+                  className={commentAddOns}
+                >
+                  B
+                </li>
+                <li
+                  onClick={e => transformText(italicsString)}
+                  className={commentAddOns}
+                >
+                  i
+                </li>
+                <li
+                  onClick={e => transformText(quoteString)}
+                  className={commentAddOns}
+                >
+                  "
+                </li>
+                <li onClick={e => transformLink()} className={commentAddOns}>
+                  Link
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </form>
 
