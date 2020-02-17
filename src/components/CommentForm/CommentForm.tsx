@@ -91,6 +91,7 @@ const wrapperHeaderTextStyles = css`
 `;
 
 const commentAddOns = css`
+  height: 22px;
   font-size: 13px;
   line-height: 17px;
   border: 1px solid #dcdcdc;
@@ -269,30 +270,43 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
             )}
           </div>
           {isActive && (
-            <div>
-              <ul className={addOnsContainer}>
-                <li
-                  onClick={e => transformText(boldString)}
-                  className={commentAddOns}
-                >
-                  B
-                </li>
-                <li
-                  onClick={e => transformText(italicsString)}
-                  className={commentAddOns}
-                >
-                  i
-                </li>
-                <li
-                  onClick={e => transformText(quoteString)}
-                  className={commentAddOns}
-                >
-                  "
-                </li>
-                <li onClick={e => transformLink()} className={commentAddOns}>
-                  Link
-                </li>
-              </ul>
+            <div className={addOnsContainer}>
+              <button
+                onClick={e => {
+                  e.preventDefault();
+                  transformText(boldString);
+                }}
+                className={commentAddOns}
+              >
+                B
+              </button>
+              <button
+                onClick={e => {
+                  e.preventDefault();
+                  transformText(italicsString);
+                }}
+                className={commentAddOns}
+              >
+                i
+              </button>
+              <button
+                onClick={e => {
+                  e.preventDefault();
+                  transformText(quoteString);
+                }}
+                className={commentAddOns}
+              >
+                "
+              </button>
+              <button
+                onClick={e => {
+                  e.preventDefault();
+                  transformLink();
+                }}
+                className={commentAddOns}
+              >
+                Link
+              </button>
             </div>
           )}
         </div>
