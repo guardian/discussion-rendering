@@ -6,13 +6,14 @@ import { textSans } from "@guardian/src-foundations/typography";
 
 import { comment, preview } from "../../lib/api";
 
-import { CommentResponse } from "../../types";
+import { CommentResponse, UserProfile } from "../../types";
 
 import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
 
 type Props = {
   shortUrl: string;
-  onAdd: (commentId: number, body: string) => void;
+  user: UserProfile;
+  onAdd: (commentId: number, body: string, user: UserProfile) => void;
 };
 
 const formWrapper = css`
@@ -79,7 +80,7 @@ const wrapperHeaderTextStyles = css`
   margin-top: 8px;
 `;
 
-export const CommentForm = ({ shortUrl, onAdd }: Props) => {
+export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const [firstPost, setFirstPost] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
@@ -114,7 +115,7 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
         setFirstPost(true);
       } else if (response.status === "ok")
         // response.message is the id of the comment that was created on the server
-        onAdd(parseInt(response.message), body);
+        onAdd(parseInt(response.message), body, user);
     }
   };
 
