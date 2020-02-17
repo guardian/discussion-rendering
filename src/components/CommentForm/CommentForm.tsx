@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { css } from "emotion";
 import { Button } from "@guardian/src-button";
 import { space, neutral } from "@guardian/src-foundations";
@@ -16,6 +16,12 @@ type Props = {
   onAdd: (commentId: number, body: string, user: UserProfile) => void;
 };
 
+const boldString = (text: string) => `<b>${text}</b>`;
+const italicsString = (text: string) => `<i>${text}</i>`;
+const quoteString = (text: string) => `<blockquote>${text}</blockquote>`;
+const linkStringFunc = (url: string, highlightedText?: string) =>
+  `<a href="${url}">${highlightedText ? highlightedText : url}</a>`;
+
 const formWrapper = css`
   display: flex;
   flex-wrap: wrap;
@@ -24,13 +30,17 @@ const formWrapper = css`
 
 const commentTextArea = css`
   width: 100%;
-  min-height: 120px;
   margin-bottom: ${space[3]}px;
   padding: 8px 10px 10px 8px;
   ${textSans.small()};
+  border-color: #dcdcdc;
   ::placeholder {
     font-weight: bold;
     color: black;
+  }
+  :focus {
+    border-color: #767676;
+    outline: none;
   }
 `;
 
@@ -78,6 +88,37 @@ const wrapperHeaderTextStyles = css`
   padding: 8px 10px 10px 8px;
   width: 100%;
   margin-top: 8px;
+  margin-bottom: 2px;
+`;
+
+const commentAddOns = css`
+  height: 22px;
+  font-size: 13px;
+  line-height: 17px;
+  border: 1px solid #dcdcdc;
+  color: #767676;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 4px;
+  padding: 2px 5px 0px 5px;
+  min-width: 11px;
+  line-height: 17px;
+  list-style-type: none;
+`;
+
+const addOnsContainer = css`
+  display: flex;
+  flex-direction: row;
+`;
+
+const bottomContainer = css`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: space-between;
 `;
 
 export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
@@ -87,6 +128,45 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
   const [previewBody, setPreviewBody] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [showPreview, setShowPreview] = useState<boolean>(false);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const getHighlightedString = ():
+    | {
+        highlightedString: string;
+        startString: string;
+        endString: string;
+      }
+    | undefined => {
+    if (!textAreaRef || !textAreaRef.current) return;
+    const selectionStart = textAreaRef.current.selectionStart;
+    const selectionEnd = textAreaRef.current.selectionEnd;
+    const value = textAreaRef.current.value;
+
+    const startString = value.substring(0, selectionStart);
+    const highlightedString = value.substring(selectionStart, selectionEnd);
+    const endString = value.substring(selectionEnd, value.length);
+    return { startString, highlightedString, endString };
+  };
+
+  const transformText = (
+    transfromFunc: (highlightedString: string) => string
+  ) => {
+    const textAreaStrings = getHighlightedString();
+    if (!textAreaStrings) return;
+    const { startString, highlightedString, endString } = textAreaStrings;
+    setBody(startString.concat(transfromFunc(highlightedString), endString));
+  };
+
+  const transformLink = () => {
+    const url = prompt("Your URL:", "http://www.");
+    if (url === null) return;
+    const textAreaStrings = getHighlightedString();
+    if (!textAreaStrings) return;
+    const { startString, highlightedString, endString } = textAreaStrings;
+    setBody(
+      startString.concat(linkStringFunc(url, highlightedString), endString)
+    );
+  };
 
   const fetchShowPreview = async () => {
     // TODO: add error management
@@ -123,6 +203,7 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
     setError("");
     setBody("");
     setShowPreview(false);
+    setIsActive(false);
   };
 
   if (firstPost) {
@@ -144,30 +225,37 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
             <p className={errorTextStyles}>{error}</p>
           </div>
         )}
-        <div className={wrapperHeaderTextStyles}>
-          <p className={headerTextStyles}>
-            Please keep comments respectful and abide by the{" "}
-            <a href="/community-standards">community guidelines</a>.
-          </p>
-        </div>
+        {isActive && (
+          <div className={wrapperHeaderTextStyles}>
+            <p className={headerTextStyles}>
+              Please keep comments respectful and abide by the{" "}
+              <a href="/community-standards">community guidelines</a>.
+            </p>
+          </div>
+        )}
         <textarea
           placeholder={!isActive ? "Join the discussion" : ""}
           className={commentTextArea}
+          ref={textAreaRef}
+          style={{ height: isActive ? "132px" : "50px" }}
           onChange={e => {
             setBody(e.target.value || "");
           }}
           value={body}
           onFocus={() => setIsActive(true)}
-          onBlur={() => setIsActive(false)}
         />
-        <div>
+        <div className={bottomContainer}>
           <div className={buttonContainerStyles}>
             <Button type="submit" size="small">
               Post your comment
             </Button>
             {(isActive || body) && (
               <>
-                <Button size="small" onClick={fetchShowPreview}>
+                <Button
+                  size="small"
+                  onClick={fetchShowPreview}
+                  priority="secondary"
+                >
                   Preview
                 </Button>
                 <Button
@@ -175,20 +263,53 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
                   onClick={() => {
                     resetForm();
                   }}
+                  priority="tertiary"
                 >
                   Cancel
                 </Button>
               </>
             )}
           </div>
-          {/* <div>
-            <ul>
-              <li>B</li>
-              <li>i</li>
-              <li>"</li>
-              <li>Link</li>
-            </ul>
-          </div> */}
+          {isActive && (
+            <div className={addOnsContainer}>
+              <button
+                onClick={e => {
+                  e.preventDefault();
+                  transformText(boldString);
+                }}
+                className={commentAddOns}
+              >
+                B
+              </button>
+              <button
+                onClick={e => {
+                  e.preventDefault();
+                  transformText(italicsString);
+                }}
+                className={commentAddOns}
+              >
+                i
+              </button>
+              <button
+                onClick={e => {
+                  e.preventDefault();
+                  transformText(quoteString);
+                }}
+                className={commentAddOns}
+              >
+                "
+              </button>
+              <button
+                onClick={e => {
+                  e.preventDefault();
+                  transformLink();
+                }}
+                className={commentAddOns}
+              >
+                Link
+              </button>
+            </div>
+          )}
         </div>
       </form>
 
