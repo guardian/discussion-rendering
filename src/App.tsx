@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
-import { CommentType, FilterOptions } from "./types";
+import { CommentType, FilterOptions, UserProfile } from "./types";
 
 import { getDiscussion } from "./lib/api";
 
@@ -13,6 +13,7 @@ import { Pagination } from "./components/Pagination/Pagination";
 
 type Props = {
   shortUrl: string;
+  user?: UserProfile;
 };
 
 const containerStyles = css`
@@ -25,7 +26,7 @@ const footerStyles = css`
   justify-content: flex-end;
 `;
 
-export const App = ({ shortUrl }: Props) => {
+export const App = ({ shortUrl, user }: Props) => {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [filters, setFilters] = useState<FilterOptions>({
     orderBy: "newest",
@@ -36,7 +37,11 @@ export const App = ({ shortUrl }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [pages, setPages] = useState<number>(0);
 
-  const simulateNewComment = (commentId: number, body: string) => {
+  const simulateNewComment = (
+    commentId: number,
+    body: string,
+    user: UserProfile
+  ) => {
     // The returned object below is a simulation of the comment that was created that
     // we add to our local state so that the reader has immediate feedback. We do
     // this because the api has a 1 minute cache expiry so simply refreshing the
@@ -55,21 +60,21 @@ export const App = ({ shortUrl }: Props) => {
       numRecommends: 0,
       isHighlighted: true,
       userProfile: {
-        userId: "TODO",
-        displayName: "TODO",
-        webUrl: "TODO",
-        apiUrl: "TODO",
-        avatar: "TODO",
-        secureAvatarUrl: "TODO",
-        badge: []
+        userId: user.userId,
+        displayName: user.displayName,
+        webUrl: user.webUrl,
+        apiUrl: user.apiUrl,
+        avatar: user.avatar,
+        secureAvatarUrl: user.secureAvatarUrl,
+        badge: user.badge
       }
     };
   };
 
-  const commentAdded = (commentId: number, body: string) => {
+  const commentAdded = (commentId: number, body: string, user: UserProfile) => {
     comments.pop(); // Remove last item from our local array
     // Replace it with this new comment at the start
-    setComments([simulateNewComment(commentId, body), ...comments]);
+    setComments([simulateNewComment(commentId, body, user), ...comments]);
   };
 
   useEffect(() => {
@@ -81,9 +86,13 @@ export const App = ({ shortUrl }: Props) => {
     });
   }, [filters, shortUrl]);
 
+  console.log("comments", comments);
+
   return (
     <div className={containerStyles}>
-      <CommentForm shortUrl={shortUrl} onAdd={commentAdded} />
+      {user && (
+        <CommentForm shortUrl={shortUrl} onAdd={commentAdded} user={user} />
+      )}
       <TopPicks shortUrl={shortUrl} />
       <Filters filters={filters} setFilters={setFilters} pages={pages} />
       {loading ? (
@@ -103,7 +112,9 @@ export const App = ({ shortUrl }: Props) => {
           }}
         />
       </footer>
-      <CommentForm shortUrl={shortUrl} onAdd={commentAdded} />
+      {user && (
+        <CommentForm shortUrl={shortUrl} onAdd={commentAdded} user={user} />
+      )}
     </div>
   );
 };

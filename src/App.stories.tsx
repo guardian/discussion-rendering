@@ -6,6 +6,21 @@ import { mockSignIn } from "./lib/mockSignIn";
 
 export default { component: App, title: "App" };
 
+const aUser = {
+  userId: "abc123",
+  displayName: "Jane Smith",
+  webUrl: "",
+  apiUrl: "",
+  avatar: "",
+  secureAvatarUrl: "",
+  badge: [],
+  privateFields: {
+    canPostComment: true,
+    isPremoderated: false,
+    hasCommented: true
+  }
+};
+
 mockSignIn();
 
 export const Default = () => (
@@ -15,7 +30,7 @@ export const Default = () => (
       max-width: 620px;
     `}
   >
-    <App shortUrl="/p/39f5z" />
+    <App shortUrl="/p/39f5z" user={aUser} />
   </div>
 );
 Default.story = { name: "default" };
