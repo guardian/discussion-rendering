@@ -1,5 +1,6 @@
 import React from "react";
 import { css } from "emotion";
+
 import { textSans } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
 
@@ -16,7 +17,7 @@ const containerStyles = css`
 
 const buttonStyles = (selected: boolean) => css`
   cursor: pointer;
-  ${textSans.xsmall({ fontWeight: "bold" })}
+  ${textSans.small({ fontWeight: "bold" })}
 
   text-decoration: none;
   border-radius: 62.5rem;
