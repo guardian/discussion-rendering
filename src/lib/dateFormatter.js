@@ -1,5 +1,6 @@
 // date.getMonth() gets months from index 0
 import { format } from "timeago.js";
+
 const monthConverter = {
   0: "Jan",
   1: "Feb",

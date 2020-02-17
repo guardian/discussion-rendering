@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { css } from "emotion";
 import { Button } from "@guardian/src-button";
 import { space, neutral } from "@guardian/src-foundations";
@@ -15,9 +15,9 @@ type Props = {
   onAdd: (commentId: number, body: string) => void;
 };
 
-const boldString = "<b></b>";
-const italicsString = "<i></i>";
-const quoteString = "<blockquote></blockquote>";
+const boldString = (text: string) => `<b>${text}</b>`;
+const italicsString = (text: string) => `<i>${text}</i>`;
+const quoteString = (text: string) => `<blockquote>${text}</blockquote>`;
 const linkStringFunc = (url: string) => `<a href="${url}">${url}</a>`;
 
 const formWrapper = css`
@@ -122,6 +122,22 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
   const [previewBody, setPreviewBody] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [showPreview, setShowPreview] = useState<boolean>(false);
+  const textAreaRef = useRef(null);
+
+  const transformText = (
+    transfromFunc: (highlightedString: string) => string
+  ) => {
+    if (!textAreaRef || !textAreaRef.current) return;
+    const selectionStart = textAreaRef.current.selectionStart;
+    const selectionEnd = textAreaRef.current.selectionEnd;
+    const value = textAreaRef.current.value;
+
+    const startString = value.substring(0, selectionStart);
+    const highlightedString = value.substring(selectionStart, selectionEnd);
+    const endString = value.substring(selectionEnd, value.length);
+
+    setBody(startString.concat(transfromFunc(highlightedString), endString));
+  };
 
   const fetchShowPreview = async () => {
     // TODO: add error management
@@ -188,6 +204,7 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
         <textarea
           placeholder={!isActive ? "Join the discussion" : ""}
           className={commentTextArea}
+          ref={textAreaRef}
           onChange={e => {
             setBody(e.target.value || "");
           }}
@@ -219,9 +236,24 @@ export const CommentForm = ({ shortUrl, onAdd }: Props) => {
           <div>
             <ul className={addOnsContainer}>
               {/* TODO: add functionality https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement */}
-              <li className={commentAddOns}>B</li>
-              <li className={commentAddOns}>i</li>
-              <li className={commentAddOns}>"</li>
+              <li
+                onClick={e => transformText(boldString)}
+                className={commentAddOns}
+              >
+                B
+              </li>
+              <li
+                onClick={e => transformText(italicsString)}
+                className={commentAddOns}
+              >
+                i
+              </li>
+              <li
+                onClick={e => transformText(quoteString)}
+                className={commentAddOns}
+              >
+                "
+              </li>
               <li className={commentAddOns}>Link</li>
             </ul>
           </div>
