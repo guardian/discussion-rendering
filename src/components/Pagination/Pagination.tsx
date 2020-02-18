@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
@@ -83,12 +83,10 @@ const ChevronBack = () => (
 const Forward = ({ page, setPage }: { page: number; setPage: Function }) => (
   <button
     key={"last"}
-    className={chevronStyles(false)}
+    className={cx(chevronStyles(false), rotateSvg)}
     onClick={() => setPage(page + 1)}
   >
-    <div className={rotateSvg}>
-      <ChevronBack />
-    </div>
+    <ChevronBack />
   </button>
 );
 
