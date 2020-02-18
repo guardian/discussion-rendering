@@ -1,5 +1,6 @@
 import React from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
+
 import { textSans } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
 
@@ -9,14 +10,9 @@ type Props = {
   setPage: Function;
 };
 
-const containerStyles = css`
-  display: flex;
-  flex-direction: row;
-`;
-
 const buttonStyles = (selected: boolean) => css`
   cursor: pointer;
-  ${textSans.xsmall({ fontWeight: "bold" })}
+  ${textSans.small({ fontWeight: "bold" })}
 
   text-decoration: none;
   border-radius: 62.5rem;
@@ -82,12 +78,10 @@ const ChevronBack = () => (
 const Forward = ({ page, setPage }: { page: number; setPage: Function }) => (
   <button
     key={"last"}
-    className={chevronStyles(false)}
+    className={cx(chevronStyles(false), rotateSvg)}
     onClick={() => setPage(page + 1)}
   >
-    <div className={rotateSvg}>
-      <ChevronBack />
-    </div>
+    <ChevronBack />
   </button>
 );
 
@@ -153,7 +147,7 @@ export const Pagination = ({ pages, page, setPage }: Props) => {
   const showForwardButton = pages > 4 && page !== pages;
 
   return (
-    <div className={containerStyles}>
+    <>
       {showBackButton && <Back page={page} setPage={setPage} />}
       <PageButton page={1} setPage={setPage} selected={page === 1} />
       {showFirstElipsis && <div className={elipsisStyles}>...</div>}
@@ -181,6 +175,6 @@ export const Pagination = ({ pages, page, setPage }: Props) => {
       )}
       {showSecondElipsis && <div className={elipsisStyles}>...</div>}
       {showForwardButton && <Forward page={page} setPage={setPage} />}
-    </div>
+    </>
   );
 };

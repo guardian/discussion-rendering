@@ -13,6 +13,6 @@ export const Default = () => {
     threads: "collapsed",
     page: 1
   });
-  return <Filters filters={filters} setFilters={setFilters} pages={3} />;
+  return <Filters filters={filters} setFilters={setFilters} pages={5} />;
 };
 Default.story = { name: "default" };
