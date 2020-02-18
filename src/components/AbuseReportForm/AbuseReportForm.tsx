@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import { css } from "emotion";
 
 import { palette } from "@guardian/src-foundations";
@@ -97,97 +97,144 @@ export const Form: React.FC<{
   errors,
   pillar
 }) => {
+  useEffect(() => {
+    const keyListener = (e: KeyboardEvent) => {
+      const listener = keyListenersMap.get(e.keyCode);
+      return listener && listener(e);
+    };
+
+    document.addEventListener("keydown", keyListener);
+
+    return () => document.removeEventListener("keydown", keyListener);
+  });
+
+  const modalRef = createRef<HTMLDivElement>();
+  useEffect(() => {
+    if (!modalRef.current) return;
+    const closeModal = modalRef.current.querySelector(
+      'select[name="category"]'
+    );
+    closeModal && closeModal.focus();
+  }, [modalRef]);
+
+  const handleTabKey = (e: KeyboardEvent) => {
+    if (!modalRef.current) return;
+    const focusableModalElements = modalRef.current.querySelectorAll(
+      'select[name="category"], textarea[name="reason"], input[type="email"], button[type="submit"], button[custom-guardian="close-modal"]'
+    );
+    const firstElement = focusableModalElements[0];
+    const lastElement =
+      focusableModalElements[focusableModalElements.length - 1];
+
+    if (!e.shiftKey && document.activeElement === lastElement) {
+      firstElement.focus();
+      return e.preventDefault();
+    }
+
+    if (e.shiftKey && document.activeElement === firstElement) {
+      lastElement.focus();
+      e.preventDefault();
+    }
+  };
+
+  const keyListenersMap = new Map([
+    [27, toggleSetShowForm],
+    [9, handleTabKey]
+  ]);
+
   const labelStylesClass = labelStyles(pillar);
   return (
-    <form className={formWrapper}>
-      <div
-        className={css`
-          position: absolute;
-          right: ${space[3]}px;
-          top: ${space[3]}px;
-        `}
-      >
-        <Button
-          size="small"
-          iconSide="right"
-          icon={<SvgClose />}
-          onClick={toggleSetShowForm}
-        />
-      </div>
-
-      {errors && errors.response && (
-        <span
-          className={css`
-            color: red;
-          `}
-        >
-          {errors.response}
-        </span>
-      )}
-
-      <div className={inputWrapper}>
-        <label className={labelStylesClass} htmlFor="category">
-          Category
-        </label>
-        <select
-          name="category"
-          id="category"
-          onChange={categoryOnChange}
-          value={selectedCategory}
-        >
-          <option selected value="0">
-            Please select
-          </option>
-          <option value="1">Personal abuse</option>
-          <option value="2">Off topic</option>
-          <option value="3">Legal issue</option>
-          <option value="4">Trolling</option>
-          <option value="5">Hate speech</option>
-          <option value="6">Offensive/Threatening language</option>
-          <option value="7">Copyright</option>
-          <option value="8">Spam</option>
-          <option value="9">Other</option>
-        </select>
-        {errors && errors.category && (
+    <div aria-modal="true" ref={modalRef}>
+      <form className={formWrapper}>
+        {errors && errors.response && (
           <span
             className={css`
               color: red;
             `}
           >
-            {errors.category}
+            {errors.response}
           </span>
         )}
-      </div>
 
-      <div className={inputWrapper}>
-        <label className={labelStylesClass} htmlFor="reason">
-          Reason (optional)
-        </label>
-        <textarea
-          name="reason"
-          onChange={reasonOnChange}
-          value={reasonText}
-        ></textarea>
-      </div>
+        <div className={inputWrapper}>
+          <label className={labelStylesClass} htmlFor="category">
+            Category
+          </label>
+          <select
+            name="category"
+            id="category"
+            onChange={categoryOnChange}
+            value={selectedCategory}
+          >
+            <option selected value="0">
+              Please select
+            </option>
+            <option value="1">Personal abuse</option>
+            <option value="2">Off topic</option>
+            <option value="3">Legal issue</option>
+            <option value="4">Trolling</option>
+            <option value="5">Hate speech</option>
+            <option value="6">Offensive/Threatening language</option>
+            <option value="7">Copyright</option>
+            <option value="8">Spam</option>
+            <option value="9">Other</option>
+          </select>
+          {errors && errors.category && (
+            <span
+              className={css`
+                color: red;
+              `}
+            >
+              {errors.category}
+            </span>
+          )}
+        </div>
 
-      <div className={inputWrapper}>
-        <label className={labelStylesClass} htmlFor="email">
-          Email (optional)
-        </label>
-        <input
-          type="email"
-          name="email"
-          onChange={emailOnChange}
-          value={emailText}
-        ></input>
-      </div>
+        <div className={inputWrapper}>
+          <label className={labelStylesClass} htmlFor="reason">
+            Reason (optional)
+          </label>
+          <textarea
+            name="reason"
+            onChange={reasonOnChange}
+            value={reasonText}
+          ></textarea>
+        </div>
 
-      <div>
-        <Button onClick={submitForm} type="submit" size="small">
-          Report
-        </Button>
-      </div>
-    </form>
+        <div className={inputWrapper}>
+          <label className={labelStylesClass} htmlFor="email">
+            Email (optional)
+          </label>
+          <input
+            type="email"
+            name="email"
+            onChange={emailOnChange}
+            value={emailText}
+          ></input>
+        </div>
+
+        <div>
+          <Button onClick={submitForm} type="submit" size="small">
+            Report
+          </Button>
+        </div>
+        <div
+          className={css`
+            position: absolute;
+            right: ${space[3]}px;
+            top: ${space[3]}px;
+          `}
+        >
+          <Button
+            custom-guardian="close-modal"
+            size="small"
+            iconSide="right"
+            icon={<SvgClose />}
+            onClick={toggleSetShowForm}
+          />
+        </div>
+      </form>
+    </div>
   );
 };
 

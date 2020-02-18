@@ -14,17 +14,18 @@ type Props = {
   pillar: Pillar;
 };
 
-const commentControls = (pillar: Pillar) => css`
+const commentControls = css`
   list-style: none;
   ${textSans.xsmall()};
   display: flex;
   align-items: flex-start;
+`;
 
-  > div {
-    font-weight: bold;
-    margin-right: ${space[2]}px;
-    color: ${palette[pillar][400]};
-  }
+const commentControlsButton = (pillar: Pillar) => css`
+  font-weight: bold;
+  margin-right: ${space[2]}px;
+  color: ${palette[pillar][400]};
+  border: 0;
 `;
 
 const controleWrapper = css`
@@ -87,6 +88,7 @@ export const avatar = (avatarSize: number): string => css`
 `;
 
 export const Comment = ({ comment, pillar }: Props) => {
+  const commentControlsButtonStyles = commentControlsButton(pillar);
   return (
     <li>
       <div className={commentWrapper}>
@@ -134,10 +136,10 @@ export const Comment = ({ comment, pillar }: Props) => {
             dangerouslySetInnerHTML={{ __html: comment.body }}
           />
           <div className={controleWrapper}>
-            <div className={commentControls(pillar)}>
-              <div>Reply</div>
-              <div>Share</div>
-              <div>Pick</div>
+            <div className={commentControls}>
+              <button className={commentControlsButtonStyles}>Reply</button>
+              <button className={commentControlsButtonStyles}>Share</button>
+              <button className={commentControlsButtonStyles}>Pick</button>
             </div>
             <div>
               <AbuseReportForm commentId={comment.id} pillar={pillar} />
