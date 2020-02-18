@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { css } from "emotion";
+
+import { palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 import { space, neutral } from "@guardian/src-foundations";
 import { Button } from "@guardian/src-button";
 import { SvgClose } from "@guardian/src-svgs";
 
+import { Pillar } from "../../types";
 import { reportAbuse } from "../../lib/api";
 
 type Props = {
   commentId: number;
+  pillar: Pillar;
 };
 
 const validate = ({ categoryId }: { categoryId: number }) =>
@@ -19,11 +23,22 @@ const errors = {
 };
 
 const formWrapper = css`
+  z-index: 1;
+  border: 1px solid #dcdcdc;
   position: absolute;
   width: 300px;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
   padding: ${space[3]}px;
   background-color: white;
   ${textSans.xsmall()};
+`;
+
+const labelStyles = (pillar: Pillar) => css`
+  color: ${palette[pillar][400]};
+  ${textSans.small({ fontWeight: "bold" })}
 `;
 
 const inputWrapper = css`
@@ -44,6 +59,21 @@ const inputWrapper = css`
   }
 `;
 
+const buttonStyles = css`
+  ${textSans.xsmall({ fontWeight: "light" })}
+  color: ${palette.neutral[46]};
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  background: transparent;
+  :hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+`;
+
 export const Form: React.FC<{
   toggleSetShowForm: () => void;
   submitForm: () => void;
@@ -54,6 +84,7 @@ export const Form: React.FC<{
   emailOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   emailText?: string;
   errors?: { category?: string; response?: string };
+  pillar: Pillar;
 }> = ({
   toggleSetShowForm,
   submitForm,
@@ -63,100 +94,107 @@ export const Form: React.FC<{
   reasonText,
   emailOnChange,
   emailText,
-  errors
-}) => (
-  <form className={formWrapper}>
-    <div
-      className={css`
-        position: absolute;
-        right: ${space[3]}px;
-        top: ${space[3]}px;
-      `}
-    >
-      <Button
-        size="small"
-        iconSide="right"
-        icon={<SvgClose />}
-        onClick={toggleSetShowForm}
-      />
-    </div>
-
-    {errors && errors.response && (
-      <span
+  errors,
+  pillar
+}) => {
+  const labelStylesClass = labelStyles(pillar);
+  return (
+    <form className={formWrapper}>
+      <div
         className={css`
-          color: red;
+          position: absolute;
+          right: ${space[3]}px;
+          top: ${space[3]}px;
         `}
       >
-        {errors.response}
-      </span>
-    )}
+        <Button
+          size="small"
+          iconSide="right"
+          icon={<SvgClose />}
+          onClick={toggleSetShowForm}
+        />
+      </div>
 
-    <div className={inputWrapper}>
-      <label htmlFor="category">Category</label>
-      <select
-        name="category"
-        id="category"
-        onChange={categoryOnChange}
-        value={selectedCategory}
-      >
-        <option selected value="0">
-          Please select
-        </option>
-        <option value="1">Personal abuse</option>
-        <option value="2">Off topic</option>
-        <option value="3">Legal issue</option>
-        <option value="4">Trolling</option>
-        <option value="5">Hate speech</option>
-        <option value="6">Offensive/Threatening language</option>
-        <option value="7">Copyright</option>
-        <option value="8">Spam</option>
-        <option value="9">Other</option>
-      </select>
-      {errors && errors.category && (
+      {errors && errors.response && (
         <span
           className={css`
             color: red;
           `}
         >
-          {errors.category}
+          {errors.response}
         </span>
       )}
-    </div>
 
-    <div className={inputWrapper}>
-      <label htmlFor="reason">Reason (optional)</label>
-      <textarea
-        name="reason"
-        onChange={reasonOnChange}
-        value={reasonText}
-      ></textarea>
-    </div>
+      <div className={inputWrapper}>
+        <label className={labelStylesClass} htmlFor="category">
+          Category
+        </label>
+        <select
+          name="category"
+          id="category"
+          onChange={categoryOnChange}
+          value={selectedCategory}
+        >
+          <option selected value="0">
+            Please select
+          </option>
+          <option value="1">Personal abuse</option>
+          <option value="2">Off topic</option>
+          <option value="3">Legal issue</option>
+          <option value="4">Trolling</option>
+          <option value="5">Hate speech</option>
+          <option value="6">Offensive/Threatening language</option>
+          <option value="7">Copyright</option>
+          <option value="8">Spam</option>
+          <option value="9">Other</option>
+        </select>
+        {errors && errors.category && (
+          <span
+            className={css`
+              color: red;
+            `}
+          >
+            {errors.category}
+          </span>
+        )}
+      </div>
 
-    <div className={inputWrapper}>
-      <label htmlFor="email">Email (optional)</label>
-      <input
-        type="email"
-        name="email"
-        onChange={emailOnChange}
-        value={emailText}
-      ></input>
-    </div>
+      <div className={inputWrapper}>
+        <label className={labelStylesClass} htmlFor="reason">
+          Reason (optional)
+        </label>
+        <textarea
+          name="reason"
+          onChange={reasonOnChange}
+          value={reasonText}
+        ></textarea>
+      </div>
 
-    <div
-      className={css`
-        float: right;
-      `}
-    >
-      <Button onClick={submitForm} type="submit" size="small">
-        Report
-      </Button>
-    </div>
-  </form>
-);
+      <div className={inputWrapper}>
+        <label className={labelStylesClass} htmlFor="email">
+          Email (optional)
+        </label>
+        <input
+          type="email"
+          name="email"
+          onChange={emailOnChange}
+          value={emailText}
+        ></input>
+      </div>
+
+      <div>
+        <Button onClick={submitForm} type="submit" size="small">
+          Report
+        </Button>
+      </div>
+    </form>
+  );
+};
 
 export const AbuseReportForm: React.FC<{
   commentId: number;
-}> = ({ commentId }: Props) => {
+  pillar: Pillar;
+}> = ({ commentId, pillar }: Props) => {
   const [showForm, setShowForm] = useState(false);
   const toggleSetShowForm = () => setShowForm(!showForm);
 
@@ -201,7 +239,9 @@ export const AbuseReportForm: React.FC<{
         position: relative;
       `}
     >
-      <button onClick={toggleSetShowForm}>Report</button>
+      <button className={buttonStyles} onClick={toggleSetShowForm}>
+        Report
+      </button>
       {showForm && (
         <Form
           toggleSetShowForm={toggleSetShowForm}
@@ -213,6 +253,7 @@ export const AbuseReportForm: React.FC<{
           emailOnChange={emailOnChange}
           emailText={formState.email}
           errors={errors}
+          pillar={pillar}
         />
       )}
     </div>

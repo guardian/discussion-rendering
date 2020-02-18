@@ -17,21 +17,19 @@ type Props = {
 const commentControls = (pillar: Pillar) => css`
   list-style: none;
   ${textSans.xsmall()};
+  display: flex;
+  align-items: flex-start;
 
-  * {
-    display: inline-block;
-  }
-
-  *:not(:last-child) {
+  > div {
     font-weight: bold;
     margin-right: ${space[2]}px;
     color: ${palette[pillar][400]};
   }
+`;
 
-  *:last-child {
-    float: right;
-    font-weight: normal;
-  }
+const controleWrapper = css`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const commentCss = css`
@@ -135,13 +133,15 @@ export const Comment = ({ comment, pillar }: Props) => {
             className={commentCss}
             dangerouslySetInnerHTML={{ __html: comment.body }}
           />
-          <div className={commentControls(pillar)}>
-            <li>Reply</li>
-            <li>Share</li>
-            <li>Pick</li>
-            <li>
-              <AbuseReportForm commentId={comment.id} />
-            </li>
+          <div className={controleWrapper}>
+            <div className={commentControls(pillar)}>
+              <div>Reply</div>
+              <div>Share</div>
+              <div>Pick</div>
+            </div>
+            <div>
+              <AbuseReportForm commentId={comment.id} pillar={pillar} />
+            </div>
           </div>
         </div>
       </div>
