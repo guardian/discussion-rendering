@@ -152,7 +152,7 @@ export const Pagination = ({ pages, page, setPage }: Props) => {
   const showForwardButton = pages > 4 && page !== pages;
 
   return (
-    <div className={containerStyles}>
+    <>
       {showBackButton && <Back page={page} setPage={setPage} />}
       <PageButton page={1} setPage={setPage} selected={page === 1} />
       {showFirstElipsis && <div className={elipsisStyles}>...</div>}
@@ -180,6 +180,6 @@ export const Pagination = ({ pages, page, setPage }: Props) => {
       )}
       {showSecondElipsis && <div className={elipsisStyles}>...</div>}
       {showForwardButton && <Forward page={page} setPage={setPage} />}
-    </div>
+    </>
   );
 };
