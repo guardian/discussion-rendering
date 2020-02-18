@@ -78,6 +78,18 @@ const filterWrapperStyles = css`
   }
 `;
 
+const paginationWrapper = css`
+  display: flex;
+  flex-direction: row;
+  @media screen and (max-width: 740px) {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #dcdcdc;
+  }
+`;
+
 export const Filters = ({ filters, setFilters, pages }: Props) => (
   <div className={filterBar}>
     <div className={filterContainer}>
@@ -157,18 +169,7 @@ export const Filters = ({ filters, setFilters, pages }: Props) => (
         </select>
       </div>
     </div>
-    <div
-      className={css`
-        display: flex;
-        flex-direction: row;
-        @media screen and (max-width: 740px) {
-          width: 100%;
-          justify-content: space-between;
-
-          margin-top: 25px;
-        }
-      `}
-    >
+    <div className={paginationWrapper}>
       <Pagination
         pages={pages}
         page={filters.page}

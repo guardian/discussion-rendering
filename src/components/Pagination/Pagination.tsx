@@ -10,11 +10,6 @@ type Props = {
   setPage: Function;
 };
 
-const containerStyles = css`
-  display: flex;
-  flex-direction: row;
-`;
-
 const buttonStyles = (selected: boolean) => css`
   cursor: pointer;
   ${textSans.small({ fontWeight: "bold" })}
