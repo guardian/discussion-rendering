@@ -60,6 +60,7 @@
     }
   },
   "devDependencies": {
+    "@storybook/addon-viewport": "^5.3.13",
     "@storybook/react": "^5.3.13",
     "eslint-plugin-react-hooks": "^2.3.0",
     "husky": "^4.2.3",
