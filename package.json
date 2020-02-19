@@ -2,11 +2,39 @@
   "name": "discussion-rendering",
   "version": "0.1.0",
   "private": true,
+  "main": "build/App.js",
+  "module": "build/App.esm.js",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "files": [
+    "build/**/*"
+  ],
   "dependencies": {
+    "timeago.js": "^4.0.2",
+    "use-persisted-state": "^0.3.0"
+  },
+  "peerDependencies": {
     "@emotion/core": "^10.0.27",
     "@guardian/src-button": "^0.8.0",
     "@guardian/src-foundations": "^0.12.3",
     "@guardian/src-svgs": "^0.1.0",
+    "emotion": "^10.0.27",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@emotion/core": "^10.0.27",
+    "@guardian/src-button": "^0.8.0",
+    "@guardian/src-foundations": "^0.12.3",
+    "@guardian/src-svgs": "^0.1.0",
+    "emotion": "^10.0.27",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@emotion/babel-preset-css-prop": "^10.0.14",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -15,22 +43,28 @@
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "@types/use-persisted-state": "^0.3.0",
-    "emotion": "^10.0.27",
     "io-ts-types": "^0.5.5",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0",
-    "timeago.js": "^4.0.2",
     "typescript": "^3.7.5",
-    "use-persisted-state": "^0.3.0"
+    "react-scripts": "3.3.0",
+    "@storybook/addon-viewport": "^5.3.13",
+    "@storybook/react": "^5.3.13",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "husky": "^4.2.3",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "rollup": "^1.17.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.2",
+    "rollup-plugin-node-resolve": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rollup --config && yarn createTsDec",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "createTsDec": "tsc --project tsconfig.json --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -58,13 +92,5 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
-  },
-  "devDependencies": {
-    "@storybook/addon-viewport": "^5.3.13",
-    "@storybook/react": "^5.3.13",
-    "eslint-plugin-react-hooks": "^2.3.0",
-    "husky": "^4.2.3",
-    "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1"
   }
 }
