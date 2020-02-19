@@ -185,7 +185,10 @@ export const AbuseReportForm: React.FC<{
       setErrors({ ...errors, category: submitErrors.category });
     } else {
       setErrors({ ...errors, category: null });
-      const { status, json } = await reportAbuse({ ...formState, commentID });
+      const { status, json } = await reportAbuse({
+        ...formState,
+        ...{ commentId: 123, categoryId: 3 }
+      });
       if (status !== 200) {
         setErrors({ ...errors, response: json().message });
       } else {
