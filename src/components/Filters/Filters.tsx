@@ -30,9 +30,7 @@ const filterBar = css`
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  @media screen and (max-width: 740px) {
-    flex-direction: column;
-  }
+  flex-direction: column;
 `;
 
 const filterLabel = css`
@@ -45,13 +43,8 @@ const filterLabel = css`
     background-color: ${neutral[86]};
     position: absolute;
     top: -5px;
-    bottom: -5px;
+    bottom: -25px;
     left: -10px;
-  }
-  @media screen and (max-width: 740px) {
-    :after {
-      bottom: -25px;
-    }
   }
 `;
 
@@ -72,21 +65,32 @@ const filterContainer = css`
 
 const filterWrapperStyles = css`
   display: flex;
-  flex-direction: row;
-  @media screen and (max-width: 740px) {
-    flex-direction: column;
-  }
+  flex-direction: column;
 `;
 
 const paginationWrapper = css`
   display: flex;
   flex-direction: row;
-  @media screen and (max-width: 740px) {
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 15px;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #dcdcdc;
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
+`;
+
+const paginationSelections = css`
+  display: flex;
+  flex-direction: row;
+  height: 25px;
+`;
+
+const paginationText = css`
+  margin-left: 5px;
+  @media screen and (max-width: 480px) {
     padding-top: 10px;
-    border-top: 1px solid #dcdcdc;
   }
 `;
 
@@ -170,16 +174,22 @@ export const Filters = ({ filters, setFilters, pages }: Props) => (
       </div>
     </div>
     <div className={paginationWrapper}>
-      <Pagination
-        pages={pages}
-        page={filters.page}
-        setPage={(page: number) => {
-          setFilters({
-            ...filters,
-            page: page
-          });
-        }}
-      />
+      <div className={paginationSelections}>
+        <Pagination
+          pages={pages}
+          page={filters.page}
+          setPage={(page: number) => {
+            setFilters({
+              ...filters,
+              page: page
+            });
+          }}
+        />
+      </div>
+      <div className={paginationText}>
+        {/* TODO: pull text dynamically */}
+        Displaying 100 of 500 comments
+      </div>
     </div>
   </div>
 );
