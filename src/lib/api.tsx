@@ -137,9 +137,7 @@ export const reportAbuse = ({
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     }
-  })
-    .then(resp => resp.json())
-    .then(json => json.message);
+  }).then(resp => resp.json());
 };
 
 const recommend = (commentId: number): Promise<boolean> => {

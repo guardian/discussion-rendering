@@ -1,5 +1,6 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { css } from "emotion";
+import { useForm } from "react-hook-form";
 
 import { palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -15,11 +16,10 @@ type Props = {
   pillar: Pillar;
 };
 
-const validate = ({ categoryId }: { categoryId: number }) =>
-  !categoryId ? { category: errors.category } : null;
-
-const errors = {
-  category: "Please select a category"
+type formData = {
+  categoryId: number;
+  reason?: string;
+  email?: string;
 };
 
 const formWrapper = css`
@@ -74,32 +74,23 @@ const buttonStyles = css`
   }
 `;
 
+const errorMessageStyles = css`
+  color: red;
+`;
+
 export const Form: React.FC<{
+  commentId: number;
   toggleSetShowForm: () => void;
-  submitForm: () => void;
-  selectedCategory: number;
-  categoryOnChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  reasonOnChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  reasonText?: string;
-  emailOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  emailText?: string;
-  errors?: { category?: string; response?: string };
   pillar: Pillar;
-}> = ({
-  toggleSetShowForm,
-  submitForm,
-  selectedCategory,
-  categoryOnChange,
-  reasonOnChange,
-  reasonText,
-  emailOnChange,
-  emailText,
-  errors,
-  pillar
-}) => {
+}> = ({ commentId, toggleSetShowForm, pillar }) => {
+  // We want to listen to keydown events for accessibility
   useEffect(() => {
+    const keyListenersMap: { [key: number]: any } = {
+      27: toggleSetShowForm,
+      9: handleTabKey
+    };
     const keyListener = (e: KeyboardEvent) => {
-      const listener = keyListenersMap.get(e.keyCode);
+      const listener = keyListenersMap[e.keyCode];
       return listener && listener(e);
     };
 
@@ -108,52 +99,64 @@ export const Form: React.FC<{
     return () => document.removeEventListener("keydown", keyListener);
   });
 
-  const modalRef = createRef<HTMLDivElement>();
+  const modalRef = useRef<HTMLDivElement>(null);
+  let firstElement: HTMLSelectElement | null;
+  let lastElement: HTMLButtonElement | null;
+  // We want to pull out the 1st and last elements of the form, and highlight the 1st element
   useEffect(() => {
     if (!modalRef.current) return;
-    const closeModal = modalRef.current.querySelector(
-      'select[name="category"]'
+    firstElement = modalRef.current.querySelector('select[name="category"]');
+    lastElement = modalRef.current.querySelector(
+      'button[custom-guardian="close-modal"]'
     );
-    closeModal && closeModal.focus();
+    firstElement && firstElement.focus();
   }, [modalRef]);
 
+  // This function only gets called when a tab key has been pressed
+  // we use `e.shiftKey` internally to determin the direction of the highlighting
   const handleTabKey = (e: KeyboardEvent) => {
-    if (!modalRef.current) return;
-    const focusableModalElements = modalRef.current.querySelectorAll(
-      'select[name="category"], textarea[name="reason"], input[type="email"], button[type="submit"], button[custom-guardian="close-modal"]'
-    );
-    const firstElement = focusableModalElements[0];
-    const lastElement =
-      focusableModalElements[focusableModalElements.length - 1];
-
     if (!e.shiftKey && document.activeElement === lastElement) {
-      firstElement.focus();
-      return e.preventDefault();
+      firstElement && firstElement.focus();
+      e.preventDefault();
     }
 
     if (e.shiftKey && document.activeElement === firstElement) {
-      lastElement.focus();
+      lastElement && lastElement.focus();
       e.preventDefault();
     }
   };
 
-  const keyListenersMap = new Map([
-    [27, toggleSetShowForm],
-    [9, handleTabKey]
-  ]);
+  const { register, handleSubmit, errors } = useForm({
+    defaultValues: {
+      categoryId: 0,
+      reason: "",
+      email: ""
+    }
+  });
+
+  const [responseError, setResponseError] = useState("");
+  const onSubmit = async ({ categoryId, reason, email }: any) => {
+    setResponseError("");
+    const response = await reportAbuse({
+      categoryId,
+      reason,
+      email,
+      commentId
+    });
+    if (response.status !== 200) {
+      setResponseError(response.message);
+    } else {
+      toggleSetShowForm();
+      // TODO: display sucess?
+    }
+  };
 
   const labelStylesClass = labelStyles(pillar);
   return (
     <div aria-modal="true" ref={modalRef}>
-      <form className={formWrapper}>
-        {errors && errors.response && (
-          <span
-            className={css`
-              color: red;
-            `}
-          >
-            {errors.response}
-          </span>
+      <form className={formWrapper} onSubmit={handleSubmit(onSubmit)}>
+        {responseError && (
+          <span className={errorMessageStyles}>{responseError}</span>
         )}
 
         <div className={inputWrapper}>
@@ -161,14 +164,11 @@ export const Form: React.FC<{
             Category
           </label>
           <select
-            name="category"
+            name="categoryId"
             id="category"
-            onChange={categoryOnChange}
-            value={selectedCategory}
+            ref={register({ required: true })}
           >
-            <option selected value="0">
-              Please select
-            </option>
+            <option value="0">Please select</option>
             <option value="1">Personal abuse</option>
             <option value="2">Off topic</option>
             <option value="3">Legal issue</option>
@@ -179,14 +179,8 @@ export const Form: React.FC<{
             <option value="8">Spam</option>
             <option value="9">Other</option>
           </select>
-          {errors && errors.category && (
-            <span
-              className={css`
-                color: red;
-              `}
-            >
-              {errors.category}
-            </span>
+          {errors.categoryId && (
+            <span className={errorMessageStyles}>{errors.categoryId}</span>
           )}
         </div>
 
@@ -194,27 +188,24 @@ export const Form: React.FC<{
           <label className={labelStylesClass} htmlFor="reason">
             Reason (optional)
           </label>
-          <textarea
-            name="reason"
-            onChange={reasonOnChange}
-            value={reasonText}
-          ></textarea>
+          <textarea name="reason" ref={register}></textarea>
+          {errors.reason && (
+            <span className={errorMessageStyles}>{errors.reason}</span>
+          )}
         </div>
 
         <div className={inputWrapper}>
           <label className={labelStylesClass} htmlFor="email">
             Email (optional)
           </label>
-          <input
-            type="email"
-            name="email"
-            onChange={emailOnChange}
-            value={emailText}
-          ></input>
+          <input type="email" name="email" ref={register}></input>
+          {errors.email && (
+            <span className={errorMessageStyles}>{errors.email}</span>
+          )}
         </div>
 
         <div>
-          <Button onClick={submitForm} type="submit" size="small">
+          <Button type="submit" size="small">
             Report
           </Button>
         </div>
@@ -245,41 +236,6 @@ export const AbuseReportForm: React.FC<{
   const [showForm, setShowForm] = useState(false);
   const toggleSetShowForm = () => setShowForm(!showForm);
 
-  const [errors, setErrors] = useState({});
-
-  const [formState, setFormState] = useState({
-    categoryId: 0,
-    reason: "",
-    email: ""
-  });
-
-  const categoryOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setErrors({ ...errors, category: null });
-    setFormState({ ...formState, categoryId: Number(event.target.value) });
-  };
-
-  const reasonOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
-    setFormState({ ...formState, reason: event.target.value });
-
-  const emailOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setFormState({ ...formState, email: event.target.value });
-
-  const submitForm = async () => {
-    const submitErrors = validate({ categoryId: formState.categoryId });
-    if (submitErrors) {
-      setErrors({ ...errors, category: submitErrors.category });
-    } else {
-      setErrors({ ...errors, category: null });
-      const { status, json } = await reportAbuse({ ...formState, commentId });
-      if (status !== 200) {
-        setErrors({ ...errors, response: json().message });
-      } else {
-        toggleSetShowForm();
-        // TODO: display sucess?
-      }
-    }
-  };
-
   return (
     <div
       className={css`
@@ -292,15 +248,8 @@ export const AbuseReportForm: React.FC<{
       {showForm && (
         <Form
           toggleSetShowForm={toggleSetShowForm}
-          submitForm={submitForm}
-          categoryOnChange={categoryOnChange}
-          selectedCategory={formState.categoryId}
-          reasonOnChange={reasonOnChange}
-          reasonText={formState.reason}
-          emailOnChange={emailOnChange}
-          emailText={formState.email}
-          errors={errors}
           pillar={pillar}
+          commentId={commentId}
         />
       )}
     </div>
