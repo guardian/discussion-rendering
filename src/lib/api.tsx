@@ -106,7 +106,6 @@ const reply = (
 
 const getPicks = (shortUrl: string): Promise<CommentType[]> => {
   const url = baseURL + `/discussion/${shortUrl}/topcomments`;
-
   return fetch(url)
     .then(resp => resp.json())
     .then(json => json.discussion.comments)
@@ -148,6 +147,15 @@ const recommend = (commentId: number): Promise<boolean> => {
   return fetch(url, { method: "POST", credentials: "include" }).then(
     resp => resp.ok
   );
+};
+
+export const getCommentCount = (
+  shortUrl: string
+): Promise<{ counts: { id: string; count: number } }> => {
+  const url = `${baseURL}/discussion/${shortUrl}/comments/count`;
+  return fetch(url)
+    .then(resp => resp.json())
+    .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
 export {

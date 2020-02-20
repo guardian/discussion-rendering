@@ -132,9 +132,6 @@ const decideForthPage = ({ page, pages }: { page: number; pages: number }) => {
 };
 
 export const Pagination = ({ pages, page, setPage }: Props) => {
-  // Don't show pagination if there's less than 2 pages, no point
-  if (pages < 2) return null;
-
   // Make decisions aobut which pagination elements to show
   const showBackButton = pages > 4 && page > 1;
   const showFirstElipsis = pages > 4 && page > 3;

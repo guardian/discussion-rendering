@@ -12,6 +12,7 @@ type Props = {
   filters: FilterOptions;
   setFilters: (newFilterObject: FilterOptions) => void;
   pages: number;
+  commentCount?: number;
 };
 
 const filterBar = css`
@@ -95,7 +96,12 @@ const paginationText = css`
   }
 `;
 
-export const Filters = ({ filters, setFilters, pages }: Props) => (
+export const Filters = ({
+  filters,
+  setFilters,
+  pages,
+  commentCount
+}: Props) => (
   <div className={filterBar}>
     <div className={filterContainer}>
       <div className={filterWrapperStyles}>
@@ -174,23 +180,27 @@ export const Filters = ({ filters, setFilters, pages }: Props) => (
         </select>
       </div>
     </div>
-    <div className={paginationWrapper}>
-      <div className={paginationSelections}>
-        <Pagination
-          pages={pages}
-          page={filters.page}
-          setPage={(page: number) => {
-            setFilters({
-              ...filters,
-              page: page
-            });
-          }}
-        />
+    {/* Don't show pagination if there's less than 2 pages, no point */}
+    {filters.page < 2 && (
+      <div className={paginationWrapper}>
+        <div className={paginationSelections}>
+          <Pagination
+            pages={pages}
+            page={filters.page}
+            setPage={(page: number) => {
+              setFilters({
+                ...filters,
+                page: page
+              });
+            }}
+          />
+        </div>
+        <div className={paginationText}>
+          {commentCount &&
+            `Displaying ${filters.pageSize *
+              filters.page} of ${commentCount} comments`}
+        </div>
       </div>
-      <div className={paginationText}>
-        {/* TODO: pull text dynamically */}
-        Displaying 100 of 500 comments
-      </div>
-    </div>
+    )}
   </div>
 );

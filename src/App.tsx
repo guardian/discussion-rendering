@@ -34,6 +34,7 @@ export const App = ({ shortUrl, user }: Props) => {
     threads: "unthreaded",
     page: 1
   });
+  const [commentCount, useCommentCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [pages, setPages] = useState<number>(0);
 
@@ -84,6 +85,8 @@ export const App = ({ shortUrl, user }: Props) => {
       setComments(json.discussion.comments);
       setPages(json.pages);
     });
+
+    // TODO: get getCommentCount to work
   }, [filters, shortUrl]);
 
   console.log("comments", comments);
@@ -94,7 +97,12 @@ export const App = ({ shortUrl, user }: Props) => {
         <CommentForm shortUrl={shortUrl} onAdd={commentAdded} user={user} />
       )}
       <TopPicks shortUrl={shortUrl} />
-      <Filters filters={filters} setFilters={setFilters} pages={pages} />
+      <Filters
+        filters={filters}
+        setFilters={setFilters}
+        pages={pages}
+        commentCount={commentCount}
+      />
       {loading ? (
         <p>TODO loading component goes here...</p>
       ) : (
