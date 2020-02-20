@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { css } from "emotion";
-import { useForm } from "react-hook-form";
 
 import { palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -126,17 +125,30 @@ export const Form: React.FC<{
     }
   };
 
-  const { register, handleSubmit, errors } = useForm({
-    defaultValues: {
-      categoryId: 0,
-      reason: "",
-      email: ""
-    }
+  const [formVariables, setFormVariables] = useState<formData>({
+    categoryId: 0,
+    reason: "",
+    email: ""
   });
 
-  const [responseError, setResponseError] = useState("");
-  const onSubmit = async ({ categoryId, reason, email }: any) => {
-    setResponseError("");
+  const defaultErrorTexts = {
+    categoryId: "",
+    reason: "",
+    email: "",
+    response: ""
+  };
+  const [errors, setErrors] = useState(defaultErrorTexts);
+  const onSubmit = async () => {
+    const { categoryId, reason, email } = formVariables;
+    // Reset error messages
+    setErrors(defaultErrorTexts);
+    // Error validation
+    if (!categoryId) {
+      setErrors({
+        ...errors,
+        categoryId: "You must select a category before submitting"
+      });
+    }
     const response = await reportAbuse({
       categoryId,
       reason,
@@ -144,7 +156,7 @@ export const Form: React.FC<{
       commentId
     });
     if (response.status !== 200) {
-      setResponseError(response.message);
+      setErrors({ ...errors, response: response.message });
     } else {
       toggleSetShowForm();
       // TODO: display sucess?
@@ -154,9 +166,9 @@ export const Form: React.FC<{
   const labelStylesClass = labelStyles(pillar);
   return (
     <div aria-modal="true" ref={modalRef}>
-      <form className={formWrapper} onSubmit={handleSubmit(onSubmit)}>
-        {responseError && (
-          <span className={errorMessageStyles}>{responseError}</span>
+      <form className={formWrapper} onSubmit={onSubmit}>
+        {errors.response && (
+          <span className={errorMessageStyles}>{errors.response}</span>
         )}
 
         <div className={inputWrapper}>
@@ -166,7 +178,13 @@ export const Form: React.FC<{
           <select
             name="categoryId"
             id="category"
-            ref={register({ required: true })}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setFormVariables({
+                ...formVariables,
+                categoryId: Number(e.target.value)
+              })
+            }
+            value={formVariables.categoryId}
           >
             <option value="0">Please select</option>
             <option value="1">Personal abuse</option>
@@ -188,7 +206,13 @@ export const Form: React.FC<{
           <label className={labelStylesClass} htmlFor="reason">
             Reason (optional)
           </label>
-          <textarea name="reason" ref={register}></textarea>
+          <textarea
+            name="reason"
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setFormVariables({ ...formVariables, reason: e.target.value })
+            }
+            value={formVariables.reason}
+          ></textarea>
           {errors.reason && (
             <span className={errorMessageStyles}>{errors.reason}</span>
           )}
@@ -198,7 +222,14 @@ export const Form: React.FC<{
           <label className={labelStylesClass} htmlFor="email">
             Email (optional)
           </label>
-          <input type="email" name="email" ref={register}></input>
+          <input
+            type="email"
+            name="email"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFormVariables({ ...formVariables, email: e.target.value })
+            }
+            value={formVariables.email}
+          ></input>
           {errors.email && (
             <span className={errorMessageStyles}>{errors.email}</span>
           )}
