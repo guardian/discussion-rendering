@@ -2,6 +2,7 @@ import React from "react";
 import { css, cx } from "emotion";
 
 import { space, neutral } from "@guardian/src-foundations";
+import { until } from "@guardian/src-foundations/mq";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { Pagination } from "../Pagination/Pagination";
@@ -76,7 +77,7 @@ const paginationWrapper = css`
   margin-top: 15px;
   padding-top: 10px;
   border-top: 1px solid #dcdcdc;
-  @media screen and (max-width: 480px) {
+  ${until.mobileLandscape} {
     flex-direction: column;
   }
 `;
@@ -89,7 +90,7 @@ const paginationSelections = css`
 
 const paginationText = css`
   margin-left: 5px;
-  @media screen and (max-width: 480px) {
+  ${until.mobileLandscape} {
     padding-top: 10px;
   }
 `;
