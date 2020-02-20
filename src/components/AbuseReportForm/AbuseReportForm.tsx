@@ -120,7 +120,7 @@ export const Form: React.FC<{
     }
 
     if (e.shiftKey && document.activeElement === firstElement) {
-      lastElement && lastElement.focus();
+      lastElement && lastElement.focus(); // The shift key is down so loop focus back to the last item
       e.preventDefault();
     }
   };
