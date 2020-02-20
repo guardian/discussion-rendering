@@ -92,15 +92,24 @@ export const Form: React.FC<{
       const listener = keyListenersMap[e.keyCode];
       return listener && listener(e);
     };
-
     document.addEventListener("keydown", keyListener);
-
     return () => document.removeEventListener("keydown", keyListener);
   });
 
   const modalRef = useRef<HTMLDivElement>(null);
   let firstElement: HTMLSelectElement | null;
   let lastElement: HTMLButtonElement | null;
+
+  // We want to make sure to close the modal when a user clicks away from the modal
+  const closeOnClickAway = (e: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      toggleSetShowForm();
+    }
+  };
+  useEffect(() => document.addEventListener("mousedown", closeOnClickAway), [
+    modalRef
+  ]);
+
   // We want to pull out the 1st and last elements of the form, and highlight the 1st element
   useEffect(() => {
     if (!modalRef.current) return;
