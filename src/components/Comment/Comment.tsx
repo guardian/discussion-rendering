@@ -28,7 +28,7 @@ const commentControlsButton = (pillar: Pillar) => css`
   border: 0;
 `;
 
-const controleWrapper = css`
+const spaceBetween = css`
   display: flex;
   justify-content: space-between;
 `;
@@ -135,7 +135,7 @@ export const Comment = ({ comment, pillar }: Props) => {
             className={commentCss}
             dangerouslySetInnerHTML={{ __html: comment.body }}
           />
-          <div className={controleWrapper}>
+          <div className={spaceBetween}>
             <div className={commentControls}>
               <button className={commentControlsButtonStyles}>Reply</button>
               <button className={commentControlsButtonStyles}>Share</button>
