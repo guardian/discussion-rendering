@@ -3,6 +3,7 @@ import { css, cx } from "emotion";
 
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
+import { until } from "@guardian/src-foundations/mq";
 
 import { Pagination } from "../Pagination/Pagination";
 import { FilterOptions, OrderByType, ThreadsType } from "../../types";
@@ -51,6 +52,9 @@ const filterStyle = css`
   font-weight: bold;
   color: ${neutral[46]};
   margin-right: ${space[5]}px;
+  ${until.mobileLandscape} {
+    margin-right: 10px;
+  }
 `;
 
 const filterContainer = css`
@@ -148,7 +152,7 @@ export const Filters = ({
         </select>
       </div>
     </div>
-    {filters.pageSize < commentCount && (
+    {pages > 1 && (
       <Pagination
         pages={pages}
         page={filters.page}
