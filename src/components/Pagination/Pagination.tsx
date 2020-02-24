@@ -2,7 +2,7 @@ import React from "react";
 import { css, cx } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
-import { palette } from "@guardian/src-foundations";
+import { palette, neutral } from "@guardian/src-foundations";
 import { until } from "@guardian/src-foundations/mq";
 
 import { FilterOptions } from "../../types";
@@ -75,6 +75,9 @@ const rotateSvg = css`
 `;
 
 const paginationWrapper = css`
+  ${textSans.small()};
+  color: ${neutral[46]};
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;

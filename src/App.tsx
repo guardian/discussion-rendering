@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
-
 import { getDiscussion, getCommentCount } from "./lib/api";
-
 import { CommentList } from "./components/CommentList/CommentList";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
