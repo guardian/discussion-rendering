@@ -3,11 +3,16 @@ import { css, cx } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
+import { until } from "@guardian/src-foundations/mq";
+
+import { FilterOptions } from "../../types";
 
 type Props = {
   pages: number;
   page: number;
   setPage: Function;
+  commentCount: number;
+  filters: FilterOptions;
 };
 
 const buttonStyles = (selected: boolean) => css`
@@ -66,6 +71,32 @@ const elipsisStyles = css`
 const rotateSvg = css`
   svg {
     transform: rotate(180deg);
+  }
+`;
+
+const paginationWrapper = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #dcdcdc;
+  ${until.mobileLandscape} {
+    flex-direction: column;
+  }
+`;
+
+const paginationSelectors = css`
+  display: flex;
+  flex-direction: row;
+  height: 25px;
+`;
+
+const paginationText = css`
+  margin-left: 5px;
+  ${until.mobileLandscape} {
+    padding-top: 10px;
   }
 `;
 
@@ -131,7 +162,13 @@ const decideForthPage = ({ page, pages }: { page: number; pages: number }) => {
   return page + 1;
 };
 
-export const Pagination = ({ pages, page, setPage }: Props) => {
+export const Pagination = ({
+  pages,
+  page,
+  setPage,
+  commentCount,
+  filters
+}: Props) => {
   // Make decisions aobut which pagination elements to show
   const showBackButton = pages > 4 && page > 1;
   const showFirstElipsis = pages > 4 && page > 3;
@@ -143,35 +180,49 @@ export const Pagination = ({ pages, page, setPage }: Props) => {
   const showSecondElipsis = pages > 4 && page < pages - 2;
   const showForwardButton = pages > 4 && page !== pages;
 
+  // Pagination Text
+  const startIndex = filters.pageSize * (filters.page - 1);
+  const endIndex =
+    filters.pageSize * filters.page < commentCount
+      ? filters.pageSize * filters.page
+      : commentCount;
+
   return (
-    <>
-      {showBackButton && <Back page={page} setPage={setPage} />}
-      <PageButton page={1} setPage={setPage} selected={page === 1} />
-      {showFirstElipsis && <div className={elipsisStyles}>...</div>}
-      <PageButton
-        page={secondPage}
-        setPage={setPage}
-        selected={page === secondPage}
-      />
-      <PageButton
-        page={thirdPage}
-        setPage={setPage}
-        selected={page === thirdPage}
-      />
-      <PageButton
-        page={forthPage}
-        setPage={setPage}
-        selected={page === forthPage}
-      />
-      {showLastPage && (
+    <div className={paginationWrapper}>
+      <div className={paginationSelectors}>
+        {showBackButton && <Back page={page} setPage={setPage} />}
+        <PageButton page={1} setPage={setPage} selected={page === 1} />
+        {showFirstElipsis && <div className={elipsisStyles}>...</div>}
         <PageButton
-          page={lastPage}
+          page={secondPage}
           setPage={setPage}
-          selected={page === lastPage}
+          selected={page === secondPage}
         />
+        <PageButton
+          page={thirdPage}
+          setPage={setPage}
+          selected={page === thirdPage}
+        />
+        <PageButton
+          page={forthPage}
+          setPage={setPage}
+          selected={page === forthPage}
+        />
+        {showLastPage && (
+          <PageButton
+            page={lastPage}
+            setPage={setPage}
+            selected={page === lastPage}
+          />
+        )}
+        {showSecondElipsis && <div className={elipsisStyles}>...</div>}
+        {showForwardButton && <Forward page={page} setPage={setPage} />}
+      </div>
+      {commentCount && (
+        <div className={paginationText}>
+          {`Displaying comments ${startIndex} to ${endIndex} of ${commentCount}`}
+        </div>
       )}
-      {showSecondElipsis && <div className={elipsisStyles}>...</div>}
-      {showForwardButton && <Forward page={page} setPage={setPage} />}
-    </>
+    </div>
   );
 };

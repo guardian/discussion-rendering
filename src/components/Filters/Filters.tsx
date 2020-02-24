@@ -2,7 +2,6 @@ import React from "react";
 import { css, cx } from "emotion";
 
 import { space, neutral } from "@guardian/src-foundations";
-import { until } from "@guardian/src-foundations/mq";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { Pagination } from "../Pagination/Pagination";
@@ -12,7 +11,7 @@ type Props = {
   filters: FilterOptions;
   setFilters: (newFilterObject: FilterOptions) => void;
   pages: number;
-  commentCount?: number;
+  commentCount: number;
 };
 
 const filterBar = css`
@@ -68,32 +67,6 @@ const filterContainer = css`
 const filterWrapperStyles = css`
   display: flex;
   flex-direction: column;
-`;
-
-const paginationWrapper = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px solid #dcdcdc;
-  ${until.mobileLandscape} {
-    flex-direction: column;
-  }
-`;
-
-const paginationSelections = css`
-  display: flex;
-  flex-direction: row;
-  height: 25px;
-`;
-
-const paginationText = css`
-  margin-left: 5px;
-  ${until.mobileLandscape} {
-    padding-top: 10px;
-  }
 `;
 
 export const Filters = ({
@@ -180,27 +153,19 @@ export const Filters = ({
         </select>
       </div>
     </div>
-    {/* Don't show pagination if there's less than 2 pages, no point */}
-    {filters.page < 2 && (
-      <div className={paginationWrapper}>
-        <div className={paginationSelections}>
-          <Pagination
-            pages={pages}
-            page={filters.page}
-            setPage={(page: number) => {
-              setFilters({
-                ...filters,
-                page: page
-              });
-            }}
-          />
-        </div>
-        <div className={paginationText}>
-          {commentCount &&
-            `Displaying ${filters.pageSize *
-              filters.page} of ${commentCount} comments`}
-        </div>
-      </div>
+    {filters.pageSize < commentCount && (
+      <Pagination
+        pages={pages}
+        page={filters.page}
+        setPage={(page: number) => {
+          setFilters({
+            ...filters,
+            page
+          });
+        }}
+        commentCount={commentCount}
+        filters={filters}
+      />
     )}
   </div>
 );

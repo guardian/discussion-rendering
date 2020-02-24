@@ -3,7 +3,7 @@ import { css } from "emotion";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
 
-import { getDiscussion } from "./lib/api";
+import { getDiscussion, getCommentCount } from "./lib/api";
 
 import { CommentList } from "./components/CommentList/CommentList";
 import { TopPicks } from "./components/TopPicks/TopPicks";
@@ -34,7 +34,7 @@ export const App = ({ shortUrl, user }: Props) => {
     threads: "unthreaded",
     page: 1
   });
-  const [commentCount, useCommentCount] = useState<number>(0);
+  const [commentCount, setCommentCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [pages, setPages] = useState<number>(0);
 
@@ -85,9 +85,15 @@ export const App = ({ shortUrl, user }: Props) => {
       setComments(json.discussion.comments);
       setPages(json.pages);
     });
-
-    // TODO: get getCommentCount to work
   }, [filters, shortUrl]);
+
+  useEffect(() => {
+    setLoading(true);
+    getCommentCount(shortUrl).then(json => {
+      setLoading(false);
+      setCommentCount(json.numberOfComments);
+    });
+  }, [shortUrl]);
 
   console.log("comments", comments);
 
@@ -118,6 +124,8 @@ export const App = ({ shortUrl, user }: Props) => {
               page: page
             });
           }}
+          commentCount={commentCount}
+          filters={filters}
         />
       </footer>
     </div>

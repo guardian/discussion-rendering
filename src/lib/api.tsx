@@ -151,7 +151,7 @@ const recommend = (commentId: number): Promise<boolean> => {
 
 export const getCommentCount = (
   shortUrl: string
-): Promise<{ counts: { id: string; count: number } }> => {
+): Promise<{ shortUrl: string; numberOfComments: number }> => {
   const url = `${baseURL}/discussion/${shortUrl}/comments/count`;
   return fetch(url)
     .then(resp => resp.json())
