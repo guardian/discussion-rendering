@@ -82,57 +82,58 @@ export const Form: React.FC<{
   toggleSetShowForm: () => void;
   pillar: Pillar;
 }> = ({ commentId, toggleSetShowForm, pillar }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+  // TODO: use ref once forwardRef is implemented @guardian/src-button
+  // We want to pull out the 1st and last elements of the form, and highlight the 1st element
+  let firstElement: HTMLSelectElement | null = null;
+  let lastElement: HTMLButtonElement | null = null;
+  useEffect(() => {
+    if (!modalRef.current) return;
+    firstElement = modalRef.current.querySelector('select[name="categoryId"]');
+    lastElement = modalRef.current.querySelector(
+      'button[custom-guardian="close-modal"]'
+    );
+  }, [modalRef]);
+  // We want to highlight the 1st element when the modal is open
+  useEffect(() => {
+    firstElement && firstElement.focus();
+  }, [firstElement]);
+
+  // We want to make sure to close the modal when a user clicks away from the modal
+  useEffect(() => {
+    const closeOnClickAway = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        toggleSetShowForm();
+      }
+    };
+    document.addEventListener("mousedown", closeOnClickAway);
+  }, [modalRef, toggleSetShowForm]);
+
   // We want to listen to keydown events for accessibility
   useEffect(() => {
-    const keyListenersMap: { [key: number]: any } = {
-      27: toggleSetShowForm,
-      9: handleTabKey
-    };
     const keyListener = (e: KeyboardEvent) => {
-      const listener = keyListenersMap[e.keyCode];
-      return listener && listener(e);
+      if (e.keyCode === 27) {
+        toggleSetShowForm();
+      } else if (e.keyCode === 9) {
+        // If firstElement or lastElement are not defined, do not continue
+        if (!firstElement || !lastElement) return;
+
+        // we use `e.shiftKey` internally to determin the direction of the highlighting
+        // using document.activeElement and e.shiftKey we can check what should be the next element to be highlighted
+        if (!e.shiftKey && document.activeElement === lastElement) {
+          firstElement && firstElement.focus();
+          e.preventDefault();
+        }
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+          lastElement && lastElement.focus(); // The shift key is down so loop focus back to the last item
+          e.preventDefault();
+        }
+      }
     };
     document.addEventListener("keydown", keyListener);
     return () => document.removeEventListener("keydown", keyListener);
   });
-
-  const modalRef = useRef<HTMLDivElement>(null);
-  let firstElement: HTMLSelectElement | null;
-  let lastElement: HTMLButtonElement | null;
-
-  // We want to make sure to close the modal when a user clicks away from the modal
-  const closeOnClickAway = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      toggleSetShowForm();
-    }
-  };
-  useEffect(() => document.addEventListener("mousedown", closeOnClickAway), [
-    modalRef
-  ]);
-
-  // We want to pull out the 1st and last elements of the form, and highlight the 1st element
-  useEffect(() => {
-    if (!modalRef.current) return;
-    firstElement = modalRef.current.querySelector('select[name="category"]');
-    lastElement = modalRef.current.querySelector(
-      'button[custom-guardian="close-modal"]'
-    );
-    firstElement && firstElement.focus();
-  }, [modalRef]);
-
-  // This function only gets called when a tab key has been pressed
-  // we use `e.shiftKey` internally to determin the direction of the highlighting
-  const handleTabKey = (e: KeyboardEvent) => {
-    if (!e.shiftKey && document.activeElement === lastElement) {
-      firstElement && firstElement.focus();
-      e.preventDefault();
-    }
-
-    if (e.shiftKey && document.activeElement === firstElement) {
-      lastElement && lastElement.focus(); // The shift key is down so loop focus back to the last item
-      e.preventDefault();
-    }
-  };
 
   const [formVariables, setFormVariables] = useState<formData>({
     categoryId: 0,
@@ -194,6 +195,8 @@ export const Form: React.FC<{
               })
             }
             value={formVariables.categoryId}
+            // TODO: use ref once forwardRef is implemented @guardian/src-button
+            // ref={firstElement}
           >
             <option value="0">Please select</option>
             <option value="1">Personal abuse</option>
@@ -257,6 +260,8 @@ export const Form: React.FC<{
           `}
         >
           <Button
+            // TODO: use ref once forwardRef is implemented @guardian/src-button
+            // ref={lastElement}
             custom-guardian="close-modal"
             size="small"
             iconSide="right"
