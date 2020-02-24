@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { neutral, space, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Pillar, CommentType } from "../../types";
+import { Pillar, CommentType, UserProfile } from "../../types";
+import { CommentForm } from "../CommentForm/CommentForm";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
@@ -12,6 +13,9 @@ import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 type Props = {
   comment: CommentType;
   pillar: Pillar;
+  shortUrl?: string;
+  user?: UserProfile;
+  replyAdded?: (commentId: number, body: string, user: UserProfile) => void;
 };
 
 const commentControls = (pillar: Pillar) => css`
@@ -88,7 +92,16 @@ export const avatar = (avatarSize: number): string => css`
   height: ${avatarSize}px;
 `;
 
-export const Comment = ({ comment, pillar }: Props) => {
+export const Comment = ({
+  comment,
+  pillar,
+  shortUrl,
+  replyAdded,
+  user
+}: Props) => {
+  const [replyFormIsActive, setReplyFormIsActive] = useState<boolean>(false);
+  const displayReplyForm = () => setReplyFormIsActive(true);
+  const hideReplyForm = () => setReplyFormIsActive(false);
   return (
     <li>
       <div className={commentWrapper}>
@@ -136,7 +149,7 @@ export const Comment = ({ comment, pillar }: Props) => {
             dangerouslySetInnerHTML={{ __html: comment.body }}
           />
           <div className={commentControls(pillar)}>
-            <li>Reply</li>
+            <li onClick={displayReplyForm}>Reply</li>
             <li>Share</li>
             <li>Pick</li>
             <li>
@@ -146,11 +159,28 @@ export const Comment = ({ comment, pillar }: Props) => {
         </div>
       </div>
       {comment.responses && (
-        <ul className={nestingStyles}>
+        <div className={nestingStyles}>
           {comment.responses.map(comment => (
             <Comment comment={comment} pillar={pillar} />
           ))}
-        </ul>
+        </div>
+      )}
+      {replyFormIsActive && shortUrl && replyAdded && user && (
+        <div className={nestingStyles}>
+          <CommentForm
+            shortUrl={shortUrl}
+            onAdd={replyAdded}
+            user={user}
+            defaultToActive={true}
+            hideReplyForm={hideReplyForm}
+            textareaClassNameStyles={css`
+              ::placeholder {
+                font-weight: normal;
+                color: grey;
+              }
+            `}
+          />
+        </div>
       )}
     </li>
   );

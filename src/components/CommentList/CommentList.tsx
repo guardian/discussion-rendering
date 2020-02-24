@@ -1,11 +1,14 @@
 import React from "react";
 import { css } from "emotion";
 
-import { CommentType } from "../../types";
+import { CommentType, UserProfile } from "../../types";
 import { Comment } from "../Comment/Comment";
 
 type Props = {
   comments?: CommentType[];
+  shortUrl: string;
+  user?: UserProfile;
+  replyAdded: (commentId: number, body: string, user: UserProfile) => void;
 };
 
 const containerStyles = css`

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 import { Button } from "@guardian/src-button";
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -14,6 +14,9 @@ type Props = {
   shortUrl: string;
   user: UserProfile;
   onAdd: (commentId: number, body: string, user: UserProfile) => void;
+  hideReplyForm?: () => void;
+  defaultToActive?: boolean;
+  textareaClassNameStyles?: string;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -121,8 +124,15 @@ const bottomContainer = css`
   align-content: space-between;
 `;
 
-export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+export const CommentForm = ({
+  shortUrl,
+  onAdd,
+  user,
+  defaultToActive = false,
+  textareaClassNameStyles = "",
+  hideReplyForm
+}: Props) => {
+  const [isActive, setIsActive] = useState<boolean>(defaultToActive);
   const [firstPost, setFirstPost] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const [previewBody, setPreviewBody] = useState<string>("");
@@ -234,8 +244,8 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
           </div>
         )}
         <textarea
-          placeholder={!isActive ? "Join the discussion" : ""}
-          className={commentTextArea}
+          placeholder={"Join the discussion"}
+          className={cx(commentTextArea, textareaClassNameStyles)}
           ref={textAreaRef}
           style={{ height: isActive ? "132px" : "50px" }}
           onChange={e => {
@@ -262,6 +272,7 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
                   size="small"
                   onClick={() => {
                     resetForm();
+                    hideReplyForm && hideReplyForm();
                   }}
                   priority="tertiary"
                 >

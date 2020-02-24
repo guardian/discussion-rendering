@@ -5,6 +5,21 @@ import { CommentType } from "../../types";
 
 export default { title: "Comment" };
 
+export const aUser = {
+  userId: "abc123",
+  displayName: "Jane Smith",
+  webUrl: "",
+  apiUrl: "",
+  avatar: "",
+  secureAvatarUrl: "",
+  badge: [],
+  privateFields: {
+    canPostComment: true,
+    isPremoderated: false,
+    hasCommented: true
+  }
+};
+
 const commentData: CommentType = {
   id: 25487686,
   body:
@@ -86,5 +101,16 @@ defaultStory.story = { name: "default" };
 
 export const threadedComment = () => (
   <Comment comment={commentDataThreaded} pillar={"lifestyle"} />
+);
+threadedComment.story = { name: "threaded" };
+
+export const replyableComment = () => (
+  <Comment
+    comment={commentDataThreaded}
+    pillar={"lifestyle"}
+    shortUrl="randomURL"
+    replyAdded={() => {}}
+    user={aUser}
+  />
 );
 threadedComment.story = { name: "threaded" };

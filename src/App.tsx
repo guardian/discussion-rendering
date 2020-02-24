@@ -77,6 +77,11 @@ export const App = ({ shortUrl, user }: Props) => {
     setComments([simulateNewComment(commentId, body, user), ...comments]);
   };
 
+  const replyAdded = (commentId: number, body: string, user: UserProfile) => {
+    // TODO:
+    // setComments([simulateNewComment(commentId, body, user), ...comments]);
+  };
+
   useEffect(() => {
     setLoading(true);
     getDiscussion(shortUrl, filters).then(json => {
@@ -98,7 +103,12 @@ export const App = ({ shortUrl, user }: Props) => {
       {loading ? (
         <p>TODO loading component goes here...</p>
       ) : (
-        <CommentList comments={comments} />
+        <CommentList
+          comments={comments}
+          shortUrl={shortUrl}
+          replyAdded={replyAdded}
+          user={user}
+        />
       )}
       <footer className={footerStyles}>
         <Pagination
