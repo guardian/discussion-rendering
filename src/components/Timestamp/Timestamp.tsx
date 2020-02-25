@@ -14,7 +14,8 @@ type Props = {
 const linkStyles = css`
   color: ${palette.neutral[46]};
   text-decoration: none;
-  :hover {
+  :hover,
+  :focus {
     text-decoration: underline;
   }
 `;
