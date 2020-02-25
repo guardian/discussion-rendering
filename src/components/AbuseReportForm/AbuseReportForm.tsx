@@ -165,7 +165,7 @@ export const Form: React.FC<{
       email,
       commentId
     });
-    if (response.status !== 200) {
+    if (!response.ok) {
       setErrors({ ...errors, response: response.message });
     } else {
       toggleSetShowForm();
