@@ -3,6 +3,7 @@ import { css, cx } from "emotion";
 
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
+import { until } from "@guardian/src-foundations/mq";
 
 import { Pagination } from "../Pagination/Pagination";
 import { FilterOptions, OrderByType, ThreadsType } from "../../types";
@@ -11,28 +12,22 @@ type Props = {
   filters: FilterOptions;
   setFilters: (newFilterObject: FilterOptions) => void;
   pages: number;
+  commentCount: number;
 };
 
 const filterBar = css`
-  padding: ${space[3]}px 0;
-  border-bottom: 1px solid ${neutral[86]};
-  border-top: 1px solid ${neutral[86]};
-  display: flex;
-  list-style: none;
   ${textSans.small()};
   color: ${neutral[46]};
 
-  li {
-    flex: 1;
-  }
+  padding: ${space[3]}px 0;
+  border-bottom: 1px solid ${neutral[86]};
+  border-top: 1px solid ${neutral[86]};
 
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  @media screen and (max-width: 740px) {
-    flex-direction: column;
-  }
+  flex-direction: column;
 `;
 
 const filterLabel = css`
@@ -45,13 +40,8 @@ const filterLabel = css`
     background-color: ${neutral[86]};
     position: absolute;
     top: -5px;
-    bottom: -5px;
+    bottom: -25px;
     left: -10px;
-  }
-  @media screen and (max-width: 740px) {
-    :after {
-      bottom: -25px;
-    }
   }
 `;
 
@@ -62,6 +52,9 @@ const filterStyle = css`
   font-weight: bold;
   color: ${neutral[46]};
   margin-right: ${space[5]}px;
+  ${until.mobileLandscape} {
+    margin-right: 10px;
+  }
 `;
 
 const filterContainer = css`
@@ -72,25 +65,15 @@ const filterContainer = css`
 
 const filterWrapperStyles = css`
   display: flex;
-  flex-direction: row;
-  @media screen and (max-width: 740px) {
-    flex-direction: column;
-  }
+  flex-direction: column;
 `;
 
-const paginationWrapper = css`
-  display: flex;
-  flex-direction: row;
-  @media screen and (max-width: 740px) {
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px solid #dcdcdc;
-  }
-`;
-
-export const Filters = ({ filters, setFilters, pages }: Props) => (
+export const Filters = ({
+  filters,
+  setFilters,
+  pages,
+  commentCount
+}: Props) => (
   <div className={filterBar}>
     <div className={filterContainer}>
       <div className={filterWrapperStyles}>
@@ -169,17 +152,19 @@ export const Filters = ({ filters, setFilters, pages }: Props) => (
         </select>
       </div>
     </div>
-    <div className={paginationWrapper}>
+    {pages > 1 && (
       <Pagination
         pages={pages}
         page={filters.page}
         setPage={(page: number) => {
           setFilters({
             ...filters,
-            page: page
+            page
           });
         }}
+        commentCount={commentCount}
+        filters={filters}
       />
-    </div>
+    )}
   </div>
 );

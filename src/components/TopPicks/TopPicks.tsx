@@ -90,7 +90,10 @@ const Pick = ({ comment }: { comment: CommentType }) => (
         />
         <div className="usermeta">
           <span className={userName}>{comment.userProfile.displayName}</span>
-          <Timestamp isoDateTime={comment.isoDateTime} />
+          <Timestamp
+            isoDateTime={comment.isoDateTime}
+            linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+          />
           {comment.userProfile.badge.filter(obj => obj["name"] === "Staff") && (
             <GuardianStaff />
           )}

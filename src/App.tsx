@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
-
-import { getDiscussion } from "./lib/api";
-
+import { getDiscussion, getCommentCount } from "./lib/api";
 import { CommentList } from "./components/CommentList/CommentList";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
@@ -34,6 +32,7 @@ export const App = ({ shortUrl, user }: Props) => {
     threads: "unthreaded",
     page: 1
   });
+  const [commentCount, setCommentCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [pages, setPages] = useState<number>(0);
 
@@ -91,6 +90,14 @@ export const App = ({ shortUrl, user }: Props) => {
     });
   }, [filters, shortUrl]);
 
+  useEffect(() => {
+    setLoading(true);
+    getCommentCount(shortUrl).then(json => {
+      setLoading(false);
+      setCommentCount(json.numberOfComments);
+    });
+  }, [shortUrl]);
+
   console.log("comments", comments);
 
   return (
@@ -99,7 +106,12 @@ export const App = ({ shortUrl, user }: Props) => {
         <CommentForm shortUrl={shortUrl} onAdd={commentAdded} user={user} />
       )}
       <TopPicks shortUrl={shortUrl} />
-      <Filters filters={filters} setFilters={setFilters} pages={pages} />
+      <Filters
+        filters={filters}
+        setFilters={setFilters}
+        pages={pages}
+        commentCount={commentCount}
+      />
       {loading ? (
         <p>TODO loading component goes here...</p>
       ) : (
@@ -120,6 +132,8 @@ export const App = ({ shortUrl, user }: Props) => {
               page: page
             });
           }}
+          commentCount={commentCount}
+          filters={filters}
         />
       </footer>
     </div>
