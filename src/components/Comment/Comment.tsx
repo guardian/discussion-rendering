@@ -15,24 +15,23 @@ type Props = {
   pillar: Pillar;
 };
 
-const commentControls = (pillar: Pillar) => css`
+const commentControls = css`
   list-style: none;
   ${textSans.xsmall()};
+  display: flex;
+  align-items: flex-start;
+`;
 
-  * {
-    display: inline-block;
-  }
+const commentControlsButton = (pillar: Pillar) => css`
+  font-weight: bold;
+  margin-right: ${space[2]}px;
+  color: ${palette[pillar][400]};
+  border: 0;
+`;
 
-  *:not(:last-child) {
-    font-weight: bold;
-    margin-right: ${space[2]}px;
-    color: ${palette[pillar][400]};
-  }
-
-  *:last-child {
-    float: right;
-    font-weight: normal;
-  }
+const spaceBetween = css`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const commentCss = css`
@@ -119,6 +118,7 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 );
 
 export const Comment = ({ comment, pillar }: Props) => {
+  const commentControlsButtonStyles = commentControlsButton(pillar);
   return (
     <li>
       <div className={commentWrapper}>
@@ -163,13 +163,15 @@ export const Comment = ({ comment, pillar }: Props) => {
             className={commentCss}
             dangerouslySetInnerHTML={{ __html: comment.body }}
           />
-          <div className={commentControls(pillar)}>
-            <li>Reply</li>
-            <li>Share</li>
-            <li>Pick</li>
-            <li>
-              <AbuseReportForm commentId={comment.id} />
-            </li>
+          <div className={spaceBetween}>
+            <div className={commentControls}>
+              <button className={commentControlsButtonStyles}>Reply</button>
+              <button className={commentControlsButtonStyles}>Share</button>
+              <button className={commentControlsButtonStyles}>Pick</button>
+            </div>
+            <div>
+              <AbuseReportForm commentId={comment.id} pillar={pillar} />
+            </div>
           </div>
         </div>
       </div>
