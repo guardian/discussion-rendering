@@ -8,6 +8,7 @@ import { Pillar, CommentType } from "../../types";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
+import { Timestamp } from "../Timestamp/Timestamp";
 
 type Props = {
   comment: CommentType;
@@ -81,11 +82,40 @@ const iconWrapper = css`
   white-space: nowrap;
 `;
 
+const timestampWrapperStyles = css`
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
   height: ${avatarSize}px;
 `;
+
+const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div
+    className={css`
+      display: flex;
+      flex-direction: column;
+    `}
+  >
+    {children}
+  </div>
+);
+
+const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div
+    className={css`
+      display: flex;
+      flex-direction: row;
+    `}
+  >
+    {children}
+  </div>
+);
 
 export const Comment = ({ comment, pillar }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
@@ -100,21 +130,19 @@ export const Comment = ({ comment, pillar }: Props) => {
 
         <div className={commentDetails}>
           <header className={headerStyles}>
-            <div
-              className={css`
-                display: flex;
-                flex-direction: column;
-              `}
-            >
-              <div className={commentProfileName(pillar)}>
-                {comment.userProfile.displayName}
-              </div>
-              <div
-                className={css`
-                  display: flex;
-                  flex-direction: row;
-                `}
-              >
+            <Column>
+              <Row>
+                <div className={commentProfileName(pillar)}>
+                  {comment.userProfile.displayName}
+                </div>
+                <div className={timestampWrapperStyles}>
+                  <Timestamp
+                    isoDateTime={comment.isoDateTime}
+                    linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                  />
+                </div>
+              </Row>
+              <Row>
                 <div className={iconWrapper}>
                   {comment.userProfile.badge.filter(
                     obj => obj["name"] === "Staff"
@@ -123,8 +151,8 @@ export const Comment = ({ comment, pillar }: Props) => {
                 <div className={iconWrapper}>
                   {comment.isHighlighted && <GuardianPick />}
                 </div>
-              </div>
-            </div>
+              </Row>
+            </Column>
             <RecommendationCount
               commentId={comment.id}
               initialCount={comment.numRecommends}

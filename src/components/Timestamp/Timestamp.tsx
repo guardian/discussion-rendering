@@ -8,30 +8,31 @@ import { DateFromISOStringC } from "io-ts-types/lib/DateFromISOString";
 import { dateFormatter } from "../../lib/dateFormatter";
 
 type Props = {
-  date: Date;
-  permalink: string;
+  isoDateTime: DateFromISOStringC;
+  linkTo: string;
 };
 
-const containerStyles = css`
-  display: flex;
-  flex-direction: row;
+const linkStyles = css`
+  color: ${palette.neutral[46]};
+  text-decoration: none;
+  :hover,
+  :focus {
+    text-decoration: underline;
+  }
 `;
-const countStyles = css`
+const timeStyles = css`
   ${textSans.xsmall({ fontWeight: "light" })}
   min-width: 0.75rem;
-  color: ${palette.neutral[46]};
   margin-right: 0.3125rem;
 `;
 
 // TODO: on hover + link
-export const Timestamp = ({
-  isoDateTime
-}: {
-  isoDateTime: DateFromISOStringC;
-}) => {
+export const Timestamp = ({ isoDateTime, linkTo }: Props) => {
   return (
-    <div className={containerStyles}>
-      <div className={countStyles}>{dateFormatter(isoDateTime)}</div>
-    </div>
+    <a href={linkTo} className={linkStyles}>
+      <time dateTime={isoDateTime.toString()} className={timeStyles}>
+        {dateFormatter(isoDateTime)}
+      </time>
+    </a>
   );
 };
