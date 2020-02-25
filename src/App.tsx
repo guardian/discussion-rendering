@@ -98,8 +98,6 @@ export const App = ({ shortUrl, user }: Props) => {
     });
   }, [shortUrl]);
 
-  console.log("comments", comments);
-
   return (
     <div className={containerStyles}>
       {user && (

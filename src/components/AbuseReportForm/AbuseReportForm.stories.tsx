@@ -10,11 +10,12 @@ const wrapperStyles = css`
   height: 300px;
   width: 400px;
   background-color: blue;
+  position: absolute;
 `;
 
 export const Container = () => (
   <div className={wrapperStyles}>
-    <AbuseReportForm commentId={123} />
+    <AbuseReportForm commentId={123} pillar={"sport"} />
   </div>
 );
 
@@ -29,6 +30,7 @@ export const Dialog = () => (
       reasonText="The best reason"
       emailOnChange={() => {}}
       emailText="bestemail@example.com"
+      pillar={"sport"}
     />
   </div>
 );
@@ -45,6 +47,7 @@ export const DialogWithError = () => (
       emailOnChange={() => {}}
       emailText="bestemail@example.com"
       errors={{ category: "some error" }}
+      pillar={"sport"}
     />
   </div>
 );
