@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
@@ -6,6 +6,7 @@ import { palette } from "@guardian/src-foundations";
 import { DateFromISOStringC } from "io-ts-types/lib/DateFromISOString";
 
 import { dateFormatter } from "../../lib/dateFormatter";
+import { useInterval } from "../../lib/useInterval";
 
 type Props = {
   isoDateTime: DateFromISOStringC;
@@ -26,12 +27,17 @@ const timeStyles = css`
   margin-right: 0.3125rem;
 `;
 
-// TODO: on hover + link
 export const Timestamp = ({ isoDateTime, linkTo }: Props) => {
+  let [timeAgo, setTimeAgo] = useState(dateFormatter(isoDateTime));
+
+  useInterval(() => {
+    setTimeAgo(dateFormatter(isoDateTime));
+  }, 15000);
+
   return (
     <a href={linkTo} className={linkStyles}>
       <time dateTime={isoDateTime.toString()} className={timeStyles}>
-        {dateFormatter(isoDateTime)}
+        {timeAgo}
       </time>
     </a>
   );
