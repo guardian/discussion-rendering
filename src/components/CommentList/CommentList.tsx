@@ -6,9 +6,14 @@ import { Comment } from "../Comment/Comment";
 
 type Props = {
   comments?: CommentType[];
-  shortUrl: string;
+  shortUrl: String;
   user?: UserProfile;
-  replyAdded: (commentId: number, body: string, user: UserProfile) => void;
+  submitComment: (
+    shortUrl: string,
+    body: string,
+    user: UserProfile,
+    parentCommentId: string
+  ) => Promise<void>;
 };
 
 const containerStyles = css`
@@ -18,7 +23,7 @@ const containerStyles = css`
   padding-left: 0;
 `;
 
-export const CommentList = ({ comments }: Props) => {
+export const CommentList = ({ comments, submitComment }: Props) => {
   if (!comments?.length) {
     return <p>TODO: No comment component goes here</p>;
   }
@@ -26,7 +31,12 @@ export const CommentList = ({ comments }: Props) => {
   return (
     <ul className={containerStyles}>
       {comments?.map(comment => (
-        <Comment key={comment.id} comment={comment} pillar="news" />
+        <Comment
+          key={comment.id}
+          comment={comment}
+          pillar="news"
+          submitComment={submitComment}
+        />
       ))}
     </ul>
   );

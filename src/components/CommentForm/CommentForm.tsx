@@ -1,22 +1,27 @@
 import React, { useState, useRef } from "react";
 import { css, cx } from "emotion";
+
 import { Button } from "@guardian/src-button";
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { comment, preview } from "../../lib/api";
-
-import { CommentResponse, UserProfile } from "../../types";
-
-import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
+import { preview } from "../../lib/api";
+import { UserProfile } from "../../types";
 
 type Props = {
   shortUrl: string;
   user: UserProfile;
-  onAdd: (commentId: number, body: string, user: UserProfile) => void;
+  // parentCommentId is only used for reply comments
+  submitComment: (
+    shortUrl: string,
+    body: string,
+    user: UserProfile,
+    parentCommentId?: string
+  ) => Promise<void>;
   hideReplyForm?: () => void;
   defaultToActive?: boolean;
   textareaClassNameStyles?: string;
+  error: String;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -126,18 +131,18 @@ const bottomContainer = css`
 
 export const CommentForm = ({
   shortUrl,
-  onAdd,
+  submitComment,
   user,
   defaultToActive = false,
   textareaClassNameStyles = "",
-  hideReplyForm
+  hideReplyForm,
+  error
 }: Props) => {
   const [isActive, setIsActive] = useState<boolean>(defaultToActive);
-  const [firstPost, setFirstPost] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const [previewBody, setPreviewBody] = useState<string>("");
-  const [error, setError] = useState<string>("");
   const [showPreview, setShowPreview] = useState<boolean>(false);
+  const [previewErrorMessage, setPreviewErrorMessage] = useState<String>("");
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const getHighlightedString = ():
@@ -179,46 +184,31 @@ export const CommentForm = ({
   };
 
   const fetchShowPreview = async () => {
-    // TODO: add error management
-    if (!body) return;
+    // Reset
+    setPreviewErrorMessage("");
 
+    // TODO: add error management
+    if (!body) {
+      setPreviewErrorMessage("You need content to preview comments");
+      return;
+    }
     try {
       const response = await preview(body);
       setPreviewBody(response);
       setShowPreview(true);
     } catch (e) {
-      setError("Preview request failed, please try again");
+      setPreviewErrorMessage("Preview request failed, please try again");
       setPreviewBody("");
       setShowPreview(false);
     }
   };
 
-  const submitForm = async () => {
-    if (body) {
-      const response: CommentResponse = await comment(shortUrl, body);
-      if (response.statusCode === 420) {
-        setError(
-          "You can only post one comment every minute. Please try again in a moment."
-        );
-      } else if (response.message === "USERNAME_MISSING") {
-        // Reader has never posted before and needs to choose a username
-        setFirstPost(true);
-      } else if (response.status === "ok")
-        // response.message is the id of the comment that was created on the server
-        onAdd(parseInt(response.message), body, user);
-    }
-  };
-
   const resetForm = () => {
-    setError("");
+    setPreviewErrorMessage("");
     setBody("");
     setShowPreview(false);
     setIsActive(false);
   };
-
-  if (firstPost) {
-    return <FirstCommentWelcome />;
-  }
 
   return (
     <>
@@ -226,8 +216,8 @@ export const CommentForm = ({
         className={formWrapper}
         onSubmit={e => {
           e.preventDefault();
-          resetForm();
           submitForm();
+          resetForm();
         }}
       >
         {error && (
@@ -323,6 +313,11 @@ export const CommentForm = ({
           )}
         </div>
       </form>
+      {previewErrorMessage && (
+        <div className={errorContainerStyles}>
+          <p className={errorTextStyles}>{previewErrorMessage}</p>
+        </div>
+      )}
 
       {showPreview && (
         <p

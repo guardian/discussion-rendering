@@ -78,14 +78,14 @@ const comment = (shortUrl: string, body: string): Promise<CommentResponse> => {
     credentials: "include"
   })
     .then(resp => resp.json())
-    .then(json => json);
+    .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
 const reply = (
   shortUrl: string,
   body: string,
-  parentCommentId: number
-): Promise<string> => {
+  parentCommentId: string
+): Promise<CommentResponse> => {
   const url =
     baseURL + `/discussion/${shortUrl}/comment/${parentCommentId}/reply`;
 
@@ -101,7 +101,7 @@ const reply = (
     credentials: "include"
   })
     .then(resp => resp.json())
-    .then(json => json.message);
+    .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
 const getPicks = (shortUrl: string): Promise<CommentType[]> => {

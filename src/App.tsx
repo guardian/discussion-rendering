@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
-import { CommentType, FilterOptions, UserProfile } from "./types";
-import { getDiscussion, getCommentCount } from "./lib/api";
+import {
+  CommentType,
+  FilterOptions,
+  UserProfile,
+  CommentResponse
+} from "./types";
+import { getDiscussion, getCommentCount, comment, reply } from "./lib/api";
 import { CommentList } from "./components/CommentList/CommentList";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
 import { Pagination } from "./components/Pagination/Pagination";
+import { FirstCommentWelcome } from "./components/FirstCommentWelcome/FirstCommentWelcome";
 
 type Props = {
   shortUrl: string;
@@ -70,16 +76,66 @@ export const App = ({ shortUrl, user }: Props) => {
     };
   };
 
-  const commentAdded = (commentId: number, body: string, user: UserProfile) => {
-    comments.pop(); // Remove last item from our local array
-    // Replace it with this new comment at the start
-    setComments([simulateNewComment(commentId, body, user), ...comments]);
+  const [commentError, setCommentError] = useState<String>("");
+  const [commentIsFirstPost, setCommentIsFirstPost] = useState<boolean>(false);
+
+  const submitComment = async (
+    shortUrl: string,
+    body: string,
+    user: UserProfile
+  ) => {
+    // Reset
+    setCommentError("");
+    setCommentIsFirstPost(false);
+
+    const response: CommentResponse = await comment(shortUrl, body);
+    if (response.statusCode === 420) {
+      setCommentError(
+        "You can only post one comment every minute. Please try again in a moment."
+      );
+    } else if (response.message === "USERNAME_MISSING") {
+      // Reader has never posted before and needs to choose a username
+      setCommentIsFirstPost(true);
+    } else if (response.status === "ok") {
+      // TODO: response.message is the id of the comment that was created on the server
+    }
   };
 
-  const replyAdded = (commentId: number, body: string, user: UserProfile) => {
-    // TODO:
-    // setComments([simulateNewComment(commentId, body, user), ...comments]);
+  const [replyError, setReplyError] = useState<String>("");
+  const [replyIsFirstPost, setReplyIsFirstPost] = useState<boolean>(false);
+
+  const submitReply = async (
+    shortUrl: string,
+    body: string,
+    user: UserProfile,
+    parentCommentId: string
+  ) => {
+    // Reset
+    setReplyError("");
+    setReplyIsFirstPost(false);
+
+    const response: CommentResponse = await reply(
+      shortUrl,
+      body,
+      parentCommentId
+    );
+    if (response.statusCode === 420) {
+      setReplyError(
+        "You can only post one comment every minute. Please try again in a moment."
+      );
+    } else if (response.message === "USERNAME_MISSING") {
+      // Reader has never posted before and needs to choose a username
+      setReplyIsFirstPost(true);
+    } else if (response.status === "ok") {
+      // TODO: response.message is the id of the comment that was created on the server
+    }
   };
+
+  // const commentAdded = (commentId: number, body: string, user: UserProfile) => {
+  //   comments.pop(); // Remove last item from our local array
+  //   // Replace it with this new comment at the start
+  //   setComments([simulateNewComment(commentId, body, user), ...comments]);
+  // };
 
   useEffect(() => {
     setLoading(true);
@@ -98,10 +154,20 @@ export const App = ({ shortUrl, user }: Props) => {
     });
   }, [shortUrl]);
 
+  console.log("comments", comments);
+
   return (
     <div className={containerStyles}>
       {user && (
-        <CommentForm shortUrl={shortUrl} onAdd={commentAdded} user={user} />
+        <>
+          {commentIsFirstPost && <FirstCommentWelcome />}
+          <CommentForm
+            shortUrl={shortUrl}
+            user={user}
+            submitComment={submitComment}
+            error={commentError}
+          />
+        </>
       )}
       <TopPicks shortUrl={shortUrl} />
       <Filters
@@ -116,8 +182,10 @@ export const App = ({ shortUrl, user }: Props) => {
         <CommentList
           comments={comments}
           shortUrl={shortUrl}
-          replyAdded={replyAdded}
           user={user}
+          replyError={replyError}
+          replyIsFirstPost={replyIsFirstPost}
+          submitComment={submitReply}
         />
       )}
       <footer className={footerStyles}>
