@@ -14,7 +14,7 @@ import { CommentForm } from "../CommentForm/CommentForm";
 type Props = {
   comment: CommentType;
   pillar: Pillar;
-  shortUrl?: string;
+  shortUrl: string;
   user?: UserProfile;
   onAddComment?: (commentId: number, body: string, user: UserProfile) => void;
   displayReplyForm?: () => void;
@@ -216,6 +216,7 @@ export const Comment = ({
               {comment.responses.map(comment => (
                 <Comment
                   comment={comment}
+                  shortUrl={shortUrl}
                   pillar={pillar}
                   displayReplyForm={() => {
                     setReplyComment(comment);

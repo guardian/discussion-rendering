@@ -127,6 +127,7 @@ export const App = ({ shortUrl, user }: Props) => {
               key={comment.id}
               comment={comment}
               pillar="news"
+              shortUrl={shortUrl}
               onAddComment={onAddComment}
               user={user}
             />
