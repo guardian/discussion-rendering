@@ -6,7 +6,7 @@ import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { comment, reply, preview } from "../../lib/api";
-import { CommentResponse, UserProfile } from "../../types";
+import { CommentResponse, UserProfile, CommentType } from "../../types";
 
 import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
 
@@ -14,7 +14,7 @@ type Props = {
   shortUrl: string;
   user: UserProfile;
   onAddComment: (commentId: number, body: string, user: UserProfile) => void;
-  parentCommentId?: number;
+  replyComment?: CommentType;
   hideReplyForm?: () => void;
   defaultToActive?: boolean;
 };
@@ -137,11 +137,11 @@ export const CommentForm = ({
   onAddComment,
   user,
   hideReplyForm,
-  parentCommentId,
+  replyComment,
   defaultToActive = false
 }: Props) => {
-  // We are making the assumption that if parentCommentId is defined that this is a reply submission
-  const isReplyCommentForm = !!parentCommentId;
+  // We are making the assumption that if replyComment is defined that this is a reply submission
+  const isReplyCommentForm = !!replyComment;
 
   const [isActive, setIsActive] = useState<boolean>(defaultToActive);
   const [firstPost, setFirstPost] = useState<boolean>(false);
@@ -204,6 +204,13 @@ export const CommentForm = ({
     }
   };
 
+  const resetForm = () => {
+    setError("");
+    setBody("");
+    setShowPreview(false);
+    setIsActive(false);
+  };
+
   const submitForm = async () => {
     if (body) {
       const response: CommentResponse = await comment(shortUrl, body);
@@ -214,18 +221,24 @@ export const CommentForm = ({
       } else if (response.message === "USERNAME_MISSING") {
         // Reader has never posted before and needs to choose a username
         setFirstPost(true);
-      } else if (response.status === "ok")
+      } else if (response.status === "ok") {
         // response.message is the id of the comment that was created on the server
         onAddComment(parseInt(response.message), body, user);
+        resetForm();
+      } else {
+        setError(
+          response.message ? response.message : "Comment was unable to submit"
+        );
+      }
     }
   };
 
   const replyForm = async () => {
-    if (body && parentCommentId && hideReplyForm) {
+    if (body && replyComment && hideReplyForm) {
       const response: CommentResponse = await reply(
         shortUrl,
         body,
-        parentCommentId
+        replyComment.id
       );
       if (response.statusCode === 420) {
         setError(
@@ -234,18 +247,16 @@ export const CommentForm = ({
       } else if (response.message === "USERNAME_MISSING") {
         // Reader has never posted before and needs to choose a username
         setFirstPost(true);
-      } else if (response.status === "ok")
+      } else if (response.status === "ok") {
         // response.message is the id of the comment that was created on the server
         onAddComment(parseInt(response.message), body, user);
-      hideReplyForm();
+        hideReplyForm();
+      } else {
+        setError(
+          response.message ? response.message : "Comment was unable to submit"
+        );
+      }
     }
-  };
-
-  const resetForm = () => {
-    setError("");
-    setBody("");
-    setShowPreview(false);
-    setIsActive(false);
   };
 
   if (firstPost) {
@@ -258,8 +269,6 @@ export const CommentForm = ({
         className={formWrapper}
         onSubmit={e => {
           e.preventDefault();
-          resetForm();
-          // We are making the assumption that if parentCommentId is defined that this is a reply submission
           isReplyCommentForm ? replyForm() : submitForm();
         }}
       >

@@ -134,9 +134,14 @@ export const Comment = ({
   const isNestedReplyComment = !!parentDisplayReplyForm;
 
   const [replyFormIsActive, setReplyFormIsActive] = useState<boolean>(false);
-  const [parentCommentId, setParentCommentId] = useState<number>(comment.id);
+  const [replyComment, setReplyComment] = useState<CommentType>(comment);
   const displayReplyForm = () => setReplyFormIsActive(true);
   const hideReplyForm = () => setReplyFormIsActive(false);
+
+  const displayCurrentReplyForm = () => {
+    setReplyComment(comment);
+    displayReplyForm();
+  };
 
   const commentControlsButtonStyles = commentControlsButton(pillar);
   return (
@@ -189,7 +194,7 @@ export const Comment = ({
                 onClick={
                   isNestedReplyComment
                     ? parentDisplayReplyForm
-                    : displayReplyForm
+                    : displayCurrentReplyForm
                 }
                 className={commentControlsButtonStyles}
               >
@@ -213,8 +218,8 @@ export const Comment = ({
                   comment={comment}
                   pillar={pillar}
                   displayReplyForm={() => {
+                    setReplyComment(comment);
                     displayReplyForm();
-                    setParentCommentId(comment.id);
                   }}
                 />
               ))}
@@ -227,7 +232,7 @@ export const Comment = ({
                 onAddComment={onAddComment}
                 user={user}
                 hideReplyForm={hideReplyForm}
-                parentCommentId={parentCommentId}
+                replyComment={replyComment}
                 defaultToActive={true}
               />
             </div>
