@@ -72,6 +72,21 @@ const threadComment: CommentType = {
   }
 };
 
+export const aUser = {
+  userId: "abc123",
+  displayName: "Jane Smith",
+  webUrl: "",
+  apiUrl: "",
+  avatar: "",
+  secureAvatarUrl: "",
+  badge: [],
+  privateFields: {
+    canPostComment: true,
+    isPremoderated: false,
+    hasCommented: true
+  }
+};
+
 const commentDataThreaded: CommentType = {
   ...commentData,
   ...{
@@ -88,3 +103,13 @@ export const threadedComment = () => (
   <Comment comment={commentDataThreaded} pillar={"lifestyle"} />
 );
 threadedComment.story = { name: "threaded" };
+
+export const replyableComment = () => (
+  <Comment
+    comment={commentDataThreaded}
+    pillar="lifestyle"
+    shortUrl="randomURL"
+    onAddComment={() => {}}
+    user={aUser}
+  />
+);

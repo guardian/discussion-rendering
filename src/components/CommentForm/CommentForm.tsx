@@ -1,11 +1,11 @@
 import React, { useState, useRef } from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
+
 import { Button } from "@guardian/src-button";
 import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { comment, preview } from "../../lib/api";
-
+import { comment, reply, preview } from "../../lib/api";
 import { CommentResponse, UserProfile } from "../../types";
 
 import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
@@ -13,7 +13,10 @@ import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome"
 type Props = {
   shortUrl: string;
   user: UserProfile;
-  onAdd: (commentId: number, body: string, user: UserProfile) => void;
+  onAddComment: (commentId: number, body: string, user: UserProfile) => void;
+  parentCommentId?: number;
+  hideReplyForm?: () => void;
+  defaultToActive?: boolean;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -34,13 +37,21 @@ const commentTextArea = css`
   padding: 8px 10px 10px 8px;
   ${textSans.small()};
   border-color: #dcdcdc;
+  :focus {
+    border-color: #767676;
+    outline: none;
+  }
+`;
+
+const placeholderCommentStyles = css`
   ::placeholder {
     font-weight: bold;
     color: black;
   }
-  :focus {
-    border-color: #767676;
-    outline: none;
+`;
+const placeholderReplyStyles = css`
+  ::placeholder {
+    color: grey;
   }
 `;
 
@@ -121,8 +132,18 @@ const bottomContainer = css`
   align-content: space-between;
 `;
 
-export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+export const CommentForm = ({
+  shortUrl,
+  onAddComment,
+  user,
+  hideReplyForm,
+  parentCommentId,
+  defaultToActive = false
+}: Props) => {
+  // We are making the assumption that if parentCommentId is defined that this is a reply submission
+  const isReplyCommentForm = !!parentCommentId;
+
+  const [isActive, setIsActive] = useState<boolean>(defaultToActive);
   const [firstPost, setFirstPost] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const [previewBody, setPreviewBody] = useState<string>("");
@@ -195,7 +216,28 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
         setFirstPost(true);
       } else if (response.status === "ok")
         // response.message is the id of the comment that was created on the server
-        onAdd(parseInt(response.message), body, user);
+        onAddComment(parseInt(response.message), body, user);
+    }
+  };
+
+  const replyForm = async () => {
+    if (body && parentCommentId && hideReplyForm) {
+      const response: CommentResponse = await reply(
+        shortUrl,
+        body,
+        parentCommentId
+      );
+      if (response.statusCode === 420) {
+        setError(
+          "You can only post one comment every minute. Please try again in a moment."
+        );
+      } else if (response.message === "USERNAME_MISSING") {
+        // Reader has never posted before and needs to choose a username
+        setFirstPost(true);
+      } else if (response.status === "ok")
+        // response.message is the id of the comment that was created on the server
+        onAddComment(parseInt(response.message), body, user);
+      hideReplyForm();
     }
   };
 
@@ -217,7 +259,8 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
         onSubmit={e => {
           e.preventDefault();
           resetForm();
-          submitForm();
+          // We are making the assumption that if parentCommentId is defined that this is a reply submission
+          isReplyCommentForm ? replyForm() : submitForm();
         }}
       >
         {error && (
@@ -234,8 +277,13 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
           </div>
         )}
         <textarea
-          placeholder={!isActive ? "Join the discussion" : ""}
-          className={commentTextArea}
+          placeholder={"Join the discussion"}
+          className={cx(
+            commentTextArea,
+            isReplyCommentForm
+              ? placeholderReplyStyles
+              : placeholderCommentStyles
+          )}
           ref={textAreaRef}
           style={{ height: isActive ? "132px" : "50px" }}
           onChange={e => {
@@ -261,7 +309,9 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
                 <Button
                   size="small"
                   onClick={() => {
-                    resetForm();
+                    isReplyCommentForm && hideReplyForm
+                      ? hideReplyForm()
+                      : resetForm();
                   }}
                   priority="tertiary"
                 >

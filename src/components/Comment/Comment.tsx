@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { neutral, space, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Pillar, CommentType } from "../../types";
+import { Pillar, CommentType, UserProfile } from "../../types";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
+import { CommentForm } from "../CommentForm/CommentForm";
 
 type Props = {
   comment: CommentType;
   pillar: Pillar;
+  shortUrl?: string;
+  user?: UserProfile;
+  onAddComment?: (commentId: number, body: string, user: UserProfile) => void;
+  displayReplyForm?: () => void;
 };
 
 const commentControls = css`
@@ -117,7 +122,22 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   </div>
 );
 
-export const Comment = ({ comment, pillar }: Props) => {
+export const Comment = ({
+  comment,
+  pillar,
+  onAddComment,
+  user,
+  shortUrl,
+  displayReplyForm: parentDisplayReplyForm
+}: Props) => {
+  // We make the assumption this is a nested comment if displayReplyForm is defined
+  const isNestedReplyComment = !!parentDisplayReplyForm;
+
+  const [replyFormIsActive, setReplyFormIsActive] = useState<boolean>(false);
+  const [parentCommentId, setParentCommentId] = useState<number>(comment.id);
+  const displayReplyForm = () => setReplyFormIsActive(true);
+  const hideReplyForm = () => setReplyFormIsActive(false);
+
   const commentControlsButtonStyles = commentControlsButton(pillar);
   return (
     <li>
@@ -165,7 +185,16 @@ export const Comment = ({ comment, pillar }: Props) => {
           />
           <div className={spaceBetween}>
             <div className={commentControls}>
-              <button className={commentControlsButtonStyles}>Reply</button>
+              <button
+                onClick={
+                  isNestedReplyComment
+                    ? parentDisplayReplyForm
+                    : displayReplyForm
+                }
+                className={commentControlsButtonStyles}
+              >
+                Reply
+              </button>
               <button className={commentControlsButtonStyles}>Share</button>
               <button className={commentControlsButtonStyles}>Pick</button>
             </div>
@@ -175,12 +204,35 @@ export const Comment = ({ comment, pillar }: Props) => {
           </div>
         </div>
       </div>
-      {comment.responses && (
-        <ul className={nestingStyles}>
-          {comment.responses.map(comment => (
-            <Comment comment={comment} pillar={pillar} />
-          ))}
-        </ul>
+      {!isNestedReplyComment && (
+        <>
+          {comment.responses && (
+            <div className={nestingStyles}>
+              {comment.responses.map(comment => (
+                <Comment
+                  comment={comment}
+                  pillar={pillar}
+                  displayReplyForm={() => {
+                    displayReplyForm();
+                    setParentCommentId(comment.id);
+                  }}
+                />
+              ))}
+            </div>
+          )}
+          {replyFormIsActive && user && shortUrl && onAddComment && (
+            <div className={nestingStyles}>
+              <CommentForm
+                shortUrl={shortUrl}
+                onAddComment={onAddComment}
+                user={user}
+                hideReplyForm={hideReplyForm}
+                parentCommentId={parentCommentId}
+                defaultToActive={true}
+              />
+            </div>
+          )}
+        </>
       )}
     </li>
   );

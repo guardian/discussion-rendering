@@ -3,7 +3,7 @@ import { css } from "emotion";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
 import { getDiscussion, getCommentCount } from "./lib/api";
-import { CommentList } from "./components/CommentList/CommentList";
+import { Comment } from "./components/Comment/Comment";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
@@ -22,6 +22,13 @@ const containerStyles = css`
 const footerStyles = css`
   display: flex;
   justify-content: flex-end;
+`;
+
+const commentContainerStyles = css`
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding-left: 0;
 `;
 
 export const App = ({ shortUrl, user }: Props) => {
@@ -70,7 +77,7 @@ export const App = ({ shortUrl, user }: Props) => {
     };
   };
 
-  const commentAdded = (commentId: number, body: string, user: UserProfile) => {
+  const onAddComment = (commentId: number, body: string, user: UserProfile) => {
     comments.pop(); // Remove last item from our local array
     // Replace it with this new comment at the start
     setComments([simulateNewComment(commentId, body, user), ...comments]);
@@ -96,7 +103,11 @@ export const App = ({ shortUrl, user }: Props) => {
   return (
     <div className={containerStyles}>
       {user && (
-        <CommentForm shortUrl={shortUrl} onAdd={commentAdded} user={user} />
+        <CommentForm
+          shortUrl={shortUrl}
+          onAddComment={onAddComment}
+          user={user}
+        />
       )}
       <TopPicks shortUrl={shortUrl} />
       <Filters
@@ -107,8 +118,20 @@ export const App = ({ shortUrl, user }: Props) => {
       />
       {loading ? (
         <p>TODO loading component goes here...</p>
+      ) : !comments.length ? (
+        <p>TODO: No comment component goes here</p>
       ) : (
-        <CommentList comments={comments} />
+        <ul className={commentContainerStyles}>
+          {comments.map(comment => (
+            <Comment
+              key={comment.id}
+              comment={comment}
+              pillar="news"
+              onAddComment={onAddComment}
+              user={user}
+            />
+          ))}
+        </ul>
       )}
       <footer className={footerStyles}>
         <Pagination

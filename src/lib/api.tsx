@@ -76,16 +76,14 @@ const comment = (shortUrl: string, body: string): Promise<CommentResponse> => {
       "Content-Type": "application/x-www-form-urlencoded"
     },
     credentials: "include"
-  })
-    .then(resp => resp.json())
-    .then(json => json);
+  }).then(resp => resp.json());
 };
 
 const reply = (
   shortUrl: string,
   body: string,
   parentCommentId: number
-): Promise<string> => {
+): Promise<CommentResponse> => {
   const url =
     baseURL + `/discussion/${shortUrl}/comment/${parentCommentId}/reply`;
 
@@ -99,9 +97,7 @@ const reply = (
       "Content-Type": "application/x-www-form-urlencoded"
     },
     credentials: "include"
-  })
-    .then(resp => resp.json())
-    .then(json => json.message);
+  }).then(resp => resp.json());
 };
 
 const getPicks = (shortUrl: string): Promise<CommentType[]> => {
