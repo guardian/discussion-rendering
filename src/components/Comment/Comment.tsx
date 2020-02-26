@@ -11,6 +11,11 @@ import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
 import { CommentForm } from "../CommentForm/CommentForm";
 
+const ReplyArrow = () => (
+  <svg width="18" height="18">
+    <path d="M10.1 5l.9-1 4 4.5v1L11 14l-.9-1 2.5-3H4L3 9V6.5h2V8h7.6l-2.5-3z"></path>
+  </svg>
+);
 type Props = {
   comment: CommentType;
   pillar: Pillar;
@@ -94,6 +99,59 @@ const timestampWrapperStyles = css`
   justify-content: center;
 `;
 
+const replyWrapperStyles = css`
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+`;
+const replyArrowStyles = css`
+  fill: grey;
+  padding: 5px;
+`;
+
+const replyDisplayNameStyles = css`
+  ${textSans.xsmall()};
+  padding: 5px;
+  margin-right: 10px;
+`;
+
+const replyPreviewHeaderStyle = css`
+  font-weight: bold;
+  margin: 0;
+`;
+
+const arrowSize = 15;
+const bg = neutral[93];
+const previewStyle = css`
+  padding: ${space[2]}px;
+  background-color: ${bg};
+  border-radius: 5px;
+  margin-bottom: ${arrowSize + 5}px;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  :before {
+    content: "";
+    position: absolute;
+    border-right: ${arrowSize}px solid transparent;
+    border-top: ${arrowSize}px solid ${bg};
+    bottom: -${arrowSize - 1}px;
+  }
+`;
+
+const hideCommentButtonStyles = css`
+  padding: 5px;
+  ${textSans.xsmall()};
+  :hover {
+    cursor: pointer;
+  }
+`;
+const previewHideCommentButtonStyles = css`
+  background-color: inherit;
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
@@ -133,10 +191,14 @@ export const Comment = ({
   // We make the assumption this is a nested comment if displayReplyForm is defined
   const isNestedReplyComment = !!parentDisplayReplyForm;
 
-  const [replyFormIsActive, setReplyFormIsActive] = useState<boolean>(false);
+  const [replyFormIsActive, setReplyFormIsActive] = useState<boolean>(true);
   const [replyComment, setReplyComment] = useState<CommentType>(comment);
   const displayReplyForm = () => setReplyFormIsActive(true);
   const hideReplyForm = () => setReplyFormIsActive(false);
+
+  const [displayReplyComment, setDisplayReplyComment] = useState<boolean>(
+    false
+  );
 
   const displayCurrentReplyForm = () => {
     setReplyComment(comment);
@@ -227,6 +289,50 @@ export const Comment = ({
           )}
           {replyFormIsActive && user && shortUrl && onAddComment && (
             <div className={nestingStyles}>
+              <div className={replyWrapperStyles}>
+                <div className={replyArrowStyles}>
+                  <ReplyArrow />
+                </div>
+                <div className={replyDisplayNameStyles}>
+                  {replyComment.userProfile.displayName}
+                </div>
+                <button
+                  className={cx(
+                    hideCommentButtonStyles,
+                    commentControlsButtonStyles
+                  )}
+                  onClick={() => setDisplayReplyComment(!displayReplyComment)}
+                >
+                  {displayReplyComment ? "Hide Comment" : "Show comment"}
+                </button>
+              </div>
+              {displayReplyComment && (
+                <div className={previewStyle}>
+                  <p className={replyPreviewHeaderStyle}>
+                    {replyComment.userProfile.displayName} @ {replyComment.date}{" "}
+                    said:
+                  </p>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: replyComment.body || ""
+                    }}
+                  />
+                  <div>
+                    <button
+                      className={cx(
+                        hideCommentButtonStyles,
+                        commentControlsButtonStyles,
+                        previewHideCommentButtonStyles
+                      )}
+                      onClick={() =>
+                        setDisplayReplyComment(!displayReplyComment)
+                      }
+                    >
+                      {displayReplyComment ? "Hide Comment" : "Show comment"}
+                    </button>
+                  </div>
+                </div>
+              )}
               <CommentForm
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
