@@ -90,11 +90,42 @@ const timestampWrapperStyles = css`
   justify-content: center;
 `;
 
+const buttonStyles = css`
+  margin-top: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  background: #fff;
+  color: #c70000;
+  height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  border-radius: 12px;
+
+  border: 1px solid ${palette.neutral[86]};
+  svg {
+    fill: ${palette.neutral[60]};
+  }
+
+  :hover {
+    border: 1px solid ${palette.neutral[60]};
+    svg {
+      fill: ${palette.neutral[46]};
+    }
+  }
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
   height: ${avatarSize}px;
 `;
+
+const Plus = () => (
+  <svg width="14" height="14" viewBox="0 0 18 18">
+    <path d="M8.2 0h1.6l.4 7.8 7.8.4v1.6l-7.8.4-.4 7.8H8.2l-.4-7.8L0 9.8V8.2l7.8-.4.4-7.8z"></path>
+  </svg>
+);
 
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div
@@ -126,6 +157,13 @@ export const Comment = ({ comment, pillar, threads }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
 
   const showResponses = threads !== "unthreaded";
+
+  const decideShowMoreText = () => {
+    const remainingResponses =
+      comment.metaData?.responseCount && comment.metaData?.responseCount - 3;
+    if (remainingResponses === 1) return `Show 1 more reply`;
+    return `Show ${remainingResponses} more replies`;
+  };
 
   useEffect(() => {
     setResponses(comment.responses);
@@ -208,8 +246,17 @@ export const Comment = ({ comment, pillar, threads }: Props) => {
             <Comment comment={comment} pillar={pillar} threads={threads} />
           ))}
           {!expanded && (
-            <button onClick={() => expand(comment.id)}>
-              {loading ? "loading..." : "Show more"}
+            <button onClick={() => expand(comment.id)} className={buttonStyles}>
+              <Row>
+                <Plus />
+                <span
+                  className={css`
+                    margin-left: 4px;
+                  `}
+                >
+                  {loading ? "loading..." : decideShowMoreText()}
+                </span>
+              </Row>
             </button>
           )}
         </ul>
