@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 
 import { neutral, space, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Pillar, CommentType, UserProfile } from "../../types";
+import { Pillar, CommentType, UserProfile, ThreadsType } from "../../types";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
@@ -18,6 +18,7 @@ type Props = {
   user?: UserProfile;
   onAddComment?: (commentId: number, body: string, user: UserProfile) => void;
   displayReplyForm?: () => void;
+  threads: ThreadsType;
 };
 
 const commentControls = css`
@@ -94,11 +95,42 @@ const timestampWrapperStyles = css`
   justify-content: center;
 `;
 
+const buttonStyles = css`
+  margin-top: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  background: #fff;
+  color: #c70000;
+  height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  border-radius: 12px;
+
+  border: 1px solid ${palette.neutral[86]};
+  svg {
+    fill: ${palette.neutral[60]};
+  }
+
+  :hover {
+    border: 1px solid ${palette.neutral[60]};
+    svg {
+      fill: ${palette.neutral[46]};
+    }
+  }
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
   height: ${avatarSize}px;
 `;
+
+const Plus = () => (
+  <svg width="14" height="14" viewBox="0 0 18 18">
+    <path d="M8.2 0h1.6l.4 7.8 7.8.4v1.6l-7.8.4-.4 7.8H8.2l-.4-7.8L0 9.8V8.2l7.8-.4.4-7.8z"></path>
+  </svg>
+);
 
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div
@@ -128,8 +160,12 @@ export const Comment = ({
   onAddComment,
   user,
   shortUrl,
-  displayReplyForm: parentDisplayReplyForm
+  displayReplyForm: parentDisplayReplyForm,
+  threads
 }: Props) => {
+  const commentControlsButtonStyles = commentControlsButton(pillar);
+
+  // Reply form logic
   // We make the assumption this is a nested comment if displayReplyForm is defined
   const isNestedReplyComment = !!parentDisplayReplyForm;
 
@@ -143,7 +179,39 @@ export const Comment = ({
     displayReplyForm();
   };
 
-  const commentControlsButtonStyles = commentControlsButton(pillar);
+  // Filter logic
+  const [expanded, setExpanded] = useState<boolean>(threads === "expanded");
+  const [responses, setResponses] = useState(comment.responses);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const showResponses = threads !== "unthreaded";
+
+  const decideShowMoreText = () => {
+    const remainingResponses =
+      comment.metaData?.responseCount && comment.metaData?.responseCount - 3;
+    if (remainingResponses === 1) return `Show 1 more reply`;
+    return `Show ${remainingResponses} more replies`;
+  };
+
+  useEffect(() => {
+    setResponses(comment.responses);
+  }, [comment]);
+
+  const expand = (commentId: number) => {
+    setLoading(true);
+    fetch(
+      `http://discussion.code.dev-theguardian.com/discussion-api/comment/${commentId}?displayThreaded=true&displayResponses=true`
+    )
+      .then(response => response.json())
+      .then(json => {
+        setExpanded(true);
+        setResponses(json.comment.responses);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <li>
       <div className={commentWrapper}>
@@ -163,7 +231,7 @@ export const Comment = ({
                 <div className={timestampWrapperStyles}>
                   <Timestamp
                     isoDateTime={comment.isoDateTime}
-                    linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                    linkTo={`https://discussion.code.dev-theguardian.com/comment-permalink/${comment.id}`}
                   />
                 </div>
               </Row>
@@ -209,37 +277,54 @@ export const Comment = ({
           </div>
         </div>
       </div>
-      {!isNestedReplyComment && (
-        <>
-          {comment.responses && (
-            <div className={nestingStyles}>
-              {comment.responses.map(comment => (
-                <Comment
-                  comment={comment}
-                  shortUrl={shortUrl}
-                  pillar={pillar}
-                  displayReplyForm={() => {
-                    setReplyComment(comment);
-                    displayReplyForm();
-                  }}
-                />
-              ))}
-            </div>
-          )}
-          {replyFormIsActive && user && shortUrl && onAddComment && (
-            <div className={nestingStyles}>
-              <CommentForm
+
+      <>
+        {comment.responses && (
+          <div className={nestingStyles}>
+            {comment.responses.map(comment => (
+              <Comment
+                comment={comment}
                 shortUrl={shortUrl}
-                onAddComment={onAddComment}
-                user={user}
-                hideReplyForm={hideReplyForm}
-                replyComment={replyComment}
-                defaultToActive={true}
+                pillar={pillar}
+                displayReplyForm={() => {
+                  setReplyComment(comment);
+                  displayReplyForm();
+                }}
+                threads={threads}
               />
-            </div>
-          )}
-        </>
-      )}
+            ))}
+            {!expanded && (
+              <button
+                onClick={() => expand(comment.id)}
+                className={buttonStyles}
+              >
+                <Row>
+                  <Plus />
+                  <span
+                    className={css`
+                      margin-left: 4px;
+                    `}
+                  >
+                    {loading ? "loading..." : decideShowMoreText()}
+                  </span>
+                </Row>
+              </button>
+            )}
+          </div>
+        )}
+        {replyFormIsActive && user && shortUrl && onAddComment && (
+          <div className={nestingStyles}>
+            <CommentForm
+              shortUrl={shortUrl}
+              onAddComment={onAddComment}
+              user={user}
+              hideReplyForm={hideReplyForm}
+              replyComment={replyComment}
+              defaultToActive={true}
+            />
+          </div>
+        )}
+      </>
     </li>
   );
 };

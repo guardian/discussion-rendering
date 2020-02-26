@@ -27,7 +27,7 @@ const getDiscussion = (
     orderBy: opts.orderBy,
     pageSize: opts.pageSize,
     displayThreaded: opts.threads !== "unthreaded",
-    maxResponses: 3,
+    maxResponses: opts.threads === "collapsed" ? 3 : 100,
     page: opts.page
   };
   const params = objAsParams(apiOpts);

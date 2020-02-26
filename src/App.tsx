@@ -36,7 +36,7 @@ export const App = ({ shortUrl, user }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>({
     orderBy: "newest",
     pageSize: 25,
-    threads: "unthreaded",
+    threads: "collapsed",
     page: 1
   });
   const [commentCount, setCommentCount] = useState<number>(0);
@@ -130,6 +130,7 @@ export const App = ({ shortUrl, user }: Props) => {
               shortUrl={shortUrl}
               onAddComment={onAddComment}
               user={user}
+              threads={filters.threads}
             />
           ))}
         </ul>
