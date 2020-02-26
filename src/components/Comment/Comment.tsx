@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 
 import { neutral, space, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Pillar, CommentType } from "../../types";
+import { Pillar, CommentType, ThreadsType } from "../../types";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
@@ -13,6 +13,7 @@ import { Timestamp } from "../Timestamp/Timestamp";
 type Props = {
   comment: CommentType;
   pillar: Pillar;
+  threads: ThreadsType;
 };
 
 const commentControls = css`
@@ -117,8 +118,34 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   </div>
 );
 
-export const Comment = ({ comment, pillar }: Props) => {
+export const Comment = ({ comment, pillar, threads }: Props) => {
+  const [expanded, setExpanded] = useState<boolean>(threads === "expanded");
+  const [responses, setResponses] = useState(comment.responses);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const commentControlsButtonStyles = commentControlsButton(pillar);
+
+  const showResponses = threads !== "unthreaded";
+
+  useEffect(() => {
+    setResponses(comment.responses);
+  }, [comment]);
+
+  const expand = (commentId: number) => {
+    setLoading(true);
+    fetch(
+      `http://discussion.code.dev-theguardian.com/discussion-api/comment/${commentId}?displayThreaded=true&displayResponses=true`
+    )
+      .then(response => response.json())
+      .then(json => {
+        setExpanded(true);
+        setResponses(json.comment.responses);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <li>
       <div className={commentWrapper}>
@@ -138,7 +165,7 @@ export const Comment = ({ comment, pillar }: Props) => {
                 <div className={timestampWrapperStyles}>
                   <Timestamp
                     isoDateTime={comment.isoDateTime}
-                    linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                    linkTo={`https://discussion.code.dev-theguardian.com/comment-permalink/${comment.id}`}
                   />
                 </div>
               </Row>
@@ -175,11 +202,16 @@ export const Comment = ({ comment, pillar }: Props) => {
           </div>
         </div>
       </div>
-      {comment.responses && (
+      {showResponses && responses && (
         <ul className={nestingStyles}>
-          {comment.responses.map(comment => (
-            <Comment comment={comment} pillar={pillar} />
+          {responses.map(comment => (
+            <Comment comment={comment} pillar={pillar} threads={threads} />
           ))}
+          {!expanded && (
+            <button onClick={() => expand(comment.id)}>
+              {loading ? "loading..." : "Show more"}
+            </button>
+          )}
         </ul>
       )}
     </li>
