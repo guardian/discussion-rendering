@@ -29,7 +29,7 @@ export const App = ({ shortUrl, user }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>({
     orderBy: "newest",
     pageSize: 25,
-    threads: "unthreaded",
+    threads: "collapsed",
     page: 1
   });
   const [commentCount, setCommentCount] = useState<number>(0);
@@ -108,7 +108,7 @@ export const App = ({ shortUrl, user }: Props) => {
       {loading ? (
         <p>TODO loading component goes here...</p>
       ) : (
-        <CommentList comments={comments} />
+        <CommentList comments={comments} threads={filters.threads} />
       )}
       <footer className={footerStyles}>
         <Pagination
