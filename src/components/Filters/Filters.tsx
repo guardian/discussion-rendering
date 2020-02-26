@@ -10,7 +10,7 @@ import { FilterOptions, OrderByType, ThreadsType } from "../../types";
 
 type Props = {
   filters: FilterOptions;
-  setFilters: (newFilterObject: FilterOptions) => void;
+  onFilterChange: (newFilterObject: FilterOptions) => void;
   pages: number;
   commentCount: number;
 };
@@ -70,7 +70,7 @@ const filterWrapperStyles = css`
 
 export const Filters = ({
   filters,
-  setFilters,
+  onFilterChange,
   pages,
   commentCount
 }: Props) => (
@@ -95,7 +95,7 @@ export const Filters = ({
           id="orderBy"
           className={filterStyle}
           onChange={e =>
-            setFilters({
+            onFilterChange({
               ...filters,
               orderBy: e.target.value as OrderByType
             })
@@ -117,7 +117,7 @@ export const Filters = ({
           id="pageSize"
           className={filterStyle}
           onChange={e =>
-            setFilters({
+            onFilterChange({
               ...filters,
               pageSize: Number(e.target.value) as number
             })
@@ -139,7 +139,7 @@ export const Filters = ({
           id="threads"
           className={filterStyle}
           onChange={e =>
-            setFilters({
+            onFilterChange({
               ...filters,
               threads: e.target.value as ThreadsType
             })
@@ -157,7 +157,7 @@ export const Filters = ({
         pages={pages}
         page={filters.page}
         setPage={(page: number) => {
-          setFilters({
+          onFilterChange({
             ...filters,
             page
           });
