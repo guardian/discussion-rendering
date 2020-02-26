@@ -162,7 +162,7 @@ export const App = ({ shortUrl, user }: Props) => {
       {loading ? (
         <p>TODO loading component goes here...</p>
       ) : (
-        <CommentList comments={comments} />
+        <CommentList comments={comments} threads={filters.threads} />
       )}
       <footer className={footerStyles}>
         <Pagination
