@@ -279,9 +279,9 @@ export const Comment = ({
       </div>
 
       <>
-        {comment.responses && (
+        {showResponses && responses && (
           <div className={nestingStyles}>
-            {comment.responses.map(comment => (
+            {responses.map(comment => (
               <Comment
                 comment={comment}
                 shortUrl={shortUrl}
