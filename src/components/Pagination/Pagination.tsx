@@ -15,7 +15,7 @@ type Props = {
   filters: FilterOptions;
 };
 
-const buttonStyles = (selected: boolean) => css`
+const buttonStyles = (isSelected: boolean) => css`
   cursor: pointer;
   ${textSans.small({ fontWeight: "bold" })}
 
@@ -23,8 +23,8 @@ const buttonStyles = (selected: boolean) => css`
   border-radius: 62.5rem;
   box-sizing: border-box;
 
-  color: ${selected ? palette.neutral[100] : palette.neutral[46]};
-  background-color: ${selected ? palette.neutral[46] : palette.neutral[100]};
+  color: ${isSelected ? palette.neutral[100] : palette.neutral[46]};
+  background-color: ${isSelected ? palette.neutral[46] : palette.neutral[100]};
   border: none;
   :hover {
     border-width: 0.0625rem;
@@ -43,13 +43,13 @@ const buttonStyles = (selected: boolean) => css`
   text-overflow: ellipsis;
 `;
 
-const chevronStyles = (selected: boolean) => css`
+const chevronStyles = (isSelected: boolean) => css`
   cursor: pointer;
   border-radius: 62.5rem;
   border-width: 0.0625rem;
   border-style: solid;
   box-sizing: border-box;
-  background-color: ${selected ? palette.neutral[46] : palette.neutral[100]};
+  background-color: ${isSelected ? palette.neutral[46] : palette.neutral[100]};
   border-color: ${palette.neutral[86]};
   :hover {
     border-color: ${palette.neutral[60]};
@@ -59,7 +59,7 @@ const chevronStyles = (selected: boolean) => css`
   margin-left: 5px;
 
   > svg {
-    fill: ${selected ? palette.neutral[100] : palette.neutral[46]};
+    fill: ${isSelected ? palette.neutral[100] : palette.neutral[46]};
   }
 `;
 
@@ -132,15 +132,15 @@ const Back = ({ page, setPage }: { page: number; setPage: Function }) => (
 const PageButton = ({
   page,
   setPage,
-  selected
+  isSelected
 }: {
   page: number;
   setPage: Function;
-  selected: boolean;
+  isSelected: boolean;
 }) => (
   <button
     key={page}
-    className={buttonStyles(selected)}
+    className={buttonStyles(isSelected)}
     onClick={() => setPage(page)}
   >
     {page}
@@ -214,25 +214,25 @@ export const Pagination = ({
     <div className={paginationWrapper}>
       <div className={paginationSelectors}>
         {showBackButton && <Back page={page} setPage={setPage} />}
-        <PageButton page={1} setPage={setPage} selected={page === 1} />
+        <PageButton page={1} setPage={setPage} isSelected={page === 1} />
         {showFirstElipsis && <div className={elipsisStyles}>&hellip;</div>}
         <PageButton
           page={secondPage}
           setPage={setPage}
-          selected={page === secondPage}
+          isSelected={page === secondPage}
         />
         {showThirdPage && (
           <PageButton
             page={thirdPage}
             setPage={setPage}
-            selected={page === thirdPage}
+            isSelected={page === thirdPage}
           />
         )}
         {showForthPage && (
           <PageButton
             page={forthPage}
             setPage={setPage}
-            selected={page === forthPage}
+            isSelected={page === forthPage}
           />
         )}
         {showSecondElipsis && <div className={elipsisStyles}>&hellip;</div>}
@@ -240,7 +240,7 @@ export const Pagination = ({
           <PageButton
             page={lastPage}
             setPage={setPage}
-            selected={page === lastPage}
+            isSelected={page === lastPage}
           />
         )}
         {showForwardButton && <Forward page={page} setPage={setPage} />}
