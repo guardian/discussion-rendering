@@ -163,7 +163,7 @@ export const CommentList = ({
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
                 user={user}
-                hideReplyForm={() => setCommentBeingRepliedTo()}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
                 commentBeingRepliedTo={commentBeingRepliedTo}
               />
             </div>

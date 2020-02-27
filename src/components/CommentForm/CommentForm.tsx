@@ -14,7 +14,7 @@ type Props = {
   shortUrl: string;
   user: UserProfile;
   onAddComment: (commentId: number, body: string, user: UserProfile) => void;
-  hideReplyForm?: () => void;
+  setCommentBeingRepliedTo?: () => void;
   commentBeingRepliedTo?: CommentType;
 };
 
@@ -135,7 +135,7 @@ export const CommentForm = ({
   shortUrl,
   onAddComment,
   user,
-  hideReplyForm,
+  setCommentBeingRepliedTo,
   commentBeingRepliedTo
 }: Props) => {
   const [isActive, setIsActive] = useState<boolean>(
@@ -291,8 +291,8 @@ export const CommentForm = ({
                 <Button
                   size="small"
                   onClick={() => {
-                    commentBeingRepliedTo && hideReplyForm
-                      ? hideReplyForm()
+                    commentBeingRepliedTo && setCommentBeingRepliedTo
+                      ? setCommentBeingRepliedTo()
                       : resetForm();
                   }}
                   priority="tertiary"
