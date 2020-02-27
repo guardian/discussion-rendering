@@ -13,7 +13,7 @@ import { Timestamp } from "../Timestamp/Timestamp";
 type Props = {
   comment: CommentType;
   pillar: Pillar;
-  displayReplyForm: () => void;
+  setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
 };
 
 const commentControls = css`
@@ -28,6 +28,7 @@ const commentControlsButton = (pillar: Pillar) => css`
   margin-right: ${space[2]}px;
   color: ${palette[pillar][400]};
   border: 0;
+  cursor: pointer;
 `;
 
 const spaceBetween = css`
@@ -112,7 +113,11 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   </div>
 );
 
-export const Comment = ({ comment, pillar, displayReplyForm }: Props) => {
+export const Comment = ({
+  comment,
+  pillar,
+  setCommentBeingRepliedTo
+}: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
   return (
     <li>
@@ -161,7 +166,7 @@ export const Comment = ({ comment, pillar, displayReplyForm }: Props) => {
           <div className={spaceBetween}>
             <div className={commentControls}>
               <button
-                onClick={displayReplyForm}
+                onClick={() => setCommentBeingRepliedTo(comment)}
                 className={commentControlsButtonStyles}
               >
                 Reply

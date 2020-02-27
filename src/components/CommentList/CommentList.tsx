@@ -14,8 +14,8 @@ type Props = {
   user?: UserProfile;
   onAddComment: (commentId: number, body: string, user: UserProfile) => void;
   threads: ThreadsType;
-  replyComment?: CommentType;
-  setReplyComment: (replyComment?: CommentType) => void;
+  commentBeingRepliedTo?: CommentType;
+  setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
 };
 
 const nestingStyles = css`
@@ -79,8 +79,8 @@ export const CommentList = ({
   user,
   shortUrl,
   threads,
-  replyComment,
-  setReplyComment
+  commentBeingRepliedTo,
+  setCommentBeingRepliedTo
 }: Props) => {
   // Filter logic
   const [expanded, setExpanded] = useState<boolean>(threads === "expanded");
@@ -120,7 +120,7 @@ export const CommentList = ({
       <Comment
         comment={comment}
         pillar={pillar}
-        displayReplyForm={() => setReplyComment(comment)}
+        setCommentBeingRepliedTo={setCommentBeingRepliedTo}
       />
 
       <>
@@ -130,7 +130,7 @@ export const CommentList = ({
               <Comment
                 comment={responseComment}
                 pillar={pillar}
-                displayReplyForm={() => setReplyComment(responseComment)}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
               />
             ))}
             {!expanded && (
@@ -152,18 +152,19 @@ export const CommentList = ({
             )}
           </div>
         )}
-        {replyComment &&
-          (replyComment.id === comment.id ||
-            responses?.find(response => response.id === replyComment.id)) &&
+        {commentBeingRepliedTo &&
+          (commentBeingRepliedTo.id === comment.id ||
+            responses?.find(
+              response => response.id === commentBeingRepliedTo.id
+            )) &&
           user && (
             <div className={nestingStyles}>
               <CommentForm
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
                 user={user}
-                hideReplyForm={() => setReplyComment()}
-                replyComment={replyComment}
-                defaultToActive={true}
+                hideReplyForm={() => setCommentBeingRepliedTo()}
+                commentBeingRepliedTo={commentBeingRepliedTo}
               />
             </div>
           )}

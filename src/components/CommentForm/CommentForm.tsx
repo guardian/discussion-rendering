@@ -14,9 +14,8 @@ type Props = {
   shortUrl: string;
   user: UserProfile;
   onAddComment: (commentId: number, body: string, user: UserProfile) => void;
-  replyComment?: CommentType;
   hideReplyForm?: () => void;
-  defaultToActive?: boolean;
+  commentBeingRepliedTo?: CommentType;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -137,13 +136,11 @@ export const CommentForm = ({
   onAddComment,
   user,
   hideReplyForm,
-  replyComment,
-  defaultToActive = false
+  commentBeingRepliedTo
 }: Props) => {
-  // We are making the assumption that if replyComment is defined that this is a reply submission
-  const isReplyCommentForm = !!replyComment;
-
-  const [isActive, setIsActive] = useState<boolean>(defaultToActive);
+  const [isActive, setIsActive] = useState<boolean>(
+    commentBeingRepliedTo ? true : false
+  );
   const [firstPost, setFirstPost] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const [previewBody, setPreviewBody] = useState<string>("");
@@ -234,11 +231,11 @@ export const CommentForm = ({
   };
 
   const replyForm = async () => {
-    if (body && replyComment && hideReplyForm) {
+    if (body && commentBeingRepliedTo && hideReplyForm) {
       const response: CommentResponse = await reply(
         shortUrl,
         body,
-        replyComment.id
+        commentBeingRepliedTo.id
       );
       if (response.statusCode === 420) {
         setError(
@@ -269,7 +266,7 @@ export const CommentForm = ({
         className={formWrapper}
         onSubmit={e => {
           e.preventDefault();
-          isReplyCommentForm ? replyForm() : submitForm();
+          commentBeingRepliedTo ? replyForm() : submitForm();
         }}
       >
         {error && (
@@ -289,7 +286,7 @@ export const CommentForm = ({
           placeholder={"Join the discussion"}
           className={cx(
             commentTextArea,
-            isReplyCommentForm
+            commentBeingRepliedTo
               ? placeholderReplyStyles
               : placeholderCommentStyles
           )}
@@ -318,7 +315,7 @@ export const CommentForm = ({
                 <Button
                   size="small"
                   onClick={() => {
-                    isReplyCommentForm && hideReplyForm
+                    commentBeingRepliedTo && hideReplyForm
                       ? hideReplyForm()
                       : resetForm();
                   }}
