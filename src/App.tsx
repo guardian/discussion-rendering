@@ -83,7 +83,7 @@ export const App = ({ shortUrl, user }: Props) => {
   );
   const [commentCount, setCommentCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
-  const [pages, setPages] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   const simulateNewComment = (
     commentId: number,
@@ -130,7 +130,7 @@ export const App = ({ shortUrl, user }: Props) => {
     getDiscussion(shortUrl, filters).then(json => {
       setLoading(false);
       setComments(json?.discussion?.comments);
-      setPages(json?.pages);
+      setTotalPages(json?.pages);
     });
   }, [filters, shortUrl]);
 
@@ -156,7 +156,7 @@ export const App = ({ shortUrl, user }: Props) => {
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}
-        pages={pages}
+        totalPages={totalPages}
         commentCount={commentCount}
       />
       {loading ? (
@@ -166,7 +166,7 @@ export const App = ({ shortUrl, user }: Props) => {
       )}
       <footer className={footerStyles}>
         <Pagination
-          pages={pages}
+          totalPages={totalPages}
           page={filters.page}
           setPage={(page: number) => {
             setFilters({
