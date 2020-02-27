@@ -133,23 +133,25 @@ export const CommentList = ({
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
               />
             ))}
-            {!expanded && (
-              <button
-                onClick={() => expand(comment.id)}
-                className={buttonStyles(pillar)}
-              >
-                <Row>
-                  <Plus />
-                  <span
-                    className={css`
-                      margin-left: 4px;
-                    `}
-                  >
-                    {loading ? "loading..." : decideShowMoreText()}
-                  </span>
-                </Row>
-              </button>
-            )}
+            {!expanded &&
+              comment.metaData?.responseCount &&
+              comment.metaData?.responseCount > 3 && (
+                <button
+                  onClick={() => expand(comment.id)}
+                  className={buttonStyles(pillar)}
+                >
+                  <Row>
+                    <Plus />
+                    <span
+                      className={css`
+                        margin-left: 4px;
+                      `}
+                    >
+                      {loading ? "loading..." : decideShowMoreText()}
+                    </span>
+                  </Row>
+                </button>
+              )}
           </div>
         )}
         {commentBeingRepliedTo &&
