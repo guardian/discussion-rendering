@@ -43,6 +43,8 @@ export const App = ({ shortUrl, user }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [pages, setPages] = useState<number>(0);
 
+  const [replyComment, setReplyComment] = useState<CommentType>();
+
   const simulateNewComment = (
     commentId: number,
     body: string,
@@ -131,6 +133,8 @@ export const App = ({ shortUrl, user }: Props) => {
               onAddComment={onAddComment}
               user={user}
               threads={filters.threads}
+              replyComment={replyComment}
+              setReplyComment={setReplyComment}
             />
           ))}
         </ul>

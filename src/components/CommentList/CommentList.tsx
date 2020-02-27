@@ -14,6 +14,8 @@ type Props = {
   user?: UserProfile;
   onAddComment: (commentId: number, body: string, user: UserProfile) => void;
   threads: ThreadsType;
+  replyComment?: CommentType;
+  setReplyComment: (replyComment?: CommentType) => void;
 };
 
 const nestingStyles = css`
@@ -76,18 +78,10 @@ export const CommentList = ({
   onAddComment,
   user,
   shortUrl,
-  threads
+  threads,
+  replyComment,
+  setReplyComment
 }: Props) => {
-  const [replyFormIsActive, setReplyFormIsActive] = useState<boolean>(false);
-  const [replyComment, setReplyComment] = useState<CommentType>(comment);
-  const displayReplyForm = () => setReplyFormIsActive(true);
-  const hideReplyForm = () => setReplyFormIsActive(false);
-
-  const displayCurrentReplyForm = () => {
-    setReplyComment(comment);
-    displayReplyForm();
-  };
-
   // Filter logic
   const [expanded, setExpanded] = useState<boolean>(threads === "expanded");
   const [responses, setResponses] = useState(comment.responses);
@@ -126,20 +120,17 @@ export const CommentList = ({
       <Comment
         comment={comment}
         pillar={pillar}
-        displayReplyForm={displayCurrentReplyForm}
+        displayReplyForm={() => setReplyComment(comment)}
       />
 
       <>
         {showResponses && responses && (
           <div className={nestingStyles}>
-            {responses.map(comment => (
+            {responses.map(responseComment => (
               <Comment
-                comment={comment}
+                comment={responseComment}
                 pillar={pillar}
-                displayReplyForm={() => {
-                  setReplyComment(comment);
-                  displayReplyForm();
-                }}
+                displayReplyForm={() => setReplyComment(responseComment)}
               />
             ))}
             {!expanded && (
@@ -161,18 +152,21 @@ export const CommentList = ({
             )}
           </div>
         )}
-        {replyFormIsActive && user && (
-          <div className={nestingStyles}>
-            <CommentForm
-              shortUrl={shortUrl}
-              onAddComment={onAddComment}
-              user={user}
-              hideReplyForm={hideReplyForm}
-              replyComment={replyComment}
-              defaultToActive={true}
-            />
-          </div>
-        )}
+        {replyComment &&
+          (replyComment.id === comment.id ||
+            responses?.find(response => response.id === replyComment.id)) &&
+          user && (
+            <div className={nestingStyles}>
+              <CommentForm
+                shortUrl={shortUrl}
+                onAddComment={onAddComment}
+                user={user}
+                hideReplyForm={() => setReplyComment()}
+                replyComment={replyComment}
+                defaultToActive={true}
+              />
+            </div>
+          )}
       </>
     </div>
   );
