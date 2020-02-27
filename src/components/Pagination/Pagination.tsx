@@ -9,8 +9,8 @@ import { FilterOptions } from "../../types";
 
 type Props = {
   totalPages: number;
-  page: number;
-  setPage: Function;
+  currentPage: number;
+  setCurrentPage: Function;
   commentCount: number;
   filters: FilterOptions;
 };
@@ -109,99 +109,111 @@ const ChevronBack = () => (
   </svg>
 );
 
-const Forward = ({ page, setPage }: { page: number; setPage: Function }) => (
+const Forward = ({
+  currentPage,
+  setCurrentPage
+}: {
+  currentPage: number;
+  setCurrentPage: Function;
+}) => (
   <button
     key={"last"}
     className={cx(chevronStyles(false), rotateSvg)}
-    onClick={() => setPage(page + 1)}
+    onClick={() => setCurrentPage(currentPage + 1)}
   >
     <ChevronBack />
   </button>
 );
 
-const Back = ({ page, setPage }: { page: number; setPage: Function }) => (
+const Back = ({
+  currentPage,
+  setCurrentPage
+}: {
+  currentPage: number;
+  setCurrentPage: Function;
+}) => (
   <button
     key={"last"}
     className={chevronStyles(false)}
-    onClick={() => setPage(page - 1 < 0 ? 0 : page - 1)}
+    onClick={() => setCurrentPage(currentPage - 1 < 0 ? 0 : currentPage - 1)}
   >
     <ChevronBack />
   </button>
 );
 
 const PageButton = ({
-  page,
-  setPage,
+  currentPage,
+  setCurrentPage,
   isSelected
 }: {
-  page: number;
-  setPage: Function;
+  currentPage: number;
+  setCurrentPage: Function;
   isSelected: boolean;
 }) => (
   <button
-    key={page}
+    key={currentPage}
     className={buttonStyles(isSelected)}
-    onClick={() => setPage(page)}
+    onClick={() => setCurrentPage(currentPage)}
   >
-    {page}
+    {currentPage}
   </button>
 );
 
 const decideSecondPage = ({
-  page,
+  currentPage,
   totalPages
 }: {
-  page: number;
+  currentPage: number;
   totalPages: number;
 }) => {
-  if (page < 4) return 2;
-  if (page > totalPages - 2) return totalPages - 2;
-  return page - 1;
+  if (currentPage < 4) return 2;
+  if (currentPage > totalPages - 2) return totalPages - 2;
+  return currentPage - 1;
 };
 
 const decideThirdPage = ({
-  page,
+  currentPage,
   totalPages
 }: {
-  page: number;
+  currentPage: number;
   totalPages: number;
 }) => {
-  if (page < 4) return 3;
-  if (page > totalPages - 2) return totalPages - 1;
-  return page;
+  if (currentPage < 4) return 3;
+  if (currentPage > totalPages - 2) return totalPages - 1;
+  return currentPage;
 };
 
 const decideForthPage = ({
-  page,
+  currentPage,
   totalPages
 }: {
-  page: number;
+  currentPage: number;
   totalPages: number;
 }) => {
-  if (page < 4) return 4;
-  if (page > totalPages - 2) return totalPages;
-  return page + 1;
+  if (currentPage < 4) return 4;
+  if (currentPage > totalPages - 2) return totalPages;
+  return currentPage + 1;
 };
 
 export const Pagination = ({
   totalPages,
-  page,
-  setPage,
+  currentPage,
+  setCurrentPage,
   commentCount,
   filters
 }: Props) => {
   // Make decisions aobut which pagination elements to show
-  const showBackButton = totalPages > 4 && page > 1;
-  const showFirstElipsis = totalPages > 4 && page > 3;
-  const secondPage = decideSecondPage({ page, totalPages });
-  const thirdPage = decideThirdPage({ page, totalPages });
-  const forthPage = decideForthPage({ page, totalPages });
+  const showBackButton = totalPages > 4 && currentPage > 1;
+  const showFirstElipsis = totalPages > 4 && currentPage > 3;
+  const secondPage = decideSecondPage({ currentPage, totalPages });
+  const thirdPage = decideThirdPage({ currentPage, totalPages });
+  const forthPage = decideForthPage({ currentPage, totalPages });
   const showThirdPage = totalPages > 2;
   const showForthPage = totalPages > 3;
-  const showLastPage = page < totalPages - 1;
+  const showLastPage = currentPage < totalPages - 1;
   const lastPage = totalPages;
-  const showSecondElipsis = totalPages > 4 && page < totalPages - 2;
-  const showForwardButton = totalPages > 4 && page !== totalPages;
+  const showSecondElipsis = totalPages > 4 && currentPage < totalPages - 2;
+  const showForwardButton = totalPages > 4 && currentPage !== totalPages;
 
   // Pagination Text
   const startIndex = filters.pageSize * (filters.page - 1);
@@ -213,37 +225,45 @@ export const Pagination = ({
   return (
     <div className={paginationWrapper}>
       <div className={paginationSelectors}>
-        {showBackButton && <Back page={page} setPage={setPage} />}
-        <PageButton page={1} setPage={setPage} isSelected={page === 1} />
+        {showBackButton && (
+          <Back currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        )}
+        <PageButton
+          currentPage={1}
+          setCurrentPage={setCurrentPage}
+          isSelected={currentPage === 1}
+        />
         {showFirstElipsis && <div className={elipsisStyles}>&hellip;</div>}
         <PageButton
-          page={secondPage}
-          setPage={setPage}
-          isSelected={page === secondPage}
+          currentPage={secondPage}
+          setCurrentPage={setCurrentPage}
+          isSelected={currentPage === secondPage}
         />
         {showThirdPage && (
           <PageButton
-            page={thirdPage}
-            setPage={setPage}
-            isSelected={page === thirdPage}
+            currentPage={thirdPage}
+            setCurrentPage={setCurrentPage}
+            isSelected={currentPage === thirdPage}
           />
         )}
         {showForthPage && (
           <PageButton
-            page={forthPage}
-            setPage={setPage}
-            isSelected={page === forthPage}
+            currentPage={forthPage}
+            setCurrentPage={setCurrentPage}
+            isSelected={currentPage === forthPage}
           />
         )}
         {showSecondElipsis && <div className={elipsisStyles}>&hellip;</div>}
         {showLastPage && (
           <PageButton
-            page={lastPage}
-            setPage={setPage}
-            isSelected={page === lastPage}
+            currentPage={lastPage}
+            setCurrentPage={setCurrentPage}
+            isSelected={currentPage === lastPage}
           />
         )}
-        {showForwardButton && <Forward page={page} setPage={setPage} />}
+        {showForwardButton && (
+          <Forward currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        )}
       </div>
       {commentCount && (
         <div className={paginationText}>
