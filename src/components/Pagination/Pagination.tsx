@@ -178,7 +178,9 @@ export const Pagination = ({
   const secondPage = decideSecondPage({ page, pages });
   const thirdPage = decideThirdPage({ page, pages });
   const forthPage = decideForthPage({ page, pages });
-  const showLastPage = page === pages - 2;
+  const showThirdPage = pages > 2;
+  const showForthPage = pages > 3;
+  const showLastPage = page < pages - 1;
   const lastPage = pages;
   const showSecondElipsis = pages > 4 && page < pages - 2;
   const showForwardButton = pages > 4 && page !== pages;
@@ -201,16 +203,21 @@ export const Pagination = ({
           setPage={setPage}
           selected={page === secondPage}
         />
-        <PageButton
-          page={thirdPage}
-          setPage={setPage}
-          selected={page === thirdPage}
-        />
-        <PageButton
-          page={forthPage}
-          setPage={setPage}
-          selected={page === forthPage}
-        />
+        {showThirdPage && (
+          <PageButton
+            page={thirdPage}
+            setPage={setPage}
+            selected={page === thirdPage}
+          />
+        )}
+        {showForthPage && (
+          <PageButton
+            page={forthPage}
+            setPage={setPage}
+            selected={page === forthPage}
+          />
+        )}
+        {showSecondElipsis && <div className={elipsisStyles}>...</div>}
         {showLastPage && (
           <PageButton
             page={lastPage}
@@ -218,7 +225,6 @@ export const Pagination = ({
             selected={page === lastPage}
           />
         )}
-        {showSecondElipsis && <div className={elipsisStyles}>...</div>}
         {showForwardButton && <Forward page={page} setPage={setPage} />}
       </div>
       {commentCount && (
