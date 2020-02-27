@@ -80,11 +80,15 @@ const commentDataThreaded: CommentType = {
 };
 
 export const defaultStory = () => (
-  <Comment comment={commentData} pillar={"sport"} />
+  <Comment comment={commentData} pillar={"sport"} threads="collapsed" />
 );
 defaultStory.story = { name: "default" };
 
 export const threadedComment = () => (
-  <Comment comment={commentDataThreaded} pillar={"lifestyle"} />
+  <Comment
+    comment={commentDataThreaded}
+    pillar={"lifestyle"}
+    threads="expanded"
+  />
 );
 threadedComment.story = { name: "threaded" };

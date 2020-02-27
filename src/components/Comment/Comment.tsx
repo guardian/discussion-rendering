@@ -245,20 +245,25 @@ export const Comment = ({ comment, pillar, threads }: Props) => {
           {responses.map(comment => (
             <Comment comment={comment} pillar={pillar} threads={threads} />
           ))}
-          {!expanded && (
-            <button onClick={() => expand(comment.id)} className={buttonStyles}>
-              <Row>
-                <Plus />
-                <span
-                  className={css`
-                    margin-left: 4px;
-                  `}
-                >
-                  {loading ? "loading..." : decideShowMoreText()}
-                </span>
-              </Row>
-            </button>
-          )}
+          {!expanded &&
+            comment.metaData?.responseCount &&
+            comment.metaData?.responseCount > 3 && (
+              <button
+                onClick={() => expand(comment.id)}
+                className={buttonStyles}
+              >
+                <Row>
+                  <Plus />
+                  <span
+                    className={css`
+                      margin-left: 4px;
+                    `}
+                  >
+                    {loading ? "loading..." : decideShowMoreText()}
+                  </span>
+                </Row>
+              </button>
+            )}
         </ul>
       )}
     </li>
