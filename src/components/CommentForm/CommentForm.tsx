@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { css, cx } from "emotion";
 
 import { Button } from "@guardian/src-button";
-import { space, neutral } from "@guardian/src-foundations";
+import { palette, space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { comment, reply, preview } from "../../lib/api";
@@ -35,7 +35,7 @@ const commentTextArea = css`
   margin-bottom: ${space[3]}px;
   padding: 8px 10px 10px 8px;
   ${textSans.small()};
-  border-color: #dcdcdc;
+  border-color: ${palette.neutral[100]};
   :focus {
     border-color: #767676;
     outline: none;
@@ -105,7 +105,7 @@ const commentAddOns = css`
   height: 22px;
   font-size: 13px;
   line-height: 17px;
-  border: 1px solid #dcdcdc;
+  border: 1px solid ${palette.neutral[100]};
   color: #767676;
   text-align: center;
   cursor: pointer;

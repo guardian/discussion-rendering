@@ -84,7 +84,7 @@ const paginationWrapper = css`
   width: 100%;
   margin-top: 15px;
   padding-top: 10px;
-  border-top: 1px solid #dcdcdc;
+  border-top: 1px solid ${palette.neutral[100]};
   ${until.mobileLandscape} {
     flex-direction: column;
   }

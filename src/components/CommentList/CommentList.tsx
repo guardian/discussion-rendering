@@ -24,12 +24,12 @@ const nestingStyles = css`
   margin-left: ${space[12] + "px"};
 `;
 
-const buttonStyles = css`
+const buttonStyles = (pillar: Pillar) => css`
   margin-top: 12px;
   margin-bottom: 12px;
   cursor: pointer;
-  background: #fff;
-  color: #c70000;
+  background: ${palette.neutral[100]};
+  color: ${palette[pillar][400]};
   height: 24px;
   font-size: 12px;
   font-weight: bold;
@@ -136,7 +136,7 @@ export const CommentList = ({
             {!expanded && (
               <button
                 onClick={() => expand(comment.id)}
-                className={buttonStyles}
+                className={buttonStyles(pillar)}
               >
                 <Row>
                   <Plus />
