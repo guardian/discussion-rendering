@@ -197,7 +197,7 @@ export const Pagination = ({
       <div className={paginationSelectors}>
         {showBackButton && <Back page={page} setPage={setPage} />}
         <PageButton page={1} setPage={setPage} selected={page === 1} />
-        {showFirstElipsis && <div className={elipsisStyles}>...</div>}
+        {showFirstElipsis && <div className={elipsisStyles}>&hellip;</div>}
         <PageButton
           page={secondPage}
           setPage={setPage}
@@ -217,7 +217,7 @@ export const Pagination = ({
             selected={page === forthPage}
           />
         )}
-        {showSecondElipsis && <div className={elipsisStyles}>...</div>}
+        {showSecondElipsis && <div className={elipsisStyles}>&hellip;</div>}
         {showLastPage && (
           <PageButton
             page={lastPage}
