@@ -31,14 +31,63 @@ const commentContainerStyles = css`
   padding-left: 0;
 `;
 
+const DEFAULT_FILTERS: FilterOptions = {
+  orderBy: "newest",
+  pageSize: 25,
+  threads: "collapsed",
+  page: 1
+};
+
+const rememberFilters = (filtersToRemember: FilterOptions) => {
+  try {
+    localStorage.setItem(
+      "gu.prefs.discussioni.threading",
+      JSON.stringify({ value: filtersToRemember.threads })
+    );
+    localStorage.setItem(
+      "gu.prefs.discussioni.pagesize",
+      JSON.stringify({ value: filtersToRemember.pageSize })
+    );
+    localStorage.setItem(
+      "gu.prefs.discussioni.order",
+      JSON.stringify({ value: filtersToRemember.orderBy })
+    );
+  } catch (error) {
+    // Sometimes it's not possible to access localStorage, we accept this and don't want to
+    // capture these errors
+  }
+};
+
+const readFiltersFromLocalStorage = (): FilterOptions => {
+  let threads;
+  let pageSize;
+  let orderBy;
+
+  try {
+    // Try to read from local storage
+    orderBy = localStorage.getItem("gu.prefs.discussioni.order");
+    threads = localStorage.getItem("gu.prefs.discussioni.threading");
+    pageSize = localStorage.getItem("gu.prefs.discussioni.pagesize");
+  } catch (error) {
+    // Sometimes it's not possible to access localStorage, we accept this and don't want to
+    // capture these errors
+    return DEFAULT_FILTERS;
+  }
+
+  // If we found something in LS, use it, otherwise return defaults
+  return {
+    orderBy: orderBy ? JSON.parse(orderBy).value : DEFAULT_FILTERS.orderBy,
+    threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
+    pageSize: pageSize ? JSON.parse(pageSize).value : DEFAULT_FILTERS.pageSize,
+    page: DEFAULT_FILTERS.page
+  };
+};
+
 export const App = ({ shortUrl, user }: Props) => {
   const [comments, setComments] = useState<CommentType[]>([]);
-  const [filters, setFilters] = useState<FilterOptions>({
-    orderBy: "newest",
-    pageSize: 25,
-    threads: "collapsed",
-    page: 1
-  });
+  const [filters, setFilters] = useState<FilterOptions>(
+    readFiltersFromLocalStorage()
+  );
   const [commentCount, setCommentCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [pages, setPages] = useState<number>(0);
@@ -89,8 +138,8 @@ export const App = ({ shortUrl, user }: Props) => {
     setLoading(true);
     getDiscussion(shortUrl, filters).then(json => {
       setLoading(false);
-      setComments(json.discussion.comments);
-      setPages(json.pages);
+      setComments(json?.discussion?.comments);
+      setPages(json?.pages);
     });
   }, [filters, shortUrl]);
 
@@ -98,9 +147,14 @@ export const App = ({ shortUrl, user }: Props) => {
     setLoading(true);
     getCommentCount(shortUrl).then(json => {
       setLoading(false);
-      setCommentCount(json.numberOfComments);
+      setCommentCount(json?.numberOfComments);
     });
   }, [shortUrl]);
+
+  const onFilterChange = (newFilterObject: FilterOptions) => {
+    rememberFilters(newFilterObject);
+    setFilters(newFilterObject);
+  };
 
   return (
     <div className={containerStyles}>
@@ -114,7 +168,7 @@ export const App = ({ shortUrl, user }: Props) => {
       <TopPicks shortUrl={shortUrl} />
       <Filters
         filters={filters}
-        setFilters={setFilters}
+        onFilterChange={onFilterChange}
         pages={pages}
         commentCount={commentCount}
       />
