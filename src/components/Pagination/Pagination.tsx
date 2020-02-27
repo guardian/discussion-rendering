@@ -8,7 +8,7 @@ import { until } from "@guardian/src-foundations/mq";
 import { FilterOptions } from "../../types";
 
 type Props = {
-  pages: number;
+  totalPages: number;
   page: number;
   setPage: Function;
   commentCount: number;
@@ -147,43 +147,61 @@ const PageButton = ({
   </button>
 );
 
-const decideSecondPage = ({ page, pages }: { page: number; pages: number }) => {
+const decideSecondPage = ({
+  page,
+  totalPages
+}: {
+  page: number;
+  totalPages: number;
+}) => {
   if (page < 4) return 2;
-  if (page > pages - 2) return pages - 2;
+  if (page > totalPages - 2) return totalPages - 2;
   return page - 1;
 };
 
-const decideThirdPage = ({ page, pages }: { page: number; pages: number }) => {
+const decideThirdPage = ({
+  page,
+  totalPages
+}: {
+  page: number;
+  totalPages: number;
+}) => {
   if (page < 4) return 3;
-  if (page > pages - 2) return pages - 1;
+  if (page > totalPages - 2) return totalPages - 1;
   return page;
 };
 
-const decideForthPage = ({ page, pages }: { page: number; pages: number }) => {
+const decideForthPage = ({
+  page,
+  totalPages
+}: {
+  page: number;
+  totalPages: number;
+}) => {
   if (page < 4) return 4;
-  if (page > pages - 2) return pages;
+  if (page > totalPages - 2) return totalPages;
   return page + 1;
 };
 
 export const Pagination = ({
-  pages,
+  totalPages,
   page,
   setPage,
   commentCount,
   filters
 }: Props) => {
   // Make decisions aobut which pagination elements to show
-  const showBackButton = pages > 4 && page > 1;
-  const showFirstElipsis = pages > 4 && page > 3;
-  const secondPage = decideSecondPage({ page, pages });
-  const thirdPage = decideThirdPage({ page, pages });
-  const forthPage = decideForthPage({ page, pages });
-  const showThirdPage = pages > 2;
-  const showForthPage = pages > 3;
-  const showLastPage = page < pages - 1;
-  const lastPage = pages;
-  const showSecondElipsis = pages > 4 && page < pages - 2;
-  const showForwardButton = pages > 4 && page !== pages;
+  const showBackButton = totalPages > 4 && page > 1;
+  const showFirstElipsis = totalPages > 4 && page > 3;
+  const secondPage = decideSecondPage({ page, totalPages });
+  const thirdPage = decideThirdPage({ page, totalPages });
+  const forthPage = decideForthPage({ page, totalPages });
+  const showThirdPage = totalPages > 2;
+  const showForthPage = totalPages > 3;
+  const showLastPage = page < totalPages - 1;
+  const lastPage = totalPages;
+  const showSecondElipsis = totalPages > 4 && page < totalPages - 2;
+  const showForwardButton = totalPages > 4 && page !== totalPages;
 
   // Pagination Text
   const startIndex = filters.pageSize * (filters.page - 1);

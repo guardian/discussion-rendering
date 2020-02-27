@@ -16,7 +16,7 @@ export const Default = () => {
   const [page, setPage] = useState(1);
   return (
     <Pagination
-      pages={9}
+      totalPages={9}
       page={page}
       setPage={setPage}
       filters={DEFAULT_FILTERS}
@@ -30,7 +30,7 @@ export const NoPages = () => {
   const [page, setPage] = useState(1);
   return (
     <Pagination
-      pages={2}
+      totalPages={2}
       page={page}
       setPage={setPage}
       filters={DEFAULT_FILTERS}
@@ -44,7 +44,7 @@ export const LotsOfPages = () => {
   const [page, setPage] = useState(1);
   return (
     <Pagination
-      pages={187}
+      totalPages={187}
       page={page}
       setPage={setPage}
       filters={DEFAULT_FILTERS}

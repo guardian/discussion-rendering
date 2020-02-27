@@ -11,7 +11,7 @@ import { FilterOptions, OrderByType, ThreadsType } from "../../types";
 type Props = {
   filters: FilterOptions;
   onFilterChange: (newFilterObject: FilterOptions) => void;
-  pages: number;
+  totalPages: number;
   commentCount: number;
 };
 
@@ -71,7 +71,7 @@ const filterWrapperStyles = css`
 export const Filters = ({
   filters,
   onFilterChange,
-  pages,
+  totalPages,
   commentCount
 }: Props) => (
   <div className={filterBar}>
@@ -152,9 +152,9 @@ export const Filters = ({
         </select>
       </div>
     </div>
-    {pages > 1 && (
+    {totalPages > 1 && (
       <Pagination
-        pages={pages}
+        totalPages={totalPages}
         page={filters.page}
         setPage={(page: number) => {
           onFilterChange({

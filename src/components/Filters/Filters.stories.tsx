@@ -16,8 +16,8 @@ export const Default = () => {
   return (
     <Filters
       filters={filters}
-      setFilters={setFilters}
-      pages={5}
+      onFilterChange={setFilters}
+      totalPages={5}
       commentCount={250}
     />
   );
