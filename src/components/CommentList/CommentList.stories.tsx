@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Comment } from "./Comment";
+import { CommentList } from "./CommentList";
 import { CommentType } from "../../types";
 
-export default { title: "Comment" };
+export default { title: "CommentList" };
 
 const commentData: CommentType = {
   id: 25487686,
@@ -72,7 +72,59 @@ const threadComment: CommentType = {
   }
 };
 
+const aUser = {
+  userId: "abc123",
+  displayName: "Jane Smith",
+  webUrl: "",
+  apiUrl: "",
+  avatar: "",
+  secureAvatarUrl: "",
+  badge: [],
+  privateFields: {
+    canPostComment: true,
+    isPremoderated: false,
+    hasCommented: true
+  }
+};
+
+const commentDataThreaded: CommentType = {
+  ...commentData,
+  ...{
+    responses: [threadComment]
+  }
+};
+
 export const defaultStory = () => (
-  <Comment comment={commentData} pillar={"sport"} displayReplyForm={() => {}} />
+  <CommentList
+    comment={commentData}
+    pillar={"sport"}
+    shortUrl="randomShortURL"
+    user={aUser}
+    onAddComment={(commentId, body, user) => {}}
+    threads="collapsed"
+  />
 );
 defaultStory.story = { name: "default" };
+
+export const threadedComment = () => (
+  <CommentList
+    comment={commentDataThreaded}
+    pillar={"lifestyle"}
+    shortUrl="randomShortURL"
+    user={aUser}
+    onAddComment={(commentId, body, user) => {}}
+    threads="collapsed"
+  />
+);
+threadedComment.story = { name: "threaded" };
+
+export const replyableComment = () => (
+  <CommentList
+    comment={commentDataThreaded}
+    pillar="lifestyle"
+    shortUrl="randomShortURL"
+    user={aUser}
+    onAddComment={(commentId, body, user) => {}}
+    threads="collapsed"
+  />
+);

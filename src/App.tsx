@@ -3,7 +3,7 @@ import { css } from "emotion";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
 import { getDiscussion, getCommentCount } from "./lib/api";
-import { Comment } from "./components/Comment/Comment";
+import { CommentList } from "./components/CommentList/CommentList";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
@@ -123,7 +123,7 @@ export const App = ({ shortUrl, user }: Props) => {
       ) : (
         <ul className={commentContainerStyles}>
           {comments.map(comment => (
-            <Comment
+            <CommentList
               key={comment.id}
               comment={comment}
               pillar="news"
