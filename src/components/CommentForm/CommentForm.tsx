@@ -210,7 +210,9 @@ export const CommentForm = ({
 
   const submitForm = async () => {
     if (body) {
-      const response: CommentResponse = await comment(shortUrl, body);
+      const response: CommentResponse = commentBeingRepliedTo
+        ? await reply(shortUrl, body, commentBeingRepliedTo.id)
+        : await comment(shortUrl, body);
       if (response.statusCode === 420) {
         setError(
           "You can only post one comment every minute. Please try again in a moment."
@@ -230,32 +232,6 @@ export const CommentForm = ({
     }
   };
 
-  const replyForm = async () => {
-    if (body && commentBeingRepliedTo && hideReplyForm) {
-      const response: CommentResponse = await reply(
-        shortUrl,
-        body,
-        commentBeingRepliedTo.id
-      );
-      if (response.statusCode === 420) {
-        setError(
-          "You can only post one comment every minute. Please try again in a moment."
-        );
-      } else if (response.message === "USERNAME_MISSING") {
-        // Reader has never posted before and needs to choose a username
-        setFirstPost(true);
-      } else if (response.status === "ok") {
-        // response.message is the id of the comment that was created on the server
-        onAddComment(parseInt(response.message), body, user);
-        hideReplyForm();
-      } else {
-        setError(
-          response.message ? response.message : "Comment was unable to submit"
-        );
-      }
-    }
-  };
-
   if (firstPost) {
     return <FirstCommentWelcome />;
   }
@@ -266,7 +242,7 @@ export const CommentForm = ({
         className={formWrapper}
         onSubmit={e => {
           e.preventDefault();
-          commentBeingRepliedTo ? replyForm() : submitForm();
+          submitForm();
         }}
       >
         {error && (
