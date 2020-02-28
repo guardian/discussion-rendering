@@ -122,12 +122,20 @@ export const Comment = ({
   user
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
+  const [scopedComment, setScopedComment] = useState(comment);
   const [error, setError] = useState<string>();
 
   const pick = async () => {
     setError("");
-    const response = await pickComment(comment.id);
-    if (response.status === "error") setError(response.message);
+    const response = await pickComment(scopedComment.id);
+    if (response.status === "error") {
+      setError(response.message);
+    } else {
+      setScopedComment({
+        ...scopedComment,
+        isHighlighted: !scopedComment.isHighlighted
+      });
+    }
   };
 
   return (
@@ -143,8 +151,8 @@ export const Comment = ({
       )}
       <div className={commentWrapper}>
         <img
-          src={comment.userProfile.avatar}
-          alt={comment.userProfile.displayName}
+          src={scopedComment.userProfile.avatar}
+          alt={scopedComment.userProfile.displayName}
           className={cx(avatar(50), commentAvatar)}
         />
 
@@ -153,35 +161,35 @@ export const Comment = ({
             <Column>
               <Row>
                 <div className={commentProfileName(pillar)}>
-                  {comment.userProfile.displayName}
+                  {scopedComment.userProfile.displayName}
                 </div>
                 <div className={timestampWrapperStyles}>
                   <Timestamp
-                    isoDateTime={comment.isoDateTime}
-                    linkTo={`https://discussion.code.dev-theguardian.com/comment-permalink/${comment.id}`}
+                    isoDateTime={scopedComment.isoDateTime}
+                    linkTo={`https://discussion.code.dev-theguardian.com/comment-permalink/${scopedComment.id}`}
                   />
                 </div>
               </Row>
               <Row>
                 <div className={iconWrapper}>
-                  {comment.userProfile.badge.filter(
+                  {scopedComment.userProfile.badge.filter(
                     obj => obj["name"] === "Staff"
                   ) && <GuardianStaff />}
                 </div>
                 <div className={iconWrapper}>
-                  {comment.isHighlighted && <GuardianPick />}
+                  {scopedComment.isHighlighted && <GuardianPick />}
                 </div>
               </Row>
             </Column>
             <RecommendationCount
-              commentId={comment.id}
-              initialCount={comment.numRecommends}
+              commentId={scopedComment.id}
+              initialCount={scopedComment.numRecommends}
               alreadyRecommended={false}
             />
           </header>
           <div
             className={commentCss}
-            dangerouslySetInnerHTML={{ __html: comment.body }}
+            dangerouslySetInnerHTML={{ __html: scopedComment.body }}
           />
           <div className={spaceBetween}>
             <div className={commentControls}>
@@ -195,17 +203,17 @@ export const Comment = ({
               {/* Only staff can pick, and they cannot pick thier own comment */}
               {user &&
                 user.badge.some(e => e.name === "Staff") &&
-                user.userId !== comment.userProfile.userId && (
+                user.userId !== scopedComment.userProfile.userId && (
                   <button
                     onClick={pick}
                     className={commentControlsButtonStyles}
                   >
-                    Pick
+                    {scopedComment.isHighlighted ? "Unpick" : "Pick"}
                   </button>
                 )}
             </div>
             <div>
-              <AbuseReportForm commentId={comment.id} pillar={pillar} />
+              <AbuseReportForm commentId={scopedComment.id} pillar={pillar} />
             </div>
           </div>
         </div>
