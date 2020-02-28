@@ -85,6 +85,14 @@ const timestampWrapperStyles = css`
   justify-content: center;
 `;
 
+const linkStyles = css`
+  color: inherit;
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
@@ -133,7 +141,12 @@ export const Comment = ({
             <Column>
               <Row>
                 <div className={commentProfileName(pillar)}>
-                  {comment.userProfile.displayName}
+                  <a
+                    href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
+                    className={linkStyles}
+                  >
+                    {comment.userProfile.displayName}
+                  </a>
                 </div>
                 <div className={timestampWrapperStyles}>
                   <Timestamp
