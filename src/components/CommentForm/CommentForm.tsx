@@ -206,6 +206,7 @@ export const CommentForm = ({
     setBody("");
     setShowPreview(false);
     setIsActive(false);
+    setCommentBeingRepliedTo && setCommentBeingRepliedTo();
   };
 
   const submitForm = async () => {
@@ -288,15 +289,7 @@ export const CommentForm = ({
                 >
                   Preview
                 </Button>
-                <Button
-                  size="small"
-                  onClick={() => {
-                    commentBeingRepliedTo && setCommentBeingRepliedTo
-                      ? setCommentBeingRepliedTo()
-                      : resetForm();
-                  }}
-                  priority="tertiary"
-                >
+                <Button size="small" onClick={resetForm} priority="tertiary">
                   Cancel
                 </Button>
               </>

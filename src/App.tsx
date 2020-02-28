@@ -198,8 +198,8 @@ export const App = ({ shortUrl, user }: Props) => {
       <footer className={footerStyles}>
         <Pagination
           totalPages={totalPages}
-          page={filters.page}
-          setPage={(page: number) => {
+          currentPage={filters.page}
+          setCurrentPage={(page: number) => {
             setFilters({
               ...filters,
               page: page
