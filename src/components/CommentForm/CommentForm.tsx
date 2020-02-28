@@ -1,19 +1,21 @@
 import React, { useState, useRef } from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
+
 import { Button } from "@guardian/src-button";
-import { space, neutral } from "@guardian/src-foundations";
+import { palette, space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { comment, preview } from "../../lib/api";
-
-import { CommentResponse, UserProfile } from "../../types";
+import { comment, reply, preview } from "../../lib/api";
+import { CommentResponse, UserProfile, CommentType } from "../../types";
 
 import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
 
 type Props = {
   shortUrl: string;
   user: UserProfile;
-  onAdd: (commentId: number, body: string, user: UserProfile) => void;
+  onAddComment: (commentId: number, body: string, user: UserProfile) => void;
+  setCommentBeingRepliedTo?: () => void;
+  commentBeingRepliedTo?: CommentType;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -33,14 +35,22 @@ const commentTextArea = css`
   margin-bottom: ${space[3]}px;
   padding: 8px 10px 10px 8px;
   ${textSans.small()};
-  border-color: #dcdcdc;
+  border-color: ${palette.neutral[86]};
+  :focus {
+    border-color: ${palette.neutral[46]};
+    outline: none;
+  }
+`;
+
+const placeholderCommentStyles = css`
   ::placeholder {
     font-weight: bold;
     color: black;
   }
-  :focus {
-    border-color: #767676;
-    outline: none;
+`;
+const placeholderReplyStyles = css`
+  ::placeholder {
+    color: grey;
   }
 `;
 
@@ -95,7 +105,7 @@ const commentAddOns = css`
   height: 22px;
   font-size: 13px;
   line-height: 17px;
-  border: 1px solid #dcdcdc;
+  border: 1px solid ${palette.neutral[100]};
   color: #767676;
   text-align: center;
   cursor: pointer;
@@ -121,8 +131,16 @@ const bottomContainer = css`
   align-content: space-between;
 `;
 
-export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+export const CommentForm = ({
+  shortUrl,
+  onAddComment,
+  user,
+  setCommentBeingRepliedTo,
+  commentBeingRepliedTo
+}: Props) => {
+  const [isActive, setIsActive] = useState<boolean>(
+    commentBeingRepliedTo ? true : false
+  );
   const [firstPost, setFirstPost] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const [previewBody, setPreviewBody] = useState<string>("");
@@ -183,9 +201,19 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
     }
   };
 
+  const resetForm = () => {
+    setError("");
+    setBody("");
+    setShowPreview(false);
+    setIsActive(false);
+    setCommentBeingRepliedTo && setCommentBeingRepliedTo();
+  };
+
   const submitForm = async () => {
     if (body) {
-      const response: CommentResponse = await comment(shortUrl, body);
+      const response: CommentResponse = commentBeingRepliedTo
+        ? await reply(shortUrl, body, commentBeingRepliedTo.id)
+        : await comment(shortUrl, body);
       if (response.statusCode === 420) {
         setError(
           "You can only post one comment every minute. Please try again in a moment."
@@ -193,17 +221,16 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
       } else if (response.message === "USERNAME_MISSING") {
         // Reader has never posted before and needs to choose a username
         setFirstPost(true);
-      } else if (response.status === "ok")
+      } else if (response.status === "ok") {
         // response.message is the id of the comment that was created on the server
-        onAdd(parseInt(response.message), body, user);
+        onAddComment(parseInt(response.message), body, user);
+        resetForm();
+      } else {
+        setError(
+          response.message ? response.message : "Comment was unable to submit"
+        );
+      }
     }
-  };
-
-  const resetForm = () => {
-    setError("");
-    setBody("");
-    setShowPreview(false);
-    setIsActive(false);
   };
 
   if (firstPost) {
@@ -216,7 +243,6 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
         className={formWrapper}
         onSubmit={e => {
           e.preventDefault();
-          resetForm();
           submitForm();
         }}
       >
@@ -234,8 +260,13 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
           </div>
         )}
         <textarea
-          placeholder={!isActive ? "Join the discussion" : ""}
-          className={commentTextArea}
+          placeholder={"Join the discussion"}
+          className={cx(
+            commentTextArea,
+            commentBeingRepliedTo
+              ? placeholderReplyStyles
+              : placeholderCommentStyles
+          )}
           ref={textAreaRef}
           style={{ height: isActive ? "132px" : "50px" }}
           onChange={e => {
@@ -258,13 +289,7 @@ export const CommentForm = ({ shortUrl, onAdd, user }: Props) => {
                 >
                   Preview
                 </Button>
-                <Button
-                  size="small"
-                  onClick={() => {
-                    resetForm();
-                  }}
-                  priority="tertiary"
-                >
+                <Button size="small" onClick={resetForm} priority="tertiary">
                   Cancel
                 </Button>
               </>
