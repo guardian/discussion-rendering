@@ -163,7 +163,7 @@ export const CommentList = ({
           user && (
             <div className={nestingStyles}>
               <CommentReplyPreview
-                replyComment={replyComment}
+                commentBeingRepliedTo={commentBeingRepliedTo}
                 pillar={pillar}
               />
               <CommentForm

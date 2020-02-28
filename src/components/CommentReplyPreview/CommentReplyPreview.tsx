@@ -71,10 +71,10 @@ const ReplyArrow = () => (
 );
 
 export const CommentReplyPreview = ({
-  replyComment,
+  commentBeingRepliedTo,
   pillar
 }: {
-  replyComment: CommentType;
+  commentBeingRepliedTo: CommentType;
   pillar: Pillar;
 }) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
@@ -88,7 +88,7 @@ export const CommentReplyPreview = ({
           <ReplyArrow />
         </div>
         <div className={replyDisplayNameStyles}>
-          {replyComment.userProfile.displayName}
+          {commentBeingRepliedTo.userProfile.displayName}
         </div>
         <button
           className={cx(hideCommentButtonStyles, commentControlsButtonStyles)}
@@ -100,11 +100,12 @@ export const CommentReplyPreview = ({
       {displayReplyComment && (
         <div className={previewStyle}>
           <p className={replyPreviewHeaderStyle}>
-            {replyComment.userProfile.displayName} @ {replyComment.date} said:
+            {commentBeingRepliedTo.userProfile.displayName} @{" "}
+            {commentBeingRepliedTo.date} said:
           </p>
           <p
             dangerouslySetInnerHTML={{
-              __html: replyComment.body || ""
+              __html: commentBeingRepliedTo.body || ""
             }}
           />
           <div>
