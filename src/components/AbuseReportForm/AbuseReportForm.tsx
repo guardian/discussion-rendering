@@ -23,7 +23,7 @@ type formData = {
 
 const formWrapper = (pillar: Pillar) => css`
   z-index: 1;
-  color: ${palette[pillar][400]};
+  border: 1px solid ${palette.neutral[86]};
   position: absolute;
   width: 300px;
   top: 0;
