@@ -37,7 +37,7 @@ const commentTextArea = css`
   ${textSans.small()};
   border-color: ${palette.neutral[86]};
   :focus {
-    border-color: #767676;
+    border-color: ${palette.neutral[46]};
     outline: none;
   }
 `;
