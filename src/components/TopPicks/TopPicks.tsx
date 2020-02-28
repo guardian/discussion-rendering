@@ -66,6 +66,15 @@ const picksAvatar = css`
   margin-right: ${space[3]}px;
 `;
 
+const linkStyles = css`
+  color: inherit;
+
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 // TODO: Check if there are other labels
 const Pick = ({ comment }: { comment: CommentType }) => (
   <div className={pick}>
@@ -89,7 +98,14 @@ const Pick = ({ comment }: { comment: CommentType }) => (
           className={cx(avatar(50), comment.userProfile.avatar, picksAvatar)}
         />
         <div className="usermeta">
-          <span className={userName}>{comment.userProfile.displayName}</span>
+          <span className={userName}>
+            <a
+              href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
+              className={linkStyles}
+            >
+              {comment.userProfile.displayName}
+            </a>
+          </span>
           <Timestamp
             isoDateTime={comment.isoDateTime}
             linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
