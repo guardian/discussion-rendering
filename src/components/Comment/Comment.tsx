@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { neutral, space, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Pillar, CommentType } from "../../types";
+import { Pillar, CommentType, UserProfile } from "../../types";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
+import { pickComment } from "../../lib/api";
 
 type Props = {
+  user?: UserProfile;
   comment: CommentType;
   pillar: Pillar;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
@@ -116,11 +118,29 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 export const Comment = ({
   comment,
   pillar,
-  setCommentBeingRepliedTo
+  setCommentBeingRepliedTo,
+  user
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
+  const [error, setError] = useState<string>();
+
+  const pick = async () => {
+    setError("");
+    const response = await pickComment(comment.id);
+    if (response.status === "error") setError(response.message);
+  };
+
   return (
-    <li>
+    <>
+      {error && (
+        <span
+          className={css`
+            color: red;
+          `}
+        >
+          {error}
+        </span>
+      )}
       <div className={commentWrapper}>
         <img
           src={comment.userProfile.avatar}
@@ -172,7 +192,17 @@ export const Comment = ({
                 Reply
               </button>
               <button className={commentControlsButtonStyles}>Share</button>
-              <button className={commentControlsButtonStyles}>Pick</button>
+              {/* Only staff can pick, and they cannot pick thier own comment */}
+              {user &&
+                user.badge.some(e => e.name === "Staff") &&
+                user.userId !== comment.userProfile.userId && (
+                  <button
+                    onClick={pick}
+                    className={commentControlsButtonStyles}
+                  >
+                    Pick
+                  </button>
+                )}
             </div>
             <div>
               <AbuseReportForm commentId={comment.id} pillar={pillar} />
@@ -180,6 +210,6 @@ export const Comment = ({
           </div>
         </div>
       </div>
-    </li>
+    </>
   );
 };

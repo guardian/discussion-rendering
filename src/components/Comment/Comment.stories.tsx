@@ -36,11 +36,36 @@ const commentData: CommentType = {
   }
 };
 
-export const defaultStory = () => (
+const staffUser = {
+  userId: "abc123",
+  displayName: "Jane Smith",
+  webUrl: "",
+  apiUrl: "",
+  avatar: "",
+  secureAvatarUrl: "",
+  badge: [{ name: "Staff" }],
+  privateFields: {
+    canPostComment: true,
+    isPremoderated: false,
+    hasCommented: true
+  }
+};
+
+export const Default = () => (
   <Comment
     comment={commentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
   />
 );
-defaultStory.story = { name: "default" };
+Default.story = { name: "default" };
+
+export const StaffUser = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    user={staffUser}
+  />
+);
+StaffUser.story = { name: "StaffUser" };

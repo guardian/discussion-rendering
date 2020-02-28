@@ -121,6 +121,7 @@ export const CommentList = ({
         comment={comment}
         pillar={pillar}
         setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+        user={user}
       />
 
       <>
@@ -131,6 +132,7 @@ export const CommentList = ({
                 comment={responseComment}
                 pillar={pillar}
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                user={user}
               />
             ))}
             {!expanded &&
