@@ -10,8 +10,8 @@ import { FilterOptions, OrderByType, ThreadsType } from "../../types";
 
 type Props = {
   filters: FilterOptions;
-  setFilters: (newFilterObject: FilterOptions) => void;
-  pages: number;
+  onFilterChange: (newFilterObject: FilterOptions) => void;
+  totalPages: number;
   commentCount: number;
 };
 
@@ -70,8 +70,8 @@ const filterWrapperStyles = css`
 
 export const Filters = ({
   filters,
-  setFilters,
-  pages,
+  onFilterChange,
+  totalPages,
   commentCount
 }: Props) => (
   <div className={filterBar}>
@@ -95,7 +95,7 @@ export const Filters = ({
           id="orderBy"
           className={filterStyle}
           onChange={e =>
-            setFilters({
+            onFilterChange({
               ...filters,
               orderBy: e.target.value as OrderByType
             })
@@ -117,7 +117,7 @@ export const Filters = ({
           id="pageSize"
           className={filterStyle}
           onChange={e =>
-            setFilters({
+            onFilterChange({
               ...filters,
               pageSize: Number(e.target.value) as number
             })
@@ -139,7 +139,7 @@ export const Filters = ({
           id="threads"
           className={filterStyle}
           onChange={e =>
-            setFilters({
+            onFilterChange({
               ...filters,
               threads: e.target.value as ThreadsType
             })
@@ -152,12 +152,12 @@ export const Filters = ({
         </select>
       </div>
     </div>
-    {pages > 1 && (
+    {totalPages > 1 && (
       <Pagination
-        pages={pages}
+        totalPages={totalPages}
         page={filters.page}
         setPage={(page: number) => {
-          setFilters({
+          onFilterChange({
             ...filters,
             page
           });

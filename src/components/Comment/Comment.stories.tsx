@@ -37,6 +37,10 @@ const commentData: CommentType = {
 };
 
 export const defaultStory = () => (
-  <Comment comment={commentData} pillar={"sport"} displayReplyForm={() => {}} />
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+  />
 );
 defaultStory.story = { name: "default" };

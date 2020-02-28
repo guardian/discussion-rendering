@@ -102,7 +102,7 @@ export const defaultStory = () => (
     user={aUser}
     onAddComment={(commentId, body, user) => {}}
     threads="collapsed"
-    setReplyComment={() => {}}
+    setCommentBeingRepliedTo={comment => {}}
   />
 );
 defaultStory.story = { name: "default" };
@@ -115,7 +115,7 @@ export const threadedComment = () => (
     user={aUser}
     onAddComment={(commentId, body, user) => {}}
     threads="collapsed"
-    setReplyComment={() => {}}
+    setCommentBeingRepliedTo={comment => {}}
   />
 );
 threadedComment.story = { name: "threaded" };
@@ -128,6 +128,6 @@ export const replyableComment = () => (
     user={aUser}
     onAddComment={(commentId, body, user) => {}}
     threads="collapsed"
-    setReplyComment={() => {}}
+    setCommentBeingRepliedTo={comment => {}}
   />
 );

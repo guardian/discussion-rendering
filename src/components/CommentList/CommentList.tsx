@@ -15,8 +15,8 @@ type Props = {
   user?: UserProfile;
   onAddComment: (commentId: number, body: string, user: UserProfile) => void;
   threads: ThreadsType;
-  replyComment?: CommentType;
-  setReplyComment: (replyComment?: CommentType) => void;
+  commentBeingRepliedTo?: CommentType;
+  setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
 };
 
 const nestingStyles = css`
@@ -25,12 +25,12 @@ const nestingStyles = css`
   margin-left: ${space[12] + "px"};
 `;
 
-const buttonStyles = css`
+const buttonStyles = (pillar: Pillar) => css`
   margin-top: 12px;
   margin-bottom: 12px;
   cursor: pointer;
-  background: #fff;
-  color: #c70000;
+  background: ${palette.neutral[100]};
+  color: ${palette[pillar][400]};
   height: 24px;
   font-size: 12px;
   font-weight: bold;
@@ -80,8 +80,8 @@ export const CommentList = ({
   user,
   shortUrl,
   threads,
-  replyComment,
-  setReplyComment
+  commentBeingRepliedTo,
+  setCommentBeingRepliedTo
 }: Props) => {
   // Filter logic
   const [expanded, setExpanded] = useState<boolean>(threads === "expanded");
@@ -121,7 +121,7 @@ export const CommentList = ({
       <Comment
         comment={comment}
         pillar={pillar}
-        displayReplyForm={() => setReplyComment(comment)}
+        setCommentBeingRepliedTo={setCommentBeingRepliedTo}
       />
 
       <>
@@ -131,31 +131,35 @@ export const CommentList = ({
               <Comment
                 comment={responseComment}
                 pillar={pillar}
-                displayReplyForm={() => setReplyComment(responseComment)}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
               />
             ))}
-            {!expanded && (
-              <button
-                onClick={() => expand(comment.id)}
-                className={buttonStyles}
-              >
-                <Row>
-                  <Plus />
-                  <span
-                    className={css`
-                      margin-left: 4px;
-                    `}
-                  >
-                    {loading ? "loading..." : decideShowMoreText()}
-                  </span>
-                </Row>
-              </button>
-            )}
+            {!expanded &&
+              comment.metaData?.responseCount &&
+              comment.metaData?.responseCount > 3 && (
+                <button
+                  onClick={() => expand(comment.id)}
+                  className={buttonStyles(pillar)}
+                >
+                  <Row>
+                    <Plus />
+                    <span
+                      className={css`
+                        margin-left: 4px;
+                      `}
+                    >
+                      {loading ? "loading..." : decideShowMoreText()}
+                    </span>
+                  </Row>
+                </button>
+              )}
           </div>
         )}
-        {replyComment &&
-          (replyComment.id === comment.id ||
-            responses?.find(response => response.id === replyComment.id)) &&
+        {commentBeingRepliedTo &&
+          (commentBeingRepliedTo.id === comment.id ||
+            responses?.find(
+              response => response.id === commentBeingRepliedTo.id
+            )) &&
           user && (
             <div className={nestingStyles}>
               <CommentReplyPreview
@@ -166,9 +170,8 @@ export const CommentList = ({
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
                 user={user}
-                hideReplyForm={() => setReplyComment()}
-                replyComment={replyComment}
-                defaultToActive={true}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                commentBeingRepliedTo={commentBeingRepliedTo}
               />
             </div>
           )}
