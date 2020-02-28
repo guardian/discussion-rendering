@@ -35,7 +35,7 @@ const commentTextArea = css`
   margin-bottom: ${space[3]}px;
   padding: 8px 10px 10px 8px;
   ${textSans.small()};
-  border-color: ${palette.neutral[100]};
+  border-color: ${palette.neutral[86]};
   :focus {
     border-color: #767676;
     outline: none;
