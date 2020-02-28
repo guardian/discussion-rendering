@@ -72,7 +72,7 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   </div>
 );
 
-export const CommentList = ({
+export const CommentContainer = ({
   comment,
   pillar,
   onAddComment,
