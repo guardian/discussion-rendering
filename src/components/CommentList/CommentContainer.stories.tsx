@@ -1,9 +1,9 @@
 import React from "react";
 
-import { CommentList } from "./CommentList";
+import { CommentContainer } from "./CommentContainer";
 import { CommentType } from "../../types";
 
-export default { title: "CommentList" };
+export default { title: "CommentContainer" };
 
 const commentData: CommentType = {
   id: 25487686,
@@ -95,7 +95,7 @@ const commentDataThreaded: CommentType = {
 };
 
 export const defaultStory = () => (
-  <CommentList
+  <CommentContainer
     comment={commentData}
     pillar={"sport"}
     shortUrl="randomShortURL"
@@ -108,7 +108,7 @@ export const defaultStory = () => (
 defaultStory.story = { name: "default" };
 
 export const threadedComment = () => (
-  <CommentList
+  <CommentContainer
     comment={commentDataThreaded}
     pillar={"lifestyle"}
     shortUrl="randomShortURL"
@@ -121,7 +121,7 @@ export const threadedComment = () => (
 threadedComment.story = { name: "threaded" };
 
 export const replyableComment = () => (
-  <CommentList
+  <CommentContainer
     comment={commentDataThreaded}
     pillar="lifestyle"
     shortUrl="randomShortURL"
