@@ -24,6 +24,13 @@ const footerStyles = css`
   justify-content: flex-end;
 `;
 
+const commentContainerStyles = css`
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding-left: 0;
+`;
+
 const DEFAULT_FILTERS: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,
@@ -85,6 +92,10 @@ export const App = ({ shortUrl, user }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
 
+  const [commentBeingRepliedTo, setCommentBeingRepliedTo] = useState<
+    CommentType
+  >();
+
   const simulateNewComment = (
     commentId: number,
     body: string,
@@ -119,7 +130,7 @@ export const App = ({ shortUrl, user }: Props) => {
     };
   };
 
-  const commentAdded = (commentId: number, body: string, user: UserProfile) => {
+  const onAddComment = (commentId: number, body: string, user: UserProfile) => {
     comments.pop(); // Remove last item from our local array
     // Replace it with this new comment at the start
     setComments([simulateNewComment(commentId, body, user), ...comments]);
@@ -150,7 +161,11 @@ export const App = ({ shortUrl, user }: Props) => {
   return (
     <div className={containerStyles}>
       {user && (
-        <CommentForm shortUrl={shortUrl} onAdd={commentAdded} user={user} />
+        <CommentForm
+          shortUrl={shortUrl}
+          onAddComment={onAddComment}
+          user={user}
+        />
       )}
       <TopPicks shortUrl={shortUrl} />
       <Filters
@@ -161,14 +176,30 @@ export const App = ({ shortUrl, user }: Props) => {
       />
       {loading ? (
         <p>TODO loading component goes here...</p>
+      ) : !comments.length ? (
+        <p>TODO: No comment component goes here</p>
       ) : (
-        <CommentList comments={comments} threads={filters.threads} />
+        <ul className={commentContainerStyles}>
+          {comments.map(comment => (
+            <CommentList
+              key={comment.id}
+              comment={comment}
+              pillar="news"
+              shortUrl={shortUrl}
+              onAddComment={onAddComment}
+              user={user}
+              threads={filters.threads}
+              commentBeingRepliedTo={commentBeingRepliedTo}
+              setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+            />
+          ))}
+        </ul>
       )}
       <footer className={footerStyles}>
         <Pagination
           totalPages={totalPages}
-          page={filters.page}
-          setPage={(page: number) => {
+          currentPage={filters.page}
+          setCurrentPage={(page: number) => {
             setFilters({
               ...filters,
               page: page
