@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { css, cx } from "emotion";
 
 import { Button } from "@guardian/src-button";
-import { space, neutral } from "@guardian/src-foundations";
+import { palette, space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { comment, reply, preview } from "../../lib/api";
@@ -14,9 +14,8 @@ type Props = {
   shortUrl: string;
   user: UserProfile;
   onAddComment: (commentId: number, body: string, user: UserProfile) => void;
-  replyComment?: CommentType;
-  hideReplyForm?: () => void;
-  defaultToActive?: boolean;
+  setCommentBeingRepliedTo?: () => void;
+  commentBeingRepliedTo?: CommentType;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -36,9 +35,9 @@ const commentTextArea = css`
   margin-bottom: ${space[3]}px;
   padding: 8px 10px 10px 8px;
   ${textSans.small()};
-  border-color: #dcdcdc;
+  border-color: ${palette.neutral[86]};
   :focus {
-    border-color: #767676;
+    border-color: ${palette.neutral[46]};
     outline: none;
   }
 `;
@@ -106,7 +105,7 @@ const commentAddOns = css`
   height: 22px;
   font-size: 13px;
   line-height: 17px;
-  border: 1px solid #dcdcdc;
+  border: 1px solid ${palette.neutral[100]};
   color: #767676;
   text-align: center;
   cursor: pointer;
@@ -136,14 +135,12 @@ export const CommentForm = ({
   shortUrl,
   onAddComment,
   user,
-  hideReplyForm,
-  replyComment,
-  defaultToActive = false
+  setCommentBeingRepliedTo,
+  commentBeingRepliedTo
 }: Props) => {
-  // We are making the assumption that if replyComment is defined that this is a reply submission
-  const isReplyCommentForm = !!replyComment;
-
-  const [isActive, setIsActive] = useState<boolean>(defaultToActive);
+  const [isActive, setIsActive] = useState<boolean>(
+    commentBeingRepliedTo ? true : false
+  );
   const [firstPost, setFirstPost] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const [previewBody, setPreviewBody] = useState<string>("");
@@ -209,11 +206,14 @@ export const CommentForm = ({
     setBody("");
     setShowPreview(false);
     setIsActive(false);
+    setCommentBeingRepliedTo && setCommentBeingRepliedTo();
   };
 
   const submitForm = async () => {
     if (body) {
-      const response: CommentResponse = await comment(shortUrl, body);
+      const response: CommentResponse = commentBeingRepliedTo
+        ? await reply(shortUrl, body, commentBeingRepliedTo.id)
+        : await comment(shortUrl, body);
       if (response.statusCode === 420) {
         setError(
           "You can only post one comment every minute. Please try again in a moment."
@@ -233,32 +233,6 @@ export const CommentForm = ({
     }
   };
 
-  const replyForm = async () => {
-    if (body && replyComment && hideReplyForm) {
-      const response: CommentResponse = await reply(
-        shortUrl,
-        body,
-        replyComment.id
-      );
-      if (response.statusCode === 420) {
-        setError(
-          "You can only post one comment every minute. Please try again in a moment."
-        );
-      } else if (response.message === "USERNAME_MISSING") {
-        // Reader has never posted before and needs to choose a username
-        setFirstPost(true);
-      } else if (response.status === "ok") {
-        // response.message is the id of the comment that was created on the server
-        onAddComment(parseInt(response.message), body, user);
-        hideReplyForm();
-      } else {
-        setError(
-          response.message ? response.message : "Comment was unable to submit"
-        );
-      }
-    }
-  };
-
   if (firstPost) {
     return <FirstCommentWelcome />;
   }
@@ -269,7 +243,7 @@ export const CommentForm = ({
         className={formWrapper}
         onSubmit={e => {
           e.preventDefault();
-          isReplyCommentForm ? replyForm() : submitForm();
+          submitForm();
         }}
       >
         {error && (
@@ -289,7 +263,7 @@ export const CommentForm = ({
           placeholder={"Join the discussion"}
           className={cx(
             commentTextArea,
-            isReplyCommentForm
+            commentBeingRepliedTo
               ? placeholderReplyStyles
               : placeholderCommentStyles
           )}
@@ -315,15 +289,7 @@ export const CommentForm = ({
                 >
                   Preview
                 </Button>
-                <Button
-                  size="small"
-                  onClick={() => {
-                    isReplyCommentForm && hideReplyForm
-                      ? hideReplyForm()
-                      : resetForm();
-                  }}
-                  priority="tertiary"
-                >
+                <Button size="small" onClick={resetForm} priority="tertiary">
                   Cancel
                 </Button>
               </>
