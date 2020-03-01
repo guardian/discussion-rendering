@@ -89,7 +89,9 @@ export const Form: React.FC<{
   let lastElement: HTMLButtonElement | null = null;
   useEffect(() => {
     if (!modalRef.current) return;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     firstElement = modalRef.current.querySelector('select[name="categoryId"]');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     lastElement = modalRef.current.querySelector(
       'button[custom-guardian="close-modal"]'
     );
