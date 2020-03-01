@@ -121,6 +121,7 @@ export const CommentContainer = ({
         comment={comment}
         pillar={pillar}
         setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+        isReply={false}
       />
 
       <>
@@ -131,6 +132,7 @@ export const CommentContainer = ({
                 comment={responseComment}
                 pillar={pillar}
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                isReply={true}
               />
             ))}
             {!expanded &&
