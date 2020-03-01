@@ -20,33 +20,12 @@ export const Container = () => (
 
 export const Dialog = () => (
   <div className={wrapperStyles}>
-    <Form
-      toggleSetShowForm={() => {}}
-      pillar={"sport"}
-      submitForm={() => {}}
-      selectedCategory={1}
-      categoryOnChange={() => {}}
-      reasonOnChange={() => {}}
-      reasonText="The best reason"
-      emailOnChange={() => {}}
-      emailText="bestemail@example.com"
-    />
+    <Form toggleSetShowForm={() => {}} pillar={"sport"} commentId={123} />
   </div>
 );
 
 export const DialogWithError = () => (
   <div className={wrapperStyles}>
-    <Form
-      toggleSetShowForm={() => {}}
-      submitForm={() => {}}
-      pillar={"sport"}
-      selectedCategory={1}
-      categoryOnChange={() => {}}
-      reasonOnChange={() => {}}
-      reasonText="The best reason"
-      emailOnChange={() => {}}
-      emailText="bestemail@example.com"
-      errors={{ category: "some error" }}
-    />
+    <Form toggleSetShowForm={() => {}} pillar={"sport"} commentId={123} />
   </div>
 );
