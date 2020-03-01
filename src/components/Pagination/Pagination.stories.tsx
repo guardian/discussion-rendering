@@ -13,12 +13,12 @@ const DEFAULT_FILTERS: FilterOptions = {
 };
 
 export const Default = () => {
-  const [page, setPage] = useState(1);
+  const [page, setCurrentPage] = useState(1);
   return (
     <Pagination
       totalPages={9}
-      page={page}
-      setPage={setPage}
+      currentPage={page}
+      setCurrentPage={setCurrentPage}
       filters={DEFAULT_FILTERS}
       commentCount={200}
     />
@@ -27,12 +27,12 @@ export const Default = () => {
 Default.story = { name: "default" };
 
 export const NoPages = () => {
-  const [page, setPage] = useState(1);
+  const [page, setCurrentPage] = useState(1);
   return (
     <Pagination
       totalPages={2}
-      page={page}
-      setPage={setPage}
+      currentPage={page}
+      setCurrentPage={setCurrentPage}
       filters={DEFAULT_FILTERS}
       commentCount={56}
     />
@@ -41,12 +41,12 @@ export const NoPages = () => {
 NoPages.story = { name: "with two pages" };
 
 export const LotsOfPages = () => {
-  const [page, setPage] = useState(1);
+  const [page, setCurrentPage] = useState(1);
   return (
     <Pagination
       totalPages={187}
-      page={page}
-      setPage={setPage}
+      currentPage={page}
+      setCurrentPage={setCurrentPage}
       filters={DEFAULT_FILTERS}
       commentCount={490000}
     />
