@@ -9,7 +9,7 @@ import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
-import { pickComment } from "../../lib/api";
+import { pickComment, unPickComment } from "../../lib/api";
 import { Avatar } from "../Avatar/Avatar";
 
 type Props = {
@@ -125,19 +125,28 @@ export const Comment = ({
   isReply
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
-  const [scopedComment, setScopedComment] = useState(comment);
+  const [isHighlighted, setIsHighlighted] = useState<boolean>(
+    comment.isHighlighted
+  );
   const [error, setError] = useState<string>();
 
   const pick = async () => {
     setError("");
-    const response = await pickComment(scopedComment.id);
+    const response = await pickComment(comment.id);
     if (response.status === "error") {
       setError(response.message);
     } else {
-      setScopedComment({
-        ...scopedComment,
-        isHighlighted: !scopedComment.isHighlighted
-      });
+      setIsHighlighted(true);
+    }
+  };
+
+  const unPick = async () => {
+    setError("");
+    const response = await unPickComment(comment.id);
+    if (response.status === "error") {
+      setError(response.message);
+    } else {
+      setIsHighlighted(false);
     }
   };
 
@@ -175,31 +184,31 @@ export const Comment = ({
                 </div>
                 <div className={timestampWrapperStyles}>
                   <Timestamp
-                    isoDateTime={scopedComment.isoDateTime}
-                    linkTo={`https://discussion.code.dev-theguardian.com/comment-permalink/${scopedComment.id}`}
+                    isoDateTime={comment.isoDateTime}
+                    linkTo={`https://discussion.code.dev-theguardian.com/comment-permalink/${comment.id}`}
                   />
                 </div>
               </Row>
               <Row>
                 <div className={iconWrapper}>
-                  {scopedComment.userProfile.badge.filter(
+                  {comment.userProfile.badge.filter(
                     obj => obj["name"] === "Staff"
                   ) && <GuardianStaff />}
                 </div>
                 <div className={iconWrapper}>
-                  {scopedComment.isHighlighted && <GuardianPick />}
+                  {isHighlighted && <GuardianPick />}
                 </div>
               </Row>
             </Column>
             <RecommendationCount
-              commentId={scopedComment.id}
-              initialCount={scopedComment.numRecommends}
+              commentId={comment.id}
+              initialCount={comment.numRecommends}
               alreadyRecommended={false}
             />
           </header>
           <div
             className={commentCss}
-            dangerouslySetInnerHTML={{ __html: scopedComment.body }}
+            dangerouslySetInnerHTML={{ __html: comment.body }}
           />
           <div className={spaceBetween}>
             <div className={commentControls}>
@@ -213,17 +222,17 @@ export const Comment = ({
               {/* Only staff can pick, and they cannot pick thier own comment */}
               {user &&
                 user.badge.some(e => e.name === "Staff") &&
-                user.userId !== scopedComment.userProfile.userId && (
+                user.userId !== comment.userProfile.userId && (
                   <button
-                    onClick={pick}
+                    onClick={isHighlighted ? unPick : pick}
                     className={commentControlsButtonStyles}
                   >
-                    {scopedComment.isHighlighted ? "Unpick" : "Pick"}
+                    {isHighlighted ? "Unpick" : "Pick"}
                   </button>
                 )}
             </div>
             <div>
-              <AbuseReportForm commentId={scopedComment.id} pillar={pillar} />
+              <AbuseReportForm commentId={comment.id} pillar={pillar} />
             </div>
           </div>
         </div>

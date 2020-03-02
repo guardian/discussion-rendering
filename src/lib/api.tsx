@@ -161,3 +161,10 @@ export const pickComment = (commentId: number): Promise<CommentResponse> => {
     .then(resp => resp.json())
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
+
+export const unPickComment = (commentId: number): Promise<CommentResponse> => {
+  const url = `${baseURL}/comment/${commentId}/unhighlight`;
+  return fetch(url)
+    .then(resp => resp.json())
+    .catch(error => console.error(`Error fetching ${url}`, error));
+};

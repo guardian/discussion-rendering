@@ -71,7 +71,7 @@ export const ReplyComment = () => (
 );
 Default.story = { name: "default" };
 
-export const StaffUser = () => (
+export const StaffUserPicked = () => (
   <Comment
     comment={commentData}
     pillar={"sport"}
@@ -80,4 +80,15 @@ export const StaffUser = () => (
     isReply={false}
   />
 );
-StaffUser.story = { name: "StaffUser" };
+StaffUserPicked.story = { name: "Staff user picked" };
+
+export const StaffUserUnpicked = () => (
+  <Comment
+    comment={{ ...commentData, isHighlighted: true }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    user={staffUser}
+    isReply={false}
+  />
+);
+StaffUserUnpicked.story = { name: "Staff user unpicked" };
