@@ -36,7 +36,22 @@ const commentData: CommentType = {
   }
 };
 
-export const defaultStory = () => (
+const staffUser = {
+  userId: "abc123",
+  displayName: "Jane Smith",
+  webUrl: "",
+  apiUrl: "",
+  avatar: "",
+  secureAvatarUrl: "",
+  badge: [{ name: "Staff" }],
+  privateFields: {
+    canPostComment: true,
+    isPremoderated: false,
+    hasCommented: true
+  }
+};
+
+export const Default = () => (
   <Comment
     comment={commentData}
     pillar={"sport"}
@@ -44,4 +59,36 @@ export const defaultStory = () => (
     isReply={false}
   />
 );
-defaultStory.story = { name: "default" };
+Default.story = { name: "default" };
+
+export const ReplyComment = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={true}
+  />
+);
+Default.story = { name: "default" };
+
+export const StaffUserUnpicked = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    user={staffUser}
+    isReply={false}
+  />
+);
+StaffUserUnpicked.story = { name: "Staff user unpicked" };
+
+export const StaffUserPicked = () => (
+  <Comment
+    comment={{ ...commentData, isHighlighted: true }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    user={staffUser}
+    isReply={false}
+  />
+);
+StaffUserPicked.story = { name: "Staff user picked" };

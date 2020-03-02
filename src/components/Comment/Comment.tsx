@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "emotion";
 
 import { neutral, space, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Pillar, CommentType } from "../../types";
+import { Pillar, CommentType, UserProfile } from "../../types";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
+import { pickComment, unPickComment } from "../../lib/api";
 import { Avatar } from "../Avatar/Avatar";
 
 type Props = {
+  user?: UserProfile;
   comment: CommentType;
   pillar: Pillar;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
@@ -119,11 +121,46 @@ export const Comment = ({
   comment,
   pillar,
   setCommentBeingRepliedTo,
+  user,
   isReply
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
+  const [isHighlighted, setIsHighlighted] = useState<boolean>(
+    comment.isHighlighted
+  );
+  const [error, setError] = useState<string>();
+
+  const pick = async () => {
+    setError("");
+    const response = await pickComment(comment.id);
+    if (response.status === "error") {
+      setError(response.message);
+    } else {
+      setIsHighlighted(true);
+    }
+  };
+
+  const unPick = async () => {
+    setError("");
+    const response = await unPickComment(comment.id);
+    if (response.status === "error") {
+      setError(response.message);
+    } else {
+      setIsHighlighted(false);
+    }
+  };
+
   return (
-    <li>
+    <>
+      {error && (
+        <span
+          className={css`
+            color: red;
+          `}
+        >
+          {error}
+        </span>
+      )}
       <div className={commentWrapper}>
         <div className={avatarMargin}>
           <Avatar
@@ -159,7 +196,7 @@ export const Comment = ({
                   ) && <GuardianStaff />}
                 </div>
                 <div className={iconWrapper}>
-                  {comment.isHighlighted && <GuardianPick />}
+                  {isHighlighted && <GuardianPick />}
                 </div>
               </Row>
             </Column>
@@ -182,7 +219,17 @@ export const Comment = ({
                 Reply
               </button>
               <button className={commentControlsButtonStyles}>Share</button>
-              <button className={commentControlsButtonStyles}>Pick</button>
+              {/* Only staff can pick, and they cannot pick thier own comment */}
+              {user &&
+                user.badge.some(e => e.name === "Staff") &&
+                user.userId !== comment.userProfile.userId && (
+                  <button
+                    onClick={isHighlighted ? unPick : pick}
+                    className={commentControlsButtonStyles}
+                  >
+                    {isHighlighted ? "Unpick" : "Pick"}
+                  </button>
+                )}
             </div>
             <div>
               <AbuseReportForm commentId={comment.id} pillar={pillar} />
@@ -190,6 +237,6 @@ export const Comment = ({
           </div>
         </div>
       </div>
-    </li>
+    </>
   );
 };
