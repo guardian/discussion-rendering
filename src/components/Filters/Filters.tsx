@@ -155,8 +155,8 @@ export const Filters = ({
     {totalPages > 1 && (
       <Pagination
         totalPages={totalPages}
-        page={filters.page}
-        setPage={(page: number) => {
+        currentPage={filters.page}
+        setCurrentPage={(page: number) => {
           onFilterChange({
             ...filters,
             page
