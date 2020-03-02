@@ -151,6 +151,25 @@ export const getCommentCount = (
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
+export const addUserName = (userName: string): Promise<any> => {
+  const url = "https://idapi.theguardian.com/user/me";
+  const data = new URLSearchParams();
+  data.append("body", {
+    username: userName,
+    displayName: userName
+  });
+
+  return fetch(url, {
+    method: "POST",
+    body,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  })
+    .then(resp => resp.json())
+    .catch(error => console.error(`Error fetching ${url}`, error));
+};
+
 export {
   getDiscussion,
   getProfile,

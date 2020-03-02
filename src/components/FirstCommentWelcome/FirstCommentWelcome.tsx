@@ -1,28 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 import { textSans } from "@guardian/src-foundations/typography";
-import { space, neutral } from "@guardian/src-foundations";
+import { space, neutral, palette } from "@guardian/src-foundations";
 import { Button } from "@guardian/src-button";
-import { TextInput } from "@guardian/src-text-input";
 
 import { preview } from "../../lib/api";
 
-const arrowSize = 15;
-const bg = neutral[93];
 const previewStyle = css`
   padding: ${space[2]}px;
-  background-color: ${bg};
+  background-color: ${neutral[93]};
   border-radius: 5px;
-  margin-bottom: ${arrowSize + 5}px;
+  margin-bottom: 20px;
   position: relative;
+  /* p is returned by API and this is the only way to apply styles */
+  p {
+    padding-left: 10px;
+  }
 `;
 
+// TODO
+const inputStyles = css``;
+
 const textStyling = css`
+  ${textSans.xsmall()};
+`;
+
+const buttonStyles = css`
   ${textSans.small()};
 `;
 
 const cancelButtonStyles = css`
   margin-left: 20px;
+`;
+
+const errorTextStyles = css`
+  margin: 0;
+  ${textSans.xsmall()};
+  color: red;
 `;
 
 export const FirstCommentWelcome = ({
@@ -37,6 +51,7 @@ export const FirstCommentWelcome = ({
   cancelSubmit: () => void;
 }) => {
   const [previewBody, setPreviewBody] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
 
   useEffect(() => {
     const fetchShowPreview = async () => {
@@ -79,21 +94,23 @@ export const FirstCommentWelcome = ({
         </p>
       </div>
       <div>
-        {/* TODO: will need to update lib to make sure label defaults to bold */}
-        <TextInput
-          label="Username:"
-          supporting="Must be 6-20 characters, letters and/or numbers
-            only, no spaces."
-          error={error ? error : ""}
-          optional={false}
-          width={30}
+        <label>
+          <span>Username: </span>Must be 6-20 characters, letters and/or numbers
+          only, no spaces.
+        </label>
+        <input
+          className={inputStyles}
+          type="text"
+          value={userName}
+          onChange={e => setUserName(e.target.value)}
         />
-        {/* {error && <p className={errorTextStyles}>{error}</p>} */}
+        {error && <p className={errorTextStyles}>{error}</p>}
       </div>
       <p className={textStyling}>
         Please keep your posts respectful and abide by the{" "}
         <a
           className={css`
+            color: ${palette.brand[500]};
             text-decoration: none;
             :hover {
               text-decoration: underline;
@@ -103,22 +120,27 @@ export const FirstCommentWelcome = ({
         >
           community guidelines
         </a>
-        - and if you spot a comment you think doesn’t adhere to the guidelines,
-        please use the ‘Report’ link next to it to let us know.
+        {` -`} and if you spot a comment you think doesn’t adhere to the
+        guidelines, please use the ‘Report’ link next to it to let us know.
       </p>
       <p className={textStyling}>
         Please preview your comment below and click ‘post’ when you’re happy
         with it.
       </p>
       {previewBody && (
-        <p
+        <div
           className={previewStyle}
           dangerouslySetInnerHTML={{ __html: previewBody || "" }}
         />
       )}
       <div>
-        <Button type="submit">Post your comment</Button>
-        <Button onClick={cancelSubmit} className={cancelButtonStyles}>
+        <Button className={buttonStyles} type="submit">
+          Post your comment
+        </Button>
+        <Button
+          className={cx(buttonStyles, cancelButtonStyles)}
+          onClick={cancelSubmit}
+        >
           Cancel
         </Button>
       </div>

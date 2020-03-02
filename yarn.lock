@@ -1261,29 +1261,10 @@
   resolved "https://registry.yarnpkg.com/@guardian/src-foundations/-/src-foundations-0.12.3.tgz#c6900d6de9955fad4015ae02231e03e2f3e55a05"
   integrity sha512-+pWumgnUThx6+DzF8zE5G/tLPX388gwBkpt/kzCl/H5fOIbXHDUZLMnoNttcL9woTAzjt71bYefWZDIE4JQ6Gw==
 
-"@guardian/src-inline-error@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@guardian/src-inline-error/-/src-inline-error-0.14.0.tgz#b1e4b5b4e8b335ce6282620a5018722a6019db9f"
-  integrity sha512-IUgW512Mdx8gQUkFXxSSqB+qMMy4VBB3DhS3Rrp8BBATOZU/tTZu5uy1a9bn2Fhq8rU27qzdu+nm+YzTMweRfw==
-  dependencies:
-    "@guardian/src-svgs" "^0.14.0"
-
 "@guardian/src-svgs@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@guardian/src-svgs/-/src-svgs-0.1.0.tgz#18eb61504ab8535dbd235f1d33447059f881f404"
   integrity sha512-/UMniofoZKfSSRYYWleFAEXO9fLwnfocgG3m0Jb5Vj9pk9OQ4kg3rzXg1jq43E8mfLvGKKPyaalwbMuzeYfDkA==
-
-"@guardian/src-svgs@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@guardian/src-svgs/-/src-svgs-0.14.0.tgz#3a5a6d385f2639aca884b5302f3d3ae6e919e290"
-  integrity sha512-ZGwVwVlX3YwG62xO1YjxaHyGFJC8Us80GPeyY8CMv5lfshYd0gGDNJN6vjUI3ssULjcP8ckGOTFcTFs3hOUrMw==
-
-"@guardian/src-text-input@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@guardian/src-text-input/-/src-text-input-0.14.0.tgz#f60b82f5cf40c43608e2ada87a7fdff21916d4ac"
-  integrity sha512-i9HEJvPNHb7sqRBCSZI/vFwyDKt3jIJtU0sQBThgCqZhgSoI2ex3CZt28MHTTdyudFlcx2N6ezknZKi4nqvEGA==
-  dependencies:
-    "@guardian/src-inline-error" "^0.14.0"
 
 "@hapi/address@2.x.x":
   version "2.1.4"
