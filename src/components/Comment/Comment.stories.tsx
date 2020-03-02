@@ -41,6 +41,7 @@ export const defaultStory = () => (
     comment={commentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
+    isReply={false}
   />
 );
 defaultStory.story = { name: "default" };

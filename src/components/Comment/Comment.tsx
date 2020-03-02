@@ -1,5 +1,5 @@
 import React from "react";
-import { css, cx } from "emotion";
+import { css } from "emotion";
 
 import { neutral, space, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -9,11 +9,13 @@ import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
+import { Avatar } from "../Avatar/Avatar";
 
 type Props = {
   comment: CommentType;
   pillar: Pillar;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
+  isReply: boolean;
 };
 
 const commentControls = css`
@@ -50,9 +52,7 @@ const commentWrapper = css`
   padding: ${space[2]}px 0;
 `;
 
-const commentAvatar = css`
-  min-width: 50px;
-  height: 50px;
+const avatarMargin = css`
   margin-right: ${space[2]}px;
 `;
 
@@ -93,12 +93,6 @@ const linkStyles = css`
   }
 `;
 
-export const avatar = (avatarSize: number): string => css`
-  border-radius: ${avatarSize + 10}px;
-  width: ${avatarSize}px;
-  height: ${avatarSize}px;
-`;
-
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div
     className={css`
@@ -124,17 +118,20 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 export const Comment = ({
   comment,
   pillar,
-  setCommentBeingRepliedTo
+  setCommentBeingRepliedTo,
+  isReply
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
   return (
     <li>
       <div className={commentWrapper}>
-        <img
-          src={comment.userProfile.avatar}
-          alt={comment.userProfile.displayName}
-          className={cx(avatar(50), commentAvatar)}
-        />
+        <div className={avatarMargin}>
+          <Avatar
+            imageUrl={comment.userProfile.avatar}
+            displayName={comment.userProfile.displayName}
+            size={isReply ? "small" : "medium"}
+          />
+        </div>
 
         <div className={commentDetails}>
           <header className={headerStyles}>
