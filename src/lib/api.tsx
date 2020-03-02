@@ -60,7 +60,6 @@ const getProfile = (): Promise<UserProfile> => {
   const url = baseURL + "/profile/me";
   return fetch(url, { credentials: "include" })
     .then(resp => resp.json())
-    .then(json => json.userProfile)
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 

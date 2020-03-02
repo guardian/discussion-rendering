@@ -2,7 +2,12 @@ import React from "react";
 import { css } from "emotion";
 import { textSans } from "@guardian/src-foundations/typography";
 
+import { getUserFromCookie } from "../../lib/getUserFromCookie";
+
 export const FirstCommentWelcome = () => {
+  const userData = getUserFromCookie();
+  const displayName =
+    userData && userData.displayName ? userData.displayName : "";
   return (
     <>
       <div>
@@ -12,16 +17,18 @@ export const FirstCommentWelcome = () => {
             font-weight: bold;
           `}
         >
-          Welcome William Lacroix, you’re about to make your first comment!
+          {`Welcome${displayName &&
+            " " + displayName}, you’re about to make your first comment!`}
         </h3>
       </div>
       <div>
         <p>
-          Welcome William Lacroix, you’re about to make your first comment!
+          {`Welcome${displayName &&
+            " " + displayName}, you’re about to make your first comment!
           Before you post, we’d like to thank you for joining the debate - we’re
           glad you’ve chosen to participate and we value your opinions and
           experiences. Please choose your username under which you would like
-          all your comments to show up. You can only set your username once.
+          all your comments to show up. You can only set your username once.`}
         </p>
       </div>
       <div>
