@@ -10,12 +10,14 @@ import { RecommendationCount } from "../RecommendationCount/RecommendationCount"
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
 import { pickComment } from "../../lib/api";
+import { Avatar } from "../Avatar/Avatar";
 
 type Props = {
   user?: UserProfile;
   comment: CommentType;
   pillar: Pillar;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
+  isReply: boolean;
 };
 
 const commentControls = css`
@@ -52,9 +54,7 @@ const commentWrapper = css`
   padding: ${space[2]}px 0;
 `;
 
-const commentAvatar = css`
-  min-width: 50px;
-  height: 50px;
+const avatarMargin = css`
   margin-right: ${space[2]}px;
 `;
 
@@ -87,10 +87,12 @@ const timestampWrapperStyles = css`
   justify-content: center;
 `;
 
-export const avatar = (avatarSize: number): string => css`
-  border-radius: ${avatarSize + 10}px;
-  width: ${avatarSize}px;
-  height: ${avatarSize}px;
+const linkStyles = css`
+  color: inherit;
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
@@ -119,7 +121,8 @@ export const Comment = ({
   comment,
   pillar,
   setCommentBeingRepliedTo,
-  user
+  user,
+  isReply
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
   const [scopedComment, setScopedComment] = useState(comment);
@@ -150,18 +153,25 @@ export const Comment = ({
         </span>
       )}
       <div className={commentWrapper}>
-        <img
-          src={scopedComment.userProfile.avatar}
-          alt={scopedComment.userProfile.displayName}
-          className={cx(avatar(50), commentAvatar)}
-        />
+        <div className={avatarMargin}>
+          <Avatar
+            imageUrl={comment.userProfile.avatar}
+            displayName={comment.userProfile.displayName}
+            size={isReply ? "small" : "medium"}
+          />
+        </div>
 
         <div className={commentDetails}>
           <header className={headerStyles}>
             <Column>
               <Row>
                 <div className={commentProfileName(pillar)}>
-                  {scopedComment.userProfile.displayName}
+                  <a
+                    href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
+                    className={linkStyles}
+                  >
+                    {comment.userProfile.displayName}
+                  </a>
                 </div>
                 <div className={timestampWrapperStyles}>
                   <Timestamp

@@ -3,7 +3,7 @@ import { css } from "emotion";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
 import { getDiscussion, getCommentCount } from "./lib/api";
-import { CommentList } from "./components/CommentList/CommentList";
+import { CommentContainer } from "./components/CommentContainer/CommentContainer";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
@@ -158,6 +158,8 @@ export const App = ({ shortUrl, user }: Props) => {
     setFilters(newFilterObject);
   };
 
+  const showPagination = totalPages > 1;
+
   return (
     <div className={containerStyles}>
       {user && (
@@ -172,8 +174,21 @@ export const App = ({ shortUrl, user }: Props) => {
         filters={filters}
         onFilterChange={onFilterChange}
         totalPages={totalPages}
-        commentCount={commentCount}
       />
+      {showPagination && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={filters.page}
+          setCurrentPage={(page: number) => {
+            onFilterChange({
+              ...filters,
+              page
+            });
+          }}
+          commentCount={commentCount}
+          filters={filters}
+        />
+      )}
       {loading ? (
         <p>TODO loading component goes here...</p>
       ) : !comments.length ? (
@@ -181,7 +196,7 @@ export const App = ({ shortUrl, user }: Props) => {
       ) : (
         <ul className={commentContainerStyles}>
           {comments.map(comment => (
-            <CommentList
+            <CommentContainer
               key={comment.id}
               comment={comment}
               pillar="news"
@@ -195,20 +210,22 @@ export const App = ({ shortUrl, user }: Props) => {
           ))}
         </ul>
       )}
-      <footer className={footerStyles}>
-        <Pagination
-          totalPages={totalPages}
-          currentPage={filters.page}
-          setCurrentPage={(page: number) => {
-            setFilters({
-              ...filters,
-              page: page
-            });
-          }}
-          commentCount={commentCount}
-          filters={filters}
-        />
-      </footer>
+      {showPagination && (
+        <footer className={footerStyles}>
+          <Pagination
+            totalPages={totalPages}
+            currentPage={filters.page}
+            setCurrentPage={(page: number) => {
+              setFilters({
+                ...filters,
+                page: page
+              });
+            }}
+            commentCount={commentCount}
+            filters={filters}
+          />
+        </footer>
+      )}
     </div>
   );
 };

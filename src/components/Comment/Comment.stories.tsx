@@ -56,6 +56,17 @@ export const Default = () => (
     comment={commentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+Default.story = { name: "default" };
+
+export const ReplyComment = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={true}
   />
 );
 Default.story = { name: "default" };
@@ -66,6 +77,7 @@ export const StaffUser = () => (
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     user={staffUser}
+    isReply={false}
   />
 );
 StaffUser.story = { name: "StaffUser" };
