@@ -233,8 +233,15 @@ export const CommentForm = ({
     }
   };
 
-  if (firstPost) {
-    return <FirstCommentWelcome />;
+  if (firstPost && body) {
+    return (
+      <FirstCommentWelcome
+        body={body}
+        error={error}
+        submitForm={submitForm}
+        cancelSubmit={() => setFirstPost(false)}
+      />
+    );
   }
 
   return (

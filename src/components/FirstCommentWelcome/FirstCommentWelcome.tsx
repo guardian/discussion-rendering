@@ -1,49 +1,125 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 import { textSans } from "@guardian/src-foundations/typography";
+import { space, neutral } from "@guardian/src-foundations";
+import { Button } from "@guardian/src-button";
+import { TextInput } from "@guardian/src-text-input";
 
-import { getUserFromCookie } from "../../lib/getUserFromCookie";
+import { preview } from "../../lib/api";
 
-export const FirstCommentWelcome = () => {
-  const userData = getUserFromCookie();
-  const displayName =
-    userData && userData.displayName ? userData.displayName : "";
+const arrowSize = 15;
+const bg = neutral[93];
+const previewStyle = css`
+  padding: ${space[2]}px;
+  background-color: ${bg};
+  border-radius: 5px;
+  margin-bottom: ${arrowSize + 5}px;
+  position: relative;
+`;
+
+const textStyling = css`
+  ${textSans.small()};
+`;
+
+const cancelButtonStyles = css`
+  margin-left: 20px;
+`;
+
+export const FirstCommentWelcome = ({
+  body,
+  error = "",
+  submitForm,
+  cancelSubmit
+}: {
+  body: string;
+  error?: string;
+  submitForm: () => void;
+  cancelSubmit: () => void;
+}) => {
+  const [previewBody, setPreviewBody] = useState<string>("");
+
+  useEffect(() => {
+    const fetchShowPreview = async () => {
+      try {
+        const response = await preview(body);
+        setPreviewBody(response);
+      } catch (e) {
+        // TODO: handle errors?
+        setPreviewBody("");
+      }
+    };
+    fetchShowPreview();
+  });
+
   return (
-    <>
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        submitForm();
+      }}
+    >
       <div>
         <h3
           className={css`
-            ${textSans.small()};
-            font-weight: bold;
+            ${textSans.medium({ fontWeight: "bold" })};
           `}
         >
-          {`Welcome${displayName &&
-            " " + displayName}, you’re about to make your first comment!`}
+          Welcome, you’re about to make your first comment!
         </h3>
       </div>
       <div>
-        <p>
-          {`Welcome${displayName &&
-            " " + displayName}, you’re about to make your first comment!
+        <p className={textStyling}>
           Before you post, we’d like to thank you for joining the debate - we’re
           glad you’ve chosen to participate and we value your opinions and
-          experiences. Please choose your username under which you would like
-          all your comments to show up. You can only set your username once.`}
+          experiences.
+        </p>
+        <p className={textStyling}>
+          Please choose your username under which you would like all your
+          comments to show up. You can only set your username once.
         </p>
       </div>
       <div>
-        Username: Must be 6-20 characters, letters and/or numbers only, no
-        spaces.
-        <input />
+        {/* TODO: will need to update lib to make sure label defaults to bold */}
+        <TextInput
+          label="Username:"
+          supporting="Must be 6-20 characters, letters and/or numbers
+            only, no spaces."
+          error={error ? error : ""}
+          optional={false}
+          width={30}
+        />
+        {/* {error && <p className={errorTextStyles}>{error}</p>} */}
       </div>
-      <div>
-        Please keep your posts respectful and abide by the community guidelines
+      <p className={textStyling}>
+        Please keep your posts respectful and abide by the{" "}
+        <a
+          className={css`
+            text-decoration: none;
+            :hover {
+              text-decoration: underline;
+            }
+          `}
+          href="/community-standards"
+        >
+          community guidelines
+        </a>
         - and if you spot a comment you think doesn’t adhere to the guidelines,
-        please use the ‘Report’ link next to it to let us know. Please preview
-        your comment below and click ‘post’ when you’re happy with it.
+        please use the ‘Report’ link next to it to let us know.
+      </p>
+      <p className={textStyling}>
+        Please preview your comment below and click ‘post’ when you’re happy
+        with it.
+      </p>
+      {previewBody && (
+        <p
+          className={previewStyle}
+          dangerouslySetInnerHTML={{ __html: previewBody || "" }}
+        />
+      )}
+      <div>
+        <Button type="submit">Post your comment</Button>
+        <Button className={cancelButtonStyles}>Cancel</Button>
       </div>
-      {/* ADD previewed comment */}
-      {/* ADD - Post your comment  && Cancel -- buttons */}
-    </>
+    </form>
   );
 };
