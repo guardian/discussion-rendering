@@ -90,12 +90,12 @@ export const CommentReplyPreview = ({
         <div className={replyDisplayNameStyles}>
           {commentBeingRepliedTo.userProfile.displayName}
         </div>
-        <button
+        <span
           className={cx(hideCommentButtonStyles, commentControlsButtonStyles)}
           onClick={() => setDisplayReplyComment(!displayReplyComment)}
         >
           {displayReplyComment ? "Hide Comment" : "Show comment"}
-        </button>
+        </span>
       </div>
       {displayReplyComment && (
         <div className={previewStyle}>
@@ -109,7 +109,7 @@ export const CommentReplyPreview = ({
             }}
           />
           <div>
-            <button
+            <span
               className={cx(
                 hideCommentButtonStyles,
                 commentControlsButtonStyles,
@@ -118,7 +118,7 @@ export const CommentReplyPreview = ({
               onClick={() => setDisplayReplyComment(!displayReplyComment)}
             >
               {displayReplyComment ? "Hide Comment" : "Show comment"}
-            </button>
+            </span>
           </div>
         </div>
       )}
