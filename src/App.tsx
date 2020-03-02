@@ -158,6 +158,8 @@ export const App = ({ shortUrl, user }: Props) => {
     setFilters(newFilterObject);
   };
 
+  const showPagination = totalPages > 1;
+
   return (
     <div className={containerStyles}>
       {user && (
@@ -172,8 +174,21 @@ export const App = ({ shortUrl, user }: Props) => {
         filters={filters}
         onFilterChange={onFilterChange}
         totalPages={totalPages}
-        commentCount={commentCount}
       />
+      {showPagination && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={filters.page}
+          setCurrentPage={(page: number) => {
+            onFilterChange({
+              ...filters,
+              page
+            });
+          }}
+          commentCount={commentCount}
+          filters={filters}
+        />
+      )}
       {loading ? (
         <p>TODO loading component goes here...</p>
       ) : !comments.length ? (
@@ -195,20 +210,22 @@ export const App = ({ shortUrl, user }: Props) => {
           ))}
         </ul>
       )}
-      <footer className={footerStyles}>
-        <Pagination
-          totalPages={totalPages}
-          currentPage={filters.page}
-          setCurrentPage={(page: number) => {
-            setFilters({
-              ...filters,
-              page: page
-            });
-          }}
-          commentCount={commentCount}
-          filters={filters}
-        />
-      </footer>
+      {showPagination && (
+        <footer className={footerStyles}>
+          <Pagination
+            totalPages={totalPages}
+            currentPage={filters.page}
+            setCurrentPage={(page: number) => {
+              setFilters({
+                ...filters,
+                page: page
+              });
+            }}
+            commentCount={commentCount}
+            filters={filters}
+          />
+        </footer>
+      )}
     </div>
   );
 };

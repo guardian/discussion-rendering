@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { css, cx } from "emotion";
+import { css } from "emotion";
 
 import { space, neutral, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { GuardianStaff } from "../Badges/Badges";
 import { CommentType } from "../../types";
-import { avatar } from "../Comment/Comment";
+import { Avatar } from "../Avatar/Avatar";
 import { getPicks } from "../../lib/api";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { Timestamp } from "../Timestamp/Timestamp";
@@ -62,8 +62,8 @@ const userName = css`
   color: ${palette.news.main}; /* TODO USE PILLAR */
 `;
 
-const picksAvatar = css`
-  margin-right: ${space[3]}px;
+const avatarMargin = css`
+  margin-right: ${space[2]}px;
 `;
 
 const linkStyles = css`
@@ -92,11 +92,13 @@ const Pick = ({ comment }: { comment: CommentType }) => (
     </div>
     <div className={pickMetaWrapper}>
       <div className={userDetails}>
-        <img
-          src={comment.userProfile.avatar}
-          alt={""}
-          className={cx(avatar(50), comment.userProfile.avatar, picksAvatar)}
-        />
+        <div className={avatarMargin}>
+          <Avatar
+            imageUrl={comment.userProfile.avatar}
+            displayName={""}
+            size="medium"
+          />
+        </div>
         <div className="usermeta">
           <span className={userName}>
             <a

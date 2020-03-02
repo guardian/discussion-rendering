@@ -5,14 +5,12 @@ import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 import { until } from "@guardian/src-foundations/mq";
 
-import { Pagination } from "../Pagination/Pagination";
 import { FilterOptions, OrderByType, ThreadsType } from "../../types";
 
 type Props = {
   filters: FilterOptions;
   onFilterChange: (newFilterObject: FilterOptions) => void;
   totalPages: number;
-  commentCount: number;
 };
 
 const filterBar = css`
@@ -68,12 +66,7 @@ const filterWrapperStyles = css`
   flex-direction: column;
 `;
 
-export const Filters = ({
-  filters,
-  onFilterChange,
-  totalPages,
-  commentCount
-}: Props) => (
+export const Filters = ({ filters, onFilterChange, totalPages }: Props) => (
   <div className={filterBar}>
     <div className={filterContainer}>
       <div className={filterWrapperStyles}>
@@ -152,19 +145,5 @@ export const Filters = ({
         </select>
       </div>
     </div>
-    {totalPages > 1 && (
-      <Pagination
-        totalPages={totalPages}
-        page={filters.page}
-        setPage={(page: number) => {
-          onFilterChange({
-            ...filters,
-            page
-          });
-        }}
-        commentCount={commentCount}
-        filters={filters}
-      />
-    )}
   </div>
 );
