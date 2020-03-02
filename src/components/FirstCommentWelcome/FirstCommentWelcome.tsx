@@ -118,7 +118,9 @@ export const FirstCommentWelcome = ({
       )}
       <div>
         <Button type="submit">Post your comment</Button>
-        <Button className={cancelButtonStyles}>Cancel</Button>
+        <Button onClick={cancelSubmit} className={cancelButtonStyles}>
+          Cancel
+        </Button>
       </div>
     </form>
   );
