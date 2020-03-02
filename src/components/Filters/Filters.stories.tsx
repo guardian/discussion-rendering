@@ -14,12 +14,7 @@ export const Default = () => {
     page: 1
   });
   return (
-    <Filters
-      filters={filters}
-      onFilterChange={setFilters}
-      totalPages={5}
-      commentCount={250}
-    />
+    <Filters filters={filters} onFilterChange={setFilters} totalPages={5} />
   );
 };
 Default.story = { name: "default" };
