@@ -5,7 +5,7 @@ import { Button } from "@guardian/src-button";
 import { palette, space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { comment, reply, preview } from "../../lib/api";
+import { comment, reply, preview, addUserName } from "../../lib/api";
 import { CommentResponse, UserProfile, CommentType } from "../../types";
 
 import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
@@ -233,12 +233,29 @@ export const CommentForm = ({
     }
   };
 
+  const submitUserName = async (userName: string) => {
+    setError("");
+    if (!userName) {
+      setError("Username field cannot be empty");
+      return;
+    }
+
+    const response = await addUserName(userName);
+    if (response.status === "ok") {
+      // If we are able to submit userName we should continue with submitting comment
+      submitForm();
+      setFirstPost(false);
+    } else {
+      response.errors && setError(response.errors[0].message);
+    }
+  };
+
   if (firstPost && body) {
     return (
       <FirstCommentWelcome
         body={body}
         error={error}
-        submitForm={submitForm}
+        submitForm={submitUserName}
         cancelSubmit={() => setFirstPost(false)}
       />
     );

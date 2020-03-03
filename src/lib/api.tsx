@@ -4,7 +4,8 @@ import {
   DiscussionOptions,
   UserProfile,
   CommentType,
-  CommentResponse
+  CommentResponse,
+  UserNameResponse
 } from "../types";
 
 const baseURL = "https://discussion.code.dev-theguardian.com/discussion-api";
@@ -151,17 +152,16 @@ export const getCommentCount = (
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-export const addUserName = (userName: string): Promise<any> => {
+export const addUserName = (userName: string): Promise<UserNameResponse> => {
   const url = "https://idapi.theguardian.com/user/me";
-  const data = new URLSearchParams();
-  data.append("body", {
-    username: userName,
-    displayName: userName
-  });
-
   return fetch(url, {
     method: "POST",
-    body,
+    body: JSON.stringify({
+      publicFields: {
+        username: userName,
+        displayName: userName
+      }
+    }),
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     }

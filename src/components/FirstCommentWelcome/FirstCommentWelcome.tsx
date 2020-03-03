@@ -57,7 +57,7 @@ export const FirstCommentWelcome = ({
 }: {
   body: string;
   error?: string;
-  submitForm: () => void;
+  submitForm: (userName: string) => void;
   cancelSubmit: () => void;
 }) => {
   const [previewBody, setPreviewBody] = useState<string>("");
@@ -80,7 +80,7 @@ export const FirstCommentWelcome = ({
     <form
       onSubmit={e => {
         e.preventDefault();
-        submitForm();
+        submitForm(userName);
       }}
     >
       <div>
@@ -150,7 +150,7 @@ export const FirstCommentWelcome = ({
         />
       )}
       <div>
-        <Button size="small" type="submit">
+        <Button size="small" onClick={() => submitForm(userName)}>
           Post your comment
         </Button>
         <Button
