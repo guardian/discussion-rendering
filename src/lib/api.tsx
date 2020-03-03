@@ -168,7 +168,9 @@ export const addUserName = (userName: string): Promise<UserNameResponse> => {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     }
-  });
+  })
+    .then(resp => resp.json())
+    .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
 export const pickComment = (commentId: number): Promise<CommentResponse> => {
