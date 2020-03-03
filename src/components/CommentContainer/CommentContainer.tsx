@@ -121,6 +121,7 @@ export const CommentContainer = ({
         comment={comment}
         pillar={pillar}
         setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+        user={user}
         isReply={false}
       />
 
@@ -132,6 +133,7 @@ export const CommentContainer = ({
                 comment={responseComment}
                 pillar={pillar}
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                user={user}
                 isReply={true}
               />
             ))}
