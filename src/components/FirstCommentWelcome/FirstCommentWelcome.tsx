@@ -18,15 +18,20 @@ const previewStyle = css`
   }
 `;
 
-// TODO
-const inputStyles = css``;
+const inputStyles = css`
+  outline: none;
+  width: 400px;
+  border-radius: 18px;
+  padding: 5px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  :focus {
+    border-color: ${neutral[46]};
+  }
+`;
 
 const textStyling = css`
   ${textSans.xsmall()};
-`;
-
-const buttonStyles = css`
-  ${textSans.small()};
 `;
 
 const cancelButtonStyles = css`
@@ -35,8 +40,13 @@ const cancelButtonStyles = css`
 
 const errorTextStyles = css`
   margin: 0;
-  ${textSans.xsmall()};
+  ${textSans.xsmall({ fontWeight: "bold" })};
   color: red;
+`;
+
+const imputWrapperStyles = css`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const FirstCommentWelcome = ({
@@ -93,10 +103,16 @@ export const FirstCommentWelcome = ({
           comments to show up. You can only set your username once.
         </p>
       </div>
-      <div>
+      <div className={cx(imputWrapperStyles, textStyling)}>
         <label>
-          <span>Username: </span>Must be 6-20 characters, letters and/or numbers
-          only, no spaces.
+          <span
+            className={css`
+              font-weight: bold;
+            `}
+          >
+            Username:{" "}
+          </span>
+          Must be 6-20 characters, letters and/or numbers only, no spaces.
         </label>
         <input
           className={inputStyles}
@@ -129,16 +145,17 @@ export const FirstCommentWelcome = ({
       </p>
       {previewBody && (
         <div
-          className={previewStyle}
+          className={cx(previewStyle, textStyling)}
           dangerouslySetInnerHTML={{ __html: previewBody || "" }}
         />
       )}
       <div>
-        <Button className={buttonStyles} type="submit">
+        <Button size="small" type="submit">
           Post your comment
         </Button>
         <Button
-          className={cx(buttonStyles, cancelButtonStyles)}
+          size="small"
+          className={cancelButtonStyles}
           onClick={cancelSubmit}
         >
           Cancel
