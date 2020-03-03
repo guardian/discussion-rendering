@@ -146,6 +146,8 @@ export const Comment = ({
   );
   const [error, setError] = useState<string>();
 
+  const isCommentBlocked = comment.status === "blocked";
+
   const pick = async () => {
     setError("");
     const response = await pickComment(comment.id);
@@ -211,23 +213,24 @@ export const Comment = ({
                     obj => obj["name"] === "Staff"
                   ) && <GuardianStaff />}
                 </div>
-                <div className={iconWrapper}>
-                  {isHighlighted && <GuardianPick />}
-                </div>
+                {!isCommentBlocked ? (
+                  <div className={iconWrapper}>
+                    {isHighlighted && <GuardianPick />}
+                  </div>
+                ) : (
+                  <></>
+                )}
               </Row>
             </Column>
-            <RecommendationCount
-              commentId={comment.id}
-              initialCount={comment.numRecommends}
-              alreadyRecommended={false}
-            />
+            {!isCommentBlocked && (
+              <RecommendationCount
+                commentId={comment.id}
+                initialCount={comment.numRecommends}
+                alreadyRecommended={false}
+              />
+            )}
           </header>
-          {comment.status === "blocked" ? (
-            <p
-              className={cx(blockedCommentStyles, commentLinkStyling)}
-              dangerouslySetInnerHTML={{ __html: comment.body }}
-            />
-          ) : (
+          {!isCommentBlocked ? (
             <>
               <div
                 className={cx(commentCss, commentLinkStyling)}
@@ -259,6 +262,11 @@ export const Comment = ({
                 </div>
               </div>
             </>
+          ) : (
+            <p
+              className={cx(blockedCommentStyles, commentLinkStyling)}
+              dangerouslySetInnerHTML={{ __html: comment.body }}
+            />
           )}
         </div>
       </div>
