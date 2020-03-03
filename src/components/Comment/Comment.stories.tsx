@@ -84,7 +84,10 @@ StaffUserUnpicked.story = { name: "Staff user unpicked" };
 
 export const StaffUserPicked = () => (
   <Comment
-    comment={{ ...commentData, isHighlighted: true }}
+    comment={{
+      ...commentData,
+      isHighlighted: true
+    }}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     user={staffUser}
@@ -92,3 +95,18 @@ export const StaffUserPicked = () => (
   />
 );
 StaffUserPicked.story = { name: "Staff user picked" };
+
+export const BlockedComment = () => (
+  <Comment
+    comment={{
+      ...commentData,
+      status: "blocked",
+      body:
+        "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>."
+    }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+StaffUserPicked.story = { name: "Blocked comment" };
