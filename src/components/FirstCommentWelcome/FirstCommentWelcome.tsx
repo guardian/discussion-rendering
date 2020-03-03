@@ -74,7 +74,7 @@ export const FirstCommentWelcome = ({
       }
     };
     fetchShowPreview();
-  });
+  }, [body]);
 
   return (
     <form

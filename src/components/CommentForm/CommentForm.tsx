@@ -141,7 +141,7 @@ export const CommentForm = ({
   const [isActive, setIsActive] = useState<boolean>(
     commentBeingRepliedTo ? true : false
   );
-  const [firstPost, setFirstPost] = useState<boolean>(false);
+  const [userNameMissing, setUserNameMissing] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const [previewBody, setPreviewBody] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -220,7 +220,7 @@ export const CommentForm = ({
         );
       } else if (response.message === "USERNAME_MISSING") {
         // Reader has never posted before and needs to choose a username
-        setFirstPost(true);
+        setUserNameMissing(true);
       } else if (response.status === "ok") {
         // response.message is the id of the comment that was created on the server
         onAddComment(parseInt(response.message), body, user);
@@ -244,19 +244,19 @@ export const CommentForm = ({
     if (response.status === "ok") {
       // If we are able to submit userName we should continue with submitting comment
       submitForm();
-      setFirstPost(false);
+      setUserNameMissing(false);
     } else {
       response.errors && setError(response.errors[0].message);
     }
   };
 
-  if (firstPost && body) {
+  if (userNameMissing && body) {
     return (
       <FirstCommentWelcome
         body={body}
         error={error}
         submitForm={submitUserName}
-        cancelSubmit={() => setFirstPost(false)}
+        cancelSubmit={() => setUserNameMissing(false)}
       />
     );
   }
