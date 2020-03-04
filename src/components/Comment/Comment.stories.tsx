@@ -8,7 +8,7 @@ export default { title: "Comment" };
 const commentData: CommentType = {
   id: 25487686,
   body:
-    "Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!",
+    "<p>Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!</p>",
   date: "26 July 2013 4:13pm",
   isoDateTime: "2013-07-26T15:13:20Z",
   status: "visible",
@@ -71,24 +71,65 @@ export const ReplyComment = () => (
 );
 Default.story = { name: "default" };
 
-export const StaffUserUnpicked = () => (
+export const UnpickedComment = () => (
   <Comment
     comment={commentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
-    user={staffUser}
     isReply={false}
   />
 );
-StaffUserUnpicked.story = { name: "Staff user unpicked" };
+UnpickedComment.story = { name: "Unpicked Comment" };
 
-export const StaffUserPicked = () => (
+export const PickedComment = () => (
   <Comment
     comment={{ ...commentData, isHighlighted: true }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+PickedComment.story = { name: "Picked Comment" };
+
+export const StaffUserComment = () => (
+  <Comment
+    comment={{
+      ...commentData,
+      userProfile: {
+        ...commentData.userProfile,
+        badge: [
+          {
+            name: "Staff"
+          }
+        ]
+      }
+    }}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     user={staffUser}
     isReply={false}
   />
 );
-StaffUserPicked.story = { name: "Staff user picked" };
+StaffUserComment.story = { name: "Staff User Comment" };
+
+export const PickedStaffUserComment = () => (
+  <Comment
+    comment={{
+      ...commentData,
+      userProfile: {
+        ...commentData.userProfile,
+        badge: [
+          {
+            name: "Staff"
+          }
+        ]
+      },
+      isHighlighted: true
+    }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    user={staffUser}
+    isReply={false}
+  />
+);
+PickedStaffUserComment.story = { name: "Picked Staff User Comment" };

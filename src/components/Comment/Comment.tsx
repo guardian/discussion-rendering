@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 
 import { neutral, space, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -28,11 +28,14 @@ const commentControls = css`
 `;
 
 const commentControlsButton = (pillar: Pillar) => css`
-  font-weight: bold;
+  ${textSans.xsmall({ fontWeight: "bold" })}
   margin-right: ${space[2]}px;
   color: ${palette[pillar][400]};
   border: 0;
   cursor: pointer;
+  :hover {
+    text-decoration: underline
+  }
 `;
 
 const spaceBetween = css`
@@ -43,9 +46,11 @@ const spaceBetween = css`
 const commentCss = css`
   display: block;
   clear: left;
-  ${textSans.small()}
-  margin-top: 0.375rem;
-  margin-bottom: 0.5rem;
+  p {
+    ${textSans.small()}
+    margin-top: 6px;
+    margin-bottom: 8px;
+  }
 `;
 
 const commentWrapper = css`
@@ -95,6 +100,15 @@ const linkStyles = css`
   }
 `;
 
+const flexRowStyles = css`
+  display: flex;
+  flex-direction: row;
+`;
+
+const removePaddingLeft = css`
+  padding-left: 0px;
+`;
+
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div
     className={css`
@@ -115,6 +129,18 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   >
     {children}
   </div>
+);
+
+const ReplyArrow = () => (
+  <svg
+    width="18"
+    height="18"
+    className={css`
+      fill: ${palette.neutral[46]};
+    `}
+  >
+    <path d="M10.1 5l.9-1 4 4.5v1L11 14l-.9-1 2.5-3H4L3 9V6.5h2V8h7.6l-2.5-3z"></path>
+  </svg>
 );
 
 export const Comment = ({
@@ -190,14 +216,22 @@ export const Comment = ({
                 </div>
               </Row>
               <Row>
-                <div className={iconWrapper}>
-                  {comment.userProfile.badge.filter(
-                    obj => obj["name"] === "Staff"
-                  ) && <GuardianStaff />}
-                </div>
-                <div className={iconWrapper}>
-                  {isHighlighted && <GuardianPick />}
-                </div>
+                {!!comment.userProfile.badge.filter(
+                  obj => obj["name"] === "Staff"
+                ).length ? (
+                  <div className={iconWrapper}>
+                    <GuardianStaff />
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {isHighlighted ? (
+                  <div className={iconWrapper}>
+                    <GuardianPick />
+                  </div>
+                ) : (
+                  <></>
+                )}
               </Row>
             </Column>
             <RecommendationCount
@@ -214,9 +248,12 @@ export const Comment = ({
             <div className={commentControls}>
               <button
                 onClick={() => setCommentBeingRepliedTo(comment)}
-                className={commentControlsButtonStyles}
+                className={cx(commentControlsButtonStyles, removePaddingLeft)}
               >
-                Reply
+                <div className={flexRowStyles}>
+                  <ReplyArrow />
+                  Reply
+                </div>
               </button>
               <button className={commentControlsButtonStyles}>Share</button>
               {/* Only staff can pick, and they cannot pick thier own comment */}
