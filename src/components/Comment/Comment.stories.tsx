@@ -59,7 +59,7 @@ export const Default = () => (
     isReply={false}
   />
 );
-Default.story = { name: "default" };
+Default.story = { name: "Default" };
 
 export const ReplyComment = () => (
   <Comment
@@ -69,7 +69,7 @@ export const ReplyComment = () => (
     isReply={true}
   />
 );
-Default.story = { name: "default" };
+Default.story = { name: "Reply Default" };
 
 export const UnpickedComment = () => (
   <Comment
@@ -106,7 +106,6 @@ export const StaffUserComment = () => (
     }}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
-    user={staffUser}
     isReply={false}
   />
 );
@@ -128,8 +127,18 @@ export const PickedStaffUserComment = () => (
     }}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
-    user={staffUser}
     isReply={false}
   />
 );
 PickedStaffUserComment.story = { name: "Picked Staff User Comment" };
+
+export const LoggedInAsModerator = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    user={staffUser}
+    isReply={false}
+  />
+);
+LoggedInAsModerator.story = { name: "Logged in as moderator" };
