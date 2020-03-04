@@ -255,7 +255,7 @@ export const App = ({ shortUrl, user }: Props) => {
             width: 250px;
           `}
         >
-          <Button onClick={() => onViewMoreCommentsClick()}>
+          <Button size="small" onClick={() => onViewMoreCommentsClick()}>
             <div className={viewMoreButtonContentStyles}>
               <PlusSVG />
             </div>
