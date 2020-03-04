@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
+import { Button } from "@guardian/src-button";
+import { palette } from "@guardian/src-foundations";
+import { textSans } from "@guardian/src-foundations/typography";
+
 import { CommentType, FilterOptions, UserProfile } from "./types";
 import { getDiscussion, getCommentCount } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
@@ -30,6 +34,19 @@ const commentContainerStyles = css`
   list-style-type: none;
   padding-left: 0;
 `;
+
+const viewMoreButtonContentStyles = css`
+  display: flex;
+  flex-direction: row;
+  ${textSans.medium({ fontWeight: "bold" })};
+  fill: ${palette.neutral[86]};
+`;
+
+const PlusSVG = () => (
+  <svg width="18" height="18">
+    <path d="M8.2 0h1.6l.4 7.8 7.8.4v1.6l-7.8.4-.4 7.8H8.2l-.4-7.8L0 9.8V8.2l7.8-.4.4-7.8z"></path>
+  </svg>
+);
 
 const DEFAULT_FILTERS: FilterOptions = {
   orderBy: "newest",
@@ -96,6 +113,18 @@ export const App = ({ shortUrl, user }: Props) => {
     CommentType
   >();
 
+  const [isPreview, setIsPreview] = useState<boolean>(true);
+
+  const onViewMoreCommentsClick = () => {
+    setIsPreview(false);
+    setLoading(true);
+    getDiscussion(shortUrl, filters).then(json => {
+      setLoading(false);
+      setComments(json?.discussion?.comments);
+      setTotalPages(json?.pages);
+    });
+  };
+
   const simulateNewComment = (
     commentId: number,
     body: string,
@@ -138,15 +167,6 @@ export const App = ({ shortUrl, user }: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    getDiscussion(shortUrl, filters).then(json => {
-      setLoading(false);
-      setComments(json?.discussion?.comments);
-      setTotalPages(json?.pages);
-    });
-  }, [filters, shortUrl]);
-
-  useEffect(() => {
-    setLoading(true);
     getCommentCount(shortUrl).then(json => {
       setLoading(false);
       setCommentCount(json?.numberOfComments);
@@ -169,62 +189,85 @@ export const App = ({ shortUrl, user }: Props) => {
           user={user}
         />
       )}
-      <TopPicks shortUrl={shortUrl} />
-      <Filters
-        filters={filters}
-        onFilterChange={onFilterChange}
-        totalPages={totalPages}
-      />
-      {showPagination && (
-        <Pagination
-          totalPages={totalPages}
-          currentPage={filters.page}
-          setCurrentPage={(page: number) => {
-            onFilterChange({
-              ...filters,
-              page
-            });
-          }}
-          commentCount={commentCount}
-          filters={filters}
-        />
-      )}
-      {loading ? (
-        <p>TODO loading component goes here...</p>
-      ) : !comments.length ? (
-        <p>TODO: No comment component goes here</p>
-      ) : (
-        <ul className={commentContainerStyles}>
-          {comments.map(comment => (
-            <CommentContainer
-              key={comment.id}
-              comment={comment}
-              pillar="news"
-              shortUrl={shortUrl}
-              onAddComment={onAddComment}
-              user={user}
-              threads={filters.threads}
-              commentBeingRepliedTo={commentBeingRepliedTo}
-              setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-            />
-          ))}
-        </ul>
-      )}
-      {showPagination && (
-        <footer className={footerStyles}>
-          <Pagination
-            totalPages={totalPages}
-            currentPage={filters.page}
-            setCurrentPage={(page: number) => {
-              setFilters({
-                ...filters,
-                page: page
-              });
-            }}
-            commentCount={commentCount}
+      <TopPicks shortUrl={shortUrl} isPreview={isPreview} />
+      {!isPreview ? (
+        <>
+          <Filters
             filters={filters}
+            onFilterChange={onFilterChange}
+            totalPages={totalPages}
           />
-        </footer>
+          {showPagination && (
+            <Pagination
+              totalPages={totalPages}
+              currentPage={filters.page}
+              setCurrentPage={(page: number) => {
+                onFilterChange({
+                  ...filters,
+                  page
+                });
+              }}
+              commentCount={commentCount}
+              filters={filters}
+            />
+          )}
+          {loading ? (
+            <p>TODO loading component goes here...</p>
+          ) : !comments.length ? (
+            <p>TODO: No comment component goes here</p>
+          ) : (
+            <ul className={commentContainerStyles}>
+              {comments.map(comment => (
+                <CommentContainer
+                  key={comment.id}
+                  comment={comment}
+                  pillar="news"
+                  shortUrl={shortUrl}
+                  onAddComment={onAddComment}
+                  user={user}
+                  threads={filters.threads}
+                  commentBeingRepliedTo={commentBeingRepliedTo}
+                  setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                />
+              ))}
+            </ul>
+          )}
+          {showPagination && (
+            <footer className={footerStyles}>
+              <Pagination
+                totalPages={totalPages}
+                currentPage={filters.page}
+                setCurrentPage={(page: number) => {
+                  setFilters({
+                    ...filters,
+                    page: page
+                  });
+                }}
+                commentCount={commentCount}
+                filters={filters}
+              />
+            </footer>
+          )}
+        </>
+      ) : (
+        <div
+          className={css`
+            width: 250px;
+          `}
+        >
+          <Button onClick={() => onViewMoreCommentsClick()}>
+            <div className={viewMoreButtonContentStyles}>
+              <PlusSVG />
+            </div>
+            <div
+              className={css`
+                padding-left: 10px;
+              `}
+            >
+              View more comments
+            </div>
+          </Button>
+        </div>
       )}
     </div>
   );

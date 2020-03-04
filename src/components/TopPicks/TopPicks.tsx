@@ -128,7 +128,13 @@ const Pick = ({ comment }: { comment: CommentType }) => (
   </div>
 );
 
-export const TopPicks = ({ shortUrl }: { shortUrl: string }) => {
+export const TopPicks = ({
+  shortUrl,
+  isPreview
+}: {
+  shortUrl: string;
+  isPreview: boolean;
+}) => {
   const [comments, setComments] = useState<CommentType[]>([]);
 
   useEffect(() => {
@@ -139,6 +145,16 @@ export const TopPicks = ({ shortUrl }: { shortUrl: string }) => {
 
   if (comments?.length === 0) {
     return <p>No picks.</p>;
+  }
+
+  // only show the first 2 comments if in preview
+  if (isPreview) {
+    return (
+      <div className={picksWrapper}>
+        <Pick comment={comments[0]} />
+        {comments[1] && <Pick comment={comments[1]} />}
+      </div>
+    );
   }
 
   return (

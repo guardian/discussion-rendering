@@ -72,12 +72,6 @@ const previewStyle = css`
   }
 `;
 
-const buttonContainerStyles = css`
-  button {
-    margin: 5px;
-  }
-`;
-
 const headerTextStyles = css`
   margin: 0;
   ${textSans.xsmall()};
@@ -276,25 +270,23 @@ export const CommentForm = ({
           onFocus={() => setIsActive(true)}
         />
         <div className={bottomContainer}>
-          <div className={buttonContainerStyles}>
-            <Button type="submit" size="small">
-              Post your comment
-            </Button>
-            {(isActive || body) && (
-              <>
-                <Button
-                  size="small"
-                  onClick={fetchShowPreview}
-                  priority="secondary"
-                >
-                  Preview
-                </Button>
-                <Button size="small" onClick={resetForm} priority="tertiary">
-                  Cancel
-                </Button>
-              </>
-            )}
-          </div>
+          <Button type="submit" size="small">
+            Post your comment
+          </Button>
+          {(isActive || body) && (
+            <>
+              <Button
+                size="small"
+                onClick={fetchShowPreview}
+                priority="secondary"
+              >
+                Preview
+              </Button>
+              <Button size="small" onClick={resetForm} priority="tertiary">
+                Cancel
+              </Button>
+            </>
+          )}
           {isActive && (
             <div className={addOnsContainer}>
               <button
