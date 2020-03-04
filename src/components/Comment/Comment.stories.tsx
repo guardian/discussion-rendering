@@ -83,7 +83,10 @@ UnpickedComment.story = { name: "Unpicked Comment" };
 
 export const PickedComment = () => (
   <Comment
-    comment={{ ...commentData, isHighlighted: true }}
+    comment={{
+      ...commentData,
+      isHighlighted: true
+    }}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
@@ -142,3 +145,18 @@ export const LoggedInAsModerator = () => (
   />
 );
 LoggedInAsModerator.story = { name: "Logged in as moderator" };
+
+export const BlockedComment = () => (
+  <Comment
+    comment={{
+      ...commentData,
+      status: "blocked",
+      body:
+        "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>."
+    }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+BlockedComment.story = { name: "Blocked comment" };
