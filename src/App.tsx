@@ -155,17 +155,21 @@ export const App = ({ shortUrl, user }: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    getCommentCount(shortUrl).then(json => {
+    const fetchCommentCount = async () => {
+      const json = await getCommentCount(shortUrl);
       setLoading(false);
       setCommentCount(json?.numberOfComments);
-    });
+    };
+    fetchCommentCount();
   }, [shortUrl]);
 
   const [picks, setPicks] = useState<CommentType[]>([]);
   useEffect(() => {
-    getPicks(shortUrl).then(json => {
+    const fetchPicks = async () => {
+      const json = await getPicks(shortUrl);
       setPicks(json);
-    });
+    };
+    fetchPicks();
   }, [shortUrl]);
 
   const onFilterChange = (newFilterObject: FilterOptions) => {
