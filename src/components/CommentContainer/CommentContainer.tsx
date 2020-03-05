@@ -6,6 +6,7 @@ import { space, palette } from "@guardian/src-foundations";
 import { Pillar, CommentType, UserProfile, ThreadsType } from "../../types";
 import { CommentForm } from "../CommentForm/CommentForm";
 import { Comment } from "../Comment/Comment";
+import { CommentReplyPreview } from "../CommentReplyPreview/CommentReplyPreview";
 
 type Props = {
   comment: CommentType;
@@ -165,6 +166,10 @@ export const CommentContainer = ({
             )) &&
           user && (
             <div className={nestingStyles}>
+              <CommentReplyPreview
+                commentBeingRepliedTo={commentBeingRepliedTo}
+                pillar={pillar}
+              />
               <CommentForm
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
