@@ -116,7 +116,6 @@ export const App = ({ shortUrl, user }: Props) => {
   const [isPreview, setIsPreview] = useState<boolean>(true);
 
   // TODO: we should only fetch comments when user clicks `View more comments`
-  // this will require API changes
   useEffect(() => {
     setLoading(true);
     getDiscussion(shortUrl, filters).then(json => {
