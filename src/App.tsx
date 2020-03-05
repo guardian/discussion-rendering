@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
-import { getDiscussion, getCommentCount } from "./lib/api";
+import { getDiscussion, getCommentCount, getPicks } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
-import { TopPicks } from "./components/TopPicks/TopPicks";
+import { TopPick } from "./components/TopPick/TopPick";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
 import { Pagination } from "./components/Pagination/Pagination";
@@ -29,6 +29,12 @@ const commentContainerStyles = css`
   flex-direction: column;
   list-style-type: none;
   padding-left: 0;
+`;
+
+const picksWrapper = css`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const DEFAULT_FILTERS: FilterOptions = {
@@ -84,11 +90,9 @@ const readFiltersFromLocalStorage = (): FilterOptions => {
 };
 
 export const App = ({ shortUrl, user }: Props) => {
-  const [comments, setComments] = useState<CommentType[]>([]);
   const [filters, setFilters] = useState<FilterOptions>(
     readFiltersFromLocalStorage()
   );
-  const [commentCount, setCommentCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
 
@@ -130,6 +134,8 @@ export const App = ({ shortUrl, user }: Props) => {
     };
   };
 
+  const [comments, setComments] = useState<CommentType[]>([]);
+
   const onAddComment = (commentId: number, body: string, user: UserProfile) => {
     comments.pop(); // Remove last item from our local array
     // Replace it with this new comment at the start
@@ -145,12 +151,25 @@ export const App = ({ shortUrl, user }: Props) => {
     });
   }, [filters, shortUrl]);
 
+  const [commentCount, setCommentCount] = useState<number>(0);
+
   useEffect(() => {
     setLoading(true);
-    getCommentCount(shortUrl).then(json => {
+    const fetchCommentCount = async () => {
+      const json = await getCommentCount(shortUrl);
       setLoading(false);
       setCommentCount(json?.numberOfComments);
-    });
+    };
+    fetchCommentCount();
+  }, [shortUrl]);
+
+  const [picks, setPicks] = useState<CommentType[]>([]);
+  useEffect(() => {
+    const fetchPicks = async () => {
+      const json = await getPicks(shortUrl);
+      setPicks(json);
+    };
+    fetchPicks();
   }, [shortUrl]);
 
   const onFilterChange = (newFilterObject: FilterOptions) => {
@@ -169,7 +188,13 @@ export const App = ({ shortUrl, user }: Props) => {
           user={user}
         />
       )}
-      <TopPicks shortUrl={shortUrl} />
+      {!!picks.length && (
+        <div className={picksWrapper}>
+          {picks.map(pick => (
+            <TopPick comment={pick} />
+          ))}
+        </div>
+      )}
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}
