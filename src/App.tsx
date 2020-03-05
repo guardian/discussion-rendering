@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
 import { Button } from "@guardian/src-button";
-import { palette } from "@guardian/src-foundations";
+import { neutral } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
@@ -39,7 +39,7 @@ const viewMoreButtonContentStyles = css`
   display: flex;
   flex-direction: row;
   ${textSans.medium({ fontWeight: "bold" })};
-  fill: ${palette.neutral[86]};
+  fill: ${neutral[86]};
 `;
 
 const PlusSVG = () => (
