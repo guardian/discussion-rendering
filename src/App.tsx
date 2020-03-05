@@ -6,9 +6,9 @@ import { neutral } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
-import { getDiscussion, getCommentCount } from "./lib/api";
+import { getDiscussion, getCommentCount, getPicks } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
-import { TopPicks } from "./components/TopPicks/TopPicks";
+import { Pick } from "./components/TopPick/TopPick";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
 import { Pagination } from "./components/Pagination/Pagination";
@@ -40,6 +40,12 @@ const viewMoreButtonContentStyles = css`
   flex-direction: row;
   ${textSans.medium({ fontWeight: "bold" })};
   fill: ${neutral[86]};
+`;
+
+const topPicksStyles = css`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const PlusSVG = () => (
@@ -125,6 +131,14 @@ export const App = ({ shortUrl, user }: Props) => {
     });
   }, [filters, shortUrl]);
 
+  const [picks, setPicks] = useState<CommentType[]>([]);
+
+  useEffect(() => {
+    getPicks(shortUrl).then(json => {
+      setPicks(json);
+    });
+  }, [shortUrl]);
+
   const simulateNewComment = (
     commentId: number,
     body: string,
@@ -189,9 +203,13 @@ export const App = ({ shortUrl, user }: Props) => {
           user={user}
         />
       )}
-      <TopPicks shortUrl={shortUrl} isPreview={isPreview} />
       {!isPreview ? (
         <>
+          <div className={topPicksStyles}>
+            {picks.map(pick => (
+              <Pick pick={pick} />
+            ))}
+          </div>
           <Filters
             filters={filters}
             onFilterChange={onFilterChange}
@@ -250,24 +268,26 @@ export const App = ({ shortUrl, user }: Props) => {
           )}
         </>
       ) : (
-        <div
-          className={css`
-            width: 250px;
-          `}
-        >
-          <Button size="small" onClick={() => setIsPreview(false)}>
-            <div className={viewMoreButtonContentStyles}>
-              <PlusSVG />
-            </div>
-            <div
-              className={css`
-                padding-left: 10px;
-              `}
-            >
-              View more comments
-            </div>
-          </Button>
-        </div>
+        <>
+          <div
+            className={css`
+              width: 250px;
+            `}
+          >
+            <Button size="small" onClick={() => setIsPreview(false)}>
+              <div className={viewMoreButtonContentStyles}>
+                <PlusSVG />
+              </div>
+              <div
+                className={css`
+                  padding-left: 10px;
+                `}
+              >
+                View more comments
+              </div>
+            </Button>
+          </div>
+        </>
       )}
     </div>
   );
