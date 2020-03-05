@@ -115,15 +115,16 @@ export const App = ({ shortUrl, user }: Props) => {
 
   const [isPreview, setIsPreview] = useState<boolean>(true);
 
-  const onViewMoreCommentsClick = () => {
-    setIsPreview(false);
+  // TODO: we should only fetch comments when user clicks `View more comments`
+  // this will require API changes
+  useEffect(() => {
     setLoading(true);
     getDiscussion(shortUrl, filters).then(json => {
       setLoading(false);
       setComments(json?.discussion?.comments);
       setTotalPages(json?.pages);
     });
-  };
+  }, [filters, shortUrl]);
 
   const simulateNewComment = (
     commentId: number,
@@ -255,7 +256,7 @@ export const App = ({ shortUrl, user }: Props) => {
             width: 250px;
           `}
         >
-          <Button size="small" onClick={() => onViewMoreCommentsClick()}>
+          <Button size="small" onClick={() => setIsPreview(false)}>
             <div className={viewMoreButtonContentStyles}>
               <PlusSVG />
             </div>
