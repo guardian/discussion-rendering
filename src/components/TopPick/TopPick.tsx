@@ -69,7 +69,7 @@ const linkStyles = css`
 `;
 
 // TODO: Check if there are other labels
-export const TopPick = ({ pick }: { pick: CommentType }) => (
+export const TopPick = ({ comment }: { comment: CommentType }) => (
   <div className={pickStyles}>
     <div className={pickComment}>
       <h3
@@ -81,13 +81,13 @@ export const TopPick = ({ pick }: { pick: CommentType }) => (
       >
         Guardian Pick
       </h3>
-      <p dangerouslySetInnerHTML={{ __html: pick.body }}></p>
+      <p dangerouslySetInnerHTML={{ __html: comment.body }}></p>
     </div>
     <div className={pickMetaWrapper}>
       <div className={userDetails}>
         <div className={avatarMargin}>
           <Avatar
-            imageUrl={pick.userProfile.avatar}
+            imageUrl={comment.userProfile.avatar}
             displayName={""}
             size="medium"
           />
@@ -95,25 +95,25 @@ export const TopPick = ({ pick }: { pick: CommentType }) => (
         <div className="usermeta">
           <span className={userName}>
             <a
-              href={`https://profile.theguardian.com/user/${pick.userProfile.userId}`}
+              href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
               className={linkStyles}
             >
-              {pick.userProfile.displayName}
+              {comment.userProfile.displayName}
             </a>
           </span>
           <Timestamp
-            isoDateTime={pick.isoDateTime}
-            linkTo={`https://discussion.theguardian.com/comment-permalink/${pick.id}`}
+            isoDateTime={comment.isoDateTime}
+            linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
           />
-          {pick.userProfile.badge.filter(obj => obj["name"] === "Staff") && (
+          {comment.userProfile.badge.filter(obj => obj["name"] === "Staff") && (
             <GuardianStaff />
           )}
         </div>
       </div>
       <div>
         <RecommendationCount
-          commentId={pick.id}
-          initialCount={pick.numRecommends}
+          commentId={comment.id}
+          initialCount={comment.numRecommends}
           alreadyRecommended={false}
         />
       </div>

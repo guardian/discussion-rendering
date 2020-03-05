@@ -187,7 +187,7 @@ export const App = ({ shortUrl, user }: Props) => {
       {!!picks.length && (
         <div className={picksWrapper}>
           {picks.map(pick => (
-            <TopPick pick={pick} />
+            <TopPick comment={pick} />
           ))}
         </div>
       )}
