@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { css } from "emotion";
 
 import { space, neutral, palette } from "@guardian/src-foundations";
@@ -7,17 +7,10 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { GuardianStaff } from "../Badges/Badges";
 import { CommentType } from "../../types";
 import { Avatar } from "../Avatar/Avatar";
-import { getPicks } from "../../lib/api";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { Timestamp } from "../Timestamp/Timestamp";
 
-const picksWrapper = css`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
-const pick = css`
+const pickStyles = css`
   max-width: 310px;
   min-width: 250px;
   margin-bottom: ${space[5]}px;
@@ -76,8 +69,8 @@ const linkStyles = css`
 `;
 
 // TODO: Check if there are other labels
-const Pick = ({ comment }: { comment: CommentType }) => (
-  <div className={pick}>
+export const TopPick = ({ pick }: { pick: CommentType }) => (
+  <div className={pickStyles}>
     <div className={pickComment}>
       <h3
         className={css`
@@ -88,13 +81,13 @@ const Pick = ({ comment }: { comment: CommentType }) => (
       >
         Guardian Pick
       </h3>
-      <p dangerouslySetInnerHTML={{ __html: comment.body }}></p>
+      <p dangerouslySetInnerHTML={{ __html: pick.body }}></p>
     </div>
     <div className={pickMetaWrapper}>
       <div className={userDetails}>
         <div className={avatarMargin}>
           <Avatar
-            imageUrl={comment.userProfile.avatar}
+            imageUrl={pick.userProfile.avatar}
             displayName={""}
             size="medium"
           />
@@ -102,50 +95,28 @@ const Pick = ({ comment }: { comment: CommentType }) => (
         <div className="usermeta">
           <span className={userName}>
             <a
-              href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
+              href={`https://profile.theguardian.com/user/${pick.userProfile.userId}`}
               className={linkStyles}
             >
-              {comment.userProfile.displayName}
+              {pick.userProfile.displayName}
             </a>
           </span>
           <Timestamp
-            isoDateTime={comment.isoDateTime}
-            linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+            isoDateTime={pick.isoDateTime}
+            linkTo={`https://discussion.theguardian.com/comment-permalink/${pick.id}`}
           />
-          {comment.userProfile.badge.filter(obj => obj["name"] === "Staff") && (
+          {pick.userProfile.badge.filter(obj => obj["name"] === "Staff") && (
             <GuardianStaff />
           )}
         </div>
       </div>
       <div>
         <RecommendationCount
-          commentId={comment.id}
-          initialCount={comment.numRecommends}
+          commentId={pick.id}
+          initialCount={pick.numRecommends}
           alreadyRecommended={false}
         />
       </div>
     </div>
   </div>
 );
-
-export const TopPicks = ({ shortUrl }: { shortUrl: string }) => {
-  const [comments, setComments] = useState<CommentType[]>([]);
-
-  useEffect(() => {
-    getPicks(shortUrl).then(json => {
-      setComments(json);
-    });
-  }, [shortUrl]);
-
-  if (comments?.length === 0) {
-    return <p>No picks.</p>;
-  }
-
-  return (
-    <div className={picksWrapper}>
-      {comments.map(comment => (
-        <Pick comment={comment} />
-      ))}
-    </div>
-  );
-};
