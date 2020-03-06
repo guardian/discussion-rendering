@@ -207,31 +207,29 @@ export const App = ({ shortUrl, user }: Props) => {
             user={user}
           />
         )}
-        <div className={picksWrapper}>
-          {picks && picks.length ? (
-            <>
-              {picks.slice(0, 2).map(pick => (
-                <TopPick comment={pick} />
-              ))}
-            </>
-          ) : (
-            <>
-              {comments.slice(0, 2).map(comment => (
-                <CommentContainer
-                  key={comment.id}
-                  comment={comment}
-                  pillar="news"
-                  shortUrl={shortUrl}
-                  onAddComment={onAddComment}
-                  user={user}
-                  threads={filters.threads}
-                  commentBeingRepliedTo={commentBeingRepliedTo}
-                  setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-                />
-              ))}
-            </>
-          )}
-        </div>
+        {picks && picks.length ? (
+          <div className={picksWrapper}>
+            {picks.slice(0, 2).map(pick => (
+              <TopPick comment={pick} />
+            ))}
+          </div>
+        ) : (
+          <div className={commentContainerStyles}>
+            {comments.slice(0, 2).map(comment => (
+              <CommentContainer
+                key={comment.id}
+                comment={comment}
+                pillar="news"
+                shortUrl={shortUrl}
+                onAddComment={onAddComment}
+                user={user}
+                threads={filters.threads}
+                commentBeingRepliedTo={commentBeingRepliedTo}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+              />
+            ))}
+          </div>
+        )}
         <div
           className={css`
             width: 250px;
