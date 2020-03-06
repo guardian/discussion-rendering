@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { space, palette } from "@guardian/src-foundations";
-import { neutral } from "@guardian/src-foundations/palette";
+import { neutral, background } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { Pillar, CommentType, UserProfile } from "../../types";
@@ -32,7 +32,7 @@ const commentControlsButton = (pillar: Pillar) => css`
   ${textSans.xsmall({ fontWeight: "bold" })}
   margin-right: ${space[2]}px;
   color: ${palette[pillar][400]};
-  background-color: ${neutral[100]};
+  background-color: ${background.primary};
   border: 0;
   cursor: pointer;
   :hover {
