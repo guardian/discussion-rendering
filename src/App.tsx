@@ -4,7 +4,7 @@ import { css } from "emotion";
 import { CommentType, FilterOptions, UserProfile } from "./types";
 import { getDiscussion, getCommentCount, getPicks } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
-import { TopPick } from "./components/TopPick/TopPick";
+import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
 import { Pagination } from "./components/Pagination/Pagination";
@@ -188,13 +188,7 @@ export const App = ({ shortUrl, user }: Props) => {
           user={user}
         />
       )}
-      {!!picks.length && (
-        <div className={picksWrapper}>
-          {picks.map(pick => (
-            <TopPick comment={pick} />
-          ))}
-        </div>
-      )}
+      {!!picks.length && <TopPicks comments={picks} />}
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}
