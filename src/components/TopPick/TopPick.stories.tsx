@@ -5,7 +5,7 @@ import { CommentType } from "../../types";
 
 export default { component: TopPick, title: "TopPick" };
 
-const pick: CommentType = {
+const comment: CommentType = {
   id: 25488498,
   body: "<p>It's still there FrankDeFord - and thanks, I will pass that on</p>",
   date: "26 July 2013 4:35pm",
@@ -41,5 +41,5 @@ const pick: CommentType = {
   }
 };
 
-export const Default = () => <TopPick pick={pick} />;
+export const Default = () => <TopPick comment={comment} />;
 Default.story = { name: "default" };
