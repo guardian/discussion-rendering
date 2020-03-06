@@ -2,7 +2,8 @@ import React, { useState, useRef } from "react";
 import { css, cx } from "emotion";
 
 import { Button } from "@guardian/src-button";
-import { palette, space, neutral } from "@guardian/src-foundations";
+import { palette, space } from "@guardian/src-foundations";
+import { neutral, text } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { comment, reply, preview } from "../../lib/api";
@@ -86,10 +87,16 @@ const headerTextStyles = css`
 const errorTextStyles = css`
   margin: 0;
   ${textSans.xsmall()};
-  color: red;
+  color: ${text.error};
 `;
 
-const errorContainerStyles = css`
+const infoTextStyles = css`
+  margin: 0;
+  ${textSans.xsmall()};
+  color: ${text.secondary};
+`;
+
+const msgContainerStyles = css`
   margin-top: 8px;
 `;
 
@@ -145,6 +152,7 @@ export const CommentForm = ({
   const [body, setBody] = useState<string>("");
   const [previewBody, setPreviewBody] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [info, setInfo] = useState<string>("");
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -203,6 +211,7 @@ export const CommentForm = ({
 
   const resetForm = () => {
     setError("");
+    setInfo("");
     setBody("");
     setShowPreview(false);
     setIsActive(false);
@@ -210,25 +219,83 @@ export const CommentForm = ({
   };
 
   const submitForm = async () => {
+    setError("");
+    setInfo("");
+
     if (body) {
       const response: CommentResponse = commentBeingRepliedTo
         ? await reply(shortUrl, body, commentBeingRepliedTo.id)
         : await comment(shortUrl, body);
-      if (response.statusCode === 420) {
+
+      // Check response message for error states
+      if (response.message === "USERNAME_MISSING") {
+        // Reader has never posted before and needs to choose a username
+        setFirstPost(true);
+      } else if (response.message === "EMPTY_COMMENT_BODY") {
+        setError("Please write a comment.");
+      } else if (response.message === "COMMENT_TOO_LONG") {
+        setError("Your comment must be fewer than 5000 characters long.");
+      } else if (response.message === "USER_BANNED") {
+        setError(
+          'Commenting has been disabled for this account (<a href="/community-faqs#321a">why?</a>).'
+        );
+      } else if (response.message === "IP_THROTTLED") {
+        setError(
+          'Commenting has been temporarily blocked for this IP address (<a href="/community-faqs">why?</a>).'
+        );
+      } else if (response.message === "DISCUSSION_CLOSED") {
+        setError(
+          "Sorry your comment can not be published as the discussion is now closed for comments."
+        );
+      } else if (response.message === "PARENT_COMMENT_MODERATED") {
+        setError(
+          "Sorry the comment can not be published as the comment you replied to has been moderated since."
+        );
+      } else if (response.message === "COMMENT_RATE_LIMIT_EXCEEDED") {
         setError(
           "You can only post one comment every minute. Please try again in a moment."
         );
-      } else if (response.message === "USERNAME_MISSING") {
-        // Reader has never posted before and needs to choose a username
-        setFirstPost(true);
+      } else if (response.message === "INVALID_PROTOCOL") {
+        setError(`Sorry your comment can not be published as it was not sent over
+                  a secure channel. Please report us this issue using the technical issue link
+                  in the page footer.`);
+      } else if (response.message === "AUTH_COOKIE_INVALID") {
+        setError(
+          "Sorry, your comment was not published as you are no longer signed in. Please sign in and try again."
+        );
+      } else if (response.message === "READ-ONLY-MODE") {
+        setError(`Sorry your comment can not currently be published as
+                  commenting is undergoing maintenance but will be back shortly. Please try
+                  again in a moment.`);
+      } else if (response.message === "API_CORS_BLOCKED") {
+        setError(`Could not post due to your internet settings, which might be
+                 controlled by your provider. Please contact your administrator
+                 or disable any proxy servers or VPNs and try again.`);
+      } else if (response.message === "API_ERROR") {
+        setError(`Sorry, there was a problem posting your comment. Please try
+                  another browser or network connection.  Reference code `);
+      } else if (response.message === "EMAIL_VERIFIED") {
+        setInfo(
+          "Sent. Please check your email to verify your email address. Once verified post your comment."
+        );
+      } else if (response.message === "EMAIL_VERIFIED_FAIL") {
+        // TODO: Support resending verification email
+        setError(`We are having technical difficulties. Please try again later or
+            <a href="#">
+            <strong>resend the verification</strong></a>.`);
+      } else if (response.message === "EMAIL_NOT_VALIDATED") {
+        // TODO: Support resending verification email
+        setError(`Please confirm your email address to comment.<br />
+            If you can't find the email, we can
+            <a href="#">
+            <strong>resend the verification email</strong></a> to your email
+            address.`);
       } else if (response.status === "ok") {
         // response.message is the id of the comment that was created on the server
         onAddComment(parseInt(response.message), body, user);
         resetForm();
       } else {
-        setError(
-          response.message ? response.message : "Comment was unable to submit"
-        );
+        setError("Sorry, there was a problem posting your comment.");
       }
     }
   };
@@ -247,8 +314,16 @@ export const CommentForm = ({
         }}
       >
         {error && (
-          <div className={errorContainerStyles}>
-            <p className={errorTextStyles}>{error}</p>
+          <div className={msgContainerStyles}>
+            <p
+              className={errorTextStyles}
+              dangerouslySetInnerHTML={{ __html: error }}
+            />
+          </div>
+        )}
+        {info && (
+          <div className={msgContainerStyles}>
+            <p className={infoTextStyles}>{info}</p>
           </div>
         )}
         {isActive && (
