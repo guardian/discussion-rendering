@@ -93,7 +93,6 @@ const picksWrapper = css`
   max-width: 620px;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 `;
 
 const twoColComments = css`
