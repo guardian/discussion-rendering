@@ -208,13 +208,13 @@ export const App = ({ shortUrl, user }: Props) => {
           />
         )}
         {picks && picks.length ? (
-          <div className={picksWrapper}>
+          <ul className={picksWrapper}>
             {picks.slice(0, 2).map(pick => (
               <TopPick comment={pick} />
             ))}
-          </div>
+          </ul>
         ) : (
-          <div className={commentContainerStyles}>
+          <ul className={commentContainerStyles}>
             {comments.slice(0, 2).map(comment => (
               <CommentContainer
                 key={comment.id}
@@ -228,7 +228,7 @@ export const App = ({ shortUrl, user }: Props) => {
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
               />
             ))}
-          </div>
+          </ul>
         )}
         <div
           className={css`
@@ -262,11 +262,11 @@ export const App = ({ shortUrl, user }: Props) => {
         />
       )}
       {!!picks.length && (
-        <div className={picksWrapper}>
+        <ul className={picksWrapper}>
           {picks.map(pick => (
             <TopPick comment={pick} />
           ))}
-        </div>
+        </ul>
       )}
       <Filters
         filters={filters}
@@ -292,7 +292,7 @@ export const App = ({ shortUrl, user }: Props) => {
       ) : !comments.length ? (
         <p>TODO: No comment component goes here</p>
       ) : (
-        <div className={commentContainerStyles}>
+        <ul className={commentContainerStyles}>
           {comments.map(comment => (
             <CommentContainer
               key={comment.id}
@@ -306,7 +306,7 @@ export const App = ({ shortUrl, user }: Props) => {
               setCommentBeingRepliedTo={setCommentBeingRepliedTo}
             />
           ))}
-        </div>
+        </ul>
       )}
       {showPagination && (
         <footer className={footerStyles}>
