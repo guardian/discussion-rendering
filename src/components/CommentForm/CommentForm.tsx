@@ -279,13 +279,15 @@ export const CommentForm = ({
           "Sent. Please check your email to verify your email address. Once verified post your comment."
         );
       } else if (response.message === "EMAIL_VERIFIED_FAIL") {
+        // TODO: Support resending verification email
         setError(`We are having technical difficulties. Please try again later or
-            <a href="/send/email" class="js-id-send-validation-email">
+            <a href="#">
             <strong>resend the verification</strong></a>.`);
       } else if (response.message === "EMAIL_NOT_VALIDATED") {
+        // TODO: Support resending verification email
         setError(`Please confirm your email address to comment.<br />
             If you can't find the email, we can
-            <a href="_#" class="js-id-send-validation-email">
+            <a href="#">
             <strong>resend the verification email</strong></a> to your email
             address.`);
       } else if (response.status === "ok") {
