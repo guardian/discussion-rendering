@@ -332,6 +332,16 @@ export const CommentForm = ({
               Please keep comments respectful and abide by the{" "}
               <a href="/community-standards">community guidelines</a>.
             </p>
+
+            {user.privateFields && user.privateFields.isPremoderated && (
+              <p className={errorTextStyles}>
+                Your comments are currently being pre-moderated (
+                <a href="/community-faqs#311" target="_blank">
+                  why?
+                </a>
+                )
+              </p>
+            )}
           </div>
         )}
         <textarea
