@@ -31,12 +31,6 @@ const commentContainerStyles = css`
   padding-left: 0;
 `;
 
-const picksWrapper = css`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
 const DEFAULT_FILTERS: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,

@@ -1,5 +1,4 @@
 import React from "react";
-import { css } from "emotion";
 
 import { TopPicks } from "./TopPicks";
 import { CommentType } from "../../types";
