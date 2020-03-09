@@ -94,7 +94,7 @@ const picksWrapper = css`
   flex-wrap: wrap;
 `;
 
-const twoColComments = css`
+const twoColCommentsStyles = css`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -102,7 +102,7 @@ const twoColComments = css`
     display: none;
   }
 `;
-const oneColComments = css`
+const oneColCommentsStyles = css`
   width: 100%;
   ${from.tablet} {
     display: none;
@@ -172,7 +172,7 @@ export const TopPicks = ({ comments }: { comments: CommentType[] }) => {
   );
   return (
     <div className={picksWrapper}>
-      <div className={twoColComments}>
+      <div className={twoColCommentsStyles}>
         <div className={cx(columWrapperStyles, paddingRight)}>
           {leftColComments.map(comment => (
             <TopPick comment={comment} />
@@ -184,7 +184,7 @@ export const TopPicks = ({ comments }: { comments: CommentType[] }) => {
           ))}
         </div>
       </div>
-      <div className={oneColComments}>
+      <div className={oneColCommentsStyles}>
         {comments.map(comment => (
           <TopPick comment={comment} />
         ))}
