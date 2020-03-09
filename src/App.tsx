@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 
 import { Button } from "@guardian/src-button";
 import { neutral } from "@guardian/src-foundations/palette";
@@ -8,7 +8,7 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { CommentType, FilterOptions, UserProfile } from "./types";
 import { getDiscussion, getCommentCount, getPicks } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
-import { TopPick } from "./components/TopPick/TopPick";
+import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
 import { Pagination } from "./components/Pagination/Pagination";
@@ -208,11 +208,9 @@ export const App = ({ shortUrl, user }: Props) => {
           />
         )}
         {picks && picks.length ? (
-          <ul className={picksWrapper}>
-            {picks.slice(0, 2).map(pick => (
-              <TopPick comment={pick} />
-            ))}
-          </ul>
+          <div className={picksWrapper}>
+            {!!picks.length && <TopPicks comments={picks.slice(0, 2)} />}
+          </div>
         ) : (
           <ul className={commentContainerStyles}>
             {comments.slice(0, 2).map(comment => (
@@ -261,13 +259,7 @@ export const App = ({ shortUrl, user }: Props) => {
           user={user}
         />
       )}
-      {!!picks.length && (
-        <ul className={picksWrapper}>
-          {picks.map(pick => (
-            <TopPick comment={pick} />
-          ))}
-        </ul>
-      )}
+      {!!picks.length && <TopPicks comments={picks} />}
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}
