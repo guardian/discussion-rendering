@@ -82,10 +82,10 @@ const columWrapperStyles = css`
   display: flex;
   flex-direction: column;
 `;
-const colLeft = css`
+const paddingRight = css`
   padding-right: 10px;
 `;
-const colRight = css`
+const paddingLeft = css`
   padding-left: 10px;
 `;
 
@@ -173,12 +173,12 @@ export const TopPicks = ({ comments }: { comments: CommentType[] }) => {
   return (
     <div className={picksWrapper}>
       <div className={twoColComments}>
-        <div className={cx(columWrapperStyles, colLeft)}>
+        <div className={cx(columWrapperStyles, paddingRight)}>
           {leftColComments.map(comment => (
             <TopPick comment={comment} />
           ))}
         </div>
-        <div className={cx(columWrapperStyles, colRight)}>
+        <div className={cx(columWrapperStyles, paddingLeft)}>
           {rightColComments.map(comment => (
             <TopPick comment={comment} />
           ))}
