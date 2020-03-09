@@ -162,9 +162,9 @@ const TopPick = ({ comment }: { comment: CommentType }) => (
   </div>
 );
 
-export const TopPicks = ({ comments }: { comments: Array<CommentType> }) => {
-  const leftColComments: Array<CommentType> = [];
-  const rightColComments: Array<CommentType> = [];
+export const TopPicks = ({ comments }: { comments: CommentType[] }) => {
+  const leftColComments: CommentType[] = [];
+  const rightColComments: CommentType[] = [];
   comments.forEach((comment, index) =>
     index % 2 === 0
       ? leftColComments.push(comment)
