@@ -133,7 +133,7 @@ const TopPick = ({ comment }: { comment: CommentType }) => (
             size="medium"
           />
         </div>
-        <div className={cx("usermeta", userMetaStyles)}>
+        <div className={userMetaStyles}>
           <span className={userName}>
             <a
               href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
