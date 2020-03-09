@@ -8,7 +8,7 @@ export default { title: "Comment" };
 const commentData: CommentType = {
   id: 25487686,
   body:
-    "Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!",
+    "<p>Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!</p>",
   date: "26 July 2013 4:13pm",
   isoDateTime: "2013-07-26T15:13:20Z",
   status: "visible",
@@ -36,6 +36,25 @@ const commentData: CommentType = {
   }
 };
 
+const commentStaffData: CommentType = {
+  ...commentData,
+  userProfile: {
+    ...commentData.userProfile,
+    badge: [
+      {
+        name: "Staff"
+      }
+    ]
+  }
+};
+
+const blockedCommentData = {
+  ...commentData,
+  status: "blocked",
+  body:
+    "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>."
+};
+
 const staffUser = {
   userId: "abc123",
   displayName: "Jane Smith",
@@ -59,7 +78,7 @@ export const Default = () => (
     isReply={false}
   />
 );
-Default.story = { name: "default" };
+Default.story = { name: "Default" };
 
 export const ReplyComment = () => (
   <Comment
@@ -69,9 +88,55 @@ export const ReplyComment = () => (
     isReply={true}
   />
 );
-Default.story = { name: "default" };
+Default.story = { name: "Reply Default" };
 
-export const StaffUserUnpicked = () => (
+export const UnpickedComment = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+UnpickedComment.story = { name: "Unpicked Comment" };
+
+export const PickedComment = () => (
+  <Comment
+    comment={{
+      ...commentData,
+      isHighlighted: true
+    }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+PickedComment.story = { name: "Picked Comment" };
+
+export const StaffUserComment = () => (
+  <Comment
+    comment={commentStaffData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+StaffUserComment.story = { name: "Staff User Comment" };
+
+export const PickedStaffUserComment = () => (
+  <Comment
+    comment={{
+      ...commentStaffData,
+      isHighlighted: true
+    }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+PickedStaffUserComment.story = { name: "Picked Staff User Comment" };
+
+export const LoggedInAsModerator = () => (
   <Comment
     comment={commentData}
     pillar={"sport"}
@@ -80,15 +145,14 @@ export const StaffUserUnpicked = () => (
     isReply={false}
   />
 );
-StaffUserUnpicked.story = { name: "Staff user unpicked" };
+LoggedInAsModerator.story = { name: "Logged in as moderator" };
 
-export const StaffUserPicked = () => (
+export const BlockedComment = () => (
   <Comment
-    comment={{ ...commentData, isHighlighted: true }}
+    comment={blockedCommentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
-    user={staffUser}
     isReply={false}
   />
 );
-StaffUserPicked.story = { name: "Staff user picked" };
+BlockedComment.story = { name: "Blocked comment" };

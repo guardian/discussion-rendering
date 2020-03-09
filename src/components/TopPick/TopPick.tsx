@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { css } from "emotion";
 
 import { space, neutral, palette } from "@guardian/src-foundations";
@@ -7,17 +7,10 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { GuardianStaff } from "../Badges/Badges";
 import { CommentType } from "../../types";
 import { Avatar } from "../Avatar/Avatar";
-import { getPicks } from "../../lib/api";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { Timestamp } from "../Timestamp/Timestamp";
 
-const picksWrapper = css`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
-const pick = css`
+const pickStyles = css`
   max-width: 310px;
   min-width: 250px;
   margin-bottom: ${space[5]}px;
@@ -76,8 +69,8 @@ const linkStyles = css`
 `;
 
 // TODO: Check if there are other labels
-const Pick = ({ comment }: { comment: CommentType }) => (
-  <div className={pick}>
+export const TopPick = ({ comment }: { comment: CommentType }) => (
+  <div className={pickStyles}>
     <div className={pickComment}>
       <h3
         className={css`
@@ -127,25 +120,3 @@ const Pick = ({ comment }: { comment: CommentType }) => (
     </div>
   </div>
 );
-
-export const TopPicks = ({ shortUrl }: { shortUrl: string }) => {
-  const [comments, setComments] = useState<CommentType[]>([]);
-
-  useEffect(() => {
-    getPicks(shortUrl).then(json => {
-      setComments(json);
-    });
-  }, [shortUrl]);
-
-  if (comments?.length === 0) {
-    return <p>No picks.</p>;
-  }
-
-  return (
-    <div className={picksWrapper}>
-      {comments.map(comment => (
-        <Pick comment={comment} />
-      ))}
-    </div>
-  );
-};

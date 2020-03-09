@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 
-import { neutral, space, palette } from "@guardian/src-foundations";
+import { space, palette } from "@guardian/src-foundations";
+import { neutral, background } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { Pillar, CommentType, UserProfile } from "../../types";
@@ -28,11 +29,15 @@ const commentControls = css`
 `;
 
 const commentControlsButton = (pillar: Pillar) => css`
-  font-weight: bold;
+  ${textSans.xsmall({ fontWeight: "bold" })}
   margin-right: ${space[2]}px;
   color: ${palette[pillar][400]};
+  background-color: ${background.primary};
   border: 0;
   cursor: pointer;
+  :hover {
+    text-decoration: underline
+  }
 `;
 
 const spaceBetween = css`
@@ -46,6 +51,22 @@ const commentCss = css`
   ${textSans.small()}
   margin-top: 0.375rem;
   margin-bottom: 0.5rem;
+`;
+
+const blockedCommentStyles = css`
+  color: ${neutral[60]};
+  ${textSans.xsmall()}
+`;
+
+// to override a tag styles from dangerouslySetInnerHTML
+const commentLinkStyling = css`
+  a {
+    color: ${palette.brand[500]};
+    text-decoration: none;
+    :hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const commentWrapper = css`
@@ -95,6 +116,15 @@ const linkStyles = css`
   }
 `;
 
+const flexRowStyles = css`
+  display: flex;
+  flex-direction: row;
+`;
+
+const removePaddingLeft = css`
+  padding-left: 0px;
+`;
+
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div
     className={css`
@@ -115,6 +145,18 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   >
     {children}
   </div>
+);
+
+const ReplyArrow = () => (
+  <svg
+    width="18"
+    height="18"
+    className={css`
+      fill: ${neutral[46]};
+    `}
+  >
+    <path d="M10.1 5l.9-1 4 4.5v1L11 14l-.9-1 2.5-3H4L3 9V6.5h2V8h7.6l-2.5-3z"></path>
+  </svg>
 );
 
 export const Comment = ({
@@ -190,51 +232,74 @@ export const Comment = ({
                 </div>
               </Row>
               <Row>
-                <div className={iconWrapper}>
-                  {comment.userProfile.badge.filter(
-                    obj => obj["name"] === "Staff"
-                  ) && <GuardianStaff />}
-                </div>
-                <div className={iconWrapper}>
-                  {isHighlighted && <GuardianPick />}
-                </div>
+                {!!comment.userProfile.badge.filter(
+                  obj => obj["name"] === "Staff"
+                ) && (
+                  <div className={iconWrapper}>
+                    <GuardianStaff />
+                  </div>
+                )}
+                {comment.status !== "blocked" && isHighlighted ? (
+                  <div className={iconWrapper}>
+                    <GuardianPick />
+                  </div>
+                ) : (
+                  <></>
+                )}
               </Row>
             </Column>
-            <RecommendationCount
-              commentId={comment.id}
-              initialCount={comment.numRecommends}
-              alreadyRecommended={false}
-            />
+            {comment.status !== "blocked" && (
+              <RecommendationCount
+                commentId={comment.id}
+                initialCount={comment.numRecommends}
+                alreadyRecommended={false}
+              />
+            )}
           </header>
-          <div
-            className={commentCss}
-            dangerouslySetInnerHTML={{ __html: comment.body }}
-          />
-          <div className={spaceBetween}>
-            <div className={commentControls}>
-              <button
-                onClick={() => setCommentBeingRepliedTo(comment)}
-                className={commentControlsButtonStyles}
-              >
-                Reply
-              </button>
-              <button className={commentControlsButtonStyles}>Share</button>
-              {/* Only staff can pick, and they cannot pick thier own comment */}
-              {user &&
-                user.badge.some(e => e.name === "Staff") &&
-                user.userId !== comment.userProfile.userId && (
+          {comment.status !== "blocked" ? (
+            <>
+              <div
+                className={cx(commentCss, commentLinkStyling)}
+                dangerouslySetInnerHTML={{ __html: comment.body }}
+              />
+              <div className={spaceBetween}>
+                <div className={commentControls}>
                   <button
-                    onClick={isHighlighted ? unPick : pick}
-                    className={commentControlsButtonStyles}
+                    onClick={() => setCommentBeingRepliedTo(comment)}
+                    className={cx(
+                      commentControlsButtonStyles,
+                      removePaddingLeft
+                    )}
                   >
-                    {isHighlighted ? "Unpick" : "Pick"}
+                    <div className={flexRowStyles}>
+                      <ReplyArrow />
+                      Reply
+                    </div>
                   </button>
-                )}
-            </div>
-            <div>
-              <AbuseReportForm commentId={comment.id} pillar={pillar} />
-            </div>
-          </div>
+                  <button className={commentControlsButtonStyles}>Share</button>
+                  {/* Only staff can pick, and they cannot pick thier own comment */}
+                  {user &&
+                    user.badge.some(e => e.name === "Staff") &&
+                    user.userId !== comment.userProfile.userId && (
+                      <button
+                        onClick={isHighlighted ? unPick : pick}
+                        className={commentControlsButtonStyles}
+                      >
+                        {isHighlighted ? "Unpick" : "Pick"}
+                      </button>
+                    )}
+                </div>
+                <div>
+                  <AbuseReportForm commentId={comment.id} pillar={pillar} />
+                </div>
+              </div>
+            </>
+          ) : (
+            <p
+              className={cx(blockedCommentStyles, commentLinkStyling)}
+              dangerouslySetInnerHTML={{ __html: comment.body }}
+            />
+          )}
         </div>
       </div>
     </>
