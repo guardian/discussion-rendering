@@ -90,7 +90,6 @@ const colRight = css`
 `;
 
 const picksWrapper = css`
-  max-width: 620px;
   display: flex;
   flex-wrap: wrap;
 `;
