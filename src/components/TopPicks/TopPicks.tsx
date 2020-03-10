@@ -90,6 +90,7 @@ const paddingLeft = css`
 `;
 
 const picksWrapper = css`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 `;
