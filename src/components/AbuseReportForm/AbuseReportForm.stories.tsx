@@ -14,37 +14,18 @@ const wrapperStyles = css`
 
 export const Container = () => (
   <div className={wrapperStyles}>
-    <AbuseReportForm commentId={123} />
+    <AbuseReportForm commentId={123} pillar={"sport"} />
   </div>
 );
 
 export const Dialog = () => (
   <div className={wrapperStyles}>
-    <Form
-      toggleSetShowForm={() => {}}
-      submitForm={() => {}}
-      selectedCategory={1}
-      categoryOnChange={() => {}}
-      reasonOnChange={() => {}}
-      reasonText="The best reason"
-      emailOnChange={() => {}}
-      emailText="bestemail@example.com"
-    />
+    <Form toggleSetShowForm={() => {}} pillar={"sport"} commentId={123} />
   </div>
 );
 
 export const DialogWithError = () => (
   <div className={wrapperStyles}>
-    <Form
-      toggleSetShowForm={() => {}}
-      submitForm={() => {}}
-      selectedCategory={1}
-      categoryOnChange={() => {}}
-      reasonOnChange={() => {}}
-      reasonText="The best reason"
-      emailOnChange={() => {}}
-      emailText="bestemail@example.com"
-      errors={{ category: "some error" }}
-    />
+    <Form toggleSetShowForm={() => {}} pillar={"sport"} commentId={123} />
   </div>
 );

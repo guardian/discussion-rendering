@@ -8,7 +8,7 @@ export default { title: "Comment" };
 const commentData: CommentType = {
   id: 25487686,
   body:
-    "Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!",
+    "<p>Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!</p>",
   date: "26 July 2013 4:13pm",
   isoDateTime: "2013-07-26T15:13:20Z",
   status: "visible",
@@ -36,34 +36,10 @@ const commentData: CommentType = {
   }
 };
 
-const threadComment: CommentType = {
-  id: 25488498,
-  body: "<p>It's still there FrankDeFord - and thanks, I will pass that on</p>",
-  date: "26 July 2013 4:35pm",
-  isoDateTime: new Date("2013-07-26T15:13:20Z"),
-  status: "visible",
-  webUrl: "https://discussion.theguardian.com/comment-permalink/25488498",
-  apiUrl: "https://discussion.guardianapis.com/discussion-api/comment/25488498",
-  numRecommends: 0,
-  isHighlighted: false,
-  responseTo: {
-    displayName: "FrankDeFord",
-    commentApiUrl:
-      "https://discussion.guardianapis.com/discussion-api/comment/25487686",
-    isoDateTime: "2013-07-26T15:13:20Z",
-    date: "26 July 2013 4:13pm",
-    commentId: 25487686,
-    commentWebUrl:
-      "https://discussion.theguardian.com/comment-permalink/25487686"
-  },
+const commentStaffData: CommentType = {
+  ...commentData,
   userProfile: {
-    userId: "3150446",
-    displayName: "AndyPietrasik",
-    webUrl: "https://profile.theguardian.com/user/id/3150446",
-    apiUrl:
-      "https://discussion.guardianapis.com/discussion-api/profile/3150446",
-    avatar: "https://avatar.guim.co.uk/user/3150446",
-    secureAvatarUrl: "https://avatar.guim.co.uk/user/3150446",
+    ...commentData.userProfile,
     badge: [
       {
         name: "Staff"
@@ -72,19 +48,111 @@ const threadComment: CommentType = {
   }
 };
 
-const commentDataThreaded: CommentType = {
+const blockedCommentData = {
   ...commentData,
-  ...{
-    responses: [threadComment]
+  status: "blocked",
+  body:
+    "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>."
+};
+
+const staffUser = {
+  userId: "abc123",
+  displayName: "Jane Smith",
+  webUrl: "",
+  apiUrl: "",
+  avatar: "",
+  secureAvatarUrl: "",
+  badge: [{ name: "Staff" }],
+  privateFields: {
+    canPostComment: true,
+    isPremoderated: false,
+    hasCommented: true
   }
 };
 
-export const defaultStory = () => (
-  <Comment comment={commentData} pillar={"sport"} />
+export const Default = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
 );
-defaultStory.story = { name: "default" };
+Default.story = { name: "Default" };
 
-export const threadedComment = () => (
-  <Comment comment={commentDataThreaded} pillar={"lifestyle"} />
+export const ReplyComment = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={true}
+  />
 );
-threadedComment.story = { name: "threaded" };
+Default.story = { name: "Reply Default" };
+
+export const UnpickedComment = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+UnpickedComment.story = { name: "Unpicked Comment" };
+
+export const PickedComment = () => (
+  <Comment
+    comment={{
+      ...commentData,
+      isHighlighted: true
+    }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+PickedComment.story = { name: "Picked Comment" };
+
+export const StaffUserComment = () => (
+  <Comment
+    comment={commentStaffData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+StaffUserComment.story = { name: "Staff User Comment" };
+
+export const PickedStaffUserComment = () => (
+  <Comment
+    comment={{
+      ...commentStaffData,
+      isHighlighted: true
+    }}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+PickedStaffUserComment.story = { name: "Picked Staff User Comment" };
+
+export const LoggedInAsModerator = () => (
+  <Comment
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    user={staffUser}
+    isReply={false}
+  />
+);
+LoggedInAsModerator.story = { name: "Logged in as moderator" };
+
+export const BlockedComment = () => (
+  <Comment
+    comment={blockedCommentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+BlockedComment.story = { name: "Blocked comment" };

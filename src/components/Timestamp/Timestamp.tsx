@@ -1,36 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "emotion";
+
 import { textSans } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
 import { DateFromISOStringC } from "io-ts-types/lib/DateFromISOString";
 
 import { dateFormatter } from "../../lib/dateFormatter";
+import { useInterval } from "../../lib/useInterval";
 
 type Props = {
-  date: Date;
-  permalink: string;
+  isoDateTime: DateFromISOStringC;
+  linkTo: string;
 };
 
-const containerStyles = css`
-  display: flex;
-  flex-direction: row;
+const linkStyles = css`
+  color: ${palette.neutral[46]};
+  text-decoration: none;
+  :hover,
+  :focus {
+    text-decoration: underline;
+  }
 `;
-const countStyles = css`
+const timeStyles = css`
   ${textSans.xsmall({ fontWeight: "light" })}
   min-width: 0.75rem;
-  color: ${palette.neutral[46]};
   margin-right: 0.3125rem;
 `;
 
-// TODO: on hover + link
-export const Timestamp = ({
-  isoDateTime
-}: {
-  isoDateTime: DateFromISOStringC;
-}) => {
+export const Timestamp = ({ isoDateTime, linkTo }: Props) => {
+  let [timeAgo, setTimeAgo] = useState(dateFormatter(isoDateTime));
+
+  useInterval(() => {
+    setTimeAgo(dateFormatter(isoDateTime));
+  }, 15000);
+
   return (
-    <div className={containerStyles}>
-      <div className={countStyles}>{dateFormatter(isoDateTime)}</div>
-    </div>
+    <a href={linkTo} className={linkStyles}>
+      <time dateTime={isoDateTime.toString()} className={timeStyles}>
+        {timeAgo}
+      </time>
+    </a>
   );
 };

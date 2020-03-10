@@ -19,7 +19,7 @@ const objAsParams = (obj: any): string => {
   return "?" + params;
 };
 
-const getDiscussion = (
+export const getDiscussion = (
   shortUrl: string,
   opts: FilterOptions
 ): Promise<DiscussionResponse> => {
@@ -27,7 +27,7 @@ const getDiscussion = (
     orderBy: opts.orderBy,
     pageSize: opts.pageSize,
     displayThreaded: opts.threads !== "unthreaded",
-    maxResponses: 3,
+    maxResponses: opts.threads === "collapsed" ? 3 : 100,
     page: opts.page
   };
   const params = objAsParams(apiOpts);
@@ -39,7 +39,7 @@ const getDiscussion = (
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-const preview = (body: string): Promise<string> => {
+export const preview = (body: string): Promise<string> => {
   const url = baseURL + "/comment/preview";
   const data = new URLSearchParams();
   data.append("body", body);
@@ -56,7 +56,7 @@ const preview = (body: string): Promise<string> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-const getProfile = (): Promise<UserProfile> => {
+export const getProfile = (): Promise<UserProfile> => {
   const url = baseURL + "/profile/me";
   return fetch(url, { credentials: "include" })
     .then(resp => resp.json())
@@ -64,7 +64,10 @@ const getProfile = (): Promise<UserProfile> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-const comment = (shortUrl: string, body: string): Promise<CommentResponse> => {
+export const comment = (
+  shortUrl: string,
+  body: string
+): Promise<CommentResponse> => {
   const url = baseURL + `/discussion/${shortUrl}/comment`;
   const data = new URLSearchParams();
   data.append("body", body);
@@ -76,16 +79,14 @@ const comment = (shortUrl: string, body: string): Promise<CommentResponse> => {
       "Content-Type": "application/x-www-form-urlencoded"
     },
     credentials: "include"
-  })
-    .then(resp => resp.json())
-    .then(json => json);
+  }).then(resp => resp.json());
 };
 
-const reply = (
+export const reply = (
   shortUrl: string,
   body: string,
   parentCommentId: number
-): Promise<string> => {
+): Promise<CommentResponse> => {
   const url =
     baseURL + `/discussion/${shortUrl}/comment/${parentCommentId}/reply`;
 
@@ -99,14 +100,11 @@ const reply = (
       "Content-Type": "application/x-www-form-urlencoded"
     },
     credentials: "include"
-  })
-    .then(resp => resp.json())
-    .then(json => json.message);
+  }).then(resp => resp.json());
 };
 
-const getPicks = (shortUrl: string): Promise<CommentType[]> => {
+export const getPicks = (shortUrl: string): Promise<CommentType[]> => {
   const url = baseURL + `/discussion/${shortUrl}/topcomments`;
-
   return fetch(url)
     .then(resp => resp.json())
     .then(json => json.discussion.comments)
@@ -137,12 +135,10 @@ export const reportAbuse = ({
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     }
-  })
-    .then(resp => resp.json())
-    .then(json => json.message);
+  }).then(resp => resp.json());
 };
 
-const recommend = (commentId: number): Promise<boolean> => {
+export const recommend = (commentId: number): Promise<boolean> => {
   const url = baseURL + `/comment/${commentId}/recommend`;
 
   return fetch(url, { method: "POST", credentials: "include" }).then(
@@ -150,12 +146,25 @@ const recommend = (commentId: number): Promise<boolean> => {
   );
 };
 
-export {
-  getDiscussion,
-  getProfile,
-  preview,
-  comment,
-  reply,
-  recommend,
-  getPicks
+export const getCommentCount = (
+  shortUrl: string
+): Promise<{ shortUrl: string; numberOfComments: number }> => {
+  const url = `${baseURL}/discussion/${shortUrl}/comments/count`;
+  return fetch(url)
+    .then(resp => resp.json())
+    .catch(error => console.error(`Error fetching ${url}`, error));
+};
+
+export const pickComment = (commentId: number): Promise<CommentResponse> => {
+  const url = `${baseURL}/comment/${commentId}/highlight`;
+  return fetch(url)
+    .then(resp => resp.json())
+    .catch(error => console.error(`Error fetching ${url}`, error));
+};
+
+export const unPickComment = (commentId: number): Promise<CommentResponse> => {
+  const url = `${baseURL}/comment/${commentId}/unhighlight`;
+  return fetch(url)
+    .then(resp => resp.json())
+    .catch(error => console.error(`Error fetching ${url}`, error));
 };
