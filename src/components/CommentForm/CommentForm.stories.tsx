@@ -1,4 +1,7 @@
 import React from "react";
+
+import { CommentType } from "../../types";
+
 import { CommentForm } from "./CommentForm";
 
 export default { component: CommentForm, title: "CommentForm" };
