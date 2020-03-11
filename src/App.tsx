@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 
+import "regenerator-runtime/runtime";
+
 import { Button } from "@guardian/src-button";
 import { neutral } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
