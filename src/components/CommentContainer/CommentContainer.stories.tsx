@@ -40,7 +40,7 @@ const threadComment: CommentType = {
   id: 25488498,
   body: "<p>It's still there FrankDeFord - and thanks, I will pass that on</p>",
   date: "26 July 2013 4:35pm",
-  isoDateTime: new Date("2013-07-26T15:13:20Z"),
+  isoDateTime: "2013-07-26T15:13:20Z",
   status: "visible",
   webUrl: "https://discussion.theguardian.com/comment-permalink/25488498",
   apiUrl: "https://discussion.guardianapis.com/discussion-api/comment/25488498",

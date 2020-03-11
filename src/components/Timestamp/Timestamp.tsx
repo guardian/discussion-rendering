@@ -3,13 +3,12 @@ import { css } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
-import { DateFromISOStringC } from "io-ts-types/lib/DateFromISOString";
 
 import { dateFormatter } from "../../lib/dateFormatter";
 import { useInterval } from "../../lib/useInterval";
 
 type Props = {
-  isoDateTime: DateFromISOStringC;
+  isoDateTime: string;
   linkTo: string;
 };
 

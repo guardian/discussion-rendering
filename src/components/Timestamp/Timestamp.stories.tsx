@@ -5,11 +5,12 @@ export default { component: Timestamp, title: "Timestamp" };
 
 const hoursBeforeNow = (hours: number) => {
   var date = new Date();
-  return date.setHours(date.getHours() - hours);
+  date.setHours(date.getHours() - hours);
+  return date.toISOString();
 };
 
 export const Default = () => (
-  <Timestamp isoDateTime={new Date("2010-11-18T14:22:39Z")} linkTo="" />
+  <Timestamp isoDateTime={"2010-11-18T14:22:39Z"} linkTo="" />
 );
 Default.story = { name: "default" };
 

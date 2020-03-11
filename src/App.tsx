@@ -136,7 +136,7 @@ export const App = ({ shortUrl, user }: Props) => {
       id: commentId,
       body,
       date: Date(),
-      isoDateTime: new Date(),
+      isoDateTime: new Date().toISOString(),
       status: "visible",
       webUrl: "TODO",
       apiUrl: "TODO",
