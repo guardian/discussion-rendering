@@ -7,6 +7,9 @@
   "publishConfig": {
     "access": "restricted"
   },
+  "bugs": {
+    "url": "https://github.com/guardian/discussion-rendering/issues"
+  },
   "files": [
     "build/**/*"
   ],
