@@ -94,7 +94,7 @@ export interface DiscussionOptions {
   page: number;
 }
 
-export type ConfigsType = {
+export type TrackingHeadersType = {
   discussionD2Uid: string;
   discussionApiClientHeader: string;
 };

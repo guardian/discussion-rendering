@@ -5,9 +5,18 @@ import { Button } from "@guardian/src-button";
 import { neutral } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { CommentType, FilterOptions, UserProfile, ConfigsType } from "./types";
-import { setConfigs } from "./configs";
-import { getDiscussion, getCommentCount, getPicks } from "./lib/api";
+import {
+  CommentType,
+  FilterOptions,
+  UserProfile,
+  TrackingHeadersType
+} from "./types";
+import {
+  getDiscussion,
+  getCommentCount,
+  getPicks,
+  setTrackingHeaders
+} from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
@@ -17,7 +26,7 @@ import { Pagination } from "./components/Pagination/Pagination";
 type Props = {
   shortUrl: string;
   user?: UserProfile;
-  configs: ConfigsType;
+  trackingHeaders: TrackingHeadersType;
 };
 
 const containerStyles = css`
@@ -108,7 +117,7 @@ const readFiltersFromLocalStorage = (): FilterOptions => {
   };
 };
 
-export const App = ({ shortUrl, user, configs }: Props) => {
+export const App = ({ shortUrl, user, trackingHeaders }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     readFiltersFromLocalStorage()
   );
@@ -120,7 +129,7 @@ export const App = ({ shortUrl, user, configs }: Props) => {
     CommentType
   >();
 
-  setConfigs(configs);
+  setTrackingHeaders(trackingHeaders);
 
   const simulateNewComment = (
     commentId: number,
