@@ -1,3 +1,5 @@
+import { getConfigs } from "../configs";
+
 import {
   FilterOptions,
   DiscussionResponse,
@@ -32,9 +34,16 @@ export const getDiscussion = (
   };
   const params = objAsParams(apiOpts);
 
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
   const url = baseURL + `/discussion/${shortUrl}` + params;
 
-  return fetch(url)
+  return fetch(url, {
+    headers: {
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
+    }
+  })
     .then(resp => resp.json())
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
@@ -44,11 +53,15 @@ export const preview = (body: string): Promise<string> => {
   const data = new URLSearchParams();
   data.append("body", body);
 
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
   return fetch(url, {
     method: "POST",
     body: data,
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
     }
   })
     .then(resp => resp.json())
@@ -58,7 +71,15 @@ export const preview = (body: string): Promise<string> => {
 
 export const getProfile = (): Promise<UserProfile> => {
   const url = baseURL + "/profile/me";
-  return fetch(url, { credentials: "include" })
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
+  return fetch(url, {
+    credentials: "include",
+    headers: {
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
+    }
+  })
     .then(resp => resp.json())
     .then(json => json.userProfile)
     .catch(error => console.error(`Error fetching ${url}`, error));
@@ -72,11 +93,15 @@ export const comment = (
   const data = new URLSearchParams();
   data.append("body", body);
 
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
   return fetch(url, {
     method: "POST",
     body: data,
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
     },
     credentials: "include"
   }).then(resp => resp.json());
@@ -93,11 +118,15 @@ export const reply = (
   const data = new URLSearchParams();
   data.append("body", body);
 
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
   return fetch(url, {
     method: "POST",
     body: data,
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
     },
     credentials: "include"
   }).then(resp => resp.json());
@@ -105,7 +134,15 @@ export const reply = (
 
 export const getPicks = (shortUrl: string): Promise<CommentType[]> => {
   const url = baseURL + `/discussion/${shortUrl}/topcomments`;
-  return fetch(url)
+
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
+  return fetch(url, {
+    headers: {
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
+    }
+  })
     .then(resp => resp.json())
     .then(json => json.discussion.comments)
     .catch(error => console.error(`Error fetching ${url}`, error));
@@ -129,11 +166,15 @@ export const reportAbuse = ({
   email && data.append("email", email.toString());
   reason && data.append("reason", reason);
 
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
   return fetch(url, {
     method: "POST",
     body: data,
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
     }
   }).then(resp => resp.json());
 };
@@ -141,30 +182,61 @@ export const reportAbuse = ({
 export const recommend = (commentId: number): Promise<boolean> => {
   const url = baseURL + `/comment/${commentId}/recommend`;
 
-  return fetch(url, { method: "POST", credentials: "include" }).then(
-    resp => resp.ok
-  );
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
+  return fetch(url, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
+    }
+  }).then(resp => resp.ok);
 };
 
 export const getCommentCount = (
   shortUrl: string
 ): Promise<{ shortUrl: string; numberOfComments: number }> => {
   const url = `${baseURL}/discussion/${shortUrl}/comments/count`;
-  return fetch(url)
+
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
+  return fetch(url, {
+    headers: {
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
+    }
+  })
     .then(resp => resp.json())
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
 export const pickComment = (commentId: number): Promise<CommentResponse> => {
   const url = `${baseURL}/comment/${commentId}/highlight`;
-  return fetch(url)
+
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
+  return fetch(url, {
+    headers: {
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
+    }
+  })
     .then(resp => resp.json())
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
 export const unPickComment = (commentId: number): Promise<CommentResponse> => {
   const url = `${baseURL}/comment/${commentId}/unhighlight`;
-  return fetch(url)
+
+  const { discussionD2Uid, discussionApiClientHeader } = getConfigs();
+
+  return fetch(url, {
+    headers: {
+      "D2-X-UID": discussionD2Uid,
+      "GU-Client": discussionApiClientHeader
+    }
+  })
     .then(resp => resp.json())
     .catch(error => console.error(`Error fetching ${url}`, error));
 };

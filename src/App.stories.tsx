@@ -30,7 +30,14 @@ export const Default = () => (
       max-width: 620px;
     `}
   >
-    <App shortUrl="/p/39f5z" user={aUser} />
+    <App
+      shortUrl="/p/39f5z"
+      user={aUser}
+      configs={{
+        discussionD2Uid: "testD2Header",
+        discussionApiClientHeader: "testClientHeader"
+      }}
+    />
   </div>
 );
 Default.story = { name: "default" };

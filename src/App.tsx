@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { css, cx } from "emotion";
+import { css } from "emotion";
 
 import { Button } from "@guardian/src-button";
 import { neutral } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { CommentType, FilterOptions, UserProfile } from "./types";
+import { CommentType, FilterOptions, UserProfile, ConfigsType } from "./types";
+import { setConfigs } from "./configs";
 import { getDiscussion, getCommentCount, getPicks } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
 import { TopPicks } from "./components/TopPicks/TopPicks";
@@ -16,6 +17,7 @@ import { Pagination } from "./components/Pagination/Pagination";
 type Props = {
   shortUrl: string;
   user?: UserProfile;
+  configs: ConfigsType;
 };
 
 const containerStyles = css`
@@ -106,7 +108,7 @@ const readFiltersFromLocalStorage = (): FilterOptions => {
   };
 };
 
-export const App = ({ shortUrl, user }: Props) => {
+export const App = ({ shortUrl, user, configs }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     readFiltersFromLocalStorage()
   );
@@ -117,6 +119,8 @@ export const App = ({ shortUrl, user }: Props) => {
   const [commentBeingRepliedTo, setCommentBeingRepliedTo] = useState<
     CommentType
   >();
+
+  setConfigs(configs);
 
   const simulateNewComment = (
     commentId: number,

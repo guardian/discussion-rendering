@@ -93,3 +93,8 @@ export interface DiscussionOptions {
   maxResponses: number;
   page: number;
 }
+
+export type ConfigsType = {
+  discussionD2Uid: string;
+  discussionApiClientHeader: string;
+};
