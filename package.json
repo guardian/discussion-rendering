@@ -10,6 +10,10 @@
   "bugs": {
     "url": "https://github.com/guardian/discussion-rendering/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guardian/discussion-rendering.git"
+  },
   "files": [
     "build/**/*"
   ],
