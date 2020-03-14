@@ -4,36 +4,17 @@ import { css } from "emotion";
 import { DropdownLinkType } from "../../types";
 import { Dropdown } from "./Dropdown";
 
-const Header = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+const Container = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div
     className={css`
-      height: 300px;
-      width: 100%;
+      padding: 10px;
     `}
   >
     {children}
   </div>
 );
 
-const Nav = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      height: 20px;
-      position: absolute;
-      top: 10px;
-      display: block;
-      right: 258px;
-      width: 197px;
-      z-index: 1072;
-      transform: translateX(100%);
-      padding-top: 7px;
-    `}
-  >
-    {children}
-  </div>
-);
-
-const links: DropdownLinkType[] = [
+const threadLinks: DropdownLinkType[] = [
   {
     value: "collapsed",
     title: "Collapsed",
@@ -51,11 +32,11 @@ const links: DropdownLinkType[] = [
 
 const linksWithNoneActive = [
   {
-    ...links[0],
+    ...threadLinks[0],
     isActive: false
   },
-  { ...links[1] },
-  { ...links[2] }
+  { ...threadLinks[1] },
+  { ...threadLinks[2] }
 ];
 
 /* tslint:disable */
@@ -66,33 +47,29 @@ export default {
 /* tslint:enable */
 
 export const DropdownActive = () => (
-  <Header>
-    <Nav>
-      <Dropdown
-        id="d1"
-        label="UK edition"
-        links={links}
-        onFilterClick={(value: string) => {
-          console.log("clicked: ", value);
-        }}
-      />
-    </Nav>
-  </Header>
+  <Container>
+    <Dropdown
+      id="d1"
+      label="Threads"
+      links={threadLinks}
+      onFilterClick={(value: string) => {
+        console.log("clicked: ", value);
+      }}
+    />
+  </Container>
 );
 DropdownActive.story = { name: "Dropdown with first item active" };
 
 export const DropdownNoActive = () => (
-  <Header>
-    <Nav>
-      <Dropdown
-        id="d2"
-        label="UK edition"
-        links={linksWithNoneActive}
-        onFilterClick={(value: string) => {
-          console.log("clicked: ", value);
-        }}
-      />
-    </Nav>
-  </Header>
+  <Container>
+    <Dropdown
+      id="d2"
+      label="Threads"
+      links={linksWithNoneActive}
+      onFilterClick={(value: string) => {
+        console.log("clicked: ", value);
+      }}
+    />
+  </Container>
 );
 DropdownNoActive.story = { name: "Dropdown with nothing active" };
