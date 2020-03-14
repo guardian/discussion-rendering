@@ -23,7 +23,7 @@ type Props = {
 const ul = css`
   z-index: 2;
   list-style: none;
-  border: 1px solid ${palette.neutral[93]};
+  border: 1px solid ${border.secondary};
   padding: 0;
   display: none;
   ${until.tablet} {
@@ -46,6 +46,7 @@ const ulExpanded = css`
 
 const link = css`
   ${textSans.xsmall()};
+  color: ${neutral[46]};
   position: relative;
   text-decoration: none;
   margin-top: 1px;
@@ -94,7 +95,7 @@ const button = css`
   border: none;
   /* Design System: The buttons should be components that handle their own layout using primitives  */
   line-height: 1.2;
-  /* color: ${brandText.primary}; */
+  color: ${neutral[46]};
   transition: color 80ms ease-out;
   padding: 0px 10px 6px 5px;
   margin: 1px 0 0;
@@ -134,6 +135,7 @@ const buttonExpanded = css`
 
 const labelStyles = css`
   ${textSans.xsmall()};
+  color: ${neutral[46]};
 `;
 
 export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
