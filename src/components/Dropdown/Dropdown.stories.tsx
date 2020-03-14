@@ -1,8 +1,6 @@
 import React from "react";
 import { css } from "emotion";
 
-import { palette } from "@guardian/src-foundations";
-
 import { DropdownLinkType } from "../../types";
 import { Dropdown } from "./Dropdown";
 
@@ -11,7 +9,6 @@ const Header = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
     className={css`
       height: 300px;
       width: 100%;
-      background-color: ${palette.brand.main};
     `}
   >
     {children}
@@ -39,12 +36,12 @@ const Nav = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 const links: DropdownLinkType[] = [
   {
     value: "collapsed",
-    title: "Collapsed"
+    title: "Collapsed",
+    isActive: true
   },
   {
     value: "expanded",
-    title: "Expanded",
-    isActive: true
+    title: "Expanded"
   },
   {
     value: "unthreaded",
@@ -58,8 +55,7 @@ const linksWithNoneActive = [
     isActive: false
   },
   { ...links[1] },
-  { ...links[2] },
-  { ...links[3] }
+  { ...links[2] }
 ];
 
 /* tslint:disable */

@@ -21,28 +21,21 @@ type Props = {
 };
 
 const ul = css`
-  z-index: 1072;
+  z-index: 2;
   list-style: none;
-  background-color: white;
-  padding: 6px 0;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  border: 1px solid ${palette.neutral[93]};
+  padding: 0;
   display: none;
-
   ${until.tablet} {
-    position: fixed;
+    margin-top: 4px;
     border-radius: 0;
-    top: 32px;
-    left: 0;
-    right: 0;
-    width: auto;
-    max-height: calc(100% - 50px);
+    width: 120px;
     overflow: auto;
   }
 
   ${from.tablet} {
-    position: absolute;
-    right: 0;
-    width: 200px;
+    margin-top: 12px;
+    width: 120px;
     border-radius: 3px;
   }
 `;
@@ -52,33 +45,28 @@ const ulExpanded = css`
 `;
 
 const link = css`
-  ${textSans.small()};
-  color: ${palette.neutral[7]};
+  ${textSans.xsmall()};
   position: relative;
-  transition: color 80ms ease-out;
-  margin: -1px 0 0 0;
   text-decoration: none;
-  display: block;
-  padding: 10px 18px 15px 30px;
+  margin-top: 1px;
+  padding: 8px 4px;
+  width: 100%;
+  cursor: pointer;
+  background-color: white;
+  border: none;
 
   :hover {
     background-color: ${neutral[93]};
-    text-decoration: none;
+    text-decoration: underline;
   }
 
   :focus {
     text-decoration: underline;
   }
+`;
 
-  :before {
-    content: "";
-    border-top: 1px solid ${border.secondary};
-    display: block;
-    position: absolute;
-    top: 0px;
-    left: 30px;
-    right: 0px;
-  }
+const linkFirst = css`
+  margin-top: 0;
 `;
 
 const linkActive = css`
@@ -90,36 +78,30 @@ const linkActive = css`
     border-top: 0px;
     border-right: 0px;
     position: absolute;
-    top: 19px;
+    top: 14px;
     left: 12px;
-    width: 10px;
+    width: 8px;
     height: 4px;
     transform: rotate(-45deg);
   }
 `;
 
-const linkFirst = css`
-  :before {
-    content: none;
-  }
-`;
-
 const button = css`
-  ${textSans.medium()};
+  ${textSans.xsmall()};
   display: block;
   cursor: pointer;
   background: none;
   border: none;
   /* Design System: The buttons should be components that handle their own layout using primitives  */
   line-height: 1.2;
-  color: ${brandText.primary};
+  /* color: ${brandText.primary}; */
   transition: color 80ms ease-out;
   padding: 0px 10px 6px 5px;
   margin: 1px 0 0;
   text-decoration: none;
 
   :hover {
-    color: ${brandAlt[400]};
+    /* color: ${brandAlt[400]}; */
 
     :after {
       transform: translateY(0) rotate(45deg);
@@ -213,7 +195,7 @@ export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
               onClick={() => onFilterClick(l.value)}
               className={cx({
                 [link]: true,
-                [linkActive]: !!l.isActive,
+                [linkActive]: l.isActive,
                 [linkFirst]: index === 0
               })}
             >
