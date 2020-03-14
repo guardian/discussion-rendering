@@ -195,7 +195,7 @@ export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
           aria-controls={dropdownID}
           aria-expanded={isExpanded ? "true" : "false"}
         >
-          {activeLink && activeLink.title}
+          {activeLink ? activeLink.title : "Please select"}
         </button>
       </div>
 
