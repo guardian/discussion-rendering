@@ -50,6 +50,11 @@ const buttonStyles = (pillar: Pillar) => css`
   }
 `;
 
+const commentContainerStyles = css`
+  list-style-type: none;
+  padding-left: 0;
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
@@ -117,7 +122,7 @@ export const CommentContainer = ({
   };
 
   return (
-    <div>
+    <>
       <Comment
         comment={comment}
         pillar={pillar}
@@ -129,15 +134,19 @@ export const CommentContainer = ({
       <>
         {showResponses && responses && (
           <div className={nestingStyles}>
-            {responses.map(responseComment => (
-              <Comment
-                comment={responseComment}
-                pillar={pillar}
-                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-                user={user}
-                isReply={true}
-              />
-            ))}
+            <ul className={commentContainerStyles}>
+              {responses.map(responseComment => (
+                <li>
+                  <Comment
+                    comment={responseComment}
+                    pillar={pillar}
+                    setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                    user={user}
+                    isReply={true}
+                  />
+                </li>
+              ))}
+            </ul>
             {!expanded &&
               comment.metaData?.responseCount &&
               comment.metaData?.responseCount > 3 && (
@@ -180,6 +189,6 @@ export const CommentContainer = ({
             </div>
           )}
       </>
-    </div>
+    </>
   );
 };
