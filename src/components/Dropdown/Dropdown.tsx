@@ -20,7 +20,7 @@ type Props = {
   onFilterClick: (value: string) => void;
 };
 
-const ul = css`
+const ulStyles = css`
   z-index: 2;
   list-style: none;
   border: 1px solid ${border.secondary};
@@ -47,7 +47,7 @@ const ulExpanded = css`
   display: block;
 `;
 
-const link = css`
+const linkStyles = css`
   ${textSans.xsmall()};
   text-align: left;
   color: ${neutral[46]};
@@ -73,11 +73,11 @@ const link = css`
   }
 `;
 
-const linkFirst = css`
+const firstStyles = css`
   margin-top: 0;
 `;
 
-const linkActive = css`
+const activeStyles = css`
   font-weight: bold;
 
   :after {
@@ -94,7 +94,7 @@ const linkActive = css`
   }
 `;
 
-const button = css`
+const buttonStyles = css`
   display: block;
   cursor: pointer;
   background: none;
@@ -130,7 +130,7 @@ const button = css`
   }
 `;
 
-const buttonExpanded = css`
+const expandedStyles = css`
   :hover:after {
     transform: translateY(-1px) rotate(-135deg);
   }
@@ -188,10 +188,7 @@ export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
         {label}
         <button
           onClick={handleToggle}
-          className={cx({
-            [button]: true,
-            [buttonExpanded]: isExpanded
-          })}
+          className={cx(buttonStyles, isExpanded && expandedStyles)}
           aria-controls={dropdownID}
           aria-expanded={isExpanded ? "true" : "false"}
         >
@@ -199,22 +196,16 @@ export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
         </button>
       </div>
 
-      <ul
-        id={dropdownID}
-        className={cx({
-          [ul]: true,
-          [ulExpanded]: isExpanded
-        })}
-      >
+      <ul id={dropdownID} className={cx(ulStyles, isExpanded && ulExpanded)}>
         {links.map((l, index) => (
           <li key={l.title}>
             <button
               onClick={() => onFilterClick(l.value)}
-              className={cx({
-                [link]: true,
-                [linkActive]: l.isActive,
-                [linkFirst]: index === 0
-              })}
+              className={cx(
+                linkStyles,
+                l.isActive && activeStyles,
+                index === 0 && firstStyles
+              )}
               disabled={l.isActive}
             >
               {l.title}
