@@ -27,6 +27,8 @@ const ul = css`
   margin-left: -8px;
   padding: 0;
   display: none;
+  width: 150px;
+
   ${until.tablet} {
     margin-top: 4px;
     border-radius: 0;
