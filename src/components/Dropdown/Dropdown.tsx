@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 
 import { palette } from "@guardian/src-foundations";
-import { neutral, border, brandAlt } from "@guardian/src-foundations/palette";
+import {
+  neutral,
+  border,
+  brandAlt,
+  background
+} from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { from, until } from "@guardian/src-foundations/mq";
 
@@ -20,9 +25,11 @@ const ul = css`
   list-style: none;
   border: 1px solid ${border.secondary};
   margin-left: -8px;
-  padding: 0;
+  padding: 0px;
   display: none;
-  width: 150px;
+  background-color: ${background.primary};
+
+  position: absolute;
 
   ${until.tablet} {
     margin-top: 4px;
@@ -47,7 +54,10 @@ const link = css`
   position: relative;
   text-decoration: none;
   margin-top: 1px;
-  padding: 8px 8px;
+  padding-top: 8px;
+  padding-right: 30px;
+  padding-bottom: 8px;
+  padding-left: 8px;
   width: 100%;
   cursor: pointer;
   background-color: white;
