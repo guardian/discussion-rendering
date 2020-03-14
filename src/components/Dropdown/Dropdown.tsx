@@ -11,12 +11,12 @@ import {
 import { textSans } from "@guardian/src-foundations/typography";
 import { from, until } from "@guardian/src-foundations/mq";
 
-import { DropdownLinkType, Pillar } from "../../types";
+import { DropdownOptionType, Pillar } from "../../types";
 
 type Props = {
   id: string;
   label: string;
-  links: DropdownLinkType[];
+  options: DropdownOptionType[];
   pillar: Pillar;
   onSelect: (value: string) => void;
 };
@@ -145,7 +145,7 @@ const labelStyles = css`
   color: ${neutral[46]};
 `;
 
-export const Dropdown = ({ id, label, links, pillar, onSelect }: Props) => {
+export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
@@ -179,7 +179,7 @@ export const Dropdown = ({ id, label, links, pillar, onSelect }: Props) => {
   // this should be unique because JS is single-threaded
   const dropdownID = `dropbox-id-${id}`;
 
-  const activeLink = links.find(link => link.isActive);
+  const activeLink = options.find(option => option.isActive);
 
   return (
     <>
@@ -196,18 +196,18 @@ export const Dropdown = ({ id, label, links, pillar, onSelect }: Props) => {
       </div>
 
       <ul id={dropdownID} className={cx(ulStyles, isExpanded && ulExpanded)}>
-        {links.map((l, index) => (
-          <li key={l.title}>
+        {options.map((option, index) => (
+          <li key={option.title}>
             <button
-              onClick={() => onSelect(l.value)}
+              onClick={() => onSelect(option.value)}
               className={cx(
                 linkStyles,
-                l.isActive && activeStyles(pillar),
+                option.isActive && activeStyles(pillar),
                 index === 0 && firstStyles
               )}
-              disabled={l.isActive}
+              disabled={option.isActive}
             >
-              {l.title}
+              {option.title}
             </button>
           </li>
         ))}

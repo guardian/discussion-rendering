@@ -94,7 +94,7 @@ export interface DiscussionOptions {
   page: number;
 }
 
-export type DropdownLinkType = {
+export type DropdownOptionType = {
   value: string;
   title: string;
   isActive?: boolean;

@@ -5,6 +5,8 @@ import { space, neutral } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 import { until } from "@guardian/src-foundations/mq";
 
+import { Dropdown } from "../Dropdown/Dropdown";
+
 import { FilterOptions, OrderByType, ThreadsType } from "../../types";
 
 type Props = {

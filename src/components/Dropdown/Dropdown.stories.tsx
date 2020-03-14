@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css } from "emotion";
 
-import { DropdownLinkType } from "../../types";
+import { DropdownOptionType } from "../../types";
 import { Dropdown } from "./Dropdown";
 
 const Container = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
@@ -16,7 +16,7 @@ const Container = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 
 const DropdownParent = () => {
   const [selected, setSelected] = useState<string>();
-  const pageSizeLinks: DropdownLinkType[] = [
+  const pageSizeOptions: DropdownOptionType[] = [
     {
       value: "25",
       title: "25",
@@ -39,7 +39,7 @@ const DropdownParent = () => {
       id="d3"
       label="Page Size"
       pillar="culture"
-      links={pageSizeLinks}
+      options={pageSizeOptions}
       onSelect={(value: string) => {
         setSelected(value);
       }}
@@ -47,7 +47,7 @@ const DropdownParent = () => {
   );
 };
 
-const threadLinks: DropdownLinkType[] = [
+const threadOptions: DropdownOptionType[] = [
   {
     value: "collapsed",
     title: "Collapsed",
@@ -63,13 +63,13 @@ const threadLinks: DropdownLinkType[] = [
   }
 ];
 
-const linksWithNoneActive = [
+const optionsWithNoneActive = [
   {
-    ...threadLinks[0],
+    ...threadOptions[0],
     isActive: false
   },
-  { ...threadLinks[1] },
-  { ...threadLinks[2] }
+  { ...threadOptions[1] },
+  { ...threadOptions[2] }
 ];
 
 /* tslint:disable */
@@ -85,7 +85,7 @@ export const DropdownActive = () => (
       id="d1"
       pillar="lifestyle"
       label="Threads"
-      links={threadLinks}
+      options={threadOptions}
       onSelect={(value: string) => {
         console.log("clicked: ", value);
       }}
@@ -101,7 +101,7 @@ export const DropdownNoActive = () => (
       id="d2"
       label="Threads"
       pillar="news"
-      links={linksWithNoneActive}
+      options={optionsWithNoneActive}
       onSelect={(value: string) => {
         console.log("clicked: ", value);
       }}
