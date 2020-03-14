@@ -11,12 +11,13 @@ import {
 import { textSans } from "@guardian/src-foundations/typography";
 import { from, until } from "@guardian/src-foundations/mq";
 
-import { DropdownLinkType } from "../../types";
+import { DropdownLinkType, Pillar } from "../../types";
 
 type Props = {
   id: string;
   label: string;
   links: DropdownLinkType[];
+  pillar: Pillar;
   onFilterClick: (value: string) => void;
 };
 
@@ -77,12 +78,12 @@ const firstStyles = css`
   margin-top: 0;
 `;
 
-const activeStyles = css`
+const activeStyles = (pillar: Pillar) => css`
   font-weight: bold;
 
   :after {
     content: "";
-    border: 2px solid ${palette.news.main};
+    border: 2px solid ${palette[pillar].main};
     border-top: 0px;
     border-right: 0px;
     position: absolute;
@@ -144,7 +145,13 @@ const labelStyles = css`
   color: ${neutral[46]};
 `;
 
-export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
+export const Dropdown = ({
+  id,
+  label,
+  links,
+  pillar,
+  onFilterClick
+}: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
@@ -201,7 +208,7 @@ export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
               onClick={() => onFilterClick(l.value)}
               className={cx(
                 linkStyles,
-                l.isActive && activeStyles,
+                l.isActive && activeStyles(pillar),
                 index === 0 && firstStyles
               )}
               disabled={l.isActive}

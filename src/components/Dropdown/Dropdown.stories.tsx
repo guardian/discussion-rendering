@@ -38,6 +38,7 @@ const DropdownParent = () => {
     <Dropdown
       id="d3"
       label="Page Size"
+      pillar="culture"
       links={pageSizeLinks}
       onFilterClick={(value: string) => {
         setSelected(value);
@@ -82,6 +83,7 @@ export const DropdownActive = () => (
   <Container>
     <Dropdown
       id="d1"
+      pillar="lifestyle"
       label="Threads"
       links={threadLinks}
       onFilterClick={(value: string) => {
@@ -98,6 +100,7 @@ export const DropdownNoActive = () => (
     <Dropdown
       id="d2"
       label="Threads"
+      pillar="news"
       links={linksWithNoneActive}
       onFilterClick={(value: string) => {
         console.log("clicked: ", value);
