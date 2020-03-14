@@ -14,11 +14,11 @@ import { visuallyHidden } from "@guardian/src-foundations/accessibility";
 
 import { DropdownLinkType } from "../../types";
 
-interface Props {
+type Props = {
   id: string;
   label: string;
   links: DropdownLinkType[];
-}
+};
 
 const input = css`
   ${visuallyHidden};
