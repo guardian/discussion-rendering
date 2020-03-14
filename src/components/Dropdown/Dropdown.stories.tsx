@@ -37,7 +37,7 @@ const DropdownParent = () => {
   return (
     <Dropdown
       id="d3"
-      label="Threads"
+      label="Page Size"
       links={pageSizeLinks}
       onFilterClick={(value: string) => {
         setSelected(value);
