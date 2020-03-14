@@ -159,12 +159,6 @@ const buttonExpanded = css`
 
 export const Dropdown = ({ id, label, links }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [noJS, setNoJS] = useState(true);
-
-  useEffect(() => {
-    // If hook runs we know client-side JS is enabled
-    setNoJS(false);
-  }, []);
 
   useEffect(() => {
     const dismissOnEsc = (event: KeyboardEvent) => {
@@ -198,46 +192,20 @@ export const Dropdown = ({ id, label, links }: Props) => {
   // needs to be unique to allow multiple dropdowns on same page
   // this should be unique because JS is single-threaded
   const dropdownID = `dropbox-id-${id}`;
-  const checkboxID = `checkbox-id-${id}`;
 
   return (
     <>
-      {noJS ? (
-        <label
-          htmlFor={checkboxID}
-          className={cx({
-            [button]: true,
-            [buttonExpanded]: isExpanded
-          })}
-          aria-controls={dropdownID}
-          aria-expanded={isExpanded ? "true" : "false"}
-          role="button"
-        >
-          <input
-            className={input}
-            type="checkbox"
-            id={checkboxID}
-            aria-controls={dropdownID}
-            aria-checked="false"
-            tabIndex={-1}
-            key="OpenMainMenuCheckbox"
-            role="menuitemcheckbox"
-          />
-          {label}
-        </label>
-      ) : (
-        <button
-          onClick={handleToggle}
-          className={cx({
-            [button]: true,
-            [buttonExpanded]: isExpanded
-          })}
-          aria-controls={dropdownID}
-          aria-expanded={isExpanded ? "true" : "false"}
-        >
-          {label}
-        </button>
-      )}
+      <button
+        onClick={handleToggle}
+        className={cx({
+          [button]: true,
+          [buttonExpanded]: isExpanded
+        })}
+        aria-controls={dropdownID}
+        aria-expanded={isExpanded ? "true" : "false"}
+      >
+        {label}
+      </button>
 
       <ul
         id={dropdownID}
