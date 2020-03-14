@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "emotion";
 
 import { DropdownLinkType } from "../../types";
@@ -13,6 +13,38 @@ const Container = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
     {children}
   </div>
 );
+
+const DropdownParent = () => {
+  const [selected, setSelected] = useState<string>();
+  const pageSizeLinks: DropdownLinkType[] = [
+    {
+      value: "25",
+      title: "25",
+      isActive: selected === "25"
+    },
+    {
+      value: "50",
+      title: "50",
+      isActive: selected === "50"
+    },
+    {
+      value: "100",
+      title: "100",
+      isActive: selected === "100"
+    }
+  ];
+
+  return (
+    <Dropdown
+      id="d3"
+      label="Threads"
+      links={pageSizeLinks}
+      onFilterClick={(value: string) => {
+        setSelected(value);
+      }}
+    />
+  );
+};
 
 const threadLinks: DropdownLinkType[] = [
   {
@@ -74,3 +106,10 @@ export const DropdownNoActive = () => (
   </Container>
 );
 DropdownNoActive.story = { name: "Dropdown with nothing active" };
+
+export const DropdownWithState = () => (
+  <Container>
+    <DropdownParent />
+  </Container>
+);
+DropdownWithState.story = { name: "Dropdown with working selection" };
