@@ -95,7 +95,7 @@ export interface DiscussionOptions {
 }
 
 export type DropdownLinkType = {
-  url: string;
+  value: string;
   title: string;
   isActive?: boolean;
 };

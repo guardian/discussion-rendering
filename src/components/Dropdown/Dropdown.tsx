@@ -10,7 +10,6 @@ import {
 } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { from, until } from "@guardian/src-foundations/mq";
-import { visuallyHidden } from "@guardian/src-foundations/accessibility";
 
 import { DropdownLinkType } from "../../types";
 
@@ -18,14 +17,8 @@ type Props = {
   id: string;
   label: string;
   links: DropdownLinkType[];
+  onFilterClick: (value: string) => void;
 };
-
-const input = css`
-  ${visuallyHidden};
-  :checked + ul {
-    display: block;
-  }
-`;
 
 const ul = css`
   z-index: 1072;
@@ -157,7 +150,7 @@ const buttonExpanded = css`
   }
 `;
 
-export const Dropdown = ({ id, label, links }: Props) => {
+export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
@@ -216,8 +209,8 @@ export const Dropdown = ({ id, label, links }: Props) => {
       >
         {links.map((l, index) => (
           <li key={l.title}>
-            <a
-              href={l.url}
+            <button
+              onClick={() => onFilterClick(l.value)}
               className={cx({
                 [link]: true,
                 [linkActive]: !!l.isActive,
@@ -225,7 +218,7 @@ export const Dropdown = ({ id, label, links }: Props) => {
               })}
             >
               {l.title}
-            </a>
+            </button>
           </li>
         ))}
       </ul>

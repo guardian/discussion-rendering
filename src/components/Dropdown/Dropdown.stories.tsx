@@ -38,21 +38,17 @@ const Nav = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 
 const links: DropdownLinkType[] = [
   {
-    url: "/preference/edition/uk",
-    title: "UK edition"
+    value: "collapsed",
+    title: "Collapsed"
   },
   {
-    url: "/preference/edition/us",
-    title: "US edition",
+    value: "expanded",
+    title: "Expanded",
     isActive: true
   },
   {
-    url: "/preference/edition/au",
-    title: "Australian edition"
-  },
-  {
-    url: "/preference/edition/int",
-    title: "International edition"
+    value: "unthreaded",
+    title: "Unthreaded"
   }
 ];
 
@@ -76,7 +72,14 @@ export default {
 export const DropdownActive = () => (
   <Header>
     <Nav>
-      <Dropdown id="d1" label="UK edition" links={links} />
+      <Dropdown
+        id="d1"
+        label="UK edition"
+        links={links}
+        onFilterClick={(value: string) => {
+          console.log("clicked: ", value);
+        }}
+      />
     </Nav>
   </Header>
 );
@@ -85,7 +88,14 @@ DropdownActive.story = { name: "Dropdown with first item active" };
 export const DropdownNoActive = () => (
   <Header>
     <Nav>
-      <Dropdown id="d2" label="UK edition" links={linksWithNoneActive} />
+      <Dropdown
+        id="d2"
+        label="UK edition"
+        links={linksWithNoneActive}
+        onFilterClick={(value: string) => {
+          console.log("clicked: ", value);
+        }}
+      />
     </Nav>
   </Header>
 );
