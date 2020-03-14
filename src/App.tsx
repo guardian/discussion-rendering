@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
+
+import { Button } from "@guardian/src-button";
+import { neutral } from "@guardian/src-foundations/palette";
+import { textSans } from "@guardian/src-foundations/typography";
 
 import { CommentType, FilterOptions, UserProfile } from "./types";
 import { getDiscussion, getCommentCount, getPicks } from "./lib/api";
@@ -31,12 +35,31 @@ const commentContainerStyles = css`
   padding-left: 0;
 `;
 
+const picksWrapper = css`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const viewMoreButtonContentStyles = css`
+  display: flex;
+  flex-direction: row;
+  ${textSans.medium({ fontWeight: "bold" })};
+  fill: ${neutral[86]};
+`;
+
 const DEFAULT_FILTERS: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,
   threads: "collapsed",
   page: 1
 };
+
+const PlusSVG = () => (
+  <svg width="18" height="18">
+    <path d="M8.2 0h1.6l.4 7.8 7.8.4v1.6l-7.8.4-.4 7.8H8.2l-.4-7.8L0 9.8V8.2l7.8-.4.4-7.8z"></path>
+  </svg>
+);
 
 const rememberFilters = (filtersToRemember: FilterOptions) => {
   try {
@@ -87,6 +110,7 @@ export const App = ({ shortUrl, user }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     readFiltersFromLocalStorage()
   );
+  const [isPreview, setIsPreview] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
 
@@ -172,6 +196,59 @@ export const App = ({ shortUrl, user }: Props) => {
   };
 
   const showPagination = totalPages > 1;
+
+  if (isPreview) {
+    return (
+      <div className={commentContainerStyles}>
+        {user && (
+          <CommentForm
+            shortUrl={shortUrl}
+            onAddComment={onAddComment}
+            user={user}
+          />
+        )}
+        {picks && picks.length ? (
+          <div className={picksWrapper}>
+            {!!picks.length && <TopPicks comments={picks.slice(0, 2)} />}
+          </div>
+        ) : (
+          <ul className={commentContainerStyles}>
+            {comments.slice(0, 2).map(comment => (
+              <CommentContainer
+                key={comment.id}
+                comment={comment}
+                pillar="news"
+                shortUrl={shortUrl}
+                onAddComment={onAddComment}
+                user={user}
+                threads={filters.threads}
+                commentBeingRepliedTo={commentBeingRepliedTo}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+              />
+            ))}
+          </ul>
+        )}
+        <div
+          className={css`
+            width: 250px;
+          `}
+        >
+          <Button size="small" onClick={() => setIsPreview(false)}>
+            <div className={viewMoreButtonContentStyles}>
+              <PlusSVG />
+            </div>
+            <div
+              className={css`
+                padding-left: 10px;
+              `}
+            >
+              View more comments
+            </div>
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={containerStyles}>
