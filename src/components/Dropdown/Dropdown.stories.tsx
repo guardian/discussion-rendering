@@ -40,7 +40,7 @@ const DropdownParent = () => {
       label="Page Size"
       pillar="culture"
       links={pageSizeLinks}
-      onFilterClick={(value: string) => {
+      onSelect={(value: string) => {
         setSelected(value);
       }}
     />
@@ -86,7 +86,7 @@ export const DropdownActive = () => (
       pillar="lifestyle"
       label="Threads"
       links={threadLinks}
-      onFilterClick={(value: string) => {
+      onSelect={(value: string) => {
         console.log("clicked: ", value);
       }}
     />
@@ -102,7 +102,7 @@ export const DropdownNoActive = () => (
       label="Threads"
       pillar="news"
       links={linksWithNoneActive}
-      onFilterClick={(value: string) => {
+      onSelect={(value: string) => {
         console.log("clicked: ", value);
       }}
     />

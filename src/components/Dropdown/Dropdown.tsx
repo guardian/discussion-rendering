@@ -18,7 +18,7 @@ type Props = {
   label: string;
   links: DropdownLinkType[];
   pillar: Pillar;
-  onFilterClick: (value: string) => void;
+  onSelect: (value: string) => void;
 };
 
 const ulStyles = css`
@@ -145,13 +145,7 @@ const labelStyles = css`
   color: ${neutral[46]};
 `;
 
-export const Dropdown = ({
-  id,
-  label,
-  links,
-  pillar,
-  onFilterClick
-}: Props) => {
+export const Dropdown = ({ id, label, links, pillar, onSelect }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
@@ -205,7 +199,7 @@ export const Dropdown = ({
         {links.map((l, index) => (
           <li key={l.title}>
             <button
-              onClick={() => onFilterClick(l.value)}
+              onClick={() => onSelect(l.value)}
               className={cx(
                 linkStyles,
                 l.isActive && activeStyles(pillar),
