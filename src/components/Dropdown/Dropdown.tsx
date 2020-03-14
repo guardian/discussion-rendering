@@ -209,6 +209,7 @@ export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
                 [linkActive]: l.isActive,
                 [linkFirst]: index === 0
               })}
+              disabled={l.isActive}
             >
               {l.title}
             </button>
