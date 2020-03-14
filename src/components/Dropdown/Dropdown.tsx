@@ -174,8 +174,6 @@ export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
     return () => document.removeEventListener("click", dismissOnClick);
   }, [isExpanded]);
 
-  const handleToggle = () => setIsExpanded(!isExpanded);
-
   // needs to be unique to allow multiple dropdowns on same page
   // this should be unique because JS is single-threaded
   const dropdownID = `dropbox-id-${id}`;
@@ -187,7 +185,7 @@ export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
       <div className={labelStyles}>
         {label}
         <button
-          onClick={handleToggle}
+          onClick={() => setIsExpanded(!isExpanded)}
           className={cx(buttonStyles, isExpanded && expandedStyles)}
           aria-controls={dropdownID}
           aria-expanded={isExpanded ? "true" : "false"}
