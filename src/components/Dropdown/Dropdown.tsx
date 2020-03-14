@@ -95,8 +95,7 @@ const linkActive = css`
 `;
 
 const button = css`
-  display: inline;
-  font-weight: bold;
+  display: block;
   cursor: pointer;
   background: none;
   border: none;
@@ -104,7 +103,7 @@ const button = css`
   line-height: 1.2;
   color: ${neutral[46]};
   transition: color 80ms ease-out;
-  padding: 0px 10px 6px 5px;
+  padding: 0px 10px 6px 0px;
   margin: 1px 0 0;
   text-decoration: none;
 
@@ -141,7 +140,7 @@ const buttonExpanded = css`
 `;
 
 const labelStyles = css`
-  ${textSans.xsmall()};
+  ${textSans.xsmall({ fontWeight: "bold" })};
   color: ${neutral[46]};
 `;
 
