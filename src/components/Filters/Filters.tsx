@@ -41,7 +41,7 @@ const dividerStyles = css`
 `;
 
 const filterPadding = css`
-  padding-right: ${space[2]}px;
+  padding-right: ${space[3]}px;
 `;
 
 export const Filters = ({ filters, onFilterChange, totalPages }: Props) => (
