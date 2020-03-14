@@ -24,18 +24,17 @@ const ul = css`
   z-index: 2;
   list-style: none;
   border: 1px solid ${border.secondary};
+  margin-left: -8px;
   padding: 0;
   display: none;
   ${until.tablet} {
     margin-top: 4px;
     border-radius: 0;
-    width: 120px;
     overflow: auto;
   }
 
   ${from.tablet} {
     margin-top: 12px;
-    width: 120px;
     border-radius: 3px;
   }
 `;
@@ -46,11 +45,12 @@ const ulExpanded = css`
 
 const link = css`
   ${textSans.xsmall()};
+  text-align: left;
   color: ${neutral[46]};
   position: relative;
   text-decoration: none;
   margin-top: 1px;
-  padding: 8px 4px;
+  padding: 8px 8px;
   width: 100%;
   cursor: pointer;
   background-color: white;
@@ -79,8 +79,8 @@ const linkActive = css`
     border-top: 0px;
     border-right: 0px;
     position: absolute;
-    top: 14px;
-    left: 12px;
+    top: 12px;
+    right: 12px;
     width: 8px;
     height: 4px;
     transform: rotate(-45deg);
