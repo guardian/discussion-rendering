@@ -93,3 +93,9 @@ export interface DiscussionOptions {
   maxResponses: number;
   page: number;
 }
+
+export type DropdownLinkType = {
+  url: string;
+  title: string;
+  isActive?: boolean;
+};

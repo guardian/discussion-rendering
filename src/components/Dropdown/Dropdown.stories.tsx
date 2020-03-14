@@ -3,6 +3,7 @@ import { css } from "emotion";
 
 import { palette } from "@guardian/src-foundations";
 
+import { DropdownLinkType } from "../../types";
 import { Dropdown } from "./Dropdown";
 
 const Header = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
@@ -35,7 +36,7 @@ const Nav = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   </div>
 );
 
-const links = [
+const links: DropdownLinkType[] = [
   {
     url: "/preference/edition/uk",
     title: "UK edition"

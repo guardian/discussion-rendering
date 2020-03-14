@@ -12,11 +12,7 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { from, until } from "@guardian/src-foundations/mq";
 import { visuallyHidden } from "@guardian/src-foundations/accessibility";
 
-export interface DropdownLinkType {
-  url: string;
-  title: string;
-  isActive?: boolean;
-}
+import { DropdownLinkType } from "../../types";
 
 interface Props {
   id: string;
