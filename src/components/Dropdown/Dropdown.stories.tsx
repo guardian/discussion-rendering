@@ -38,24 +38,20 @@ const Nav = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 const links = [
   {
     url: "/preference/edition/uk",
-    title: "UK edition",
-    dataLinkName: "linkname-UK"
+    title: "UK edition"
   },
   {
     url: "/preference/edition/us",
     title: "US edition",
-    isActive: true,
-    dataLinkName: "linkname-US"
+    isActive: true
   },
   {
     url: "/preference/edition/au",
-    title: "Australian edition",
-    dataLinkName: "linkname-AU"
+    title: "Australian edition"
   },
   {
     url: "/preference/edition/int",
-    title: "International edition",
-    dataLinkName: "linkname-INT"
+    title: "International edition"
   }
 ];
 
@@ -79,12 +75,7 @@ export default {
 export const DropdownActive = () => (
   <Header>
     <Nav>
-      <Dropdown
-        id="d1"
-        label="UK edition"
-        links={links}
-        dataLinkName="linkname1"
-      />
+      <Dropdown id="d1" label="UK edition" links={links} />
     </Nav>
   </Header>
 );
@@ -93,12 +84,7 @@ DropdownActive.story = { name: "Dropdown with first item active" };
 export const DropdownNoActive = () => (
   <Header>
     <Nav>
-      <Dropdown
-        id="d2"
-        label="UK edition"
-        links={linksWithNoneActive}
-        dataLinkName="linkname2"
-      />
+      <Dropdown id="d2" label="UK edition" links={linksWithNoneActive} />
     </Nav>
   </Header>
 );

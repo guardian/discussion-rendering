@@ -16,14 +16,12 @@ export interface DropdownLinkType {
   url: string;
   title: string;
   isActive?: boolean;
-  dataLinkName: string;
 }
 
 interface Props {
   id: string;
   label: string;
   links: DropdownLinkType[];
-  dataLinkName: string;
 }
 
 const input = css`
@@ -163,7 +161,7 @@ const buttonExpanded = css`
   }
 `;
 
-export const Dropdown = ({ id, label, links, dataLinkName }: Props) => {
+export const Dropdown = ({ id, label, links }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [noJS, setNoJS] = useState(true);
 
@@ -240,7 +238,6 @@ export const Dropdown = ({ id, label, links, dataLinkName }: Props) => {
           })}
           aria-controls={dropdownID}
           aria-expanded={isExpanded ? "true" : "false"}
-          data-link-name={dataLinkName}
         >
           {label}
         </button>
@@ -262,7 +259,6 @@ export const Dropdown = ({ id, label, links, dataLinkName }: Props) => {
                 [linkActive]: !!l.isActive,
                 [linkFirst]: index === 0
               })}
-              data-link-name={l.dataLinkName}
             >
               {l.title}
             </a>
