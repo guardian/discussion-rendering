@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 
 import { palette } from "@guardian/src-foundations";
-import {
-  neutral,
-  border,
-  brandText,
-  brandAlt
-} from "@guardian/src-foundations/palette";
+import { neutral, border, brandAlt } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { from, until } from "@guardian/src-foundations/mq";
 
