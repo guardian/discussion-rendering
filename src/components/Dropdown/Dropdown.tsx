@@ -87,8 +87,8 @@ const linkActive = css`
 `;
 
 const button = css`
-  ${textSans.xsmall()};
-  display: block;
+  display: inline;
+  font-weight: bold;
   cursor: pointer;
   background: none;
   border: none;
@@ -132,6 +132,10 @@ const buttonExpanded = css`
   }
 `;
 
+const labelStyles = css`
+  ${textSans.xsmall()};
+`;
+
 export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -168,19 +172,24 @@ export const Dropdown = ({ id, label, links, onFilterClick }: Props) => {
   // this should be unique because JS is single-threaded
   const dropdownID = `dropbox-id-${id}`;
 
+  const activeLink = links.find(link => link.isActive);
+
   return (
     <>
-      <button
-        onClick={handleToggle}
-        className={cx({
-          [button]: true,
-          [buttonExpanded]: isExpanded
-        })}
-        aria-controls={dropdownID}
-        aria-expanded={isExpanded ? "true" : "false"}
-      >
+      <div className={labelStyles}>
         {label}
-      </button>
+        <button
+          onClick={handleToggle}
+          className={cx({
+            [button]: true,
+            [buttonExpanded]: isExpanded
+          })}
+          aria-controls={dropdownID}
+          aria-expanded={isExpanded ? "true" : "false"}
+        >
+          {activeLink && activeLink.title}
+        </button>
+      </div>
 
       <ul
         id={dropdownID}
