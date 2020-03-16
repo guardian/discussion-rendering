@@ -109,7 +109,7 @@ export const CommentContainer = ({
   const expand = (commentId: number) => {
     setLoading(true);
     fetch(
-      `http://discussion.code.dev-theguardian.com/discussion-api/comment/${commentId}?displayThreaded=true&displayResponses=true`
+      `http://discussion.theguardian.com/discussion-api/comment/${commentId}?displayThreaded=true&displayResponses=true`
     )
       .then(response => response.json())
       .then(json => {

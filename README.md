@@ -2,33 +2,29 @@
 
 This codebase started as a hack day project by @gtrufitt and @nicl. The purpose is parity of the existing discussion application on Frontend using the discussion API (search for Private Repo).
 
+### Getting up and running for local development
 
+Once you've cloned the repo, run
+`yarn` to install and then
+`yarn storybook` to display the components
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Publishing changes to NPM
 
-## Available Scripts
+You need a @guardian scoped user account to be able to publish changes. To do so, update the version number in the package.json file and then run
+`npm pubish`
 
-In the project directory, you can run:
+### Connection this package to DCR/Frontend to test local changes
 
-### `yarn start`
+If you don't want to publish but still want to see how your changes look when imported, you can use yarn's link command. From this directory, run
+`yarn link`
+Then, as per the prompts, go to the directory of the project you want to link to and run
+`yarn link '@guardian/discussion-rendering'`
+This will mean that this project will now read directly from your local copy of discussion-rendering, instead of downloading from npm. To reset and restore normal npm access run
+`yarn unlink '@guardian/discussion-rendering'`
+As per the prompts, you may need to force reinstall
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+While you are linked, you will need to run `yarn build` after making changes to discussion-rendering to see them in the linked repo.
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds the app for production to the `build` folder.

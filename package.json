@@ -1,35 +1,76 @@
 {
-  "name": "discussion-rendering",
+  "name": "@guardian/discussion-rendering",
   "version": "0.1.0",
   "private": true,
+  "main": "build/App.js",
+  "module": "build/App.esm.js",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "bugs": {
+    "url": "https://github.com/guardian/discussion-rendering/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guardian/discussion-rendering.git"
+  },
+  "files": [
+    "build/**/*"
+  ],
   "dependencies": {
+    "regenerator-runtime": "^0.13.3",
+    "timeago.js": "^4.0.2"
+  },
+  "peerDependencies": {
     "@emotion/core": "^10.0.27",
     "@guardian/src-button": "^0.8.0",
     "@guardian/src-foundations": "^0.12.3",
     "@guardian/src-svgs": "^0.1.0",
+    "emotion": "^10.0.27",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@emotion/babel-preset-css-prop": "^10.0.14",
+    "@emotion/core": "^10.0.27",
+    "@guardian/src-button": "^0.8.0",
+    "@guardian/src-foundations": "^0.12.3",
+    "@guardian/src-svgs": "^0.1.0",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^10.0.1",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "husky": "^4.2.3",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "@storybook/addon-viewport": "^5.3.13",
+    "@storybook/react": "^5.3.13",
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^25.1.0",
     "@types/node": "^13.5.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
-    "@types/use-persisted-state": "^0.3.0",
     "emotion": "^10.0.27",
-    "io-ts-types": "^0.5.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-focus-lock": "^2.2.1",
     "react-scripts": "3.3.0",
-    "timeago.js": "^4.0.2",
-    "typescript": "^3.7.5",
-    "use-persisted-state": "^0.3.0"
+    "rollup": "^1.17.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "typescript": "^3.7.5"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rollup --config && yarn createTsDec",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "createTsDec": "tsc --project tsconfig.json --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -58,14 +99,8 @@
       "pre-push": "pretty-quick --staged && yarn lint && yarn tsc && yarn test --watchAll=false"
     }
   },
-  "devDependencies": {
-    "@storybook/addon-viewport": "^5.3.13",
-    "@storybook/react": "^5.3.13",
-    "@testing-library/jest-dom": "^5.1.1",
-    "@testing-library/react": "^10.0.1",
-    "eslint-plugin-react-hooks": "^2.3.0",
-    "husky": "^4.2.3",
-    "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1"
-  }
+  "description": "This codebase started as a hack day project by @gtrufitt and @nicl. The purpose is parity of the existing discussion application on Frontend using the discussion API (search for Private Repo).",
+  "homepage": "https://github.com/guardian/discussion-rendering#readme",
+  "author": "",
+  "license": "Apache"
 }

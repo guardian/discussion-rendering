@@ -227,7 +227,7 @@ export const Comment = ({
                 <div className={timestampWrapperStyles}>
                   <Timestamp
                     isoDateTime={comment.isoDateTime}
-                    linkTo={`https://discussion.code.dev-theguardian.com/comment-permalink/${comment.id}`}
+                    linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
                   />
                 </div>
               </Row>

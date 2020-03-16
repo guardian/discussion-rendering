@@ -7,7 +7,7 @@ import {
   CommentResponse
 } from "../types";
 
-const baseURL = "https://discussion.code.dev-theguardian.com/discussion-api";
+const baseURL = "https://discussion.theguardian.com/discussion-api";
 
 const objAsParams = (obj: any): string => {
   const params = Object.keys(obj)

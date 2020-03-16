@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
+import "regenerator-runtime/runtime";
+
 import { Button } from "@guardian/src-button";
 import { neutral } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -134,7 +136,7 @@ export const App = ({ shortUrl, user }: Props) => {
       id: commentId,
       body,
       date: Date(),
-      isoDateTime: new Date(),
+      isoDateTime: new Date().toISOString(),
       status: "visible",
       webUrl: "TODO",
       apiUrl: "TODO",
