@@ -97,4 +97,10 @@ export interface DiscussionOptions {
 export type TrackingHeadersType = {
   discussionD2Uid: string;
   discussionApiClientHeader: string;
+}
+
+export type DropdownOptionType = {
+  value: string;
+  title: string;
+  isActive?: boolean;
 };

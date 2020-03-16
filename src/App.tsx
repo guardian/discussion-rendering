@@ -227,17 +227,18 @@ export const App = ({ shortUrl, user, trackingHeaders }: Props) => {
         ) : (
           <ul className={commentContainerStyles}>
             {comments.slice(0, 2).map(comment => (
-              <CommentContainer
-                key={comment.id}
-                comment={comment}
-                pillar="news"
-                shortUrl={shortUrl}
-                onAddComment={onAddComment}
-                user={user}
-                threads={filters.threads}
-                commentBeingRepliedTo={commentBeingRepliedTo}
-                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-              />
+              <li key={comment.id}>
+                <CommentContainer
+                  comment={comment}
+                  pillar="news"
+                  shortUrl={shortUrl}
+                  onAddComment={onAddComment}
+                  user={user}
+                  threads={filters.threads}
+                  commentBeingRepliedTo={commentBeingRepliedTo}
+                  setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                />
+              </li>
             ))}
           </ul>
         )}
@@ -299,17 +300,18 @@ export const App = ({ shortUrl, user, trackingHeaders }: Props) => {
       ) : (
         <ul className={commentContainerStyles}>
           {comments.map(comment => (
-            <CommentContainer
-              key={comment.id}
-              comment={comment}
-              pillar="news"
-              shortUrl={shortUrl}
-              onAddComment={onAddComment}
-              user={user}
-              threads={filters.threads}
-              commentBeingRepliedTo={commentBeingRepliedTo}
-              setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-            />
+            <li key={comment.id}>
+              <CommentContainer
+                comment={comment}
+                pillar="news"
+                shortUrl={shortUrl}
+                onAddComment={onAddComment}
+                user={user}
+                threads={filters.threads}
+                commentBeingRepliedTo={commentBeingRepliedTo}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+              />
+            </li>
           ))}
         </ul>
       )}
