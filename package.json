@@ -54,7 +54,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && yarn lint && yarn tsc && yarn test --watchAll=false"
+      "pre-push": "pretty-quick --staged && yarn lint && yarn tsc && yarn test --watchAll=false"
     }
   },
   "devDependencies": {
