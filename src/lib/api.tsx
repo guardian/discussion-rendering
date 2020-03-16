@@ -5,19 +5,14 @@ import {
   UserProfile,
   CommentType,
   CommentResponse,
-  TrackingHeadersType
+  AdditionalHeadersType
 } from "../types";
 
 const baseURL = "https://discussion.code.dev-theguardian.com/discussion-api";
 
-let trackingHeaders = {};
+let additionalHeaders = {};
 
-export const setTrackingHeaders = (newTrackingHeaders: TrackingHeadersType) => {
-  trackingHeaders = {
-    "D2-X-UID": newTrackingHeaders.discussionD2Uid,
-    "GU-Client": newTrackingHeaders.discussionApiClientHeader
-  };
-};
+export const setAdditionalHeaders = (newAdditionalHeader: AdditionalHeadersType) => additionalHeaders = newAdditionalHeader
 
 const objAsParams = (obj: any): string => {
   const params = Object.keys(obj)
@@ -46,7 +41,7 @@ export const getDiscussion = (
 
   return fetch(url, {
     headers: {
-      ...trackingHeaders
+      ...additionalHeaders
     }
   })
     .then(resp => resp.json())
@@ -63,7 +58,7 @@ export const preview = (body: string): Promise<string> => {
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      ...trackingHeaders
+      ...additionalHeaders
     }
   })
     .then(resp => resp.json())
@@ -77,7 +72,7 @@ export const getProfile = (): Promise<UserProfile> => {
   return fetch(url, {
     credentials: "include",
     headers: {
-      ...trackingHeaders
+      ...additionalHeaders
     }
   })
     .then(resp => resp.json())
@@ -98,7 +93,7 @@ export const comment = (
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      ...trackingHeaders
+      ...additionalHeaders
     },
     credentials: "include"
   }).then(resp => resp.json());
@@ -120,7 +115,7 @@ export const reply = (
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      ...trackingHeaders
+      ...additionalHeaders
     },
     credentials: "include"
   }).then(resp => resp.json());
@@ -131,7 +126,7 @@ export const getPicks = (shortUrl: string): Promise<CommentType[]> => {
 
   return fetch(url, {
     headers: {
-      ...trackingHeaders
+      ...additionalHeaders
     }
   })
     .then(resp => resp.json())
@@ -162,7 +157,7 @@ export const reportAbuse = ({
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      ...trackingHeaders
+      ...additionalHeaders
     }
   }).then(resp => resp.json());
 };
@@ -174,7 +169,7 @@ export const recommend = (commentId: number): Promise<boolean> => {
     method: "POST",
     credentials: "include",
     headers: {
-      ...trackingHeaders
+      ...additionalHeaders
     }
   }).then(resp => resp.ok);
 };
@@ -186,7 +181,7 @@ export const getCommentCount = (
 
   return fetch(url, {
     headers: {
-      ...trackingHeaders
+      ...additionalHeaders
     }
   })
     .then(resp => resp.json())
@@ -198,7 +193,7 @@ export const pickComment = (commentId: number): Promise<CommentResponse> => {
 
   return fetch(url, {
     headers: {
-      ...trackingHeaders
+      ...additionalHeaders
     }
   })
     .then(resp => resp.json())
@@ -210,7 +205,7 @@ export const unPickComment = (commentId: number): Promise<CommentResponse> => {
 
   return fetch(url, {
     headers: {
-      ...trackingHeaders
+      ...additionalHeaders
     }
   })
     .then(resp => resp.json())

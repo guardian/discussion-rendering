@@ -33,9 +33,9 @@ export const Default = () => (
     <App
       shortUrl="/p/39f5z"
       user={aUser}
-      trackingHeaders={{
-        discussionD2Uid: "testD2Header",
-        discussionApiClientHeader: "testClientHeader"
+      additionalHeaders={{
+        "D2-X-UID": "testD2Header",
+        "GU-Client": "testClientHeader"
       }}
     />
   </div>

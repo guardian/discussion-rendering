@@ -9,13 +9,13 @@ import {
   CommentType,
   FilterOptions,
   UserProfile,
-  TrackingHeadersType
+  AdditionalHeadersType
 } from "./types";
 import {
   getDiscussion,
   getCommentCount,
   getPicks,
-  setTrackingHeaders
+  setAdditionalHeaders
 } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
 import { TopPicks } from "./components/TopPicks/TopPicks";
@@ -26,7 +26,7 @@ import { Pagination } from "./components/Pagination/Pagination";
 type Props = {
   shortUrl: string;
   user?: UserProfile;
-  trackingHeaders: TrackingHeadersType;
+  additionalHeaders: AdditionalHeadersType;
 };
 
 const containerStyles = css`
@@ -117,7 +117,7 @@ const readFiltersFromLocalStorage = (): FilterOptions => {
   };
 };
 
-export const App = ({ shortUrl, user, trackingHeaders }: Props) => {
+export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     readFiltersFromLocalStorage()
   );
@@ -129,7 +129,7 @@ export const App = ({ shortUrl, user, trackingHeaders }: Props) => {
     CommentType
   >();
 
-  setTrackingHeaders(trackingHeaders);
+  setAdditionalHeaders(additionalHeaders);
 
   const simulateNewComment = (
     commentId: number,
