@@ -136,7 +136,7 @@ export const CommentContainer = ({
           <div className={nestingStyles}>
             <ul className={commentContainerStyles}>
               {responses.map(responseComment => (
-                <li>
+                <li key={responseComment.id}>
                   <Comment
                     comment={responseComment}
                     pillar={pillar}

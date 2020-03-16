@@ -214,9 +214,8 @@ export const App = ({ shortUrl, user }: Props) => {
         ) : (
           <ul className={commentContainerStyles}>
             {comments.slice(0, 2).map(comment => (
-              <li>
+              <li key={comment.id}>
                 <CommentContainer
-                  key={comment.id}
                   comment={comment}
                   pillar="news"
                   shortUrl={shortUrl}
@@ -288,9 +287,8 @@ export const App = ({ shortUrl, user }: Props) => {
       ) : (
         <ul className={commentContainerStyles}>
           {comments.map(comment => (
-            <li>
+            <li key={comment.id}>
               <CommentContainer
-                key={comment.id}
                 comment={comment}
                 pillar="news"
                 shortUrl={shortUrl}
