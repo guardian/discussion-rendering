@@ -23,6 +23,10 @@ type Props = {
   onSelect: (value: string) => void;
 };
 
+const containerStyles = css`
+  position: relative;
+`;
+
 const ulStyles = css`
   z-index: 2;
   list-style: none;
@@ -184,7 +188,7 @@ export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
   const activeLink = options.find(option => option.isActive);
 
   return (
-    <>
+    <div className={containerStyles}>
       <div className={labelStyles}>
         {label}
         <button
@@ -215,6 +219,6 @@ export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
           ))}
         </ul>
       </FocusLock>
-    </>
+    </div>
   );
 };
