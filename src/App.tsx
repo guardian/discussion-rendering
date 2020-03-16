@@ -7,8 +7,18 @@ import { Button } from "@guardian/src-button";
 import { neutral } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { CommentType, FilterOptions, UserProfile } from "./types";
-import { getDiscussion, getCommentCount, getPicks } from "./lib/api";
+import {
+  CommentType,
+  FilterOptions,
+  UserProfile,
+  AdditionalHeadersType
+} from "./types";
+import {
+  getDiscussion,
+  getCommentCount,
+  getPicks,
+  setAdditionalHeaders
+} from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
@@ -18,6 +28,7 @@ import { Pagination } from "./components/Pagination/Pagination";
 type Props = {
   shortUrl: string;
   user?: UserProfile;
+  additionalHeaders: AdditionalHeadersType;
 };
 
 const containerStyles = css`
@@ -108,7 +119,7 @@ const readFiltersFromLocalStorage = (): FilterOptions => {
   };
 };
 
-export const App = ({ shortUrl, user }: Props) => {
+export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     readFiltersFromLocalStorage()
   );
@@ -119,6 +130,8 @@ export const App = ({ shortUrl, user }: Props) => {
   const [commentBeingRepliedTo, setCommentBeingRepliedTo] = useState<
     CommentType
   >();
+
+  setAdditionalHeaders(additionalHeaders);
 
   const simulateNewComment = (
     commentId: number,
