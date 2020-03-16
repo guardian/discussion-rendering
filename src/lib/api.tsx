@@ -1,3 +1,5 @@
+import { joinUrl } from "./joinUrl";
+
 import {
   FilterOptions,
   DiscussionResponse,
@@ -12,7 +14,9 @@ const baseURL = "https://discussion.theguardian.com/discussion-api";
 
 let additionalHeaders = {};
 
-export const setAdditionalHeaders = (newAdditionalHeader: AdditionalHeadersType) => additionalHeaders = newAdditionalHeader
+export const setAdditionalHeaders = (
+  newAdditionalHeader: AdditionalHeadersType
+) => (additionalHeaders = newAdditionalHeader);
 
 const objAsParams = (obj: any): string => {
   const params = Object.keys(obj)
@@ -37,7 +41,7 @@ export const getDiscussion = (
   };
   const params = objAsParams(apiOpts);
 
-  const url = baseURL + `/discussion/${shortUrl}` + params;
+  const url = joinUrl([baseURL, "discussion", shortUrl, params]);
 
   return fetch(url, {
     headers: {
