@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
+import "regenerator-runtime/runtime";
+
 import { Button } from "@guardian/src-button";
 import { neutral } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -134,7 +136,7 @@ export const App = ({ shortUrl, user }: Props) => {
       id: commentId,
       body,
       date: Date(),
-      isoDateTime: new Date(),
+      isoDateTime: new Date().toISOString(),
       status: "visible",
       webUrl: "TODO",
       apiUrl: "TODO",
@@ -214,17 +216,18 @@ export const App = ({ shortUrl, user }: Props) => {
         ) : (
           <ul className={commentContainerStyles}>
             {comments.slice(0, 2).map(comment => (
-              <CommentContainer
-                key={comment.id}
-                comment={comment}
-                pillar="news"
-                shortUrl={shortUrl}
-                onAddComment={onAddComment}
-                user={user}
-                threads={filters.threads}
-                commentBeingRepliedTo={commentBeingRepliedTo}
-                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-              />
+              <li key={comment.id}>
+                <CommentContainer
+                  comment={comment}
+                  pillar="news"
+                  shortUrl={shortUrl}
+                  onAddComment={onAddComment}
+                  user={user}
+                  threads={filters.threads}
+                  commentBeingRepliedTo={commentBeingRepliedTo}
+                  setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                />
+              </li>
             ))}
           </ul>
         )}
@@ -286,17 +289,18 @@ export const App = ({ shortUrl, user }: Props) => {
       ) : (
         <ul className={commentContainerStyles}>
           {comments.map(comment => (
-            <CommentContainer
-              key={comment.id}
-              comment={comment}
-              pillar="news"
-              shortUrl={shortUrl}
-              onAddComment={onAddComment}
-              user={user}
-              threads={filters.threads}
-              commentBeingRepliedTo={commentBeingRepliedTo}
-              setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-            />
+            <li key={comment.id}>
+              <CommentContainer
+                comment={comment}
+                pillar="news"
+                shortUrl={shortUrl}
+                onAddComment={onAddComment}
+                user={user}
+                threads={filters.threads}
+                commentBeingRepliedTo={commentBeingRepliedTo}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+              />
+            </li>
           ))}
         </ul>
       )}

@@ -50,6 +50,11 @@ const buttonStyles = (pillar: Pillar) => css`
   }
 `;
 
+const commentContainerStyles = css`
+  list-style-type: none;
+  padding-left: 0;
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
@@ -104,7 +109,7 @@ export const CommentContainer = ({
   const expand = (commentId: number) => {
     setLoading(true);
     fetch(
-      `http://discussion.code.dev-theguardian.com/discussion-api/comment/${commentId}?displayThreaded=true&displayResponses=true`
+      `http://discussion.theguardian.com/discussion-api/comment/${commentId}?displayThreaded=true&displayResponses=true`
     )
       .then(response => response.json())
       .then(json => {
@@ -117,7 +122,7 @@ export const CommentContainer = ({
   };
 
   return (
-    <div>
+    <>
       <Comment
         comment={comment}
         pillar={pillar}
@@ -129,15 +134,19 @@ export const CommentContainer = ({
       <>
         {showResponses && responses && (
           <div className={nestingStyles}>
-            {responses.map(responseComment => (
-              <Comment
-                comment={responseComment}
-                pillar={pillar}
-                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-                user={user}
-                isReply={true}
-              />
-            ))}
+            <ul className={commentContainerStyles}>
+              {responses.map(responseComment => (
+                <li key={responseComment.id}>
+                  <Comment
+                    comment={responseComment}
+                    pillar={pillar}
+                    setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                    user={user}
+                    isReply={true}
+                  />
+                </li>
+              ))}
+            </ul>
             {!expanded &&
               comment.metaData?.responseCount &&
               comment.metaData?.responseCount > 3 && (
@@ -180,6 +189,6 @@ export const CommentContainer = ({
             </div>
           )}
       </>
-    </div>
+    </>
   );
 };

@@ -4,8 +4,6 @@ import { css } from "emotion";
 import { space } from "@guardian/src-foundations";
 import { border } from "@guardian/src-foundations/palette";
 
-import { Dropdown } from "../Dropdown/Dropdown";
-
 import { FilterOptions, OrderByType, ThreadsType } from "../../types";
 
 type Props = {

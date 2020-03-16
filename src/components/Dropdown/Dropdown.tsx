@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 
+import FocusLock from "react-focus-lock";
+
 import { palette } from "@guardian/src-foundations";
 import {
   neutral,
@@ -198,24 +200,25 @@ export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
           {activeLink ? activeLink.title : "Please select"}
         </button>
       </div>
-
-      <ul id={dropdownID} className={cx(ulStyles, isExpanded && ulExpanded)}>
-        {options.map((option, index) => (
-          <li key={option.title}>
-            <button
-              onClick={() => onSelect(option.value)}
-              className={cx(
-                linkStyles,
-                option.isActive && activeStyles(pillar),
-                index === 0 && firstStyles
-              )}
-              disabled={option.isActive}
-            >
-              {option.title}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <FocusLock>
+        <ul id={dropdownID} className={cx(ulStyles, isExpanded && ulExpanded)}>
+          {options.map((option, index) => (
+            <li key={option.title}>
+              <button
+                onClick={() => onSelect(option.value)}
+                className={cx(
+                  linkStyles,
+                  option.isActive && activeStyles(pillar),
+                  index === 0 && firstStyles
+                )}
+                disabled={option.isActive}
+              >
+                {option.title}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </FocusLock>
     </div>
   );
 };

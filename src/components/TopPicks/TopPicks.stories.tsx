@@ -10,7 +10,7 @@ const comment: CommentType = {
   body:
     "<p>Quisque feugiat odio nibh, ac congue lectus interdum nec. Maecenas ut elit ut turpis fringilla dignissim. Sed molestie vehicula ullamcorper. Cras vulputate augue vel diam tempus pellentesque. Etiam aliquam erat nec imperdiet semper. </p>",
   date: "26 July 2013 4:35pm",
-  isoDateTime: new Date("2013-07-26T15:13:20Z"),
+  isoDateTime: "2013-07-26T15:13:20Z",
   status: "visible",
   webUrl: "https://discussion.theguardian.com/comment-permalink/25488498",
   apiUrl: "https://discussion.guardianapis.com/discussion-api/comment/25488498",
