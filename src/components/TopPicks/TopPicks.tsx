@@ -1,6 +1,7 @@
 import React from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 
+import { until, from } from "@guardian/src-foundations/mq";
 import { space, neutral, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
@@ -11,10 +12,10 @@ import { RecommendationCount } from "../RecommendationCount/RecommendationCount"
 import { Timestamp } from "../Timestamp/Timestamp";
 
 const pickStyles = css`
-  max-width: 310px;
+  width: 100%;
   min-width: 250px;
   margin-bottom: ${space[5]}px;
-  flex: 0 0 49%;
+  flex: 0 0;
   ${textSans.small()};
 `;
 
@@ -26,8 +27,11 @@ const pickComment = css`
   background-color: ${bg};
   border-radius: 15px;
   margin-bottom: ${arrowSize + 5}px;
-  min-height: 150px;
   position: relative;
+
+  ${from.tablet} {
+    min-height: 150px;
+  }
 
   :before {
     content: "";
@@ -50,6 +54,11 @@ const userDetails = css`
   justify-content: space-between;
 `;
 
+const userMetaStyles = css`
+  display: flex;
+  flex-direction: column;
+`;
+
 const userName = css`
   font-weight: bold;
   color: ${palette.news.main}; /* TODO USE PILLAR */
@@ -68,8 +77,41 @@ const linkStyles = css`
   }
 `;
 
+const columWrapperStyles = css`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+`;
+const paddingRight = css`
+  padding-right: 10px;
+`;
+const paddingLeft = css`
+  padding-left: 10px;
+`;
+
+const picksWrapper = css`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const twoColCommentsStyles = css`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  ${until.tablet} {
+    display: none;
+  }
+`;
+const oneColCommentsStyles = css`
+  width: 100%;
+  ${from.tablet} {
+    display: none;
+  }
+`;
+
 // TODO: Check if there are other labels
-export const TopPick = ({ comment }: { comment: CommentType }) => (
+const TopPick = ({ comment }: { comment: CommentType }) => (
   <div className={pickStyles}>
     <div className={pickComment}>
       <h3
@@ -92,7 +134,7 @@ export const TopPick = ({ comment }: { comment: CommentType }) => (
             size="medium"
           />
         </div>
-        <div className="usermeta">
+        <div className={userMetaStyles}>
           <span className={userName}>
             <a
               href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
@@ -120,3 +162,34 @@ export const TopPick = ({ comment }: { comment: CommentType }) => (
     </div>
   </div>
 );
+
+export const TopPicks = ({ comments }: { comments: CommentType[] }) => {
+  const leftColComments: CommentType[] = [];
+  const rightColComments: CommentType[] = [];
+  comments.forEach((comment, index) =>
+    index % 2 === 0
+      ? leftColComments.push(comment)
+      : rightColComments.push(comment)
+  );
+  return (
+    <div className={picksWrapper}>
+      <div className={twoColCommentsStyles}>
+        <div className={cx(columWrapperStyles, paddingRight)}>
+          {leftColComments.map(comment => (
+            <TopPick comment={comment} />
+          ))}
+        </div>
+        <div className={cx(columWrapperStyles, paddingLeft)}>
+          {rightColComments.map(comment => (
+            <TopPick comment={comment} />
+          ))}
+        </div>
+      </div>
+      <div className={oneColCommentsStyles}>
+        {comments.map(comment => (
+          <TopPick comment={comment} />
+        ))}
+      </div>
+    </div>
+  );
+};

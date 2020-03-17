@@ -1,12 +1,10 @@
-import { DateFromISOStringC } from "io-ts-types/lib/DateFromISOString";
-
 export type Pillar = "news" | "opinion" | "sport" | "culture" | "lifestyle";
 
 export interface CommentType {
   id: number;
   body: string;
   date: string;
-  isoDateTime: DateFromISOStringC;
+  isoDateTime: string;
   status: string;
   webUrl: string;
   apiUrl: string;
@@ -17,7 +15,7 @@ export interface CommentType {
   responseTo?: {
     displayName: string;
     commentApiUrl: string;
-    isoDateTime: DateFromISOStringC;
+    isoDateTime: string;
     date: string;
     commentId: number;
     commentWebUrl: string;
@@ -141,3 +139,11 @@ export interface DiscussionOptions {
   maxResponses: number;
   page: number;
 }
+
+export type AdditionalHeadersType = { [key: string]: string }
+
+export type DropdownOptionType = {
+  value: string;
+  title: string;
+  isActive?: boolean;
+};

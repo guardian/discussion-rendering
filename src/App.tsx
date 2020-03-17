@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
-import { CommentType, FilterOptions, UserProfile } from "./types";
-import { getDiscussion, getCommentCount, getPicks } from "./lib/api";
+import "regenerator-runtime/runtime";
+
+import { Button } from "@guardian/src-button";
+import { neutral } from "@guardian/src-foundations/palette";
+import { textSans } from "@guardian/src-foundations/typography";
+
+import {
+  CommentType,
+  FilterOptions,
+  UserProfile,
+  AdditionalHeadersType
+} from "./types";
+import {
+  getDiscussion,
+  getCommentCount,
+  getPicks,
+  setAdditionalHeaders
+} from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
-import { TopPick } from "./components/TopPick/TopPick";
+import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
 import { Pagination } from "./components/Pagination/Pagination";
@@ -12,6 +28,7 @@ import { Pagination } from "./components/Pagination/Pagination";
 type Props = {
   shortUrl: string;
   user?: UserProfile;
+  additionalHeaders: AdditionalHeadersType;
 };
 
 const containerStyles = css`
@@ -37,12 +54,25 @@ const picksWrapper = css`
   justify-content: space-between;
 `;
 
+const viewMoreButtonContentStyles = css`
+  display: flex;
+  flex-direction: row;
+  ${textSans.medium({ fontWeight: "bold" })};
+  fill: ${neutral[86]};
+`;
+
 const DEFAULT_FILTERS: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,
   threads: "collapsed",
   page: 1
 };
+
+const PlusSVG = () => (
+  <svg width="18" height="18">
+    <path d="M8.2 0h1.6l.4 7.8 7.8.4v1.6l-7.8.4-.4 7.8H8.2l-.4-7.8L0 9.8V8.2l7.8-.4.4-7.8z"></path>
+  </svg>
+);
 
 const rememberFilters = (filtersToRemember: FilterOptions) => {
   try {
@@ -89,16 +119,19 @@ const readFiltersFromLocalStorage = (): FilterOptions => {
   };
 };
 
-export const App = ({ shortUrl, user }: Props) => {
+export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     readFiltersFromLocalStorage()
   );
+  const [isPreview, setIsPreview] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
 
   const [commentBeingRepliedTo, setCommentBeingRepliedTo] = useState<
     CommentType
   >();
+
+  setAdditionalHeaders(additionalHeaders);
 
   const simulateNewComment = (
     commentId: number,
@@ -116,7 +149,7 @@ export const App = ({ shortUrl, user }: Props) => {
       id: commentId,
       body,
       date: Date(),
-      isoDateTime: new Date(),
+      isoDateTime: new Date().toISOString(),
       status: "visible",
       webUrl: "TODO",
       apiUrl: "TODO",
@@ -179,6 +212,60 @@ export const App = ({ shortUrl, user }: Props) => {
 
   const showPagination = totalPages > 1;
 
+  if (isPreview) {
+    return (
+      <div className={commentContainerStyles}>
+        {user && (
+          <CommentForm
+            shortUrl={shortUrl}
+            onAddComment={onAddComment}
+            user={user}
+          />
+        )}
+        {picks && picks.length ? (
+          <div className={picksWrapper}>
+            {!!picks.length && <TopPicks comments={picks.slice(0, 2)} />}
+          </div>
+        ) : (
+          <ul className={commentContainerStyles}>
+            {comments.slice(0, 2).map(comment => (
+              <li key={comment.id}>
+                <CommentContainer
+                  comment={comment}
+                  pillar="news"
+                  shortUrl={shortUrl}
+                  onAddComment={onAddComment}
+                  user={user}
+                  threads={filters.threads}
+                  commentBeingRepliedTo={commentBeingRepliedTo}
+                  setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+        <div
+          className={css`
+            width: 250px;
+          `}
+        >
+          <Button size="small" onClick={() => setIsPreview(false)}>
+            <div className={viewMoreButtonContentStyles}>
+              <PlusSVG />
+            </div>
+            <div
+              className={css`
+                padding-left: 10px;
+              `}
+            >
+              View more comments
+            </div>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={containerStyles}>
       {user && (
@@ -188,13 +275,7 @@ export const App = ({ shortUrl, user }: Props) => {
           user={user}
         />
       )}
-      {!!picks.length && (
-        <div className={picksWrapper}>
-          {picks.map(pick => (
-            <TopPick comment={pick} />
-          ))}
-        </div>
-      )}
+      {!!picks.length && <TopPicks comments={picks} />}
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}
@@ -221,17 +302,18 @@ export const App = ({ shortUrl, user }: Props) => {
       ) : (
         <ul className={commentContainerStyles}>
           {comments.map(comment => (
-            <CommentContainer
-              key={comment.id}
-              comment={comment}
-              pillar="news"
-              shortUrl={shortUrl}
-              onAddComment={onAddComment}
-              user={user}
-              threads={filters.threads}
-              commentBeingRepliedTo={commentBeingRepliedTo}
-              setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-            />
+            <li key={comment.id}>
+              <CommentContainer
+                comment={comment}
+                pillar="news"
+                shortUrl={shortUrl}
+                onAddComment={onAddComment}
+                user={user}
+                threads={filters.threads}
+                commentBeingRepliedTo={commentBeingRepliedTo}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+              />
+            </li>
           ))}
         </ul>
       )}

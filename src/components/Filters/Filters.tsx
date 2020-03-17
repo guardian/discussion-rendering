@@ -1,9 +1,10 @@
 import React from "react";
-import { css, cx } from "emotion";
+import { css } from "emotion";
 
-import { space, neutral } from "@guardian/src-foundations";
-import { textSans } from "@guardian/src-foundations/typography";
-import { until } from "@guardian/src-foundations/mq";
+import { space } from "@guardian/src-foundations";
+import { border } from "@guardian/src-foundations/palette";
+
+import { Dropdown } from "../Dropdown/Dropdown";
 
 import { FilterOptions, OrderByType, ThreadsType } from "../../types";
 
@@ -14,136 +15,128 @@ type Props = {
 };
 
 const filterBar = css`
-  ${textSans.small()};
-  color: ${neutral[46]};
+  padding-top: ${space[1]}px;
+  padding-bottom: ${space[2]}px;
 
-  padding: ${space[3]}px 0;
-  border-bottom: 1px solid ${neutral[86]};
-  border-top: 1px solid ${neutral[86]};
+  border-bottom: 1px solid ${border.secondary};
+  border-top: 1px solid ${border.secondary};
 
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
-const filterLabel = css`
+const dividerStyles = css`
   position: relative;
-  margin-left: 8px;
+  margin-left: ${space[2]}px;
   :after {
     content: "";
     display: block;
     width: 1px;
-    background-color: ${neutral[86]};
+    background-color: ${border.secondary};
     position: absolute;
-    top: -5px;
-    bottom: -25px;
-    left: -10px;
+    top: -${space[1]}px;
+    bottom: ${space[1]}px;
+    left: -${space[2]}px;
   }
 `;
 
-const filterStyle = css`
-  border: none;
-  background: #fff;
-  ${textSans.small()};
-  font-weight: bold;
-  color: ${neutral[46]};
-  margin-right: ${space[5]}px;
-  ${until.mobileLandscape} {
-    margin-right: 10px;
-  }
-`;
-
-const filterContainer = css`
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-`;
-
-const filterWrapperStyles = css`
-  display: flex;
-  flex-direction: column;
+const filterPadding = css`
+  padding-right: ${space[3]}px;
 `;
 
 export const Filters = ({ filters, onFilterChange, totalPages }: Props) => (
   <div className={filterBar}>
-    <div className={filterContainer}>
-      <div className={filterWrapperStyles}>
-        <label
-          htmlFor="orderBy"
-          className={cx(
-            filterLabel,
-            css`
-              :after {
-                display: none;
-              }
-            `
-          )}
-        >
-          Order by
-        </label>
-        <select
-          name="orderBy"
-          id="orderBy"
-          className={filterStyle}
-          onChange={e =>
-            onFilterChange({
-              ...filters,
-              orderBy: e.target.value as OrderByType
-            })
+    <div className={filterPadding}>
+      <Dropdown
+        id="order-by-dropdown"
+        label="Sort by"
+        pillar="news"
+        options={[
+          {
+            title: "Newest",
+            value: "newest",
+            isActive: filters.orderBy === "newest"
+          },
+          {
+            title: "Oldest",
+            value: "oldest",
+            isActive: filters.orderBy === "oldest"
+          },
+          {
+            title: "Recommendations",
+            value: "mostrecommended",
+            isActive: filters.orderBy === "mostrecommended"
           }
-          value={filters.orderBy}
-        >
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="mostrecommended">Recommendations</option>
-        </select>
-      </div>
-
-      <div className={filterWrapperStyles}>
-        <label htmlFor="pageSize" className={filterLabel}>
-          Show
-        </label>
-        <select
-          name="pageSize"
-          id="pageSize"
-          className={filterStyle}
-          onChange={e =>
-            onFilterChange({
-              ...filters,
-              pageSize: Number(e.target.value) as number
-            })
+        ]}
+        onSelect={value =>
+          onFilterChange({
+            ...filters,
+            orderBy: value as OrderByType
+          })
+        }
+      />
+    </div>
+    <div className={dividerStyles} />
+    <div className={filterPadding}>
+      <Dropdown
+        id="page-size-dropdown"
+        label="Per page"
+        pillar="news"
+        options={[
+          {
+            title: "25",
+            value: "25",
+            isActive: filters.pageSize === 25
+          },
+          {
+            title: "50",
+            value: "50",
+            isActive: filters.pageSize === 50
+          },
+          {
+            title: "100",
+            value: "100",
+            isActive: filters.pageSize === 100
           }
-          value={filters.pageSize}
-        >
-          <option value="25">25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-      </div>
-
-      <div className={filterWrapperStyles}>
-        <label htmlFor="threads" className={filterLabel}>
-          Threads
-        </label>
-        <select
-          name="threads"
-          id="threads"
-          className={filterStyle}
-          onChange={e =>
-            onFilterChange({
-              ...filters,
-              threads: e.target.value as ThreadsType
-            })
+        ]}
+        onSelect={value =>
+          onFilterChange({
+            ...filters,
+            pageSize: parseInt(value) as number
+          })
+        }
+      />
+    </div>
+    <div className={dividerStyles} />
+    <div className={filterPadding}>
+      <Dropdown
+        id="threads-dropdown"
+        label="Display threads"
+        pillar="news"
+        options={[
+          {
+            title: "Collapsed",
+            value: "collapsed",
+            isActive: filters.threads === "collapsed"
+          },
+          {
+            title: "Expanded",
+            value: "expanded",
+            isActive: filters.threads === "expanded"
+          },
+          {
+            title: "Unthreaded",
+            value: "unthreaded",
+            isActive: filters.threads === "unthreaded"
           }
-          value={filters.threads}
-        >
-          <option value="collapsed">Collapsed</option>
-          <option value="expanded">Expanded</option>
-          <option value="unthreaded">Unthreaded</option>
-        </select>
-      </div>
+        ]}
+        onSelect={value =>
+          onFilterChange({
+            ...filters,
+            threads: value as ThreadsType
+          })
+        }
+      />
     </div>
   </div>
 );
