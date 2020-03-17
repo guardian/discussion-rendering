@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 import { textSans } from "@guardian/src-foundations/typography";
 import { space, neutral, palette } from "@guardian/src-foundations";
+import { TextInput } from "@guardian/src-text-input"
 import { Button } from "@guardian/src-button";
 
 import { preview } from "../../lib/api";
@@ -18,30 +19,12 @@ const previewStyle = css`
   }
 `;
 
-const inputStyles = css`
-  outline: none;
-  width: 400px;
-  border-radius: 18px;
-  padding: 5px 15px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  :focus {
-    border-color: ${neutral[46]};
-  }
-`;
-
 const textStyling = css`
   ${textSans.xsmall()};
 `;
 
 const cancelButtonStyles = css`
   margin-left: 20px;
-`;
-
-const errorTextStyles = css`
-  margin: 0;
-  ${textSans.xsmall({ fontWeight: "bold" })};
-  color: red;
 `;
 
 const imputWrapperStyles = css`
@@ -104,23 +87,14 @@ export const FirstCommentWelcome = ({
         </p>
       </div>
       <div className={cx(imputWrapperStyles, textStyling)}>
-        <label>
-          <span
-            className={css`
-              font-weight: bold;
-            `}
-          >
-            Username:{" "}
-          </span>
-          Must be 6-20 characters, letters and/or numbers only, no spaces.
-        </label>
-        <input
-          className={inputStyles}
-          type="text"
+        <TextInput
+          label="Username:"
+          supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
           value={userName}
           onChange={e => setUserName(e.target.value)}
+          width={30}
+          error={error}
         />
-        {error && <p className={errorTextStyles}>{error}</p>}
       </div>
       <p className={textStyling}>
         Please keep your posts respectful and abide by the{" "}

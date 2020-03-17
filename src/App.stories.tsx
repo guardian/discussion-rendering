@@ -31,7 +31,7 @@ export const Default = () => (
     `}
   >
     <App
-      shortUrl="/p/39f5z"
+      shortUrl="p/39f5z"
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
