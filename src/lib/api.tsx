@@ -7,6 +7,7 @@ import {
   UserProfile,
   CommentType,
   CommentResponse,
+  UserNameResponse,
   AdditionalHeadersType
 } from "../types";
 
@@ -80,7 +81,6 @@ export const getProfile = (): Promise<UserProfile> => {
     }
   })
     .then(resp => resp.json())
-    .then(json => json.userProfile)
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
@@ -186,6 +186,24 @@ export const getCommentCount = (
   return fetch(url, {
     headers: {
       ...additionalHeaders
+    }
+  })
+    .then(resp => resp.json())
+    .catch(error => console.error(`Error fetching ${url}`, error));
+};
+
+export const addUserName = (userName: string): Promise<UserNameResponse> => {
+  const url = "https://idapi.theguardian.com/user/me";
+  return fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      publicFields: {
+        username: userName,
+        displayName: userName
+      }
+    }),
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
     }
   })
     .then(resp => resp.json())

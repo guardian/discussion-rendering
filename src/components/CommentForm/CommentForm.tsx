@@ -6,7 +6,7 @@ import { palette, space } from "@guardian/src-foundations";
 import { neutral, text } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { comment, reply, preview } from "../../lib/api";
+import { comment, reply, preview, addUserName } from "../../lib/api";
 import { CommentResponse, UserProfile, CommentType } from "../../types";
 
 import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
@@ -148,7 +148,7 @@ export const CommentForm = ({
   const [isActive, setIsActive] = useState<boolean>(
     commentBeingRepliedTo ? true : false
   );
-  const [firstPost, setFirstPost] = useState<boolean>(false);
+  const [userNameMissing, setUserNameMissing] = useState<boolean>(false);
   const [body, setBody] = useState<string>("");
   const [previewBody, setPreviewBody] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -230,7 +230,7 @@ export const CommentForm = ({
       // Check response message for error states
       if (response.message === "USERNAME_MISSING") {
         // Reader has never posted before and needs to choose a username
-        setFirstPost(true);
+        setUserNameMissing(true);
       } else if (response.message === "EMPTY_COMMENT_BODY") {
         setError("Please write a comment.");
       } else if (response.message === "COMMENT_TOO_LONG") {
@@ -300,8 +300,32 @@ export const CommentForm = ({
     }
   };
 
-  if (firstPost) {
-    return <FirstCommentWelcome />;
+  const submitUserName = async (userName: string) => {
+    setError("");
+    if (!userName) {
+      setError("Username field cannot be empty");
+      return;
+    }
+
+    const response = await addUserName(userName);
+    if (response.status === "ok") {
+      // If we are able to submit userName we should continue with submitting comment
+      submitForm();
+      setUserNameMissing(false);
+    } else {
+      response.errors && setError(response.errors[0].message);
+    }
+  };
+
+  if (userNameMissing && body) {
+    return (
+      <FirstCommentWelcome
+        body={body}
+        error={error}
+        submitForm={submitUserName}
+        cancelSubmit={() => setUserNameMissing(false)}
+      />
+    );
   }
 
   return (

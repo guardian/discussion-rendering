@@ -37,6 +37,54 @@ export type CommentResponse = {
   errorCode?: string;
 };
 
+type UserNameError = {
+  message: string;
+  description: string;
+  context: string;
+};
+
+type UserConsents = {
+  id: string;
+  actor: string;
+  version: number;
+  consented: boolean;
+  timestamp: string;
+  privacyPolicyVersion: number;
+};
+
+type UserGroups = {
+  path: string;
+  packageCode: string;
+};
+
+type UserNameUser = {
+  dates: { accountCreatedDate: string };
+  consents: UserConsents[];
+  userGroups: UserGroups[];
+  publicFields: {
+    username: string;
+    displayName: string;
+  };
+  statusFields: {
+    userEmailValidated: boolean;
+    allowThirdPartyProfiling: boolean;
+  };
+  privateFields: {
+    brazeUuid: string;
+    legacyPackages: string;
+    legacyProducts: string;
+  };
+  primaryEmailAddress: string;
+  id: string;
+  hasPassword: boolean;
+};
+
+export type UserNameResponse = {
+  status: "ok" | "error";
+  user: UserNameUser;
+  errors?: UserNameError[];
+};
+
 export type OrderByType = "newest" | "oldest" | "mostrecommended";
 export type ThreadsType = "collapsed" | "expanded" | "unthreaded";
 
