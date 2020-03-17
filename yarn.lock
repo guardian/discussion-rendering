@@ -1822,11 +1822,6 @@
   resolved "https://registry.yarnpkg.com/@guardian/src-button/-/src-button-0.8.1.tgz#bf7835ec90256e418cd7c06f8ac38dd22c217b8c"
   integrity sha512-UQTLqNpzOc62RpTBJip7IBYkspd+aNoRxCoTt75pOzY1U7+bBsAZZarztK5c0lGSe/22Tlxo8zv+7RrVZXRSQg==
 
-"@guardian/src-foundations@^0.12.3":
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/@guardian/src-foundations/-/src-foundations-0.12.4.tgz#a4c6ec8dbf86279702d78e048e2bd4eea1624c7d"
-  integrity sha512-6V/3TWL4wMxfzUHOj5MJQMQA7oRBxWlRav5m9dYGw13JAg59DFOpcfM8LWWFwWWlJ8e2nbnDHS9/sOPzGrJduw==
-
 "@guardian/src-foundations@^0.15.1":
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/@guardian/src-foundations/-/src-foundations-0.15.1.tgz#9e621aa2efee0cdb368ebbee129cd2a7d7e5868e"
