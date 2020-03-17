@@ -23,13 +23,14 @@ const textStyling = css`
   ${textSans.xsmall()};
 `;
 
-const cancelButtonStyles = css`
-  margin-left: 20px;
-`;
-
-const imputWrapperStyles = css`
+const flexCol = css`
   display: flex;
   flex-direction: column;
+`;
+
+const flexRow = css`
+  display: flex;
+  flex-direction: row;
 `;
 
 export const FirstCommentWelcome = ({
@@ -86,7 +87,7 @@ export const FirstCommentWelcome = ({
           comments to show up. You can only set your username once.
         </p>
       </div>
-      <div className={cx(imputWrapperStyles, textStyling)}>
+      <div className={cx(flexCol, textStyling)}>
         <TextInput
           label="Username:"
           supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
@@ -123,17 +124,18 @@ export const FirstCommentWelcome = ({
           dangerouslySetInnerHTML={{ __html: previewBody || "" }}
         />
       )}
-      <div>
+      <div className={flexRow}>
         <Button size="small" onClick={() => submitForm(userName)}>
           Post your comment
         </Button>
-        <Button
-          size="small"
-          className={cancelButtonStyles}
-          onClick={cancelSubmit}
-        >
-          Cancel
+        <div className={css`margin-left: 20px;`}>
+          <Button
+            size="small"
+            onClick={cancelSubmit}
+          >
+            Cancel
         </Button>
+        </div>
       </div>
     </form>
   );
