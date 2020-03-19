@@ -72,15 +72,15 @@ const Grey = ({
   spaceBelow,
   spaceLeft
 }: {
-  height: string;
-  width?: string;
+  height: number;
+  width?: number;
   spaceBelow?: 1 | 2 | 3 | 4 | 5 | 6 | 9;
   spaceLeft?: 1 | 2 | 3 | 4 | 5 | 6 | 9;
 }) => (
   <div
     className={css`
-      height: ${height};
-      width: ${width ? width : "100%"};
+      height: ${height}px;
+      width: ${width ? `${width}px` : "100%"};
       margin-bottom: ${spaceBelow && space[spaceBelow]}px;
       margin-left: ${spaceLeft && space[spaceLeft]}px;
       background-color: ${BACKGROUND_COLOUR};
@@ -95,16 +95,16 @@ export const LoadingComments = () => (
     <div className={avatarStyles(48)} />
     <Column>
       <Row>
-        <Grey height="20px" width="140px" spaceBelow={9} />
-        <Grey height="15px" width="100px" spaceBelow={9} spaceLeft={2} />
+        <Grey height={20} width={140} spaceBelow={9} />
+        <Grey height={15} width={100} spaceBelow={9} spaceLeft={2} />
       </Row>
-      <Grey height="20px" spaceBelow={1} />
-      <Grey height="20px" spaceBelow={1} />
-      <Grey height="20px" width="200px" spaceBelow={5} />
+      <Grey height={20} spaceBelow={1} />
+      <Grey height={20} spaceBelow={1} />
+      <Grey height={20} width={200} spaceBelow={5} />
 
       <Row>
-        <Grey height="15px" width="40px" />
-        <Grey height="15px" width="40px" spaceLeft={6} />
+        <Grey height={15} width={40} />
+        <Grey height={15} width={40} spaceLeft={6} />
       </Row>
     </Column>
   </div>
