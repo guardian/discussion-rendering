@@ -126,65 +126,23 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
   const [isPreview, setIsPreview] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
-
+  const [picks, setPicks] = useState<CommentType[]>([]);
   const [commentBeingRepliedTo, setCommentBeingRepliedTo] = useState<
     CommentType
   >();
-
-  setAdditionalHeaders(additionalHeaders);
-
-  const simulateNewComment = (
-    commentId: number,
-    body: string,
-    user: UserProfile
-  ) => {
-    // The returned object below is a simulation of the comment that was created that
-    // we add to our local state so that the reader has immediate feedback. We do
-    // this because the api has a 1 minute cache expiry so simply refreshing the
-    // main list of comments often won't return the comment just added.
-    // Edge case: If the user _does_ refresh then this local state will be overridden
-    // by the new api response and - if the refresh was within 60 seconds - the
-    // reader's comment will not be present. The same edge case exists in frontend.
-    return {
-      id: commentId,
-      body,
-      date: Date(),
-      isoDateTime: new Date().toISOString(),
-      status: "visible",
-      webUrl: "TODO",
-      apiUrl: "TODO",
-      numRecommends: 0,
-      isHighlighted: true,
-      userProfile: {
-        userId: user.userId,
-        displayName: user.displayName,
-        webUrl: user.webUrl,
-        apiUrl: user.apiUrl,
-        avatar: user.avatar,
-        secureAvatarUrl: user.secureAvatarUrl,
-        badge: user.badge
-      }
-    };
-  };
-
   const [comments, setComments] = useState<CommentType[]>([]);
-
-  const onAddComment = (commentId: number, body: string, user: UserProfile) => {
-    comments.pop(); // Remove last item from our local array
-    // Replace it with this new comment at the start
-    setComments([simulateNewComment(commentId, body, user), ...comments]);
-  };
+  const [commentCount, setCommentCount] = useState<number>(0);
 
   useEffect(() => {
     setLoading(true);
     getDiscussion(shortUrl, filters).then(json => {
       setLoading(false);
-      setComments(json?.discussion?.comments);
+      if (json?.status !== "error") {
+        setComments(json?.discussion?.comments);
+      }
       setTotalPages(json?.pages);
     });
   }, [filters, shortUrl]);
-
-  const [commentCount, setCommentCount] = useState<number>(0);
 
   useEffect(() => {
     setLoading(true);
@@ -196,7 +154,6 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
     fetchCommentCount();
   }, [shortUrl]);
 
-  const [picks, setPicks] = useState<CommentType[]>([]);
   useEffect(() => {
     const fetchPicks = async () => {
       const json = await getPicks(shortUrl);
@@ -209,6 +166,48 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
     rememberFilters(newFilterObject);
     setFilters(newFilterObject);
   };
+
+  const onAddComment = (commentId: number, body: string, user: UserProfile) => {
+    const simulateNewComment = (
+      commentId: number,
+      body: string,
+      user: UserProfile
+    ) => {
+      // The returned object below is a simulation of the comment that was created that
+      // we add to our local state so that the reader has immediate feedback. We do
+      // this because the api has a 1 minute cache expiry so simply refreshing the
+      // main list of comments often won't return the comment just added.
+      // Edge case: If the user _does_ refresh then this local state will be overridden
+      // by the new api response and - if the refresh was within 60 seconds - the
+      // reader's comment will not be present. The same edge case exists in frontend.
+      return {
+        id: commentId,
+        body,
+        date: Date(),
+        isoDateTime: new Date().toISOString(),
+        status: "visible",
+        webUrl: "TODO",
+        apiUrl: "TODO",
+        numRecommends: 0,
+        isHighlighted: true,
+        userProfile: {
+          userId: user.userId,
+          displayName: user.displayName,
+          webUrl: user.webUrl,
+          apiUrl: user.apiUrl,
+          avatar: user.avatar,
+          secureAvatarUrl: user.secureAvatarUrl,
+          badge: user.badge
+        }
+      };
+    };
+
+    comments.pop(); // Remove last item from our local array
+    // Replace it with this new comment at the start
+    setComments([simulateNewComment(commentId, body, user), ...comments]);
+  };
+
+  setAdditionalHeaders(additionalHeaders);
 
   const showPagination = totalPages > 1;
 
@@ -227,22 +226,30 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
             {!!picks.length && <TopPicks comments={picks.slice(0, 2)} />}
           </div>
         ) : (
-          <ul className={commentContainerStyles}>
-            {comments.slice(0, 2).map(comment => (
-              <li key={comment.id}>
-                <CommentContainer
-                  comment={comment}
-                  pillar="news"
-                  shortUrl={shortUrl}
-                  onAddComment={onAddComment}
-                  user={user}
-                  threads={filters.threads}
-                  commentBeingRepliedTo={commentBeingRepliedTo}
-                  setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-                />
-              </li>
-            ))}
-          </ul>
+          <>
+            {loading ? (
+              <p>TODO loading component goes here...</p>
+            ) : !comments.length ? (
+              <p>TODO: No comment component goes here</p>
+            ) : (
+              <ul className={commentContainerStyles}>
+                {comments.slice(0, 2).map(comment => (
+                  <li key={comment.id}>
+                    <CommentContainer
+                      comment={comment}
+                      pillar="news"
+                      shortUrl={shortUrl}
+                      onAddComment={onAddComment}
+                      user={user}
+                      threads={filters.threads}
+                      commentBeingRepliedTo={commentBeingRepliedTo}
+                      setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
         )}
         <div
           className={css`
