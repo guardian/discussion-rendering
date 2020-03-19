@@ -91,23 +91,21 @@ const Grey = ({
 );
 
 export const LoadingComments = () => (
-  <>
-    <div className={containerStyles}>
-      <div className={avatarStyles(48)} />
-      <Column>
-        <Row>
-          <Grey height="20px" width="140px" spaceBelow={9} />
-          <Grey height="15px" width="100px" spaceBelow={9} spaceLeft={2} />
-        </Row>
-        <Grey height="20px" spaceBelow={1} />
-        <Grey height="20px" spaceBelow={1} />
-        <Grey height="20px" width="200px" spaceBelow={5} />
+  <div className={containerStyles}>
+    <div className={avatarStyles(48)} />
+    <Column>
+      <Row>
+        <Grey height="20px" width="140px" spaceBelow={9} />
+        <Grey height="15px" width="100px" spaceBelow={9} spaceLeft={2} />
+      </Row>
+      <Grey height="20px" spaceBelow={1} />
+      <Grey height="20px" spaceBelow={1} />
+      <Grey height="20px" width="200px" spaceBelow={5} />
 
-        <Row>
-          <Grey height="15px" width="40px" />
-          <Grey height="15px" width="40px" spaceLeft={6} />
-        </Row>
-      </Column>
-    </div>
-  </>
+      <Row>
+        <Grey height="15px" width="40px" />
+        <Grey height="15px" width="40px" spaceLeft={6} />
+      </Row>
+    </Column>
+  </div>
 );
