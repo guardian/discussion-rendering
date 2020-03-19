@@ -5,7 +5,7 @@ export default { component: LoadingComments, title: "LoadingComments" };
 
 export const Default = () => {
   return (
-    <>
+export const Default = () => <LoadingComments />
       <LoadingComments />
     </>
   );
