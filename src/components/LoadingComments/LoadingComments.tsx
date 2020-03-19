@@ -8,10 +8,10 @@ const BACKGROUND_COLOUR = neutral[93];
 
 const shimmer = keyframes`
   0% {
-    background-position: -1000px 0;
+    background-position: -1500px 0;
   }
   100% {
-    background-position: 1000px 0;
+    background-position: 1500px 0;
   }
 `;
 
@@ -23,7 +23,7 @@ const shimmerStyles = css`
     ${neutral[86]} 25%,
     ${BACKGROUND_COLOUR} 36%
   );
-  background-size: 1000px 100%;
+  background-size: 1500px 100%;
 `;
 
 const containerStyles = css`
