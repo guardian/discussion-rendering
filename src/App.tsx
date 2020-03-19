@@ -179,7 +179,9 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
     setLoading(true);
     getDiscussion(shortUrl, filters).then(json => {
       setLoading(false);
-      setComments(json?.discussion?.comments);
+      if (json?.status !== "error") {
+        setComments(json?.discussion?.comments);
+      }
       setTotalPages(json?.pages);
     });
   }, [filters, shortUrl]);
@@ -227,22 +229,30 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
             {!!picks.length && <TopPicks comments={picks.slice(0, 2)} />}
           </div>
         ) : (
-          <ul className={commentContainerStyles}>
-            {comments.slice(0, 2).map(comment => (
-              <li key={comment.id}>
-                <CommentContainer
-                  comment={comment}
-                  pillar="news"
-                  shortUrl={shortUrl}
-                  onAddComment={onAddComment}
-                  user={user}
-                  threads={filters.threads}
-                  commentBeingRepliedTo={commentBeingRepliedTo}
-                  setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-                />
-              </li>
-            ))}
-          </ul>
+          <>
+            {loading ? (
+              <p>TODO loading component goes here...</p>
+            ) : !comments.length ? (
+              <p>TODO: No comment component goes here</p>
+            ) : (
+              <ul className={commentContainerStyles}>
+                {comments.slice(0, 2).map(comment => (
+                  <li key={comment.id}>
+                    <CommentContainer
+                      comment={comment}
+                      pillar="news"
+                      shortUrl={shortUrl}
+                      onAddComment={onAddComment}
+                      user={user}
+                      threads={filters.threads}
+                      commentBeingRepliedTo={commentBeingRepliedTo}
+                      setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
         )}
         <div
           className={css`
