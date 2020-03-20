@@ -10,6 +10,9 @@ import { CommentType } from "../../types";
 import { Avatar } from "../Avatar/Avatar";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { Timestamp } from "../Timestamp/Timestamp";
+import { joinUrl } from "../../lib/joinUrl";
+
+type Props = { baseUrl: string; comments: CommentType[] };
 
 const pickStyles = css`
   width: 100%;
@@ -111,7 +114,13 @@ const oneColCommentsStyles = css`
 `;
 
 // TODO: Check if there are other labels
-const TopPick = ({ comment }: { comment: CommentType }) => (
+const TopPick = ({
+  baseUrl,
+  comment
+}: {
+  baseUrl: string;
+  comment: CommentType;
+}) => (
   <div className={pickStyles}>
     <div className={pickComment}>
       <h3
@@ -145,7 +154,15 @@ const TopPick = ({ comment }: { comment: CommentType }) => (
           </span>
           <Timestamp
             isoDateTime={comment.isoDateTime}
-            linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+            linkTo={joinUrl([
+              // Remove the discussion-api path from the baseUrl
+              baseUrl
+                .split("/")
+                .filter(path => path !== "discussion-api")
+                .join("/"),
+              "comment-permalink",
+              comment.id.toString()
+            ])}
           />
           {comment.userProfile.badge.filter(obj => obj["name"] === "Staff") && (
             <GuardianStaff />
@@ -163,7 +180,7 @@ const TopPick = ({ comment }: { comment: CommentType }) => (
   </div>
 );
 
-export const TopPicks = ({ comments }: { comments: CommentType[] }) => {
+export const TopPicks = ({ baseUrl, comments }: Props) => {
   const leftColComments: CommentType[] = [];
   const rightColComments: CommentType[] = [];
   comments.forEach((comment, index) =>
@@ -176,18 +193,18 @@ export const TopPicks = ({ comments }: { comments: CommentType[] }) => {
       <div className={twoColCommentsStyles}>
         <div className={cx(columWrapperStyles, paddingRight)}>
           {leftColComments.map(comment => (
-            <TopPick comment={comment} />
+            <TopPick baseUrl={baseUrl} comment={comment} />
           ))}
         </div>
         <div className={cx(columWrapperStyles, paddingLeft)}>
           {rightColComments.map(comment => (
-            <TopPick comment={comment} />
+            <TopPick baseUrl={baseUrl} comment={comment} />
           ))}
         </div>
       </div>
       <div className={oneColCommentsStyles}>
         {comments.map(comment => (
-          <TopPick comment={comment} />
+          <TopPick baseUrl={baseUrl} comment={comment} />
         ))}
       </div>
     </div>

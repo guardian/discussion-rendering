@@ -11,17 +11,22 @@ import {
   AdditionalHeadersType
 } from "../types";
 
-const baseURL = "https://discussion.theguardian.com/discussion-api";
-
 let options = {
+  // Defaults
+  baseUrl: "https://discussion.theguardian.com/discussion-api",
   headers: {}
 };
 
 export const initialiseApi = ({
+  baseUrl,
   additionalHeaders
 }: {
+  baseUrl: string;
   additionalHeaders: AdditionalHeadersType;
-}) => (options.headers = additionalHeaders);
+}) => {
+  options.baseUrl = baseUrl;
+  options.headers = additionalHeaders;
+};
 
 const objAsParams = (obj: any): string => {
   const params = Object.keys(obj)
@@ -46,7 +51,7 @@ export const getDiscussion = (
   };
   const params = objAsParams(apiOpts);
 
-  const url = joinUrl([baseURL, "discussion", shortUrl, params]);
+  const url = joinUrl([options.baseUrl, "discussion", shortUrl, params]);
 
   return fetch(url, {
     headers: {
@@ -58,7 +63,7 @@ export const getDiscussion = (
 };
 
 export const preview = (body: string): Promise<string> => {
-  const url = baseURL + "/comment/preview";
+  const url = options.baseUrl + "/comment/preview";
   const data = new URLSearchParams();
   data.append("body", body);
 
@@ -76,7 +81,7 @@ export const preview = (body: string): Promise<string> => {
 };
 
 export const getProfile = (): Promise<UserProfile> => {
-  const url = baseURL + "/profile/me";
+  const url = options.baseUrl + "/profile/me";
 
   return fetch(url, {
     credentials: "include",
@@ -92,7 +97,7 @@ export const comment = (
   shortUrl: string,
   body: string
 ): Promise<CommentResponse> => {
-  const url = baseURL + `/discussion/${shortUrl}/comment`;
+  const url = options.baseUrl + `/discussion/${shortUrl}/comment`;
   const data = new URLSearchParams();
   data.append("body", body);
 
@@ -113,7 +118,8 @@ export const reply = (
   parentCommentId: number
 ): Promise<CommentResponse> => {
   const url =
-    baseURL + `/discussion/${shortUrl}/comment/${parentCommentId}/reply`;
+    options.baseUrl +
+    `/discussion/${shortUrl}/comment/${parentCommentId}/reply`;
 
   const data = new URLSearchParams();
   data.append("body", body);
@@ -130,7 +136,7 @@ export const reply = (
 };
 
 export const getPicks = (shortUrl: string): Promise<CommentType[]> => {
-  const url = baseURL + `/discussion/${shortUrl}/topcomments`;
+  const url = options.baseUrl + `/discussion/${shortUrl}/topcomments`;
 
   return fetch(url, {
     headers: {
@@ -153,7 +159,7 @@ export const reportAbuse = ({
   reason?: string;
   email?: string;
 }) => {
-  const url = baseURL + `/comment/${commentId}/reportAbuse`;
+  const url = options.baseUrl + `/comment/${commentId}/reportAbuse`;
 
   const data = new URLSearchParams();
   data.append("categoryId", categoryId.toString());
@@ -171,7 +177,7 @@ export const reportAbuse = ({
 };
 
 export const recommend = (commentId: number): Promise<boolean> => {
-  const url = baseURL + `/comment/${commentId}/recommend`;
+  const url = options.baseUrl + `/comment/${commentId}/recommend`;
 
   return fetch(url, {
     method: "POST",
@@ -185,7 +191,7 @@ export const recommend = (commentId: number): Promise<boolean> => {
 export const getCommentCount = (
   shortUrl: string
 ): Promise<{ shortUrl: string; numberOfComments: number }> => {
-  const url = `${baseURL}/discussion/${shortUrl}/comments/count`;
+  const url = `${options.baseUrl}/discussion/${shortUrl}/comments/count`;
 
   return fetch(url, {
     headers: {
@@ -215,7 +221,7 @@ export const addUserName = (userName: string): Promise<UserNameResponse> => {
 };
 
 export const pickComment = (commentId: number): Promise<CommentResponse> => {
-  const url = `${baseURL}/comment/${commentId}/highlight`;
+  const url = `${options.baseUrl}/comment/${commentId}/highlight`;
 
   return fetch(url, {
     headers: {
@@ -227,7 +233,7 @@ export const pickComment = (commentId: number): Promise<CommentResponse> => {
 };
 
 export const unPickComment = (commentId: number): Promise<CommentResponse> => {
-  const url = `${baseURL}/comment/${commentId}/unhighlight`;
+  const url = `${options.baseUrl}/comment/${commentId}/unhighlight`;
 
   return fetch(url, {
     headers: {

@@ -96,6 +96,7 @@ const commentDataThreaded: CommentType = {
 
 export const defaultStory = () => (
   <CommentContainer
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
     shortUrl="randomShortURL"
@@ -109,6 +110,7 @@ defaultStory.story = { name: "default" };
 
 export const threadedComment = () => (
   <CommentContainer
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentDataThreaded}
     pillar={"lifestyle"}
     shortUrl="randomShortURL"
@@ -122,6 +124,7 @@ threadedComment.story = { name: "threaded" };
 
 export const replyableComment = () => (
   <CommentContainer
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentDataThreaded}
     pillar="lifestyle"
     shortUrl="randomShortURL"

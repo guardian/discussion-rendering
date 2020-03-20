@@ -8,7 +8,10 @@ import { CommentForm } from "../CommentForm/CommentForm";
 import { Comment } from "../Comment/Comment";
 import { CommentReplyPreview } from "../CommentReplyPreview/CommentReplyPreview";
 
+import { joinUrl } from "../../lib/joinUrl";
+
 type Props = {
+  baseUrl: string;
   comment: CommentType;
   pillar: Pillar;
   shortUrl: string;
@@ -79,6 +82,7 @@ const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 );
 
 export const CommentContainer = ({
+  baseUrl,
   comment,
   pillar,
   onAddComment,
@@ -109,7 +113,8 @@ export const CommentContainer = ({
   const expand = (commentId: number) => {
     setLoading(true);
     fetch(
-      `https://discussion.theguardian.com/discussion-api/comment/${commentId}?displayThreaded=true&displayResponses=true`
+      joinUrl([baseUrl, "comment", commentId.toString()]) +
+        "?displayThreaded=true&displayResponses=true"
     )
       .then(response => response.json())
       .then(json => {
@@ -124,6 +129,7 @@ export const CommentContainer = ({
   return (
     <>
       <Comment
+        baseUrl={baseUrl}
         comment={comment}
         pillar={pillar}
         setCommentBeingRepliedTo={setCommentBeingRepliedTo}
@@ -138,6 +144,7 @@ export const CommentContainer = ({
               {responses.map(responseComment => (
                 <li key={responseComment.id}>
                   <Comment
+                    baseUrl={baseUrl}
                     comment={responseComment}
                     pillar={pillar}
                     setCommentBeingRepliedTo={setCommentBeingRepliedTo}

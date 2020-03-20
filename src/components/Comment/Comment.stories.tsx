@@ -72,6 +72,7 @@ const staffUser = {
 
 export const Default = () => (
   <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
@@ -82,6 +83,7 @@ Default.story = { name: "Default" };
 
 export const ReplyComment = () => (
   <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
@@ -92,6 +94,7 @@ Default.story = { name: "Reply Default" };
 
 export const UnpickedComment = () => (
   <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
@@ -102,6 +105,7 @@ UnpickedComment.story = { name: "Unpicked Comment" };
 
 export const PickedComment = () => (
   <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={{
       ...commentData,
       isHighlighted: true
@@ -115,6 +119,7 @@ PickedComment.story = { name: "Picked Comment" };
 
 export const StaffUserComment = () => (
   <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentStaffData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
@@ -125,6 +130,7 @@ StaffUserComment.story = { name: "Staff User Comment" };
 
 export const PickedStaffUserComment = () => (
   <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={{
       ...commentStaffData,
       isHighlighted: true
@@ -138,6 +144,7 @@ PickedStaffUserComment.story = { name: "Picked Staff User Comment" };
 
 export const LoggedInAsModerator = () => (
   <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
@@ -149,6 +156,7 @@ LoggedInAsModerator.story = { name: "Logged in as moderator" };
 
 export const BlockedComment = () => (
   <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={blockedCommentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}

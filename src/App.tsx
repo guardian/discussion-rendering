@@ -120,7 +120,7 @@ const readFiltersFromLocalStorage = (): FilterOptions => {
   };
 };
 
-export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
+export const App = ({ baseUrl, shortUrl, user, additionalHeaders }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     readFiltersFromLocalStorage()
   );
@@ -208,7 +208,7 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
     setComments([simulateNewComment(commentId, body, user), ...comments]);
   };
 
-  initialiseApi({ additionalHeaders });
+  initialiseApi({ additionalHeaders, baseUrl });
 
   const showPagination = totalPages > 1;
 
@@ -224,7 +224,9 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
         )}
         {picks && picks.length ? (
           <div className={picksWrapper}>
-            {!!picks.length && <TopPicks comments={picks.slice(0, 2)} />}
+            {!!picks.length && (
+              <TopPicks baseUrl={baseUrl} comments={picks.slice(0, 2)} />
+            )}
           </div>
         ) : (
           <>
@@ -237,6 +239,7 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
                 {comments.slice(0, 2).map(comment => (
                   <li key={comment.id}>
                     <CommentContainer
+                      baseUrl={baseUrl}
                       comment={comment}
                       pillar="news"
                       shortUrl={shortUrl}
@@ -283,7 +286,7 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
           user={user}
         />
       )}
-      {!!picks.length && <TopPicks comments={picks} />}
+      {!!picks.length && <TopPicks baseUrl={baseUrl} comments={picks} />}
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}
@@ -312,6 +315,7 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
           {comments.map(comment => (
             <li key={comment.id}>
               <CommentContainer
+                baseUrl={baseUrl}
                 comment={comment}
                 pillar="news"
                 shortUrl={shortUrl}

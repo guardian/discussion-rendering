@@ -5,15 +5,18 @@ import { space, palette } from "@guardian/src-foundations";
 import { neutral, background } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Pillar, CommentType, UserProfile } from "../../types";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
-import { pickComment, unPickComment } from "../../lib/api";
 import { Avatar } from "../Avatar/Avatar";
 
+import { Pillar, CommentType, UserProfile } from "../../types";
+import { pickComment, unPickComment } from "../../lib/api";
+import { joinUrl } from "../../lib/joinUrl";
+
 type Props = {
+  baseUrl: string;
   user?: UserProfile;
   comment: CommentType;
   pillar: Pillar;
@@ -160,6 +163,7 @@ const ReplyArrow = () => (
 );
 
 export const Comment = ({
+  baseUrl,
   comment,
   pillar,
   setCommentBeingRepliedTo,
@@ -218,7 +222,10 @@ export const Comment = ({
               <Row>
                 <div className={commentProfileName(pillar)}>
                   <a
-                    href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
+                    href={joinUrl([
+                      "https://profile.theguardian.com/user",
+                      comment.userProfile.userId
+                    ])}
                     className={linkStyles}
                   >
                     {comment.userProfile.displayName}
@@ -227,7 +234,15 @@ export const Comment = ({
                 <div className={timestampWrapperStyles}>
                   <Timestamp
                     isoDateTime={comment.isoDateTime}
-                    linkTo={`https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                    linkTo={joinUrl([
+                      // Remove the discussion-api path from the baseUrl
+                      baseUrl
+                        .split("/")
+                        .filter(path => path !== "discussion-api")
+                        .join("/"),
+                      "comment-permalink",
+                      comment.id.toString()
+                    ])}
                   />
                 </div>
               </Row>
