@@ -51,7 +51,7 @@ export const getDiscussion = (
   };
   const params = objAsParams(apiOpts);
 
-  const url = joinUrl([options.baseUrl, "discussion", shortUrl, params]);
+  const url = joinUrl([options.baseUrl, "discussion", shortUrl]) + params;
 
   return fetch(url, {
     headers: {
