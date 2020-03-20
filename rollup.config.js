@@ -25,7 +25,8 @@ module.exports = {
     "@guardian/src-foundations/accessibility",
     "@guardian/src-foundations/palette",
     "@guardian/src-foundations/themes",
-    "@guardian/src-foundations/typography"
+    "@guardian/src-foundations/typography",
+    "prop-types"
   ],
   plugins: [babel({ extensions }), resolve({ extensions }), commonjs()]
 };
