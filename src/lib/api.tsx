@@ -243,3 +243,17 @@ export const unPickComment = (commentId: number): Promise<CommentResponse> => {
     .then(resp => resp.json())
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
+
+export const getMoreResponses = (commentId: number): Promise<any> => {
+  const url =
+    joinUrl([options.baseUrl, "comment", commentId.toString()]) +
+    "?displayThreaded=true&displayResponses=true";
+
+  return fetch(url, {
+    headers: {
+      ...options.headers
+    }
+  })
+    .then(resp => resp.json())
+    .catch(error => console.error(`Error fetching ${url}`, error));
+};

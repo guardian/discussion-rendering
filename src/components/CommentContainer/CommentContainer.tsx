@@ -8,7 +8,7 @@ import { CommentForm } from "../CommentForm/CommentForm";
 import { Comment } from "../Comment/Comment";
 import { CommentReplyPreview } from "../CommentReplyPreview/CommentReplyPreview";
 
-import { joinUrl } from "../../lib/joinUrl";
+import { getMoreResponses } from "../../lib/api";
 
 type Props = {
   baseUrl: string;
@@ -112,12 +112,9 @@ export const CommentContainer = ({
 
   const expand = (commentId: number) => {
     setLoading(true);
-    fetch(
-      joinUrl([baseUrl, "comment", commentId.toString()]) +
-        "?displayThreaded=true&displayResponses=true"
-    )
-      .then(response => response.json())
+    getMoreResponses(commentId)
       .then(json => {
+        console.log("json", json);
         setExpanded(true);
         setResponses(json.comment.responses);
       })
