@@ -13,11 +13,15 @@ import {
 
 const baseURL = "https://discussion.theguardian.com/discussion-api";
 
-let additionalHeaders = {};
+let options = {
+  headers: {}
+};
 
-export const setAdditionalHeaders = (
-  newAdditionalHeader: AdditionalHeadersType
-) => (additionalHeaders = newAdditionalHeader);
+export const initialiseApi = ({
+  additionalHeaders
+}: {
+  additionalHeaders: AdditionalHeadersType;
+}) => (options.headers = additionalHeaders);
 
 const objAsParams = (obj: any): string => {
   const params = Object.keys(obj)
@@ -46,7 +50,7 @@ export const getDiscussion = (
 
   return fetch(url, {
     headers: {
-      ...additionalHeaders
+      ...options.headers
     }
   })
     .then(resp => resp.json())
@@ -63,7 +67,7 @@ export const preview = (body: string): Promise<string> => {
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      ...additionalHeaders
+      ...options.headers
     }
   })
     .then(resp => resp.json())
@@ -77,7 +81,7 @@ export const getProfile = (): Promise<UserProfile> => {
   return fetch(url, {
     credentials: "include",
     headers: {
-      ...additionalHeaders
+      ...options.headers
     }
   })
     .then(resp => resp.json())
@@ -97,7 +101,7 @@ export const comment = (
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      ...additionalHeaders
+      ...options.headers
     },
     credentials: "include"
   }).then(resp => resp.json());
@@ -119,7 +123,7 @@ export const reply = (
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      ...additionalHeaders
+      ...options.headers
     },
     credentials: "include"
   }).then(resp => resp.json());
@@ -130,7 +134,7 @@ export const getPicks = (shortUrl: string): Promise<CommentType[]> => {
 
   return fetch(url, {
     headers: {
-      ...additionalHeaders
+      ...options.headers
     }
   })
     .then(resp => resp.json())
@@ -161,7 +165,7 @@ export const reportAbuse = ({
     body: data,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      ...additionalHeaders
+      ...options.headers
     }
   }).then(resp => resp.json());
 };
@@ -173,7 +177,7 @@ export const recommend = (commentId: number): Promise<boolean> => {
     method: "POST",
     credentials: "include",
     headers: {
-      ...additionalHeaders
+      ...options.headers
     }
   }).then(resp => resp.ok);
 };
@@ -185,7 +189,7 @@ export const getCommentCount = (
 
   return fetch(url, {
     headers: {
-      ...additionalHeaders
+      ...options.headers
     }
   })
     .then(resp => resp.json())
@@ -215,7 +219,7 @@ export const pickComment = (commentId: number): Promise<CommentResponse> => {
 
   return fetch(url, {
     headers: {
-      ...additionalHeaders
+      ...options.headers
     }
   })
     .then(resp => resp.json())
@@ -227,7 +231,7 @@ export const unPickComment = (commentId: number): Promise<CommentResponse> => {
 
   return fetch(url, {
     headers: {
-      ...additionalHeaders
+      ...options.headers
     }
   })
     .then(resp => resp.json())

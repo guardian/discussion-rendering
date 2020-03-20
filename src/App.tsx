@@ -17,7 +17,7 @@ import {
   getDiscussion,
   getCommentCount,
   getPicks,
-  setAdditionalHeaders
+  initialiseApi
 } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
 import { TopPicks } from "./components/TopPicks/TopPicks";
@@ -208,7 +208,7 @@ export const App = ({ shortUrl, user, additionalHeaders }: Props) => {
     setComments([simulateNewComment(commentId, body, user), ...comments]);
   };
 
-  setAdditionalHeaders(additionalHeaders);
+  initialiseApi({ additionalHeaders });
 
   const showPagination = totalPages > 1;
 
