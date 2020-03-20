@@ -121,64 +121,66 @@ const TopPick = ({
   baseUrl: string;
   comment: CommentType;
 }) => (
-  <div className={pickStyles}>
-    <div className={pickComment}>
-      <h3
-        className={css`
+    <div className={pickStyles}>
+      <div className={pickComment}>
+        <h3
+          className={css`
           ${textSans.small()};
           font-weight: bold;
           margin: 0px;
         `}
-      >
-        Guardian Pick
+        >
+          Guardian Pick
       </h3>
-      <p dangerouslySetInnerHTML={{ __html: comment.body }}></p>
-    </div>
-    <div className={pickMetaWrapper}>
-      <div className={userDetails}>
-        <div className={avatarMargin}>
-          <Avatar
-            imageUrl={comment.userProfile.avatar}
-            displayName={""}
-            size="medium"
+        <p dangerouslySetInnerHTML={{ __html: comment.body }}></p>
+      </div>
+      <div className={pickMetaWrapper}>
+        <div className={userDetails}>
+          <div className={avatarMargin}>
+            <Avatar
+              imageUrl={comment.userProfile.avatar}
+              displayName={""}
+              size="medium"
+            />
+          </div>
+          <div className={userMetaStyles}>
+            <span className={userName}>
+              <a
+                href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
+                className={linkStyles}
+              >
+                {comment.userProfile.displayName}
+              </a>
+            </span>
+            <Timestamp
+              isoDateTime={comment.isoDateTime}
+              linkTo={joinUrl([
+                // Remove the discussion-api path from the baseUrl
+                baseUrl
+                  .split("/")
+                  .filter(path => path !== "discussion-api")
+                  .join("/"),
+                "comment-permalink",
+                comment.id.toString()
+              ])}
+            />
+            {!!comment.userProfile.badge.filter(
+              obj => obj["name"] === "Staff"
+            ).length ? (
+                <GuardianStaff />
+              ) : <></>}
+          </div>
+        </div>
+        <div>
+          <RecommendationCount
+            commentId={comment.id}
+            initialCount={comment.numRecommends}
+            alreadyRecommended={false}
           />
         </div>
-        <div className={userMetaStyles}>
-          <span className={userName}>
-            <a
-              href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
-              className={linkStyles}
-            >
-              {comment.userProfile.displayName}
-            </a>
-          </span>
-          <Timestamp
-            isoDateTime={comment.isoDateTime}
-            linkTo={joinUrl([
-              // Remove the discussion-api path from the baseUrl
-              baseUrl
-                .split("/")
-                .filter(path => path !== "discussion-api")
-                .join("/"),
-              "comment-permalink",
-              comment.id.toString()
-            ])}
-          />
-          {comment.userProfile.badge.filter(obj => obj["name"] === "Staff") && (
-            <GuardianStaff />
-          )}
-        </div>
-      </div>
-      <div>
-        <RecommendationCount
-          commentId={comment.id}
-          initialCount={comment.numRecommends}
-          alreadyRecommended={false}
-        />
       </div>
     </div>
-  </div>
-);
+  );
 
 export const TopPicks = ({ baseUrl, comments }: Props) => {
   const leftColComments: CommentType[] = [];
