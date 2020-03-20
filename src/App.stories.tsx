@@ -32,6 +32,7 @@ export const Default = () => (
   >
     <App
       shortUrl="p/39f5z"
+      baseUrl="https://discussion.theguardian.com/discussion-api"
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",

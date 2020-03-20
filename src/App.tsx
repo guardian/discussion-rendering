@@ -27,6 +27,7 @@ import { Pagination } from "./components/Pagination/Pagination";
 
 type Props = {
   shortUrl: string;
+  baseUrl: string;
   user?: UserProfile;
   additionalHeaders: AdditionalHeadersType;
 };
