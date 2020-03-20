@@ -249,18 +249,18 @@ export const Comment = ({
               <Row>
                 {!!comment.userProfile.badge.filter(
                   obj => obj["name"] === "Staff"
-                ) && (
-                  <div className={iconWrapper}>
-                    <GuardianStaff />
-                  </div>
-                )}
+                ).length ? (
+                    <div className={iconWrapper}>
+                      <GuardianStaff />
+                    </div>
+                  ) : <></>}
                 {comment.status !== "blocked" && isHighlighted ? (
                   <div className={iconWrapper}>
                     <GuardianPick />
                   </div>
                 ) : (
-                  <></>
-                )}
+                    <></>
+                  )}
               </Row>
             </Column>
             {comment.status !== "blocked" && (
@@ -310,11 +310,11 @@ export const Comment = ({
               </div>
             </>
           ) : (
-            <p
-              className={cx(blockedCommentStyles, commentLinkStyling)}
-              dangerouslySetInnerHTML={{ __html: comment.body }}
-            />
-          )}
+              <p
+                className={cx(blockedCommentStyles, commentLinkStyling)}
+                dangerouslySetInnerHTML={{ __html: comment.body }}
+              />
+            )}
         </div>
       </div>
     </>
