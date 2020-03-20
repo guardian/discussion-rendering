@@ -114,7 +114,6 @@ export const CommentContainer = ({
     setLoading(true);
     getMoreResponses(commentId)
       .then(json => {
-        console.log("json", json);
         setExpanded(true);
         setResponses(json.comment.responses);
       })
