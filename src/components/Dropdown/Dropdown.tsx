@@ -55,7 +55,7 @@ const ulExpanded = css`
 `;
 
 const linkStyles = css`
-  ${textSans.xsmall()};
+  ${textSans.small()};
   text-align: left;
   color: ${neutral[46]};
   position: relative;
@@ -102,6 +102,7 @@ const activeStyles = (pillar: Pillar) => css`
 `;
 
 const buttonStyles = css`
+${textSans.small({ fontWeight: "medium" })};
   display: block;
   cursor: pointer;
   background: none;
@@ -147,7 +148,7 @@ const expandedStyles = css`
 `;
 
 const labelStyles = css`
-  ${textSans.xsmall({ fontWeight: "bold" })};
+  ${textSans.small({ fontWeight: "bold" })};
   color: ${neutral[46]};
 `;
 

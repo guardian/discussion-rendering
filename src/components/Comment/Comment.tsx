@@ -85,8 +85,7 @@ const avatarMargin = css`
 const commentProfileName = (pillar: Pillar) => css`
   margin-top: 0;
   color: ${palette[pillar][400]};
-  ${textSans.small()};
-  font-weight: bold;
+  ${textSans.small({ fontWeight: "bold" })}
 `;
 
 const commentDetails = css`
@@ -250,17 +249,19 @@ export const Comment = ({
                 {!!comment.userProfile.badge.filter(
                   obj => obj["name"] === "Staff"
                 ).length ? (
-                    <div className={iconWrapper}>
-                      <GuardianStaff />
-                    </div>
-                  ) : <></>}
+                  <div className={iconWrapper}>
+                    <GuardianStaff />
+                  </div>
+                ) : (
+                  <></>
+                )}
                 {comment.status !== "blocked" && isHighlighted ? (
                   <div className={iconWrapper}>
                     <GuardianPick />
                   </div>
                 ) : (
-                    <></>
-                  )}
+                  <></>
+                )}
               </Row>
             </Column>
             {comment.status !== "blocked" && (
@@ -310,11 +311,11 @@ export const Comment = ({
               </div>
             </>
           ) : (
-              <p
-                className={cx(blockedCommentStyles, commentLinkStyling)}
-                dangerouslySetInnerHTML={{ __html: comment.body }}
-              />
-            )}
+            <p
+              className={cx(blockedCommentStyles, commentLinkStyling)}
+              dangerouslySetInnerHTML={{ __html: comment.body }}
+            />
+          )}
         </div>
       </div>
     </>

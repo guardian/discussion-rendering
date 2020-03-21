@@ -79,6 +79,10 @@ const buttonContainerStyles = css`
   }
 `;
 
+const buttonTextStyles = css`
+  ${textSans.small({ fontWeight: "bold" })}
+`;
+
 const headerTextStyles = css`
   margin: 0;
   ${textSans.xsmall()};
@@ -387,7 +391,7 @@ export const CommentForm = ({
         <div className={bottomContainer}>
           <div className={buttonContainerStyles}>
             <Button type="submit" size="small">
-              Post your comment
+              <div className={buttonTextStyles}>Post your comment</div>
             </Button>
             {(isActive || body) && (
               <>
@@ -396,10 +400,10 @@ export const CommentForm = ({
                   onClick={fetchShowPreview}
                   priority="secondary"
                 >
-                  Preview
+                  <div className={buttonTextStyles}>Preview</div>
                 </Button>
                 <Button size="small" onClick={resetForm} priority="tertiary">
-                  Cancel
+                  <div className={buttonTextStyles}>Cancel</div>
                 </Button>
               </>
             )}
