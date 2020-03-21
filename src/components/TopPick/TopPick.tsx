@@ -80,6 +80,12 @@ const linkStyles = css`
   }
 `;
 
+const truncateText = (input: string, limit: number) => {
+  // If input greater than limit trucate by limit and append an ellipsis
+  if (input.length > limit) return input.substr(0, limit) + "&#8230;";
+  return input;
+};
+
 export const TopPick = ({
   baseUrl,
   comment
@@ -98,7 +104,9 @@ export const TopPick = ({
       >
         Guardian Pick
       </h3>
-      <p dangerouslySetInnerHTML={{ __html: comment.body }}></p>
+      <p
+        dangerouslySetInnerHTML={{ __html: truncateText(comment.body, 450) }}
+      ></p>
     </div>
     <div className={pickMetaWrapper}>
       <div className={userDetails}>
