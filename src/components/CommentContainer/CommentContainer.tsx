@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
-import { space, palette } from "@guardian/src-foundations";
+import { space, palette, border } from "@guardian/src-foundations";
 
 import { Pillar, CommentType, UserProfile, ThreadsType } from "../../types";
 import { CommentForm } from "../CommentForm/CommentForm";
@@ -51,6 +51,10 @@ const buttonStyles = (pillar: Pillar) => css`
       fill: ${palette.neutral[46]};
     }
   }
+`;
+
+const topBorder = css`
+  border-top: 1px solid ${border.secondary};
 `;
 
 const commentContainerStyles = css`
@@ -153,21 +157,23 @@ export const CommentContainer = ({
             {!expanded &&
               comment.metaData?.responseCount &&
               comment.metaData?.responseCount > 3 && (
-                <button
-                  onClick={() => expand(comment.id)}
-                  className={buttonStyles(pillar)}
-                >
-                  <Row>
-                    <Plus />
-                    <span
-                      className={css`
-                        margin-left: 4px;
-                      `}
-                    >
-                      {loading ? "loading..." : decideShowMoreText()}
-                    </span>
-                  </Row>
-                </button>
+                <div className={topBorder}>
+                  <button
+                    onClick={() => expand(comment.id)}
+                    className={buttonStyles(pillar)}
+                  >
+                    <Row>
+                      <Plus />
+                      <span
+                        className={css`
+                          margin-left: 4px;
+                        `}
+                      >
+                        {loading ? "loading..." : decideShowMoreText()}
+                      </span>
+                    </Row>
+                  </button>
+                </div>
               )}
           </div>
         )}
