@@ -18,7 +18,6 @@ const filterBar = css`
   padding-top: ${space[1]}px;
   padding-bottom: ${space[2]}px;
 
-  border-bottom: 1px solid ${border.secondary};
   border-top: 1px solid ${border.secondary};
 
   display: flex;

@@ -2,7 +2,7 @@ import React from "react";
 import { css, cx } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
-import { palette, neutral } from "@guardian/src-foundations";
+import { neutral, border, space } from "@guardian/src-foundations";
 import { until } from "@guardian/src-foundations/mq";
 
 import { FilterOptions } from "../../types";
@@ -84,7 +84,7 @@ const paginationWrapper = css`
   width: 100%;
   margin-top: 15px;
   padding-top: 10px;
-  border-top: 1px solid ${palette.neutral[100]};
+  border-top: 1px solid ${border.secondary};
   ${until.mobileLandscape} {
     flex-direction: column;
   }
