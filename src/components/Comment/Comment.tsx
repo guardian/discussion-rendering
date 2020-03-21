@@ -207,7 +207,7 @@ export const Comment = ({
           {error}
         </span>
       )}
-      <div className={commentWrapper}>
+      <div id={`comment-${comment.id}`} className={commentWrapper}>
         <div className={avatarMargin}>
           <Avatar
             imageUrl={comment.userProfile.avatar}
