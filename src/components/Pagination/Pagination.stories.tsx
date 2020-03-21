@@ -8,8 +8,7 @@ export default { component: Pagination, title: "Pagination" };
 const DEFAULT_FILTERS: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,
-  threads: "collapsed",
-  page: 1
+  threads: "collapsed"
 };
 
 export const Default = () => {

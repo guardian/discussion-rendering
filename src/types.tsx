@@ -92,7 +92,6 @@ export interface FilterOptions {
   orderBy: OrderByType;
   pageSize: number;
   threads: ThreadsType;
-  page: number;
 }
 
 export interface UserProfile {
@@ -140,7 +139,7 @@ export interface DiscussionOptions {
   page: number;
 }
 
-export type AdditionalHeadersType = { [key: string]: string }
+export type AdditionalHeadersType = { [key: string]: string };
 
 export type DropdownOptionType = {
   value: string;
