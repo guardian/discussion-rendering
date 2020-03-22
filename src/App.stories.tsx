@@ -63,3 +63,26 @@ export const InitialPage = () => (
   </div>
 );
 InitialPage.story = { name: "with initial page set to 3" };
+
+export const Overrides = () => (
+  <div
+    className={css`
+      width: 100%;
+      max-width: 620px;
+    `}
+  >
+    <App
+      shortUrl="p/39f5z"
+      initialPage={3}
+      pageSizeOverride={20}
+      orderByOverride={"oldest"}
+      baseUrl="https://discussion.theguardian.com/discussion-api"
+      user={aUser}
+      additionalHeaders={{
+        "D2-X-UID": "testD2Header",
+        "GU-Client": "testClientHeader"
+      }}
+    />
+  </div>
+);
+Overrides.story = { name: "with page size overridden to 20" };

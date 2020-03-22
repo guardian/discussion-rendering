@@ -11,7 +11,9 @@ import {
   CommentType,
   FilterOptions,
   UserProfile,
-  AdditionalHeadersType
+  AdditionalHeadersType,
+  PageSizeType,
+  OrderByType
 } from "./types";
 import {
   getDiscussion,
@@ -29,6 +31,8 @@ type Props = {
   shortUrl: string;
   baseUrl: string;
   initialPage?: number;
+  pageSizeOverride?: PageSizeType;
+  orderByOverride?: OrderByType;
   user?: UserProfile;
   additionalHeaders: AdditionalHeadersType;
 };
@@ -95,7 +99,20 @@ const rememberFilters = (filtersToRemember: FilterOptions) => {
   }
 };
 
-const readFiltersFromLocalStorage = (): FilterOptions => {
+const initialiseFilters = (
+  pageSizeOverride?: PageSizeType,
+  orderByOverride?: OrderByType
+) => {
+  const initialisedFilters = initFiltersFromLocalStorage();
+  return {
+    ...initialisedFilters,
+    // Override if prop given
+    pageSize: pageSizeOverride || initialisedFilters.pageSize,
+    orderBy: orderByOverride || initialisedFilters.orderBy
+  };
+};
+
+const initFiltersFromLocalStorage = (): FilterOptions => {
   let threads;
   let pageSize;
   let orderBy;
@@ -123,11 +140,13 @@ export const App = ({
   baseUrl,
   shortUrl,
   initialPage,
+  pageSizeOverride,
+  orderByOverride,
   user,
   additionalHeaders
 }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
-    readFiltersFromLocalStorage()
+    initialiseFilters(pageSizeOverride, orderByOverride)
   );
   const [isPreview, setIsPreview] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
