@@ -197,11 +197,9 @@ export const App = ({
   // an api call is made.
   useEffect(() => {
     if (commentToScrollTo) {
-      console.log("scrolling to ", commentToScrollTo);
       const commentElement = document.getElementById(
         `comment-${commentToScrollTo}`
       );
-      console.log("scroll el", commentElement);
       commentElement && commentElement.scrollIntoView();
     }
   }, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
