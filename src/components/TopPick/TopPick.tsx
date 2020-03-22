@@ -38,7 +38,7 @@ const pickComment = css`
 
   :before {
     content: "";
-    margin-left: 24px;
+    margin-left: ${space[6]}px;
     position: absolute;
     border-right: ${arrowSize}px solid transparent;
     border-top: ${arrowSize}px solid ${bg};
