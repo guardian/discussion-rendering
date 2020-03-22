@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { css } from "emotion";
 
-import { space, palette } from "@guardian/src-foundations";
+import { space, neutral, palette, border } from "@guardian/src-foundations";
 
 import { Pillar, CommentType, UserProfile, ThreadsType } from "../../types";
 import { CommentForm } from "../CommentForm/CommentForm";
@@ -32,7 +32,7 @@ const buttonStyles = (pillar: Pillar) => css`
   margin-top: 12px;
   margin-bottom: 12px;
   cursor: pointer;
-  background: ${palette.neutral[100]};
+  background: ${neutral[100]};
   color: ${palette[pillar][400]};
   height: 24px;
   font-size: 12px;
@@ -40,17 +40,21 @@ const buttonStyles = (pillar: Pillar) => css`
   text-overflow: ellipsis;
   border-radius: 12px;
 
-  border: 1px solid ${palette.neutral[86]};
+  border: 1px solid ${neutral[86]};
   svg {
-    fill: ${palette.neutral[60]};
+    fill: ${neutral[60]};
   }
 
   :hover {
-    border: 1px solid ${palette.neutral[60]};
+    border: 1px solid ${neutral[60]};
     svg {
-      fill: ${palette.neutral[46]};
+      fill: ${neutral[46]};
     }
   }
+`;
+
+const topBorder = css`
+  border-top: 1px solid ${border.secondary};
 `;
 
 const commentContainerStyles = css`
@@ -153,21 +157,23 @@ export const CommentContainer = ({
             {!expanded &&
               comment.metaData?.responseCount &&
               comment.metaData?.responseCount > 3 && (
-                <button
-                  onClick={() => expand(comment.id)}
-                  className={buttonStyles(pillar)}
-                >
-                  <Row>
-                    <Plus />
-                    <span
-                      className={css`
-                        margin-left: 4px;
-                      `}
-                    >
-                      {loading ? "loading..." : decideShowMoreText()}
-                    </span>
-                  </Row>
-                </button>
+                <div className={topBorder}>
+                  <button
+                    onClick={() => expand(comment.id)}
+                    className={buttonStyles(pillar)}
+                  >
+                    <Row>
+                      <Plus />
+                      <span
+                        className={css`
+                          margin-left: 4px;
+                        `}
+                      >
+                        {loading ? "loading..." : decideShowMoreText()}
+                      </span>
+                    </Row>
+                  </button>
+                </div>
               )}
           </div>
         )}

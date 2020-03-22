@@ -47,6 +47,7 @@ const commentContainerStyles = css`
   flex-direction: column;
   list-style-type: none;
   padding-left: 0;
+  margin: 0;
 `;
 
 const picksWrapper = css`

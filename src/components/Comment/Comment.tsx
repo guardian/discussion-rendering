@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { space, palette } from "@guardian/src-foundations";
-import { neutral, background } from "@guardian/src-foundations/palette";
+import { neutral, background, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
@@ -73,7 +73,7 @@ const commentLinkStyling = css`
 `;
 
 const commentWrapper = css`
-  border-bottom: 1px solid ${neutral[86]};
+  border-top: 1px solid ${border.secondary};
   display: flex;
   padding: ${space[2]}px 0;
 `;
@@ -250,17 +250,19 @@ export const Comment = ({
                 {!!comment.userProfile.badge.filter(
                   obj => obj["name"] === "Staff"
                 ).length ? (
-                    <div className={iconWrapper}>
-                      <GuardianStaff />
-                    </div>
-                  ) : <></>}
+                  <div className={iconWrapper}>
+                    <GuardianStaff />
+                  </div>
+                ) : (
+                  <></>
+                )}
                 {comment.status !== "blocked" && isHighlighted ? (
                   <div className={iconWrapper}>
                     <GuardianPick />
                   </div>
                 ) : (
-                    <></>
-                  )}
+                  <></>
+                )}
               </Row>
             </Column>
             {comment.status !== "blocked" && (
@@ -310,11 +312,11 @@ export const Comment = ({
               </div>
             </>
           ) : (
-              <p
-                className={cx(blockedCommentStyles, commentLinkStyling)}
-                dangerouslySetInnerHTML={{ __html: comment.body }}
-              />
-            )}
+            <p
+              className={cx(blockedCommentStyles, commentLinkStyling)}
+              dangerouslySetInnerHTML={{ __html: comment.body }}
+            />
+          )}
         </div>
       </div>
     </>

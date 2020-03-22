@@ -2,7 +2,7 @@ import React from "react";
 import { css, cx } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
-import { palette, neutral } from "@guardian/src-foundations";
+import { neutral, border, space } from "@guardian/src-foundations";
 import { until } from "@guardian/src-foundations/mq";
 
 import { FilterOptions } from "../../types";
@@ -23,13 +23,13 @@ const buttonStyles = (isSelected: boolean) => css`
   border-radius: 62.5rem;
   box-sizing: border-box;
 
-  color: ${isSelected ? palette.neutral[100] : palette.neutral[46]};
-  background-color: ${isSelected ? palette.neutral[46] : palette.neutral[100]};
+  color: ${isSelected ? neutral[100] : neutral[46]};
+  background-color: ${isSelected ? neutral[46] : neutral[100]};
   border: none;
   :hover {
     border-width: 0.0625rem;
     border-style: solid;
-    border-color: ${palette.neutral[46]};
+    border-color: ${neutral[46]};
   }
 
   margin-left: 5px;
@@ -49,17 +49,17 @@ const chevronStyles = (isSelected: boolean) => css`
   border-width: 0.0625rem;
   border-style: solid;
   box-sizing: border-box;
-  background-color: ${isSelected ? palette.neutral[46] : palette.neutral[100]};
-  border-color: ${palette.neutral[86]};
+  background-color: ${isSelected ? neutral[46] : neutral[100]};
+  border-color: ${neutral[86]};
   :hover {
-    border-color: ${palette.neutral[60]};
+    border-color: ${neutral[60]};
   }
   height: 1.5rem;
   padding: 0 0.5rem;
   margin-left: 5px;
 
   > svg {
-    fill: ${isSelected ? palette.neutral[100] : palette.neutral[46]};
+    fill: ${isSelected ? neutral[100] : neutral[46]};
   }
 `;
 
@@ -82,9 +82,9 @@ const paginationWrapper = css`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px solid ${palette.neutral[100]};
+  padding-top: ${space[2]}px;
+  padding-bottom: ${space[2]}px;
+  border-top: 1px solid ${border.secondary};
   ${until.mobileLandscape} {
     flex-direction: column;
   }
