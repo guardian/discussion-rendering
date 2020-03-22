@@ -12,7 +12,8 @@ import {
   FilterOptions,
   UserProfile,
   AdditionalHeadersType,
-  PageSizeType
+  PageSizeType,
+  OrderByType
 } from "./types";
 import {
   getDiscussion,
@@ -31,6 +32,7 @@ type Props = {
   baseUrl: string;
   initialPage?: number;
   pageSizeOverride?: PageSizeType;
+  orderByOverride?: OrderByType;
   user?: UserProfile;
   additionalHeaders: AdditionalHeadersType;
 };
@@ -97,12 +99,16 @@ const rememberFilters = (filtersToRemember: FilterOptions) => {
   }
 };
 
-const initialiseFilters = (pageSizeOverride?: PageSizeType) => {
+const initialiseFilters = (
+  pageSizeOverride?: PageSizeType,
+  orderByOverride?: OrderByType
+) => {
   const initialisedFilters = initFiltersFromLocalStorage();
   return {
     ...initialisedFilters,
-    // Override pageSize if this prop was given
-    pageSize: pageSizeOverride || initialisedFilters.pageSize
+    // Override if prop given
+    pageSize: pageSizeOverride || initialisedFilters.pageSize,
+    orderBy: orderByOverride || initialisedFilters.orderBy
   };
 };
 
@@ -135,11 +141,12 @@ export const App = ({
   shortUrl,
   initialPage,
   pageSizeOverride,
+  orderByOverride,
   user,
   additionalHeaders
 }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
-    initialiseFilters(pageSizeOverride)
+    initialiseFilters(pageSizeOverride, orderByOverride)
   );
   const [isPreview, setIsPreview] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -180,24 +187,6 @@ export const App = ({
     };
     fetchPicks();
   }, [shortUrl]);
-
-  // Check the url to see if there is a hash ref to a comment and if
-  // so, scroll to the div with this id.
-  // We need to do this in javascript like this because the comments list isn't
-  // loaded on the inital page load and only gets added to the dom later after
-  // an api call is made.
-  useEffect(() => {
-    const commentIdFromUrl = () => {
-      const { hash } = window.location;
-      return hash && hash.includes("comment") && hash.split("-")[1];
-    };
-
-    const commentId = commentIdFromUrl();
-    if (commentId) {
-      const commentElement = document.getElementById(`comment-${commentId}`);
-      commentElement && commentElement.scrollIntoView();
-    }
-  }, [comments]); // Add comments to deps so we rerun this effect when comments are loaded
 
   const onFilterChange = (newFilterObject: FilterOptions) => {
     rememberFilters(newFilterObject);
@@ -355,6 +344,7 @@ export const App = ({
               <CommentContainer
                 baseUrl={baseUrl}
                 comment={comment}
+                commentToScrollTo={commentToScrollTo}
                 pillar="news"
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
