@@ -38,6 +38,7 @@ export const Default = () => (
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
       }}
+      expanded={false}
     />
   </div>
 );
@@ -59,6 +60,7 @@ export const InitialPage = () => (
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
       }}
+      expanded={false}
     />
   </div>
 );
@@ -82,7 +84,30 @@ export const Overrides = () => (
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
       }}
+      expanded={false}
     />
   </div>
 );
 Overrides.story = { name: "with page size overridden to 20" };
+
+export const Expanded = () => (
+  <div
+    className={css`
+      width: 100%;
+      max-width: 620px;
+    `}
+  >
+    <App
+      shortUrl="p/39f5z"
+      initialPage={3}
+      baseUrl="https://discussion.theguardian.com/discussion-api"
+      user={aUser}
+      additionalHeaders={{
+        "D2-X-UID": "testD2Header",
+        "GU-Client": "testClientHeader"
+      }}
+      expanded={true}
+    />
+  </div>
+);
+Expanded.story = { name: "expanded by default and on page 3" };

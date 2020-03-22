@@ -11,6 +11,7 @@ ReactDOM.render(
       "D2-X-UID": "testD2Header",
       "GU-Client": "testClientHeader"
     }}
+    expanded={false}
   />,
   document.getElementById("root")
 );
