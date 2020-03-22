@@ -1,7 +1,8 @@
 import { joinUrl } from "./joinUrl";
 
 import {
-  FilterOptions,
+  OrderByType,
+  ThreadsType,
   DiscussionResponse,
   DiscussionOptions,
   UserProfile,
@@ -40,7 +41,12 @@ const objAsParams = (obj: any): string => {
 
 export const getDiscussion = (
   shortUrl: string,
-  opts: FilterOptions
+  opts: {
+    orderBy: OrderByType;
+    pageSize: number;
+    threads: ThreadsType;
+    page: number;
+  }
 ): Promise<DiscussionResponse> => {
   const apiOpts: DiscussionOptions = {
     orderBy: opts.orderBy,

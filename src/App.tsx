@@ -28,6 +28,7 @@ import { Pagination } from "./components/Pagination/Pagination";
 type Props = {
   shortUrl: string;
   baseUrl: string;
+  initialPage?: number;
   user?: UserProfile;
   additionalHeaders: AdditionalHeadersType;
 };
@@ -65,8 +66,7 @@ const viewMoreButtonContentStyles = css`
 const DEFAULT_FILTERS: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,
-  threads: "collapsed",
-  page: 1
+  threads: "collapsed"
 };
 
 const PlusSVG = () => (
@@ -115,18 +115,24 @@ const readFiltersFromLocalStorage = (): FilterOptions => {
   return {
     orderBy: orderBy ? JSON.parse(orderBy).value : DEFAULT_FILTERS.orderBy,
     threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
-    pageSize: pageSize ? JSON.parse(pageSize).value : DEFAULT_FILTERS.pageSize,
-    page: DEFAULT_FILTERS.page
+    pageSize: pageSize ? JSON.parse(pageSize).value : DEFAULT_FILTERS.pageSize
   };
 };
 
-export const App = ({ baseUrl, shortUrl, user, additionalHeaders }: Props) => {
+export const App = ({
+  baseUrl,
+  shortUrl,
+  initialPage,
+  user,
+  additionalHeaders
+}: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     readFiltersFromLocalStorage()
   );
   const [isPreview, setIsPreview] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [page, setPage] = useState<number>(initialPage || 1);
   const [picks, setPicks] = useState<CommentType[]>([]);
   const [commentBeingRepliedTo, setCommentBeingRepliedTo] = useState<
     CommentType
@@ -136,14 +142,14 @@ export const App = ({ baseUrl, shortUrl, user, additionalHeaders }: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    getDiscussion(shortUrl, filters).then(json => {
+    getDiscussion(shortUrl, { ...filters, page }).then(json => {
       setLoading(false);
       if (json?.status !== "error") {
         setComments(json?.discussion?.comments);
       }
       setTotalPages(json?.pages);
     });
-  }, [filters, shortUrl]);
+  }, [filters, page, shortUrl]);
 
   useEffect(() => {
     setLoading(true);
@@ -166,6 +172,10 @@ export const App = ({ baseUrl, shortUrl, user, additionalHeaders }: Props) => {
   const onFilterChange = (newFilterObject: FilterOptions) => {
     rememberFilters(newFilterObject);
     setFilters(newFilterObject);
+  };
+
+  const onPageChange = (page: number) => {
+    setPage(page);
   };
 
   const onAddComment = (commentId: number, body: string, user: UserProfile) => {
@@ -296,12 +306,9 @@ export const App = ({ baseUrl, shortUrl, user, additionalHeaders }: Props) => {
       {showPagination && (
         <Pagination
           totalPages={totalPages}
-          currentPage={filters.page}
-          setCurrentPage={(page: number) => {
-            onFilterChange({
-              ...filters,
-              page
-            });
+          currentPage={page}
+          setCurrentPage={(newPage: number) => {
+            onPageChange(newPage);
           }}
           commentCount={commentCount}
           filters={filters}
@@ -334,12 +341,9 @@ export const App = ({ baseUrl, shortUrl, user, additionalHeaders }: Props) => {
         <footer className={footerStyles}>
           <Pagination
             totalPages={totalPages}
-            currentPage={filters.page}
-            setCurrentPage={(page: number) => {
-              setFilters({
-                ...filters,
-                page: page
-              });
+            currentPage={page}
+            setCurrentPage={(newPage: number) => {
+              onPageChange(newPage);
             }}
             commentCount={commentCount}
             filters={filters}

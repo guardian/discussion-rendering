@@ -10,8 +10,7 @@ export const Default = () => {
   const [filters, setFilters] = useState<FilterOptions>({
     orderBy: "newest",
     pageSize: 5,
-    threads: "collapsed",
-    page: 1
+    threads: "collapsed"
   });
   return (
     <Filters filters={filters} onFilterChange={setFilters} totalPages={5} />

@@ -42,3 +42,24 @@ export const Default = () => (
   </div>
 );
 Default.story = { name: "default" };
+
+export const InitialPage = () => (
+  <div
+    className={css`
+      width: 100%;
+      max-width: 620px;
+    `}
+  >
+    <App
+      shortUrl="p/39f5z"
+      initialPage={3}
+      baseUrl="https://discussion.theguardian.com/discussion-api"
+      user={aUser}
+      additionalHeaders={{
+        "D2-X-UID": "testD2Header",
+        "GU-Client": "testClientHeader"
+      }}
+    />
+  </div>
+);
+InitialPage.story = { name: "with initial page set to 3" };
