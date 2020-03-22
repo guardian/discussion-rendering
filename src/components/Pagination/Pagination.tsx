@@ -97,6 +97,7 @@ const paginationSelectors = css`
 `;
 
 const paginationText = css`
+  ${textSans.small()};
   margin-left: 5px;
   ${until.mobileLandscape} {
     padding-top: 10px;

@@ -4,7 +4,7 @@ import { css } from "emotion";
 import "regenerator-runtime/runtime";
 
 import { Button } from "@guardian/src-button";
-import { neutral } from "@guardian/src-foundations/palette";
+import { neutral, space } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import {
@@ -59,7 +59,6 @@ const picksWrapper = css`
 const viewMoreButtonContentStyles = css`
   display: flex;
   flex-direction: row;
-  ${textSans.medium({ fontWeight: "bold" })};
   fill: ${neutral[86]};
 `;
 
@@ -267,7 +266,8 @@ export const App = ({ baseUrl, shortUrl, user, additionalHeaders }: Props) => {
             </div>
             <div
               className={css`
-                padding-left: 10px;
+                ${textSans.small({ fontWeight: "bold" })}
+                padding-left: ${space[1]}px;
               `}
             >
               View more comments

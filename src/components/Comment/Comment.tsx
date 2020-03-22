@@ -85,8 +85,7 @@ const avatarMargin = css`
 const commentProfileName = (pillar: Pillar) => css`
   margin-top: 0;
   color: ${palette[pillar][400]};
-  ${textSans.small()};
-  font-weight: bold;
+  ${textSans.small({ fontWeight: "bold" })}
 `;
 
 const commentDetails = css`
