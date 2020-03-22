@@ -9,7 +9,7 @@ export default { title: "Filters" };
 export const Default = () => {
   const [filters, setFilters] = useState<FilterOptions>({
     orderBy: "newest",
-    pageSize: 5,
+    pageSize: 25,
     threads: "collapsed"
   });
   return (

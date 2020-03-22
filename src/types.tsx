@@ -87,10 +87,10 @@ export type UserNameResponse = {
 
 export type OrderByType = "newest" | "oldest" | "mostrecommended";
 export type ThreadsType = "collapsed" | "expanded" | "unthreaded";
-
+export type PageSizeType = 20 | 25 | 50 | 100;
 export interface FilterOptions {
   orderBy: OrderByType;
-  pageSize: number;
+  pageSize: PageSizeType;
   threads: ThreadsType;
 }
 

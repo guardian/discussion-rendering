@@ -6,7 +6,12 @@ import { border } from "@guardian/src-foundations/palette";
 
 import { Dropdown } from "../Dropdown/Dropdown";
 
-import { FilterOptions, OrderByType, ThreadsType } from "../../types";
+import {
+  FilterOptions,
+  OrderByType,
+  ThreadsType,
+  PageSizeType
+} from "../../types";
 
 type Props = {
   filters: FilterOptions;
@@ -83,6 +88,11 @@ export const Filters = ({ filters, onFilterChange, totalPages }: Props) => (
         pillar="news"
         options={[
           {
+            title: "20",
+            value: "20",
+            isActive: filters.pageSize === 20
+          },
+          {
             title: "25",
             value: "25",
             isActive: filters.pageSize === 25
@@ -101,7 +111,7 @@ export const Filters = ({ filters, onFilterChange, totalPages }: Props) => (
         onSelect={value =>
           onFilterChange({
             ...filters,
-            pageSize: parseInt(value) as number
+            pageSize: parseInt(value) as PageSizeType
           })
         }
       />
