@@ -190,6 +190,22 @@ export const App = ({
     fetchPicks();
   }, [shortUrl]);
 
+  // If these override props are updated we want to respect them
+  useEffect(() => {
+    setFilters(oldFilters => {
+      return {
+        ...oldFilters,
+        orderBy: orderByOverride ? orderByOverride : oldFilters.orderBy,
+        pageSize: pageSizeOverride ? pageSizeOverride : oldFilters.pageSize
+      };
+    });
+  }, [pageSizeOverride, orderByOverride]);
+
+  // Keep initialPage prop in sync with page
+  useEffect(() => {
+    if (initialPage) setPage(initialPage);
+  }, [initialPage]);
+
   // Check the url to see if there is a hash ref to a comment and if
   // so, scroll to the div with this id.
   // We need to do this in javascript like this because the comments list isn't
