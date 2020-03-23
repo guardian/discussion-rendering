@@ -30,6 +30,7 @@ import { Pagination } from "./components/Pagination/Pagination";
 type Props = {
   shortUrl: string;
   baseUrl: string;
+  commentToScrollTo?: number;
   initialPage?: number;
   pageSizeOverride?: PageSizeType;
   orderByOverride?: OrderByType;
@@ -141,6 +142,7 @@ export const App = ({
   baseUrl,
   shortUrl,
   initialPage,
+  commentToScrollTo,
   pageSizeOverride,
   orderByOverride,
   user,
@@ -206,23 +208,19 @@ export const App = ({
     if (initialPage) setPage(initialPage);
   }, [initialPage]);
 
-  // Check the url to see if there is a hash ref to a comment and if
+  // Check if there is a comment to scroll to and if
   // so, scroll to the div with this id.
   // We need to do this in javascript like this because the comments list isn't
-  // loaded on the inital page load and only gets added to the dom later after
+  // loaded on the inital page load and only gets added to the dom later, after
   // an api call is made.
   useEffect(() => {
-    const commentIdFromUrl = () => {
-      const { hash } = window.location;
-      return hash && hash.includes("comment") && hash.split("-")[1];
-    };
-
-    const commentId = commentIdFromUrl();
-    if (commentId) {
-      const commentElement = document.getElementById(`comment-${commentId}`);
+    if (commentToScrollTo) {
+      const commentElement = document.getElementById(
+        `comment-${commentToScrollTo}`
+      );
       commentElement && commentElement.scrollIntoView();
     }
-  }, [comments]); // Add comments to deps so we rerun this effect when comments are loaded
+  }, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
 
   const onFilterChange = (newFilterObject: FilterOptions) => {
     rememberFilters(newFilterObject);
