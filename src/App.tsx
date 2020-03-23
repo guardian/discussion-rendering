@@ -36,6 +36,7 @@ type Props = {
   orderByOverride?: OrderByType;
   user?: UserProfile;
   additionalHeaders: AdditionalHeadersType;
+  expanded: boolean;
 };
 
 const containerStyles = css`
@@ -145,12 +146,13 @@ export const App = ({
   pageSizeOverride,
   orderByOverride,
   user,
-  additionalHeaders
+  additionalHeaders,
+  expanded
 }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     initialiseFilters(pageSizeOverride, orderByOverride)
   );
-  const [isPreview, setIsPreview] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [page, setPage] = useState<number>(initialPage || 1);
@@ -189,6 +191,22 @@ export const App = ({
     };
     fetchPicks();
   }, [shortUrl]);
+
+  // If these override props are updated we want to respect them
+  useEffect(() => {
+    setFilters(oldFilters => {
+      return {
+        ...oldFilters,
+        orderBy: orderByOverride ? orderByOverride : oldFilters.orderBy,
+        pageSize: pageSizeOverride ? pageSizeOverride : oldFilters.pageSize
+      };
+    });
+  }, [pageSizeOverride, orderByOverride]);
+
+  // Keep initialPage prop in sync with page
+  useEffect(() => {
+    if (initialPage) setPage(initialPage);
+  }, [initialPage]);
 
   // Check if there is a comment to scroll to and if
   // so, scroll to the div with this id.
@@ -257,7 +275,7 @@ export const App = ({
 
   const showPagination = totalPages > 1;
 
-  if (isPreview) {
+  if (!isExpanded) {
     return (
       <div className={commentContainerStyles}>
         {user && (
@@ -305,7 +323,7 @@ export const App = ({
             width: 250px;
           `}
         >
-          <Button size="small" onClick={() => setIsPreview(false)}>
+          <Button size="small" onClick={() => setIsExpanded(true)}>
             <div className={viewMoreButtonContentStyles}>
               <PlusSVG />
             </div>
