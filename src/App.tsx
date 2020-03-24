@@ -26,6 +26,7 @@ import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
 import { Pagination } from "./components/Pagination/Pagination";
+import { LoadingComments } from "./components/LoadingComments/LoadingComments";
 
 type Props = {
   shortUrl: string;
@@ -294,7 +295,7 @@ export const App = ({
         ) : (
           <>
             {loading ? (
-              <p>TODO loading component goes here...</p>
+              <LoadingComments />
             ) : !comments.length ? (
               <p>TODO: No comment component goes here</p>
             ) : (
@@ -368,7 +369,7 @@ export const App = ({
         />
       )}
       {loading ? (
-        <p>TODO loading component goes here...</p>
+        <LoadingComments />
       ) : !comments.length ? (
         <p>TODO: No comment component goes here</p>
       ) : (
