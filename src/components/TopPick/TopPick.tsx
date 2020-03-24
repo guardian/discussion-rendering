@@ -1,9 +1,10 @@
 import React from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 
 import { from } from "@guardian/src-foundations/mq";
 import { space, neutral, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
+import { Link } from "@guardian/src-link";
 
 import { GuardianStaff } from "../Badges/Badges";
 import { CommentType } from "../../types";
@@ -12,7 +13,10 @@ import { RecommendationCount } from "../RecommendationCount/RecommendationCount"
 import { Timestamp } from "../Timestamp/Timestamp";
 import { joinUrl } from "../../lib/joinUrl";
 
-type Props = { baseUrl: string; comments: CommentType[] };
+type Props = {
+  baseUrl: string;
+  comment: CommentType;
+};
 
 const pickStyles = css`
   width: 100%;
@@ -26,6 +30,7 @@ const arrowSize = 25;
 const bg = neutral[93];
 
 const pickComment = css`
+  display: flex;
   padding: ${space[3]}px;
   background-color: ${bg};
   border-radius: 15px;
@@ -72,13 +77,39 @@ const avatarMargin = css`
 `;
 
 const linkStyles = css`
-  color: inherit;
-
   text-decoration: none;
   :hover {
     text-decoration: underline;
   }
 `;
+
+const inheritColour = css`
+  color: inherit;
+`;
+
+const SpaceBetween = ({
+  children
+}: {
+  children: JSX.Element | JSX.Element[];
+}) => (
+  <div
+    className={css`
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    `}
+  >
+    {children}
+  </div>
+);
+
+const Top = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div>{children}</div>
+);
+
+const Bottom = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div>{children}</div>
+);
 
 const truncateText = (input: string, limit: number) => {
   // If input greater than limit trucate by limit and append an ellipsis
@@ -86,27 +117,44 @@ const truncateText = (input: string, limit: number) => {
   return input;
 };
 
-export const TopPick = ({
-  baseUrl,
-  comment
-}: {
-  baseUrl: string;
-  comment: CommentType;
-}) => (
+export const TopPick = ({ baseUrl, comment }: Props) => (
   <div className={pickStyles}>
     <div className={pickComment}>
-      <h3
-        className={css`
-          ${textSans.small()};
-          font-weight: bold;
-          margin: 0px;
-        `}
-      >
-        Guardian Pick
-      </h3>
-      <p
-        dangerouslySetInnerHTML={{ __html: truncateText(comment.body, 450) }}
-      ></p>
+      <SpaceBetween>
+        <Top>
+          <h3
+            className={css`
+              ${textSans.small()};
+              font-weight: bold;
+              margin: 0px;
+            `}
+          >
+            Guardian Pick
+          </h3>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: truncateText(comment.body, 450)
+            }}
+          ></p>
+        </Top>
+        <Bottom>
+          <Link
+            priority="primary"
+            subdued={true}
+            href={joinUrl([
+              // Remove the discussion-api path from the baseUrl
+              baseUrl
+                .split("/")
+                .filter(path => path !== "discussion-api")
+                .join("/"),
+              "comment-permalink",
+              comment.id.toString()
+            ])}
+          >
+            Jump to comment
+          </Link>
+        </Bottom>
+      </SpaceBetween>
     </div>
     <div className={pickMetaWrapper}>
       <div className={userDetails}>
@@ -121,7 +169,7 @@ export const TopPick = ({
           <span className={userName}>
             <a
               href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
-              className={linkStyles}
+              className={cx(linkStyles, inheritColour)}
             >
               {comment.userProfile.displayName}
             </a>
