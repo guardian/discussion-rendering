@@ -58,6 +58,8 @@ const pickBoxStyles = css`
     border-top: 26px solid ${BACKGROUND_COLOUR};
     bottom: -26px;
   }
+
+  ${shimmerStyles}
 `;
 
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
