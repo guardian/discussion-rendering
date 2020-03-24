@@ -12,7 +12,10 @@ import { RecommendationCount } from "../RecommendationCount/RecommendationCount"
 import { Timestamp } from "../Timestamp/Timestamp";
 import { joinUrl } from "../../lib/joinUrl";
 
-type Props = { baseUrl: string; comments: CommentType[] };
+type Props = {
+  baseUrl: string;
+  comment: CommentType;
+};
 
 const pickStyles = css`
   width: 100%;
@@ -86,13 +89,7 @@ const truncateText = (input: string, limit: number) => {
   return input;
 };
 
-export const TopPick = ({
-  baseUrl,
-  comment
-}: {
-  baseUrl: string;
-  comment: CommentType;
-}) => (
+export const TopPick = ({ baseUrl, comment }: Props) => (
   <div className={pickStyles}>
     <div className={pickComment}>
       <h3
