@@ -2,8 +2,9 @@ import React from "react";
 import { css, cx } from "emotion";
 
 import { from } from "@guardian/src-foundations/mq";
-import { space, neutral, palette, brandAlt } from "@guardian/src-foundations";
+import { space, neutral, palette } from "@guardian/src-foundations";
 import { textSans } from "@guardian/src-foundations/typography";
+import { Link } from "@guardian/src-link";
 
 import { GuardianStaff } from "../Badges/Badges";
 import { CommentType } from "../../types";
@@ -137,8 +138,9 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
           ></p>
         </Top>
         <Bottom>
-          <a
-            className={linkStyles}
+          <Link
+            priority="primary"
+            subdued={true}
             href={joinUrl([
               // Remove the discussion-api path from the baseUrl
               baseUrl
@@ -150,7 +152,7 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
             ])}
           >
             Jump to comment
-          </a>
+          </Link>
         </Bottom>
       </SpaceBetween>
     </div>

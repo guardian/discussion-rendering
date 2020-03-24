@@ -1842,6 +1842,13 @@
     "@guardian/src-helpers" "^0.15.1"
     "@guardian/src-svgs" "^0.15.1"
 
+"@guardian/src-link@^0.15.1":
+  version "0.15.1"
+  resolved "https://registry.yarnpkg.com/@guardian/src-link/-/src-link-0.15.1.tgz#2b5c196e9c57ac7a920d630ef7c47cacbefa9997"
+  integrity sha512-WZHHoFSd+vx1CU01M5lWAob3lrnNzIoPH00M5cxL5mXvl/3911l2WeiwMGC46MZkmZvHQ+ju3b4khk9nuBDFeA==
+  dependencies:
+    "@guardian/src-helpers" "^0.15.1"
+
 "@guardian/src-svgs@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@guardian/src-svgs/-/src-svgs-0.1.0.tgz#18eb61504ab8535dbd235f1d33447059f881f404"
