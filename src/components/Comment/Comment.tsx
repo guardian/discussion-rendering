@@ -4,6 +4,7 @@ import { css, cx } from "emotion";
 import { space, palette } from "@guardian/src-foundations";
 import { neutral, background, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
+import { until, from } from "@guardian/src-foundations/mq";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
@@ -72,42 +73,9 @@ const commentLinkStyling = css`
   }
 `;
 
-const commentWrapper = css`
-  border-top: 1px solid ${border.secondary};
-  display: flex;
-  padding: ${space[2]}px 0;
-`;
-
-const avatarMargin = css`
-  margin-right: ${space[2]}px;
-`;
-
-const commentProfileName = (pillar: Pillar) => css`
-  margin-top: 0;
-  color: ${palette[pillar][400]};
-  ${textSans.small({ fontWeight: "bold" })}
-`;
-
-const commentDetails = css`
-  flex-grow: 1;
-`;
-
-const headerStyles = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
 const iconWrapper = css`
   padding: 2px;
   white-space: nowrap;
-`;
-
-const timestampWrapperStyles = css`
-  margin-left: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `;
 
 const linkStyles = css`
@@ -123,31 +91,14 @@ const flexRowStyles = css`
   flex-direction: row;
 `;
 
+const flexColStyles = css`
+  display: flex;
+  flex-direction: column;
+`;
+
 const removePaddingLeft = css`
   padding-left: 0px;
 `;
-
-const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-    `}
-  >
-    {children}
-  </div>
-);
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
-);
 
 const ReplyArrow = () => (
   <svg
@@ -160,6 +111,79 @@ const ReplyArrow = () => (
     <path d="M10.1 5l.9-1 4 4.5v1L11 14l-.9-1 2.5-3H4L3 9V6.5h2V8h7.6l-2.5-3z"></path>
   </svg>
 );
+
+const avatarWidthUntil = {
+  default: 50,
+  tablet: 35,
+}
+const avatarStyles = css`
+  grid-area: avatar;
+  margin-right: ${space[2]}px;
+  width: ${avatarWidthUntil.default}px;
+  ${until.tablet}{
+    width: ${avatarWidthUntil.tablet}px;
+  }
+`;
+
+const commentWrapper = css`
+  border-top: 1px solid ${border.secondary};
+  padding: ${space[2]}px 0;
+
+  display: grid;
+
+  grid-template-columns: ${avatarWidthUntil.default}px auto;
+  grid-template-areas:
+    'avatar commentMeta upVote'
+    'avatar badges .'
+    'avatar comment comment';
+
+  ${until.tablet} {
+    grid-template-columns: ${avatarWidthUntil.tablet}px auto;
+    grid-template-areas:
+      'avatar commentMeta upVote'
+      'badges . .'
+      'comment comment comment';
+  }
+`;
+
+const commentStyles = css`
+  grid-area: comment;
+  flex-grow: 1;
+`;
+
+const userNameStyles = (pillar: Pillar) => css`
+  grid-area: userName;
+  margin-top: 0;
+  color: ${palette[pillar][400]};
+  ${textSans.small({ fontWeight: "bold" })}
+`;
+
+const timestampWrapperStyles = css`
+  grid-area: timeStamp;
+  ${from.tablet} {
+    margin-left: 10px;
+  }
+`;
+
+const badgesWrapperStyles = css`
+  grid-area: badges;
+`;
+
+const upVoteStyles = css`
+  grid-area: upVote;
+  float: right;
+`;
+
+const commentMeta = css`
+  grid-area: commentMeta;
+  margin-left: 0px;
+  ${flexRowStyles}
+  
+  ${until.tablet} {
+    margin-left: 10px;
+    ${flexColStyles}
+  }
+`
 
 export const Comment = ({
   baseUrl,
@@ -207,7 +231,7 @@ export const Comment = ({
         </span>
       )}
       <div id={`comment-${comment.id}`} className={commentWrapper}>
-        <div className={avatarMargin}>
+        <div className={avatarStyles}>
           <Avatar
             imageUrl={comment.userProfile.avatar}
             displayName={comment.userProfile.displayName}
@@ -215,55 +239,59 @@ export const Comment = ({
           />
         </div>
 
-        <div className={commentDetails}>
-          <header className={headerStyles}>
-            <Column>
-              <Row>
-                <div className={commentProfileName(pillar)}>
-                  <a
-                    href={joinUrl([
-                      "https://profile.theguardian.com/user",
-                      comment.userProfile.userId
-                    ])}
-                    className={linkStyles}
-                  >
-                    {comment.userProfile.displayName}
-                  </a>
+        <header className={commentMeta}>
+          <div className={userNameStyles(pillar)}>
+            <a
+              href={joinUrl([
+                "https://profile.theguardian.com/user",
+                comment.userProfile.userId
+              ])}
+              className={linkStyles}
+            >
+              {comment.userProfile.displayName}
+            </a>
+          </div>
+          <div className={timestampWrapperStyles}>
+            <Timestamp
+              isoDateTime={comment.isoDateTime}
+              linkTo={joinUrl([
+                // Remove the discussion-api path from the baseUrl
+                baseUrl
+                  .split("/")
+                  .filter(path => path !== "discussion-api")
+                  .join("/"),
+                "comment-permalink",
+                comment.id.toString()
+              ])}
+            />
+          </div>
+        </header>
+
+        <div className={badgesWrapperStyles}>
+          <div className={flexRowStyles}>
+            {!!comment.userProfile.badge.filter(
+              obj => obj["name"] === "Staff"
+            ).length ? (
+                <div className={iconWrapper}>
+                  <GuardianStaff />
                 </div>
-                <div className={timestampWrapperStyles}>
-                  <Timestamp
-                    isoDateTime={comment.isoDateTime}
-                    linkTo={joinUrl([
-                      // Remove the discussion-api path from the baseUrl
-                      baseUrl
-                        .split("/")
-                        .filter(path => path !== "discussion-api")
-                        .join("/"),
-                      "comment-permalink",
-                      comment.id.toString()
-                    ])}
-                  />
-                </div>
-              </Row>
-              <Row>
-                {!!comment.userProfile.badge.filter(
-                  obj => obj["name"] === "Staff"
-                ).length ? (
-                  <div className={iconWrapper}>
-                    <GuardianStaff />
-                  </div>
-                ) : (
-                  <></>
-                )}
-                {comment.status !== "blocked" && isHighlighted ? (
-                  <div className={iconWrapper}>
-                    <GuardianPick />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </Row>
-            </Column>
+              ) : (
+                <></>
+              )}
+            {comment.status !== "blocked" && isHighlighted ? (
+              <div className={iconWrapper}>
+                <GuardianPick />
+              </div>
+            ) : (
+                <></>
+              )}
+          </div>
+        </div>
+
+        <div className={upVoteStyles}>
+          <div className={css`
+            float: right;
+          `}>
             {comment.status !== "blocked" && (
               <RecommendationCount
                 commentId={comment.id}
@@ -271,7 +299,10 @@ export const Comment = ({
                 alreadyRecommended={false}
               />
             )}
-          </header>
+          </div>
+        </div>
+
+        <div className={commentStyles}>
           {comment.status !== "blocked" ? (
             <>
               <div
@@ -311,11 +342,11 @@ export const Comment = ({
               </div>
             </>
           ) : (
-            <p
-              className={cx(blockedCommentStyles, commentLinkStyling)}
-              dangerouslySetInnerHTML={{ __html: comment.body }}
-            />
-          )}
+              <p
+                className={cx(blockedCommentStyles, commentLinkStyling)}
+                dangerouslySetInnerHTML={{ __html: comment.body }}
+              />
+            )}
         </div>
       </div>
     </>
