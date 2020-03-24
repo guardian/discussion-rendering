@@ -218,7 +218,7 @@ export const App = ({
       const commentElement = document.getElementById(
         `comment-${commentToScrollTo}`
       );
-      commentElement && commentElement.scrollIntoView();
+      commentElement && setTimeout(() => commentElement.scrollIntoView())
     }
   }, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
 
