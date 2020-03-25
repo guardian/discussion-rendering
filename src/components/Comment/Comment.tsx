@@ -78,7 +78,7 @@ const commentWrapper = css`
   padding: ${space[2]}px 0;
 `;
 
-const avatarMargin = css`
+const marginRight = css`
   margin-right: ${space[2]}px;
 `;
 
@@ -96,13 +96,6 @@ const iconWrapper = css`
   padding: 2px;
   white-space: nowrap;
 `;
-
-// const timestampWrapperStyles = css`
-//   margin-left: 10px;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-// `;
 
 const linkStyles = css`
   color: inherit;
@@ -122,9 +115,13 @@ const flexColStyles = css`
   flex-direction: row;
 `;
 
+const alignItemsCenter = css`
+  align-items: center;
+`
+
 const headerStyles = css`
     width: 100%;
-    align-items: space-between;
+    justify-content: space-between;
 `
 
 const removePaddingLeft = css`
@@ -289,7 +286,7 @@ export const Comment = ({
         </span>
       )}
       <div id={`comment-${comment.id}`} className={commentWrapper}>
-        <div className={avatarMargin}>
+        <div className={marginRight}>
           <Avatar
             imageUrl={comment.userProfile.avatar}
             displayName={comment.userProfile.displayName}
@@ -300,12 +297,14 @@ export const Comment = ({
         <div className={commentDetails}>
           <header className={cx(flexRowStyles, headerStyles)}>
             <div className={flexColStyles}>
-              <div className={flexRowStyles}>
-                <ProfilName
-                  pillar={pillar}
-                  userId={comment.userProfile.userId}
-                  displayName={comment.userProfile.displayName}
-                />
+              <div className={cx(flexRowStyles, alignItemsCenter)}>
+                <div className={marginRight}>
+                  <ProfilName
+                    pillar={pillar}
+                    userId={comment.userProfile.userId}
+                    displayName={comment.userProfile.displayName}
+                  />
+                </div>
                 <Timestamp
                   isoDateTime={comment.isoDateTime}
                   linkTo={joinUrl([
