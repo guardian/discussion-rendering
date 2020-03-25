@@ -386,6 +386,7 @@ export const App = ({
                 threads={filters.threads}
                 commentBeingRepliedTo={commentBeingRepliedTo}
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                commentToScrollTo={commentToScrollTo}
               />
             </li>
           ))}
