@@ -122,7 +122,7 @@ const flexColStyles = css`
   flex-direction: row;
 `;
 
-const spaceBetweenStyles = css`
+const headerStyles = css`
     width: 100%;
     align-items: space-between;
 `
@@ -298,7 +298,7 @@ export const Comment = ({
         </div>
 
         <div className={commentDetails}>
-          <header className={cx(flexRowStyles, spaceBetweenStyles)}>
+          <header className={cx(flexRowStyles, headerStyles)}>
             <div className={flexColStyles}>
               <div className={flexRowStyles}>
                 <ProfilName
