@@ -92,23 +92,17 @@ const commentDetails = css`
   flex-grow: 1;
 `;
 
-const headerStyles = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
 const iconWrapper = css`
   padding: 2px;
   white-space: nowrap;
 `;
 
-const timestampWrapperStyles = css`
-  margin-left: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+// const timestampWrapperStyles = css`
+//   margin-left: 10px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+// `;
 
 const linkStyles = css`
   color: inherit;
@@ -128,6 +122,11 @@ const flexColStyles = css`
   flex-direction: row;
 `;
 
+const spaceBetweenStyles = css`
+    width: 100%;
+    align-items: space-between;
+`
+
 const removePaddingLeft = css`
   padding-left: 0px;
 `;
@@ -144,19 +143,56 @@ const ReplyArrow = () => (
   </svg>
 );
 
-export const Comment = ({
-  baseUrl,
+const ProfilName = ({ pillar, userId, displayName }: { pillar: Pillar, userId: string, displayName: string }) => (
+  <div className={commentProfileName(pillar)}>
+    <a
+      href={joinUrl(["https://profile.theguardian.com/user", userId])}
+      className={linkStyles}
+    >
+      {displayName}
+    </a>
+  </div>
+)
+
+const Badges = ({ comment, isHighlighted }: { comment: CommentType, isHighlighted: boolean }) => (
+  <>
+    <>
+      {!!comment.userProfile.badge.filter(
+        obj => obj["name"] === "Staff"
+      ).length && (
+          <div className={iconWrapper}>
+            <GuardianStaff />
+          </div>
+        )}
+    </>
+    <>
+      {comment.status !== "blocked" && isHighlighted && (
+        <div className={iconWrapper}>
+          <GuardianPick />
+        </div>
+      )}
+    </>
+  </>
+)
+
+const CommentMessage = ({
   comment,
   pillar,
   setCommentBeingRepliedTo,
   user,
-  isReply
-}: Props) => {
+  isHighlighted,
+  setIsHighlighted,
+  setError
+}: {
+  comment: CommentType,
+  pillar: Pillar,
+  setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void,
+  user?: UserProfile,
+  isHighlighted: boolean,
+  setIsHighlighted: (isHighlighted: boolean) => void,
+  setError: (errorMessage: string) => void
+}) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
-  const [isHighlighted, setIsHighlighted] = useState<boolean>(
-    comment.isHighlighted
-  );
-  const [error, setError] = useState<string>();
 
   const pick = async () => {
     setError("");
@@ -180,6 +216,69 @@ export const Comment = ({
 
   return (
     <>
+      {comment.status !== "blocked" ? (
+        <>
+          <div
+            className={cx(commentCss, commentLinkStyling)}
+            dangerouslySetInnerHTML={{ __html: comment.body }}
+          />
+          <div className={spaceBetween}>
+            <div className={commentControls}>
+              <button
+                onClick={() => setCommentBeingRepliedTo(comment)}
+                className={cx(
+                  commentControlsButtonStyles,
+                  removePaddingLeft
+                )}
+              >
+                <div className={flexRowStyles}>
+                  <ReplyArrow />
+                  Reply
+              </div>
+              </button>
+              <button className={commentControlsButtonStyles}>Share</button>
+              {/* Only staff can pick, and they cannot pick thier own comment */}
+              {user &&
+                user.badge.some(e => e.name === "Staff") &&
+                user.userId !== comment.userProfile.userId && (
+                  <button
+                    onClick={isHighlighted ? unPick : pick}
+                    className={commentControlsButtonStyles}
+                  >
+                    {isHighlighted ? "Unpick" : "Pick"}
+                  </button>
+                )}
+            </div>
+            <div>
+              <AbuseReportForm commentId={comment.id} pillar={pillar} />
+            </div>
+          </div>
+        </>
+      ) : (
+          <p
+            className={cx(blockedCommentStyles, commentLinkStyling)}
+            dangerouslySetInnerHTML={{ __html: comment.body }}
+          />
+        )}
+    </>
+  )
+}
+
+export const Comment = ({
+  baseUrl,
+  comment,
+  pillar,
+  setCommentBeingRepliedTo,
+  user,
+  isReply
+}: Props) => {
+  const [isHighlighted, setIsHighlighted] = useState<boolean>(
+    comment.isHighlighted
+  );
+  const [error, setError] = useState<string>();
+
+  return (
+    <>
       {error && (
         <span
           className={css`
@@ -199,106 +298,50 @@ export const Comment = ({
         </div>
 
         <div className={commentDetails}>
-          <header className={headerStyles}>
+          <header className={cx(flexRowStyles, spaceBetweenStyles)}>
             <div className={flexColStyles}>
               <div className={flexRowStyles}>
-                <div className={commentProfileName(pillar)}>
-                  <a
-                    href={joinUrl([
-                      "https://profile.theguardian.com/user",
-                      comment.userProfile.userId
-                    ])}
-                    className={linkStyles}
-                  >
-                    {comment.userProfile.displayName}
-                  </a>
-                </div>
-                <div className={timestampWrapperStyles}>
-                  <Timestamp
-                    isoDateTime={comment.isoDateTime}
-                    linkTo={joinUrl([
-                      // Remove the discussion-api path from the baseUrl
-                      baseUrl
-                        .split("/")
-                        .filter(path => path !== "discussion-api")
-                        .join("/"),
-                      "comment-permalink",
-                      comment.id.toString()
-                    ])}
-                  />
-                </div>
+                <ProfilName
+                  pillar={pillar}
+                  userId={comment.userProfile.userId}
+                  displayName={comment.userProfile.displayName}
+                />
+                <Timestamp
+                  isoDateTime={comment.isoDateTime}
+                  linkTo={joinUrl([
+                    // Remove the discussion-api path from the baseUrl
+                    baseUrl
+                      .split("/")
+                      .filter(path => path !== "discussion-api")
+                      .join("/"),
+                    "comment-permalink",
+                    comment.id.toString()
+                  ])}
+                />
               </div>
               <div className={flexRowStyles}>
-                {!!comment.userProfile.badge.filter(
-                  obj => obj["name"] === "Staff"
-                ).length ? (
-                    <div className={iconWrapper}>
-                      <GuardianStaff />
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                {comment.status !== "blocked" && isHighlighted ? (
-                  <div className={iconWrapper}>
-                    <GuardianPick />
-                  </div>
-                ) : (
-                    <></>
-                  )}
+                <Badges comment={comment} isHighlighted={isHighlighted} />
               </div>
             </div>
-            {comment.status !== "blocked" && (
-              <RecommendationCount
-                commentId={comment.id}
-                initialCount={comment.numRecommends}
-                alreadyRecommended={false}
-              />
-            )}
+            <div className={flexColStyles}>
+              {comment.status !== "blocked" && (
+                <RecommendationCount
+                  commentId={comment.id}
+                  initialCount={comment.numRecommends}
+                  alreadyRecommended={false}
+                />
+              )}
+            </div>
           </header>
-          {comment.status !== "blocked" ? (
-            <>
-              <div
-                className={cx(commentCss, commentLinkStyling)}
-                dangerouslySetInnerHTML={{ __html: comment.body }}
-              />
-              <div className={spaceBetween}>
-                <div className={commentControls}>
-                  <button
-                    onClick={() => setCommentBeingRepliedTo(comment)}
-                    className={cx(
-                      commentControlsButtonStyles,
-                      removePaddingLeft
-                    )}
-                  >
-                    <div className={flexRowStyles}>
-                      <ReplyArrow />
-                      Reply
-                    </div>
-                  </button>
-                  <button className={commentControlsButtonStyles}>Share</button>
-                  {/* Only staff can pick, and they cannot pick thier own comment */}
-                  {user &&
-                    user.badge.some(e => e.name === "Staff") &&
-                    user.userId !== comment.userProfile.userId && (
-                      <button
-                        onClick={isHighlighted ? unPick : pick}
-                        className={commentControlsButtonStyles}
-                      >
-                        {isHighlighted ? "Unpick" : "Pick"}
-                      </button>
-                    )}
-                </div>
-                <div>
-                  <AbuseReportForm commentId={comment.id} pillar={pillar} />
-                </div>
-              </div>
-            </>
-          ) : (
-              <p
-                className={cx(blockedCommentStyles, commentLinkStyling)}
-                dangerouslySetInnerHTML={{ __html: comment.body }}
-              />
-            )}
+          <CommentMessage
+            comment={comment}
+            pillar={pillar}
+            setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+            user={user}
+            isHighlighted={isHighlighted}
+            setIsHighlighted={setIsHighlighted}
+            setError={setError}
+          />
         </div>
       </div>
     </>
