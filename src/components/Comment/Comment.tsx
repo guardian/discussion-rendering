@@ -123,31 +123,14 @@ const flexRowStyles = css`
   flex-direction: row;
 `;
 
+const flexColStyles = css`
+  display: flex;
+  flex-direction: row;
+`;
+
 const removePaddingLeft = css`
   padding-left: 0px;
 `;
-
-const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-    `}
-  >
-    {children}
-  </div>
-);
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
-);
 
 const ReplyArrow = () => (
   <svg
@@ -217,8 +200,8 @@ export const Comment = ({
 
         <div className={commentDetails}>
           <header className={headerStyles}>
-            <Column>
-              <Row>
+            <div className={flexColStyles}>
+              <div className={flexRowStyles}>
                 <div className={commentProfileName(pillar)}>
                   <a
                     href={joinUrl([
@@ -244,26 +227,26 @@ export const Comment = ({
                     ])}
                   />
                 </div>
-              </Row>
-              <Row>
+              </div>
+              <div className={flexRowStyles}>
                 {!!comment.userProfile.badge.filter(
                   obj => obj["name"] === "Staff"
                 ).length ? (
-                  <div className={iconWrapper}>
-                    <GuardianStaff />
-                  </div>
-                ) : (
-                  <></>
-                )}
+                    <div className={iconWrapper}>
+                      <GuardianStaff />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 {comment.status !== "blocked" && isHighlighted ? (
                   <div className={iconWrapper}>
                     <GuardianPick />
                   </div>
                 ) : (
-                  <></>
-                )}
-              </Row>
-            </Column>
+                    <></>
+                  )}
+              </div>
+            </div>
             {comment.status !== "blocked" && (
               <RecommendationCount
                 commentId={comment.id}
@@ -311,11 +294,11 @@ export const Comment = ({
               </div>
             </>
           ) : (
-            <p
-              className={cx(blockedCommentStyles, commentLinkStyling)}
-              dangerouslySetInnerHTML={{ __html: comment.body }}
-            />
-          )}
+              <p
+                className={cx(blockedCommentStyles, commentLinkStyling)}
+                dangerouslySetInnerHTML={{ __html: comment.body }}
+              />
+            )}
         </div>
       </div>
     </>
