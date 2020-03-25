@@ -4,6 +4,7 @@ import { css, cx } from "emotion";
 import { space, palette } from "@guardian/src-foundations";
 import { neutral, background, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
+import { until, from } from "@guardian/src-foundations/mq";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
@@ -43,17 +44,9 @@ const commentControlsButton = (pillar: Pillar) => css`
   }
 `;
 
-const spaceBetween = css`
-  display: flex;
-  justify-content: space-between;
-`;
 
 const commentCss = css`
-  display: block;
-  clear: left;
   ${textSans.small()}
-  margin-top: 0.375rem;
-  margin-bottom: 0.5rem;
 `;
 
 const blockedCommentStyles = css`
@@ -88,7 +81,7 @@ const commentProfileName = (pillar: Pillar) => css`
   ${textSans.small({ fontWeight: "bold" })}
 `;
 
-const commentDetails = css`
+const flexGrow = css`
   flex-grow: 1;
 `;
 
@@ -112,15 +105,23 @@ const flexRowStyles = css`
 
 const flexColStyles = css`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 const alignItemsCenter = css`
   align-items: center;
 `
 
+const fullWidthStyles = css`
+  width: 100%;
+`
+
+const spaceBetweenStyles = css`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const headerStyles = css`
-    width: 100%;
     justify-content: space-between;
 `
 
@@ -219,7 +220,7 @@ const CommentMessage = ({
             className={cx(commentCss, commentLinkStyling)}
             dangerouslySetInnerHTML={{ __html: comment.body }}
           />
-          <div className={spaceBetween}>
+          <div className={spaceBetweenStyles}>
             <div className={commentControls}>
               <button
                 onClick={() => setCommentBeingRepliedTo(comment)}
@@ -286,25 +287,94 @@ export const Comment = ({
         </span>
       )}
       <div id={`comment-${comment.id}`} className={commentWrapper}>
-        <div className={marginRight}>
-          <Avatar
-            imageUrl={comment.userProfile.avatar}
-            displayName={comment.userProfile.displayName}
-            size={isReply ? "small" : "medium"}
-          />
+        {/* Default view */}
+        <div className={css`
+          ${until.mobileLandscape} {
+            display: none;
+          }
+        `}>
+          <div className={flexRowStyles}>
+            <div className={cx(marginRight, flexGrow)}>
+              <Avatar
+                imageUrl={comment.userProfile.avatar}
+                displayName={comment.userProfile.displayName}
+                size={isReply ? "small" : "medium"}
+              />
+            </div>
+            <div className={flexColStyles}>
+              <header className={cx(flexRowStyles, headerStyles, fullWidthStyles)}>
+                <div className={flexColStyles}>
+                  <div className={cx(flexRowStyles, alignItemsCenter)}>
+                    <div className={marginRight}>
+                      <ProfilName
+                        pillar={pillar}
+                        userId={comment.userProfile.userId}
+                        displayName={comment.userProfile.displayName}
+                      />
+                    </div>
+                    <Timestamp
+                      isoDateTime={comment.isoDateTime}
+                      linkTo={joinUrl([
+                        // Remove the discussion-api path from the baseUrl
+                        baseUrl
+                          .split("/")
+                          .filter(path => path !== "discussion-api")
+                          .join("/"),
+                        "comment-permalink",
+                        comment.id.toString()
+                      ])}
+                    />
+                  </div>
+                  <div className={flexRowStyles}>
+                    <Badges comment={comment} isHighlighted={isHighlighted} />
+                  </div>
+                </div>
+                <>
+                  {comment.status !== "blocked" && (
+                    <RecommendationCount
+                      commentId={comment.id}
+                      initialCount={comment.numRecommends}
+                      alreadyRecommended={false}
+                    />
+                  )}
+                </>
+              </header>
+              <CommentMessage
+                comment={comment}
+                pillar={pillar}
+                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                user={user}
+                isHighlighted={isHighlighted}
+                setIsHighlighted={setIsHighlighted}
+                setError={setError}
+              />
+            </div>
+          </div>
+
+
         </div>
 
-        <div className={commentDetails}>
-          <header className={cx(flexRowStyles, headerStyles)}>
-            <div className={flexColStyles}>
-              <div className={cx(flexRowStyles, alignItemsCenter)}>
-                <div className={marginRight}>
-                  <ProfilName
-                    pillar={pillar}
-                    userId={comment.userProfile.userId}
-                    displayName={comment.userProfile.displayName}
-                  />
-                </div>
+        {/* Mobile view */}
+        <div className={css`
+          ${from.mobileLandscape} {
+            display: none;
+          }
+        `}>
+          <div className={flexRowStyles}>
+            {!isReply && <div className={marginRight}>
+              <Avatar
+                imageUrl={comment.userProfile.avatar}
+                displayName={comment.userProfile.displayName}
+                size="small"
+              />
+            </div>}
+            <div className={cx(flexRowStyles, spaceBetweenStyles, fullWidthStyles)}>
+              <div className={flexColStyles}>
+                <ProfilName
+                  pillar={pillar}
+                  userId={comment.userProfile.userId}
+                  displayName={comment.userProfile.displayName}
+                />
                 <Timestamp
                   isoDateTime={comment.isoDateTime}
                   linkTo={joinUrl([
@@ -318,29 +388,31 @@ export const Comment = ({
                   ])}
                 />
               </div>
-              <div className={flexRowStyles}>
-                <Badges comment={comment} isHighlighted={isHighlighted} />
-              </div>
+              <>
+                {comment.status !== "blocked" && (
+                  <RecommendationCount
+                    commentId={comment.id}
+                    initialCount={comment.numRecommends}
+                    alreadyRecommended={false}
+                  />
+                )}
+              </>
             </div>
-            <div className={flexColStyles}>
-              {comment.status !== "blocked" && (
-                <RecommendationCount
-                  commentId={comment.id}
-                  initialCount={comment.numRecommends}
-                  alreadyRecommended={false}
-                />
-              )}
-            </div>
-          </header>
-          <CommentMessage
-            comment={comment}
-            pillar={pillar}
-            setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-            user={user}
-            isHighlighted={isHighlighted}
-            setIsHighlighted={setIsHighlighted}
-            setError={setError}
-          />
+          </div>
+          <div className={flexRowStyles}>
+            <Badges comment={comment} isHighlighted={isHighlighted} />
+          </div>
+          <div className={flexColStyles}>
+            <CommentMessage
+              comment={comment}
+              pillar={pillar}
+              setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+              user={user}
+              isHighlighted={isHighlighted}
+              setIsHighlighted={setIsHighlighted}
+              setError={setError}
+            />
+          </div>
         </div>
       </div>
     </>

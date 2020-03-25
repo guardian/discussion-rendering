@@ -75,7 +75,7 @@ export const Default = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
+    setCommentBeingRepliedTo={() => { }}
     isReply={false}
   />
 );
@@ -86,18 +86,18 @@ export const ReplyComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
+    setCommentBeingRepliedTo={() => { }}
     isReply={true}
   />
 );
-Default.story = { name: "Reply Default" };
+ReplyComment.story = { name: "Reply Default" };
 
 export const UnpickedComment = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
+    setCommentBeingRepliedTo={() => { }}
     isReply={false}
   />
 );
@@ -111,7 +111,7 @@ export const PickedComment = () => (
       isHighlighted: true
     }}
     pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
+    setCommentBeingRepliedTo={() => { }}
     isReply={false}
   />
 );
@@ -122,7 +122,7 @@ export const StaffUserComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentStaffData}
     pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
+    setCommentBeingRepliedTo={() => { }}
     isReply={false}
   />
 );
@@ -136,7 +136,7 @@ export const PickedStaffUserComment = () => (
       isHighlighted: true
     }}
     pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
+    setCommentBeingRepliedTo={() => { }}
     isReply={false}
   />
 );
@@ -147,7 +147,7 @@ export const LoggedInAsModerator = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
+    setCommentBeingRepliedTo={() => { }}
     user={staffUser}
     isReply={false}
   />
@@ -159,7 +159,7 @@ export const BlockedComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={blockedCommentData}
     pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
+    setCommentBeingRepliedTo={() => { }}
     isReply={false}
   />
 );
