@@ -122,7 +122,7 @@ const spaceBetweenStyles = css`
 `;
 
 const headerStyles = css`
-    justify-content: space-between;
+  justify-content: space-between;
 `
 
 const removePaddingLeft = css`
@@ -287,6 +287,7 @@ export const Comment = ({
         </span>
       )}
       <div id={`comment-${comment.id}`} className={commentWrapper}>
+
         {/* Default view */}
         <div className={css`
           ${until.mobileLandscape} {
@@ -350,8 +351,6 @@ export const Comment = ({
               />
             </div>
           </div>
-
-
         </div>
 
         {/* Mobile view */}
@@ -414,6 +413,7 @@ export const Comment = ({
             />
           </div>
         </div>
+
       </div>
     </>
   );
