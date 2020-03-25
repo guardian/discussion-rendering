@@ -375,7 +375,7 @@ export const Comment = ({
                   userId={comment.userProfile.userId}
                   displayName={comment.userProfile.displayName}
                 />
-                <Timestamp
+                {!isReply && <Timestamp
                   isoDateTime={comment.isoDateTime}
                   linkTo={joinUrl([
                     // Remove the discussion-api path from the baseUrl
@@ -386,7 +386,7 @@ export const Comment = ({
                     "comment-permalink",
                     comment.id.toString()
                   ])}
-                />
+                />}
               </div>
               <>
                 {comment.status !== "blocked" && (
