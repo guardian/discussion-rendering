@@ -6,6 +6,8 @@ import { neutral, background, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { until, from } from "@guardian/src-foundations/mq";
 
+import { Column } from "../Column/Column";
+import { Row } from "../Row/Row";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
@@ -95,16 +97,6 @@ const linkStyles = css`
   :hover {
     text-decoration: underline;
   }
-`;
-
-const flexRowStyles = css`
-  display: flex;
-  flex-direction: row;
-`;
-
-const flexColStyles = css`
-  display: flex;
-  flex-direction: column;
 `;
 
 const alignItemsCenter = css`
@@ -238,10 +230,10 @@ const CommentMessage = ({
                 onClick={() => setCommentBeingRepliedTo(comment)}
                 className={cx(commentControlsButtonStyles, removePaddingLeft)}
               >
-                <div className={flexRowStyles}>
+                <Row>
                   <ReplyArrow />
                   Reply
-                </div>
+                </Row>
               </button>
               <button className={commentControlsButtonStyles}>Share</button>
               {/* Only staff can pick, and they cannot pick thier own comment */}
@@ -304,7 +296,7 @@ export const Comment = ({
             }
           `}
         >
-          <div className={flexRowStyles}>
+          <Row>
             <div className={cx(marginRight, flexGrow)}>
               <Avatar
                 imageUrl={comment.userProfile.avatar}
@@ -312,46 +304,46 @@ export const Comment = ({
                 size={isReply ? "small" : "medium"}
               />
             </div>
-            <div className={flexColStyles}>
-              <header
-                className={cx(flexRowStyles, headerStyles, fullWidthStyles)}
-              >
-                <div className={flexColStyles}>
-                  <div className={cx(flexRowStyles, alignItemsCenter)}>
-                    <div className={marginRight}>
-                      <ProfilName
-                        pillar={pillar}
-                        userId={comment.userProfile.userId}
-                        displayName={comment.userProfile.displayName}
+            <Column>
+              <Row>
+                <header className={cx(headerStyles, fullWidthStyles)}>
+                  <Column>
+                    <Row className={alignItemsCenter}>
+                      <div className={marginRight}>
+                        <ProfilName
+                          pillar={pillar}
+                          userId={comment.userProfile.userId}
+                          displayName={comment.userProfile.displayName}
+                        />
+                      </div>
+                      <Timestamp
+                        isoDateTime={comment.isoDateTime}
+                        linkTo={joinUrl([
+                          // Remove the discussion-api path from the baseUrl
+                          baseUrl
+                            .split("/")
+                            .filter(path => path !== "discussion-api")
+                            .join("/"),
+                          "comment-permalink",
+                          comment.id.toString()
+                        ])}
                       />
-                    </div>
-                    <Timestamp
-                      isoDateTime={comment.isoDateTime}
-                      linkTo={joinUrl([
-                        // Remove the discussion-api path from the baseUrl
-                        baseUrl
-                          .split("/")
-                          .filter(path => path !== "discussion-api")
-                          .join("/"),
-                        "comment-permalink",
-                        comment.id.toString()
-                      ])}
-                    />
-                  </div>
-                  <div className={flexRowStyles}>
-                    <Badges comment={comment} isHighlighted={isHighlighted} />
-                  </div>
-                </div>
-                <>
-                  {comment.status !== "blocked" && (
-                    <RecommendationCount
-                      commentId={comment.id}
-                      initialCount={comment.numRecommends}
-                      alreadyRecommended={false}
-                    />
-                  )}
-                </>
-              </header>
+                    </Row>
+                    <Row>
+                      <Badges comment={comment} isHighlighted={isHighlighted} />
+                    </Row>
+                  </Column>
+                  <>
+                    {comment.status !== "blocked" && (
+                      <RecommendationCount
+                        commentId={comment.id}
+                        initialCount={comment.numRecommends}
+                        alreadyRecommended={false}
+                      />
+                    )}
+                  </>
+                </header>
+              </Row>
               <CommentMessage
                 comment={comment}
                 pillar={pillar}
@@ -361,8 +353,8 @@ export const Comment = ({
                 setIsHighlighted={setIsHighlighted}
                 setError={setError}
               />
-            </div>
-          </div>
+            </Column>
+          </Row>
         </div>
 
         {/* Mobile view */}
@@ -373,7 +365,7 @@ export const Comment = ({
             }
           `}
         >
-          <div className={flexRowStyles}>
+          <Row>
             {!isReply && (
               <div className={marginRight}>
                 <Avatar
@@ -383,10 +375,8 @@ export const Comment = ({
                 />
               </div>
             )}
-            <div
-              className={cx(flexRowStyles, spaceBetweenStyles, fullWidthStyles)}
-            >
-              <div className={flexColStyles}>
+            <Row className={cx(spaceBetweenStyles, fullWidthStyles)}>
+              <Column>
                 <ProfilName
                   pillar={pillar}
                   userId={comment.userProfile.userId}
@@ -406,7 +396,7 @@ export const Comment = ({
                     ])}
                   />
                 )}
-              </div>
+              </Column>
               <>
                 {comment.status !== "blocked" && (
                   <RecommendationCount
@@ -416,12 +406,12 @@ export const Comment = ({
                   />
                 )}
               </>
-            </div>
-          </div>
-          <div className={flexRowStyles}>
+            </Row>
+          </Row>
+          <Row>
             <Badges comment={comment} isHighlighted={isHighlighted} />
-          </div>
-          <div className={flexColStyles}>
+          </Row>
+          <Column>
             <CommentMessage
               comment={comment}
               pillar={pillar}
@@ -431,7 +421,7 @@ export const Comment = ({
               setIsHighlighted={setIsHighlighted}
               setError={setError}
             />
-          </div>
+          </Column>
         </div>
       </div>
     </>
