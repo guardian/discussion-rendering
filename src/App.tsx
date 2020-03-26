@@ -232,11 +232,12 @@ export const App = ({
     setPage(page);
   };
 
-  const onAddComment = (commentId: number, body: string, user: UserProfile) => {
+  const onAddComment = (commentId: number, body: string, user: UserProfile, commentBeingRepliedTo?: CommentType) => {
     const simulateNewComment = (
       commentId: number,
       body: string,
-      user: UserProfile
+      user: UserProfile,
+      isReply: boolean
     ) => {
       // The returned object below is a simulation of the comment that was created that
       // we add to our local state so that the reader has immediate feedback. We do
@@ -263,13 +264,29 @@ export const App = ({
           avatar: user.avatar,
           secureAvatarUrl: user.secureAvatarUrl,
           badge: user.badge
-        }
+        },
+        ...(isReply ? {} : { responses: [] })
       };
     };
 
-    comments.pop(); // Remove last item from our local array
-    // Replace it with this new comment at the start
-    setComments([simulateNewComment(commentId, body, user), ...comments]);
+    if(commentBeingRepliedTo){
+      const updatedComments = comments.map(comment => {
+        if(comment.id === commentBeingRepliedTo.id) {
+          return {
+            ...comment,
+            responses: [
+              ...(comment.responses || [])
+            ]
+          }
+        }
+        return comment
+      })
+      setComments(updatedComments)
+    } else {
+      comments.pop(); // Remove last item from our local array
+      // Replace it with this new comment at the start
+      setComments([simulateNewComment(commentId, body, user, false), ...comments]);
+    }
   };
 
   initialiseApi({ additionalHeaders, baseUrl });

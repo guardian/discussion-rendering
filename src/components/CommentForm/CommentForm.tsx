@@ -14,7 +14,7 @@ import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome"
 type Props = {
   shortUrl: string;
   user: UserProfile;
-  onAddComment: (commentId: number, body: string, user: UserProfile) => void;
+  onAddComment: (commentId: number, body: string, user: UserProfile, commentBeingRepliedTo?: CommentType) => void;
   setCommentBeingRepliedTo?: () => void;
   commentBeingRepliedTo?: CommentType;
 };
@@ -162,10 +162,10 @@ export const CommentForm = ({
 
   const getHighlightedString = ():
     | {
-        highlightedString: string;
-        startString: string;
-        endString: string;
-      }
+      highlightedString: string;
+      startString: string;
+      endString: string;
+    }
     | undefined => {
     if (!textAreaRef || !textAreaRef.current) return;
     const selectionStart = textAreaRef.current.selectionStart;
@@ -296,7 +296,7 @@ export const CommentForm = ({
             address.`);
       } else if (response.status === "ok") {
         // response.message is the id of the comment that was created on the server
-        onAddComment(parseInt(response.message), body, user);
+        onAddComment(parseInt(response.message), body, user, commentBeingRepliedTo);
         resetForm();
       } else {
         setError("Sorry, there was a problem posting your comment.");
