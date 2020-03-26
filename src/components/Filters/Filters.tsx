@@ -88,11 +88,6 @@ export const Filters = ({ filters, onFilterChange, totalPages }: Props) => (
         pillar="news"
         options={[
           {
-            title: "20",
-            value: "20",
-            isActive: filters.pageSize === 20
-          },
-          {
             title: "25",
             value: "25",
             isActive: filters.pageSize === 25

@@ -76,7 +76,7 @@ export const Overrides = () => (
     <App
       shortUrl="p/39f5z"
       initialPage={3}
-      pageSizeOverride={20}
+      pageSizeOverride={50}
       orderByOverride={"oldest"}
       baseUrl="https://discussion.theguardian.com/discussion-api"
       user={aUser}
@@ -88,7 +88,7 @@ export const Overrides = () => (
     />
   </div>
 );
-Overrides.story = { name: "with page size overridden to 20" };
+Overrides.story = { name: "with page size overridden to 50" };
 
 export const Expanded = () => (
   <div
