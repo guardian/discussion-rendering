@@ -119,8 +119,9 @@ const timestampWrapperStyles = css`
   justify-content: center;
 `;
 
-const linkStyles = css`
-  color: inherit;
+const linkStyles = (pillar: Pillar) => css`
+${textSans.xsmall({ fontWeight: "bold" })}
+color: ${palette[pillar][400]};
   text-decoration: none;
   :hover {
     text-decoration: underline;
@@ -238,7 +239,7 @@ export const Comment = ({
                       "https://profile.theguardian.com/user",
                       comment.userProfile.userId
                     ])}
-                    className={linkStyles}
+                    className={linkStyles(pillar)}
                   >
                     {comment.userProfile.displayName}
                   </a>
@@ -293,7 +294,7 @@ export const Comment = ({
               />
               <div className={spaceBetween}>
                 <div className={commentControls}>
-                  {user && (
+                  {user ? (
                     <button
                       onClick={() => setCommentBeingRepliedTo(comment)}
                       className={cx(
@@ -306,6 +307,16 @@ export const Comment = ({
                         Reply
                       </div>
                     </button>
+                  ) : (
+                    <Row>
+                      <ReplyArrow />
+                      <a
+                        className={linkStyles(pillar)}
+                        href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                      >
+                        Reply
+                      </a>
+                    </Row>
                   )}
                   <button className={commentControlsButtonStyles}>Share</button>
                   {/* Only staff can pick, and they cannot pick thier own comment */}
