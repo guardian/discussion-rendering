@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 
-import { space, neutral, palette, border } from "@guardian/src-foundations";
+import {
+  space,
+  neutral,
+  palette,
+  border,
+  background
+} from "@guardian/src-foundations";
 
 import { Pillar, CommentType, UserProfile, ThreadsType } from "../../types";
 import { CommentForm } from "../CommentForm/CommentForm";
@@ -20,6 +26,7 @@ type Props = {
   threads: ThreadsType;
   commentBeingRepliedTo?: CommentType;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
+  commentToScrollTo?: number;
 };
 
 const nestingStyles = css`
@@ -62,6 +69,14 @@ const commentContainerStyles = css`
   padding-left: 0;
 `;
 
+const selectedStyles = css`
+  background-color: ${neutral[97]};
+  margin-left: -${space[2]}px;
+  padding-left: ${space[2]}px;
+  margin-right: -${space[2]}px;
+  padding-right: ${space[2]}px;
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
@@ -94,7 +109,8 @@ export const CommentContainer = ({
   shortUrl,
   threads,
   commentBeingRepliedTo,
-  setCommentBeingRepliedTo
+  setCommentBeingRepliedTo,
+  commentToScrollTo
 }: Props) => {
   // Filter logic
   const [expanded, setExpanded] = useState<boolean>(threads === "expanded");
@@ -127,7 +143,7 @@ export const CommentContainer = ({
   };
 
   return (
-    <>
+    <div className={cx(commentToScrollTo === comment.id && selectedStyles)}>
       <Comment
         baseUrl={baseUrl}
         comment={comment}
@@ -150,6 +166,7 @@ export const CommentContainer = ({
                     setCommentBeingRepliedTo={setCommentBeingRepliedTo}
                     user={user}
                     isReply={true}
+                    wasScrolledTo={commentToScrollTo === responseComment.id}
                   />
                 </li>
               ))}
@@ -198,6 +215,6 @@ export const CommentContainer = ({
             </div>
           )}
       </>
-    </>
+    </div>
   );
 };

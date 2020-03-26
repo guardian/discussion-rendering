@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { space, palette } from "@guardian/src-foundations";
-import { neutral, background, border } from "@guardian/src-foundations/palette";
+import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
@@ -22,6 +22,7 @@ type Props = {
   pillar: Pillar;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
   isReply: boolean;
+  wasScrolledTo?: boolean;
 };
 
 const commentControls = css`
@@ -35,7 +36,7 @@ const commentControlsButton = (pillar: Pillar) => css`
   ${textSans.xsmall({ fontWeight: "bold" })}
   margin-right: ${space[2]}px;
   color: ${palette[pillar][400]};
-  background-color: ${background.primary};
+  background-color: transparent;
   border: 0;
   cursor: pointer;
   :hover {
@@ -76,6 +77,14 @@ const commentWrapper = css`
   border-top: 1px solid ${border.secondary};
   display: flex;
   padding: ${space[2]}px 0;
+`;
+
+const selectedStyles = css`
+  background-color: ${neutral[97]};
+  margin-left: -${space[2]}px;
+  padding-left: ${space[2]}px;
+  margin-right: -${space[2]}px;
+  padding-right: ${space[2]}px;
 `;
 
 const avatarMargin = css`
@@ -167,7 +176,8 @@ export const Comment = ({
   pillar,
   setCommentBeingRepliedTo,
   user,
-  isReply
+  isReply,
+  wasScrolledTo
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
   const [isHighlighted, setIsHighlighted] = useState<boolean>(
@@ -206,7 +216,10 @@ export const Comment = ({
           {error}
         </span>
       )}
-      <div id={`comment-${comment.id}`} className={commentWrapper}>
+      <div
+        id={`comment-${comment.id}`}
+        className={cx(commentWrapper, wasScrolledTo && selectedStyles)}
+      >
         <div className={avatarMargin}>
           <Avatar
             imageUrl={comment.userProfile.avatar}
