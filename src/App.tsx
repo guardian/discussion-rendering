@@ -102,10 +102,13 @@ const rememberFilters = (filtersToRemember: FilterOptions) => {
   }
 };
 
-const initialiseFilters = (
-  pageSizeOverride?: PageSizeType,
-  orderByOverride?: OrderByType
-) => {
+const initialiseFilters = ({
+  pageSizeOverride,
+  orderByOverride
+}: {
+  pageSizeOverride?: PageSizeType;
+  orderByOverride?: OrderByType;
+}) => {
   const initialisedFilters = initFiltersFromLocalStorage();
   return {
     ...initialisedFilters,
@@ -151,7 +154,7 @@ export const App = ({
   expanded
 }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
-    initialiseFilters(pageSizeOverride, orderByOverride)
+    initialiseFilters({ pageSizeOverride, orderByOverride })
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
   const [loading, setLoading] = useState<boolean>(true);
