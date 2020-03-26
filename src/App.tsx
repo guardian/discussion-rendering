@@ -13,8 +13,7 @@ import {
   UserProfile,
   AdditionalHeadersType,
   PageSizeType,
-  OrderByType,
-  ThreadsType
+  OrderByType
 } from "./types";
 import {
   getDiscussion,
