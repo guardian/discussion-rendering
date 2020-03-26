@@ -3,23 +3,9 @@ import { App } from "./App";
 import { css } from "emotion";
 
 import { mockSignIn } from "./lib/mockSignIn";
+import { user as aUser } from "./fixtures/user";
 
 export default { component: App, title: "App" };
-
-const aUser = {
-  userId: "abc123",
-  displayName: "Jane Smith",
-  webUrl: "",
-  apiUrl: "",
-  avatar: "",
-  secureAvatarUrl: "",
-  badge: [],
-  privateFields: {
-    canPostComment: true,
-    isPremoderated: false,
-    hasCommented: true
-  }
-};
 
 mockSignIn();
 
