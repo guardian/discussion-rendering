@@ -17,6 +17,7 @@ type Props = {
   filters: FilterOptions;
   onFilterChange: (newFilterObject: FilterOptions) => void;
   totalPages: number;
+  commentCount: number;
 };
 
 const filterBar = css`
@@ -48,7 +49,12 @@ const filterPadding = css`
   padding-right: ${space[3]}px;
 `;
 
-export const Filters = ({ filters, onFilterChange, totalPages }: Props) => (
+export const Filters = ({
+  filters,
+  onFilterChange,
+  totalPages,
+  commentCount
+}: Props) => (
   <div className={filterBar}>
     <div className={filterPadding}>
       <Dropdown
@@ -90,16 +96,19 @@ export const Filters = ({ filters, onFilterChange, totalPages }: Props) => (
           {
             title: "25",
             value: "25",
+            disabled: commentCount <= 25,
             isActive: filters.pageSize === 25
           },
           {
             title: "50",
             value: "50",
+            disabled: commentCount <= 50,
             isActive: filters.pageSize === 50
           },
           {
             title: "100",
             value: "100",
+            disabled: commentCount <= 100,
             isActive: filters.pageSize === 100
           }
         ]}
