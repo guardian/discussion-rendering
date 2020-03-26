@@ -76,25 +76,6 @@ const headerStyles = css`
   justify-content: space-between;
 `;
 
-const ProfilName = ({
-  pillar,
-  userId,
-  displayName
-}: {
-  pillar: Pillar;
-  userId: string;
-  displayName: string;
-}) => (
-  <div className={commentProfileName(pillar)}>
-    <a
-      href={joinUrl(["https://profile.theguardian.com/user", userId])}
-      className={linkStyles}
-    >
-      {displayName}
-    </a>
-  </div>
-);
-
 const Badges = ({
   comment,
   isHighlighted
@@ -168,11 +149,17 @@ export const Comment = ({
                   <Column>
                     <Row className={alignItemsCenter}>
                       <div className={marginRight}>
-                        <ProfilName
-                          pillar={pillar}
-                          userId={comment.userProfile.userId}
-                          displayName={comment.userProfile.displayName}
-                        />
+                        <div className={commentProfileName(pillar)}>
+                          <a
+                            href={joinUrl([
+                              "https://profile.theguardian.com/user",
+                              comment.userProfile.userId
+                            ])}
+                            className={linkStyles}
+                          >
+                            {comment.userProfile.displayName}
+                          </a>
+                        </div>
                       </div>
                       <Timestamp
                         isoDateTime={comment.isoDateTime}
