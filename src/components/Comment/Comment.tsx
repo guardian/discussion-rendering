@@ -44,7 +44,6 @@ const commentControlsButton = (pillar: Pillar) => css`
   }
 `;
 
-
 const commentCss = css`
   ${textSans.small()}
 `;
@@ -110,11 +109,11 @@ const flexColStyles = css`
 
 const alignItemsCenter = css`
   align-items: center;
-`
+`;
 
 const fullWidthStyles = css`
   width: 100%;
-`
+`;
 
 const spaceBetweenStyles = css`
   display: flex;
@@ -123,7 +122,7 @@ const spaceBetweenStyles = css`
 
 const headerStyles = css`
   justify-content: space-between;
-`
+`;
 
 const removePaddingLeft = css`
   padding-left: 0px;
@@ -141,7 +140,15 @@ const ReplyArrow = () => (
   </svg>
 );
 
-const ProfilName = ({ pillar, userId, displayName }: { pillar: Pillar, userId: string, displayName: string }) => (
+const ProfilName = ({
+  pillar,
+  userId,
+  displayName
+}: {
+  pillar: Pillar;
+  userId: string;
+  displayName: string;
+}) => (
   <div className={commentProfileName(pillar)}>
     <a
       href={joinUrl(["https://profile.theguardian.com/user", userId])}
@@ -150,18 +157,23 @@ const ProfilName = ({ pillar, userId, displayName }: { pillar: Pillar, userId: s
       {displayName}
     </a>
   </div>
-)
+);
 
-const Badges = ({ comment, isHighlighted }: { comment: CommentType, isHighlighted: boolean }) => (
+const Badges = ({
+  comment,
+  isHighlighted
+}: {
+  comment: CommentType;
+  isHighlighted: boolean;
+}) => (
   <>
     <>
-      {!!comment.userProfile.badge.filter(
-        obj => obj["name"] === "Staff"
-      ).length && (
-          <div className={iconWrapper}>
-            <GuardianStaff />
-          </div>
-        )}
+      {!!comment.userProfile.badge.filter(obj => obj["name"] === "Staff")
+        .length && (
+        <div className={iconWrapper}>
+          <GuardianStaff />
+        </div>
+      )}
     </>
     <>
       {comment.status !== "blocked" && isHighlighted && (
@@ -171,7 +183,7 @@ const Badges = ({ comment, isHighlighted }: { comment: CommentType, isHighlighte
       )}
     </>
   </>
-)
+);
 
 const CommentMessage = ({
   comment,
@@ -182,13 +194,13 @@ const CommentMessage = ({
   setIsHighlighted,
   setError
 }: {
-  comment: CommentType,
-  pillar: Pillar,
-  setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void,
-  user?: UserProfile,
-  isHighlighted: boolean,
-  setIsHighlighted: (isHighlighted: boolean) => void,
-  setError: (errorMessage: string) => void
+  comment: CommentType;
+  pillar: Pillar;
+  setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
+  user?: UserProfile;
+  isHighlighted: boolean;
+  setIsHighlighted: (isHighlighted: boolean) => void;
+  setError: (errorMessage: string) => void;
 }) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
 
@@ -224,15 +236,12 @@ const CommentMessage = ({
             <div className={commentControls}>
               <button
                 onClick={() => setCommentBeingRepliedTo(comment)}
-                className={cx(
-                  commentControlsButtonStyles,
-                  removePaddingLeft
-                )}
+                className={cx(commentControlsButtonStyles, removePaddingLeft)}
               >
                 <div className={flexRowStyles}>
                   <ReplyArrow />
                   Reply
-              </div>
+                </div>
               </button>
               <button className={commentControlsButtonStyles}>Share</button>
               {/* Only staff can pick, and they cannot pick thier own comment */}
@@ -253,14 +262,14 @@ const CommentMessage = ({
           </div>
         </>
       ) : (
-          <p
-            className={cx(blockedCommentStyles, commentLinkStyling)}
-            dangerouslySetInnerHTML={{ __html: comment.body }}
-          />
-        )}
+        <p
+          className={cx(blockedCommentStyles, commentLinkStyling)}
+          dangerouslySetInnerHTML={{ __html: comment.body }}
+        />
+      )}
     </>
-  )
-}
+  );
+};
 
 export const Comment = ({
   baseUrl,
@@ -287,13 +296,14 @@ export const Comment = ({
         </span>
       )}
       <div id={`comment-${comment.id}`} className={commentWrapper}>
-
         {/* Default view */}
-        <div className={css`
-          ${until.mobileLandscape} {
-            display: none;
-          }
-        `}>
+        <div
+          className={css`
+            ${until.mobileLandscape} {
+              display: none;
+            }
+          `}
+        >
           <div className={flexRowStyles}>
             <div className={cx(marginRight, flexGrow)}>
               <Avatar
@@ -303,7 +313,9 @@ export const Comment = ({
               />
             </div>
             <div className={flexColStyles}>
-              <header className={cx(flexRowStyles, headerStyles, fullWidthStyles)}>
+              <header
+                className={cx(flexRowStyles, headerStyles, fullWidthStyles)}
+              >
                 <div className={flexColStyles}>
                   <div className={cx(flexRowStyles, alignItemsCenter)}>
                     <div className={marginRight}>
@@ -354,38 +366,46 @@ export const Comment = ({
         </div>
 
         {/* Mobile view */}
-        <div className={css`
-          ${from.mobileLandscape} {
-            display: none;
-          }
-        `}>
+        <div
+          className={css`
+            ${from.mobileLandscape} {
+              display: none;
+            }
+          `}
+        >
           <div className={flexRowStyles}>
-            {!isReply && <div className={marginRight}>
-              <Avatar
-                imageUrl={comment.userProfile.avatar}
-                displayName={comment.userProfile.displayName}
-                size="small"
-              />
-            </div>}
-            <div className={cx(flexRowStyles, spaceBetweenStyles, fullWidthStyles)}>
+            {!isReply && (
+              <div className={marginRight}>
+                <Avatar
+                  imageUrl={comment.userProfile.avatar}
+                  displayName={comment.userProfile.displayName}
+                  size="small"
+                />
+              </div>
+            )}
+            <div
+              className={cx(flexRowStyles, spaceBetweenStyles, fullWidthStyles)}
+            >
               <div className={flexColStyles}>
                 <ProfilName
                   pillar={pillar}
                   userId={comment.userProfile.userId}
                   displayName={comment.userProfile.displayName}
                 />
-                {!isReply && <Timestamp
-                  isoDateTime={comment.isoDateTime}
-                  linkTo={joinUrl([
-                    // Remove the discussion-api path from the baseUrl
-                    baseUrl
-                      .split("/")
-                      .filter(path => path !== "discussion-api")
-                      .join("/"),
-                    "comment-permalink",
-                    comment.id.toString()
-                  ])}
-                />}
+                {!isReply && (
+                  <Timestamp
+                    isoDateTime={comment.isoDateTime}
+                    linkTo={joinUrl([
+                      // Remove the discussion-api path from the baseUrl
+                      baseUrl
+                        .split("/")
+                        .filter(path => path !== "discussion-api")
+                        .join("/"),
+                      "comment-permalink",
+                      comment.id.toString()
+                    ])}
+                  />
+                )}
               </div>
               <>
                 {comment.status !== "blocked" && (
@@ -413,7 +433,6 @@ export const Comment = ({
             />
           </div>
         </div>
-
       </div>
     </>
   );
