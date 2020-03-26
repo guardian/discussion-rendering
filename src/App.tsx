@@ -102,16 +102,25 @@ const rememberFilters = (filtersToRemember: FilterOptions) => {
   }
 };
 
-const initialiseFilters = (
-  pageSizeOverride?: PageSizeType,
-  orderByOverride?: OrderByType
-) => {
+const initialiseFilters = ({
+  pageSizeOverride,
+  orderByOverride,
+  permalinkBeingUsed
+}: {
+  pageSizeOverride?: PageSizeType;
+  orderByOverride?: OrderByType;
+  permalinkBeingUsed: boolean;
+}) => {
   const initialisedFilters = initFiltersFromLocalStorage();
   return {
     ...initialisedFilters,
     // Override if prop given
     pageSize: pageSizeOverride || initialisedFilters.pageSize,
-    orderBy: orderByOverride || initialisedFilters.orderBy
+    orderBy: orderByOverride || initialisedFilters.orderBy,
+    threads:
+      initialisedFilters.threads === "collapsed" && permalinkBeingUsed
+        ? "expanded"
+        : initialisedFilters.threads
   };
 };
 
@@ -151,7 +160,11 @@ export const App = ({
   expanded
 }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
-    initialiseFilters(pageSizeOverride, orderByOverride)
+    initialiseFilters({
+      pageSizeOverride,
+      orderByOverride,
+      permalinkBeingUsed: !!commentToScrollTo
+    })
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
   const [loading, setLoading] = useState<boolean>(true);
