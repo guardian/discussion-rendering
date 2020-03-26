@@ -222,11 +222,19 @@ export const Comment = ({
             )}
             <Row className={cx(spaceBetweenStyles, fullWidthStyles)}>
               <Column>
-                <ProfilName
-                  pillar={pillar}
-                  userId={comment.userProfile.userId}
-                  displayName={comment.userProfile.displayName}
-                />
+                <div className={marginRight}>
+                  <div className={commentProfileName(pillar)}>
+                    <a
+                      href={joinUrl([
+                        "https://profile.theguardian.com/user",
+                        comment.userProfile.userId
+                      ])}
+                      className={linkStyles}
+                    >
+                      {comment.userProfile.displayName}
+                    </a>
+                  </div>
+                </div>
                 {!isReply && (
                   <Timestamp
                     isoDateTime={comment.isoDateTime}
