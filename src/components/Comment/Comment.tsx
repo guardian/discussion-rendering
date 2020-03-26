@@ -293,18 +293,20 @@ export const Comment = ({
               />
               <div className={spaceBetween}>
                 <div className={commentControls}>
-                  <button
-                    onClick={() => setCommentBeingRepliedTo(comment)}
-                    className={cx(
-                      commentControlsButtonStyles,
-                      removePaddingLeft
-                    )}
-                  >
-                    <div className={flexRowStyles}>
-                      <ReplyArrow />
-                      Reply
-                    </div>
-                  </button>
+                  {user && (
+                    <button
+                      onClick={() => setCommentBeingRepliedTo(comment)}
+                      className={cx(
+                        commentControlsButtonStyles,
+                        removePaddingLeft
+                      )}
+                    >
+                      <div className={flexRowStyles}>
+                        <ReplyArrow />
+                        Reply
+                      </div>
+                    </button>
+                  )}
                   <button className={commentControlsButtonStyles}>Share</button>
                   {/* Only staff can pick, and they cannot pick thier own comment */}
                   {user &&
