@@ -232,7 +232,12 @@ export const App = ({
     setPage(page);
   };
 
-  const onAddComment = (commentId: number, body: string, user: UserProfile, commentBeingRepliedTo?: CommentType) => {
+  const onAddComment = (
+    commentId: number,
+    body: string,
+    user: UserProfile,
+    commentBeingRepliedTo?: CommentType
+  ) => {
     const simulateNewComment = (
       commentId: number,
       body: string,
@@ -269,23 +274,24 @@ export const App = ({
       };
     };
 
-    if(commentBeingRepliedTo){
+    if (commentBeingRepliedTo) {
       const updatedComments = comments.map(comment => {
-        if(comment.id === commentBeingRepliedTo.id) {
+        if (comment.id === commentBeingRepliedTo.id) {
           return {
             ...comment,
-            responses: [
-              ...(comment.responses || [])
-            ]
-          }
+            responses: [...(comment.responses || [])]
+          };
         }
-        return comment
-      })
-      setComments(updatedComments)
+        return comment;
+      });
+      setComments(updatedComments);
     } else {
       comments.pop(); // Remove last item from our local array
       // Replace it with this new comment at the start
-      setComments([simulateNewComment(commentId, body, user, false), ...comments]);
+      setComments([
+        simulateNewComment(commentId, body, user, false),
+        ...comments
+      ]);
     }
   };
 
