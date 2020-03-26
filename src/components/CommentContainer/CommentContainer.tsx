@@ -16,7 +16,13 @@ type Props = {
   pillar: Pillar;
   shortUrl: string;
   user?: UserProfile;
-  onAddComment: (commentId: number, body: string, user: UserProfile) => void;
+  onAddComment: (
+    commentId: number,
+    body: string,
+    user: UserProfile,
+    commentBeingRepliedTo?: CommentType
+  ) => void;
+  commentIndex: number;
   threads: ThreadsType;
   commentBeingRepliedTo?: CommentType;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
@@ -90,6 +96,7 @@ export const CommentContainer = ({
   comment,
   pillar,
   onAddComment,
+  commentIndex,
   user,
   shortUrl,
   threads,
@@ -191,6 +198,7 @@ export const CommentContainer = ({
               <CommentForm
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
+                parentCommentIndex={commentIndex}
                 user={user}
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
                 commentBeingRepliedTo={commentBeingRepliedTo}

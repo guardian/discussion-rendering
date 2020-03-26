@@ -18,8 +18,10 @@ type Props = {
     commentId: number,
     body: string,
     user: UserProfile,
-    commentBeingRepliedTo?: CommentType
+    commentBeingRepliedTo?: CommentType,
+    parentCommentIndex?: number
   ) => void;
+  parentCommentIndex?: number;
   setCommentBeingRepliedTo?: () => void;
   commentBeingRepliedTo?: CommentType;
 };
@@ -150,6 +152,7 @@ const bottomContainer = css`
 export const CommentForm = ({
   shortUrl,
   onAddComment,
+  parentCommentIndex,
   user,
   setCommentBeingRepliedTo,
   commentBeingRepliedTo
@@ -305,7 +308,8 @@ export const CommentForm = ({
           parseInt(response.message),
           body,
           user,
-          commentBeingRepliedTo
+          commentBeingRepliedTo,
+          parentCommentIndex
         );
         resetForm();
       } else {

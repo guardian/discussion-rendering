@@ -102,6 +102,7 @@ export const defaultStory = () => (
     shortUrl="randomShortURL"
     user={aUser}
     onAddComment={(commentId, body, user) => {}}
+    commentIndex={1}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
   />
@@ -116,6 +117,7 @@ export const threadedComment = () => (
     shortUrl="randomShortURL"
     user={aUser}
     onAddComment={(commentId, body, user) => {}}
+    commentIndex={1}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
   />
@@ -130,6 +132,7 @@ export const replyableComment = () => (
     shortUrl="randomShortURL"
     user={aUser}
     onAddComment={(commentId, body, user) => {}}
+    commentIndex={1}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
   />
