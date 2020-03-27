@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 
-import {
-  space,
-  neutral,
-  palette,
-  border,
-  background
-} from "@guardian/src-foundations";
+import { space, neutral, palette, border } from "@guardian/src-foundations";
 
 import { Pillar, CommentType, UserProfile, ThreadsType } from "../../types";
 import { CommentForm } from "../CommentForm/CommentForm";
@@ -22,7 +16,7 @@ type Props = {
   pillar: Pillar;
   shortUrl: string;
   user?: UserProfile;
-  onAddComment: (commentId: number, body: string, user: UserProfile) => void;
+  onAddComment: (comment: CommentType) => void;
   threads: ThreadsType;
   commentBeingRepliedTo?: CommentType;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
@@ -114,7 +108,7 @@ export const CommentContainer = ({
 }: Props) => {
   // Filter logic
   const [expanded, setExpanded] = useState<boolean>(threads === "expanded");
-  const [responses, setResponses] = useState(comment.responses);
+  const [responses, setResponses] = useState(comment.responses || []);
   const [loading, setLoading] = useState<boolean>(false);
 
   const showResponses = threads !== "unthreaded";
@@ -127,7 +121,7 @@ export const CommentContainer = ({
   };
 
   useEffect(() => {
-    setResponses(comment.responses);
+    setResponses(comment.responses || []);
   }, [comment]);
 
   const expand = (commentId: number) => {
@@ -135,7 +129,7 @@ export const CommentContainer = ({
     getMoreResponses(commentId)
       .then(json => {
         setExpanded(true);
-        setResponses(json.comment.responses);
+        setResponses(json.comment.responses || []);
       })
       .finally(() => {
         setLoading(false);
@@ -207,7 +201,9 @@ export const CommentContainer = ({
               />
               <CommentForm
                 shortUrl={shortUrl}
-                onAddComment={onAddComment}
+                onAddComment={response =>
+                  setResponses([...responses, response])
+                }
                 user={user}
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
                 commentBeingRepliedTo={commentBeingRepliedTo}
