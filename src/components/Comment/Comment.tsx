@@ -62,14 +62,6 @@ const alignItemsCenter = css`
   align-items: center;
 `;
 
-const fullWidthStyles = css`
-  width: 100%;
-`;
-
-const spaceBetweenStyles = css`
-  justify-content: space-between;
-`;
-
 const Badges = ({
   comment,
   isHighlighted
