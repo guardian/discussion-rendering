@@ -101,7 +101,7 @@ export const defaultStory = () => (
     pillar={"sport"}
     shortUrl="randomShortURL"
     user={aUser}
-    onAddComment={(commentId, body, user) => {}}
+    onAddComment={_ => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
   />
@@ -115,7 +115,7 @@ export const threadedComment = () => (
     pillar={"lifestyle"}
     shortUrl="randomShortURL"
     user={aUser}
-    onAddComment={(commentId, body, user) => {}}
+    onAddComment={_ => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
   />
@@ -129,7 +129,7 @@ export const replyableComment = () => (
     pillar="lifestyle"
     shortUrl="randomShortURL"
     user={aUser}
-    onAddComment={(commentId, body, user) => {}}
+    onAddComment={_ => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
   />
