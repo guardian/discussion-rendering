@@ -305,7 +305,11 @@ export const App = ({
         {picks && picks.length ? (
           <div className={picksWrapper}>
             {!!picks.length && (
-              <TopPicks baseUrl={baseUrl} comments={picks.slice(0, 2)} />
+              <TopPicks
+                baseUrl={baseUrl}
+                pillar={pillar}
+                comments={picks.slice(0, 2)}
+              />
             )}
           </div>
         ) : (
@@ -367,7 +371,9 @@ export const App = ({
           user={user}
         />
       )}
-      {!!picks.length && <TopPicks baseUrl={baseUrl} comments={picks} />}
+      {!!picks.length && (
+        <TopPicks baseUrl={baseUrl} pillar={pillar} comments={picks} />
+      )}
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}

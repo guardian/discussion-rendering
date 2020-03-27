@@ -7,7 +7,7 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { Link } from "@guardian/src-link";
 
 import { GuardianStaff } from "../Badges/Badges";
-import { CommentType } from "../../types";
+import { CommentType, Pillar } from "../../types";
 import { Avatar } from "../Avatar/Avatar";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { Timestamp } from "../Timestamp/Timestamp";
@@ -15,6 +15,7 @@ import { joinUrl } from "../../lib/joinUrl";
 
 type Props = {
   baseUrl: string;
+  pillar: Pillar;
   comment: CommentType;
 };
 
@@ -67,9 +68,9 @@ const userMetaStyles = css`
   flex-direction: column;
 `;
 
-const userName = css`
+const userName = (pillar: Pillar) => css`
   font-weight: bold;
-  color: ${palette.news.main}; /* TODO USE PILLAR */
+  color: ${palette[pillar].main}; /* TODO USE PILLAR */
 `;
 
 const avatarMargin = css`
@@ -117,7 +118,7 @@ const truncateText = (input: string, limit: number) => {
   return input;
 };
 
-export const TopPick = ({ baseUrl, comment }: Props) => (
+export const TopPick = ({ baseUrl, pillar, comment }: Props) => (
   <div className={pickStyles}>
     <div className={pickComment}>
       <SpaceBetween>
@@ -166,7 +167,7 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
           />
         </div>
         <div className={userMetaStyles}>
-          <span className={userName}>
+          <span className={userName(pillar)}>
             <a
               href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
               className={cx(linkStyles, inheritColour)}
