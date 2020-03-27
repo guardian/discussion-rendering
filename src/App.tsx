@@ -286,7 +286,6 @@ export const App = ({
                       comment={comment}
                       pillar="news"
                       shortUrl={shortUrl}
-                      onAddComment={onAddComment}
                       user={user}
                       threads={filters.threads}
                       commentBeingRepliedTo={commentBeingRepliedTo}
