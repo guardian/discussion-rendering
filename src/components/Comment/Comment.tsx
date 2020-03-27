@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { space, palette } from "@guardian/src-foundations";
-import { border } from "@guardian/src-foundations/palette";
+import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { until, from } from "@guardian/src-foundations/mq";
 
@@ -23,12 +23,21 @@ type Props = {
   pillar: Pillar;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
   isReply: boolean;
+  wasScrolledTo?: boolean;
 };
 
 const commentWrapper = css`
   border-top: 1px solid ${border.secondary};
   display: flex;
   padding: ${space[2]}px 0;
+`;
+
+const selectedStyles = css`
+  background-color: ${neutral[97]};
+  margin-left: -${space[2]}px;
+  padding-left: ${space[2]}px;
+  margin-right: -${space[2]}px;
+  padding-right: ${space[2]}px;
 `;
 
 const marginRight = css`
@@ -94,7 +103,8 @@ export const Comment = ({
   pillar,
   setCommentBeingRepliedTo,
   user,
-  isReply
+  isReply,
+  wasScrolledTo
 }: Props) => {
   const [isHighlighted, setIsHighlighted] = useState<boolean>(
     comment.isHighlighted
@@ -112,7 +122,10 @@ export const Comment = ({
           {error}
         </span>
       )}
-      <div id={`comment-${comment.id}`} className={commentWrapper}>
+      <div
+        id={`comment-${comment.id}`}
+        className={cx(commentWrapper, wasScrolledTo && selectedStyles)}
+      >
         {/* Default view */}
         <div
           className={css`

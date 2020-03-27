@@ -102,16 +102,25 @@ const rememberFilters = (filtersToRemember: FilterOptions) => {
   }
 };
 
-const initialiseFilters = (
-  pageSizeOverride?: PageSizeType,
-  orderByOverride?: OrderByType
-) => {
+const initialiseFilters = ({
+  pageSizeOverride,
+  orderByOverride,
+  permalinkBeingUsed
+}: {
+  pageSizeOverride?: PageSizeType;
+  orderByOverride?: OrderByType;
+  permalinkBeingUsed: boolean;
+}) => {
   const initialisedFilters = initFiltersFromLocalStorage();
   return {
     ...initialisedFilters,
     // Override if prop given
     pageSize: pageSizeOverride || initialisedFilters.pageSize,
-    orderBy: orderByOverride || initialisedFilters.orderBy
+    orderBy: orderByOverride || initialisedFilters.orderBy,
+    threads:
+      initialisedFilters.threads === "collapsed" && permalinkBeingUsed
+        ? "expanded"
+        : initialisedFilters.threads
   };
 };
 
@@ -122,9 +131,9 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
 
   try {
     // Try to read from local storage
-    orderBy = localStorage.getItem("gu.prefs.discussioni.order");
-    threads = localStorage.getItem("gu.prefs.discussioni.threading");
-    pageSize = localStorage.getItem("gu.prefs.discussioni.pagesize");
+    orderBy = localStorage.getItem("gu.prefs.discussion.order");
+    threads = localStorage.getItem("gu.prefs.discussion.threading");
+    pageSize = localStorage.getItem("gu.prefs.discussion.pagesize");
   } catch (error) {
     // Sometimes it's not possible to access localStorage, we accept this and don't want to
     // capture these errors
@@ -151,7 +160,11 @@ export const App = ({
   expanded
 }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
-    initialiseFilters(pageSizeOverride, orderByOverride)
+    initialiseFilters({
+      pageSizeOverride,
+      orderByOverride,
+      permalinkBeingUsed: !!commentToScrollTo
+    })
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
   const [loading, setLoading] = useState<boolean>(true);
@@ -386,6 +399,7 @@ export const App = ({
                 threads={filters.threads}
                 commentBeingRepliedTo={commentBeingRepliedTo}
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                commentToScrollTo={commentToScrollTo}
               />
             </li>
           ))}
