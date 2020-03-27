@@ -2,7 +2,7 @@ import React from "react";
 
 import { CommentMessage } from "./CommentMessage";
 import { comment } from "../../fixtures/comment";
-import { staffUser } from "../../fixtures/user";
+import { user, staffUser } from "../../fixtures/user";
 
 export default { component: CommentMessage, title: "CommentMessage" };
 
@@ -11,7 +11,7 @@ export const Default = () => (
     comment={comment}
     pillar="news"
     setCommentBeingRepliedTo={_ => {}}
-    user={staffUser}
+    user={user}
     isHighlighted={false}
     setIsHighlighted={() => {}}
     setError={() => {}}
@@ -33,7 +33,7 @@ export const Highlighted = () => (
   />
 );
 Highlighted.story = {
-  name: "Highlighted Content Message"
+  name: "Staff Highlighted Content Message"
 };
 
 export const Blocked = () => (
@@ -48,5 +48,5 @@ export const Blocked = () => (
   />
 );
 Blocked.story = {
-  name: "Blocked Content Message"
+  name: "Staff Blocked Content Message"
 };
