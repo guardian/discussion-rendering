@@ -5,7 +5,7 @@ import { space, palette } from "@guardian/src-foundations";
 import { neutral, background } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Row } from "../Row/Row";
+import { Flex } from "../Flex/Flex";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { pickComment, unPickComment } from "../../lib/api";
 
@@ -124,10 +124,10 @@ export const CommentMessage = ({
                 onClick={() => setCommentBeingRepliedTo(comment)}
                 className={cx(commentControlsButtonStyles, removePaddingLeft)}
               >
-                <Row>
+                <Flex direction="row">
                   <ReplyArrow />
                   Reply
-                </Row>
+                </Flex>
               </button>
               <button className={commentControlsButtonStyles}>Share</button>
               {/* Only staff can pick, and they cannot pick thier own comment */}

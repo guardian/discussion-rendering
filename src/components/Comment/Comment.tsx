@@ -6,8 +6,7 @@ import { border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { until, from } from "@guardian/src-foundations/mq";
 
-import { Column } from "../Column/Column";
-import { Row } from "../Row/Row";
+import { Flex } from "../Flex/Flex";
 import { CommentMessage } from "../CommentMessage/CommentMessage";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
@@ -135,7 +134,7 @@ export const Comment = ({
             }
           `}
         >
-          <Row>
+          <Flex direction="row">
             <div className={cx(marginRight, flexGrow)}>
               <Avatar
                 imageUrl={comment.userProfile.avatar}
@@ -143,41 +142,43 @@ export const Comment = ({
                 size={isReply ? "small" : "medium"}
               />
             </div>
-            <Column>
-              <Row>
+            <Flex direction="column">
+              <Flex direction="row">
                 <header className={cx(headerStyles, fullWidthStyles)}>
-                  <Column>
-                    <Row className={alignItemsCenter}>
-                      <div className={marginRight}>
-                        <div className={commentProfileName(pillar)}>
-                          <a
-                            href={joinUrl([
-                              "https://profile.theguardian.com/user",
-                              comment.userProfile.userId
-                            ])}
-                            className={linkStyles}
-                          >
-                            {comment.userProfile.displayName}
-                          </a>
+                  <Flex direction="column">
+                    <Flex direction="row">
+                      <div className={alignItemsCenter}>
+                        <div className={marginRight}>
+                          <div className={commentProfileName(pillar)}>
+                            <a
+                              href={joinUrl([
+                                "https://profile.theguardian.com/user",
+                                comment.userProfile.userId
+                              ])}
+                              className={linkStyles}
+                            >
+                              {comment.userProfile.displayName}
+                            </a>
+                          </div>
                         </div>
+                        <Timestamp
+                          isoDateTime={comment.isoDateTime}
+                          linkTo={joinUrl([
+                            // Remove the discussion-api path from the baseUrl
+                            baseUrl
+                              .split("/")
+                              .filter(path => path !== "discussion-api")
+                              .join("/"),
+                            "comment-permalink",
+                            comment.id.toString()
+                          ])}
+                        />
                       </div>
-                      <Timestamp
-                        isoDateTime={comment.isoDateTime}
-                        linkTo={joinUrl([
-                          // Remove the discussion-api path from the baseUrl
-                          baseUrl
-                            .split("/")
-                            .filter(path => path !== "discussion-api")
-                            .join("/"),
-                          "comment-permalink",
-                          comment.id.toString()
-                        ])}
-                      />
-                    </Row>
-                    <Row>
+                    </Flex>
+                    <Flex direction="row">
                       <Badges comment={comment} isHighlighted={isHighlighted} />
-                    </Row>
-                  </Column>
+                    </Flex>
+                  </Flex>
                   <>
                     {comment.status !== "blocked" && (
                       <RecommendationCount
@@ -188,7 +189,7 @@ export const Comment = ({
                     )}
                   </>
                 </header>
-              </Row>
+              </Flex>
               <CommentMessage
                 comment={comment}
                 pillar={pillar}
@@ -198,8 +199,8 @@ export const Comment = ({
                 setIsHighlighted={setIsHighlighted}
                 setError={setError}
               />
-            </Column>
-          </Row>
+            </Flex>
+          </Flex>
         </div>
 
         {/* Mobile view */}
@@ -210,7 +211,7 @@ export const Comment = ({
             }
           `}
         >
-          <Row>
+          <Flex direction="row">
             {!isReply && (
               <div className={marginRight}>
                 <Avatar
@@ -220,8 +221,12 @@ export const Comment = ({
                 />
               </div>
             )}
-            <Row className={cx(spaceBetweenStyles, fullWidthStyles)}>
-              <Column>
+            <Flex direction="row">
+              <div className={fullWidthStyles}></div>
+            </Flex>
+
+            <Flex direction="row" justify="space-between" fullWidth={true}>
+              <Flex direction="column">
                 <div className={marginRight}>
                   <div className={commentProfileName(pillar)}>
                     <a
@@ -249,7 +254,7 @@ export const Comment = ({
                     ])}
                   />
                 )}
-              </Column>
+              </Flex>
               <>
                 {comment.status !== "blocked" && (
                   <RecommendationCount
@@ -259,12 +264,12 @@ export const Comment = ({
                   />
                 )}
               </>
-            </Row>
-          </Row>
-          <Row>
+            </Flex>
+          </Flex>
+          <Flex direction="row">
             <Badges comment={comment} isHighlighted={isHighlighted} />
-          </Row>
-          <Column>
+          </Flex>
+          <Flex direction="column">
             <CommentMessage
               comment={comment}
               pillar={pillar}
@@ -274,7 +279,7 @@ export const Comment = ({
               setIsHighlighted={setIsHighlighted}
               setError={setError}
             />
-          </Column>
+          </Flex>
         </div>
       </div>
     </>
