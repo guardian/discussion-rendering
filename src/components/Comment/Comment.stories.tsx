@@ -81,6 +81,22 @@ export const Default = () => (
 );
 Default.story = { name: "Default" };
 
+export const MobileWidth = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+MobileWidth.story = {
+  name: "Mobile Width",
+  parameters: {
+    viewport: { defaultViewport: "mobileMedium" }
+  }
+};
+
 export const ReplyComment = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
