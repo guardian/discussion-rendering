@@ -13,7 +13,8 @@ import {
   UserProfile,
   AdditionalHeadersType,
   PageSizeType,
-  OrderByType
+  OrderByType,
+  Pillar
 } from "./types";
 import {
   getDiscussion,
@@ -31,6 +32,7 @@ import { LoadingComments } from "./components/LoadingComments/LoadingComments";
 type Props = {
   shortUrl: string;
   baseUrl: string;
+  pillar: Pillar;
   commentToScrollTo?: number;
   initialPage?: number;
   pageSizeOverride?: PageSizeType;
@@ -151,6 +153,7 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
 export const App = ({
   baseUrl,
   shortUrl,
+  pillar,
   initialPage,
   commentToScrollTo,
   pageSizeOverride,
@@ -318,7 +321,7 @@ export const App = ({
                     <CommentContainer
                       baseUrl={baseUrl}
                       comment={comment}
-                      pillar="news"
+                      pillar={pillar}
                       shortUrl={shortUrl}
                       onAddComment={onAddComment}
                       user={user}
@@ -392,7 +395,7 @@ export const App = ({
               <CommentContainer
                 baseUrl={baseUrl}
                 comment={comment}
-                pillar="news"
+                pillar={pillar}
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
                 user={user}
