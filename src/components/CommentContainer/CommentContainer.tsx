@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 
-import {
-  space,
-  neutral,
-  palette,
-  border,
-  background
-} from "@guardian/src-foundations";
+import { space, neutral, palette, border } from "@guardian/src-foundations";
 
 import { Pillar, CommentType, UserProfile, ThreadsType } from "../../types";
 import { CommentForm } from "../CommentForm/CommentForm";
