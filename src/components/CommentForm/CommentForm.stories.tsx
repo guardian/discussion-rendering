@@ -1,14 +1,13 @@
 import React from "react";
 
 import { CommentType } from "../../types";
-
 import { CommentForm } from "./CommentForm";
 
 export default { component: CommentForm, title: "CommentForm" };
 
 const shortUrl = "/p/39f5z";
 
-const aUser = {
+const user = {
   userId: "abc123",
   displayName: "Jane Smith",
   webUrl: "",
@@ -57,7 +56,7 @@ const aComment: CommentType = {
 export const Default = () => (
   <CommentForm
     shortUrl={shortUrl}
-    user={aUser}
+    user={user}
     onAddComment={(commentId, body, user) => {}}
   />
 );
@@ -66,7 +65,7 @@ Default.story = { name: "default" };
 export const Active = () => (
   <CommentForm
     shortUrl={shortUrl}
-    user={aUser}
+    user={user}
     onAddComment={(commentId, body, user) => {}}
     commentBeingRepliedTo={aComment}
   />
@@ -77,9 +76,9 @@ export const Premoderated = () => (
   <CommentForm
     shortUrl={shortUrl}
     user={{
-      ...aUser,
+      ...user,
       privateFields: {
-        ...aUser.privateFields,
+        ...user.privateFields,
         isPremoderated: true
       }
     }}

@@ -67,11 +67,6 @@ const fullWidthStyles = css`
 `;
 
 const spaceBetweenStyles = css`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const headerStyles = css`
   justify-content: space-between;
 `;
 
@@ -143,8 +138,8 @@ export const Comment = ({
               />
             </div>
             <Flex direction="column">
-              <Flex direction="row">
-                <header className={cx(headerStyles, fullWidthStyles)}>
+              <header>
+                <Flex direction="row" justify="space-between" fullWidth={true}>
                   <Flex direction="column">
                     <Flex direction="row">
                       <div className={alignItemsCenter}>
@@ -188,8 +183,8 @@ export const Comment = ({
                       />
                     )}
                   </>
-                </header>
-              </Flex>
+                </Flex>
+              </header>
               <CommentMessage
                 comment={comment}
                 pillar={pillar}
@@ -221,9 +216,6 @@ export const Comment = ({
                 />
               </div>
             )}
-            <Flex direction="row">
-              <div className={fullWidthStyles}></div>
-            </Flex>
 
             <Flex direction="row" justify="space-between" fullWidth={true}>
               <Flex direction="column">

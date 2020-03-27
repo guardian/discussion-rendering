@@ -3,11 +3,26 @@ import { App } from "./App";
 import { css } from "emotion";
 
 import { mockSignIn } from "./lib/mockSignIn";
-import { user as aUser } from "./fixtures/user";
+import { UserProfile } from "./types";
 
 export default { component: App, title: "App" };
 
 mockSignIn();
+
+const user: UserProfile = {
+  userId: "abc123",
+  displayName: "Jane Smith",
+  webUrl: "",
+  apiUrl: "",
+  avatar: "",
+  secureAvatarUrl: "",
+  badge: [],
+  privateFields: {
+    canPostComment: true,
+    isPremoderated: false,
+    hasCommented: true
+  }
+};
 
 export const Default = () => (
   <div
@@ -19,7 +34,7 @@ export const Default = () => (
     <App
       shortUrl="p/39f5z"
       baseUrl="https://discussion.theguardian.com/discussion-api"
-      user={aUser}
+      user={user}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
@@ -41,7 +56,7 @@ export const InitialPage = () => (
       shortUrl="p/39f5z"
       initialPage={3}
       baseUrl="https://discussion.theguardian.com/discussion-api"
-      user={aUser}
+      user={user}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
@@ -65,7 +80,7 @@ export const Overrides = () => (
       pageSizeOverride={20}
       orderByOverride={"oldest"}
       baseUrl="https://discussion.theguardian.com/discussion-api"
-      user={aUser}
+      user={user}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
@@ -87,7 +102,7 @@ export const Expanded = () => (
       shortUrl="p/39f5z"
       initialPage={3}
       baseUrl="https://discussion.theguardian.com/discussion-api"
-      user={aUser}
+      user={user}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
