@@ -62,17 +62,9 @@ const pickMetaWrapper = css`
   padding-top: ${space[2]}px;
 `;
 
-const userDetails = css`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const userMetaStyles = css`
-  display: flex;
-  flex-direction: column;
-`;
-
-const userName = css`
+const userNameStyles = css`
+  margin-top: 3px;
+  margin-bottom: -6px;
   font-weight: bold;
   color: ${palette.news.main}; /* TODO USE PILLAR */
 `;
@@ -123,6 +115,28 @@ const Bottom = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div>{children}</div>
 );
 
+const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div
+    className={css`
+      display: flex;
+      flex-direction: column;
+    `}
+  >
+    {children}
+  </div>
+);
+
+const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div
+    className={css`
+      display: flex;
+      flex-direction: row;
+    `}
+  >
+    {children}
+  </div>
+);
+
 const truncateText = (input: string, limit: number) => {
   // If input greater than limit trucate by limit and append an ellipsis
   if (input.length > limit) return input.substr(0, limit) + "&#8230;";
@@ -161,7 +175,7 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
       </SpaceBetween>
     </div>
     <div className={pickMetaWrapper}>
-      <div className={userDetails}>
+      <Row>
         <div className={avatarMargin}>
           <Avatar
             imageUrl={comment.userProfile.avatar}
@@ -169,8 +183,8 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
             size="medium"
           />
         </div>
-        <div className={userMetaStyles}>
-          <span className={userName}>
+        <Column>
+          <span className={userNameStyles}>
             <a
               href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
               className={cx(linkStyles, inheritColour)}
@@ -196,8 +210,8 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
           ) : (
             <></>
           )}
-        </div>
-      </div>
+        </Column>
+      </Row>
       <div>
         <RecommendationCount
           commentId={comment.id}
