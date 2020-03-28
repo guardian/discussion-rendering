@@ -59,7 +59,7 @@ const pickComment = css`
 const pickMetaWrapper = css`
   display: flex;
   justify-content: space-between;
-  padding-top: ${space[2]}px;
+  padding-top: ${space[1]}px;
 `;
 
 const userNameStyles = css`
