@@ -49,6 +49,11 @@ const pickComment = css`
     border-top: ${arrowSize}px solid ${bg};
     bottom: -${arrowSize - 1}px;
   }
+
+  p {
+    margin-top: 0;
+    margin-bottom: ${space[3]}px;
+  }
 `;
 
 const pickMetaWrapper = css`
@@ -81,6 +86,13 @@ const linkStyles = css`
   :hover {
     text-decoration: underline;
   }
+`;
+
+const titleStyles = css`
+  ${textSans.small()};
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: ${space[1]}px;
 `;
 
 const inheritColour = css`
@@ -122,15 +134,7 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
     <div className={pickComment}>
       <SpaceBetween>
         <Top>
-          <h3
-            className={css`
-              ${textSans.small()};
-              font-weight: bold;
-              margin: 0px;
-            `}
-          >
-            Guardian Pick
-          </h3>
+          <h3 className={titleStyles}>Guardian Pick</h3>
           <p
             dangerouslySetInnerHTML={{
               __html: truncateText(comment.body, 450)
