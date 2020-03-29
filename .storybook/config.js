@@ -1,5 +1,9 @@
 import { configure, addParameters } from "@storybook/react";
 
+import { mockFetchCalls } from "../src/lib/mockFetchCalls";
+
+mockFetchCalls();
+
 const guardianViewports = {
   mobileMedium: {
     name: "mobileMedium",

@@ -378,6 +378,7 @@ export const App = ({
         filters={filters}
         onFilterChange={onFilterChange}
         totalPages={totalPages}
+        commentCount={commentCount}
       />
       {showPagination && (
         <Pagination
