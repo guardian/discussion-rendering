@@ -55,6 +55,11 @@ const commentCss = css`
   ${textSans.small()}
   margin-top: 0.375rem;
   margin-bottom: 0.5rem;
+
+  p {
+    margin-top: 0;
+    margin-bottom: ${space[3]}px;
+  }
 `;
 
 const blockedCommentStyles = css`
