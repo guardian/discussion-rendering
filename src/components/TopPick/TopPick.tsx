@@ -73,6 +73,12 @@ const avatarMargin = css`
   margin-right: ${space[2]}px;
 `;
 
+const smallFontSize = css`
+  a {
+    ${textSans.small()}
+  }
+`;
+
 const linkStyles = css`
   text-decoration: none;
   :hover {
@@ -156,21 +162,23 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
           ></p>
         </Top>
         <Bottom>
-          <Link
-            priority="primary"
-            subdued={true}
-            href={joinUrl([
-              // Remove the discussion-api path from the baseUrl
-              baseUrl
-                .split("/")
-                .filter(path => path !== "discussion-api")
-                .join("/"),
-              "comment-permalink",
-              comment.id.toString()
-            ])}
-          >
-            Jump to comment
-          </Link>
+          <div className={smallFontSize}>
+            <Link
+              priority="primary"
+              subdued={true}
+              href={joinUrl([
+                // Remove the discussion-api path from the baseUrl
+                baseUrl
+                  .split("/")
+                  .filter(path => path !== "discussion-api")
+                  .join("/"),
+                "comment-permalink",
+                comment.id.toString()
+              ])}
+            >
+              Jump to comment
+            </Link>
+          </div>
         </Bottom>
       </SpaceBetween>
     </div>
