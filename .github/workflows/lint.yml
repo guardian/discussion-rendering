@@ -1,5 +1,4 @@
 name: 🔎
-
 on: [push]
 
 jobs:
