@@ -92,17 +92,6 @@ export const ReplyComment = () => (
 );
 Default.story = { name: "Reply Default" };
 
-export const UnpickedComment = () => (
-  <Comment
-    baseUrl="https://discussion.theguardian.com/discussion-api"
-    comment={commentData}
-    pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
-    isReply={false}
-  />
-);
-UnpickedComment.story = { name: "Unpicked Comment" };
-
 export const PickedComment = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
