@@ -2,8 +2,6 @@ import React from "react";
 import { App } from "./App";
 import { css } from "emotion";
 
-import { mockSignIn } from "./lib/mockSignIn";
-
 export default { component: App, title: "App" };
 
 const aUser = {
@@ -20,8 +18,6 @@ const aUser = {
     hasCommented: true
   }
 };
-
-mockSignIn();
 
 export const Default = () => (
   <div
