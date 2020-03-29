@@ -66,6 +66,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "storybook-chromatic": "^3.5.2",
     "typescript": "^3.7.5"
   },
   "scripts": {
@@ -74,6 +75,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook",
+    "build-storybook": "node --max-old-space-size=4096 $(yarn bin)/build-storybook",
     "lint": "eslint . --ext .ts,.tsx",
     "createTsDec": "tsc --project tsconfig.json --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false"
   },
