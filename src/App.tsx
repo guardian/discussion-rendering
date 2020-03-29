@@ -228,6 +228,20 @@ export const App = ({
   }, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
 
   const onFilterChange = (newFilterObject: FilterOptions) => {
+    // If we're reducing the pageSize then we may need to override the page we're on to prevent making
+    // requests for pages that don't exist.
+    // E.g. If we used to have 102 comments and a pageSize of 25 then the current page could be 5 (showing 2
+    // comments). If we then change pageSize to be 50 then there is no longer a page 5 and trying to ask for it
+    // from the api would return an error so, in order to respect the readers desire to be on the last page, we
+    // need to work out the maximum page possible and use that instead.
+    let maxPagePossible = Math.floor(commentCount / newFilterObject.pageSize);
+    // Add 1 if there is a remainder
+    if (commentCount % newFilterObject.pageSize) {
+      maxPagePossible = maxPagePossible + 1;
+    }
+    // Check
+    if (page > maxPagePossible) setPage(maxPagePossible);
+
     rememberFilters(newFilterObject);
     setFilters(newFilterObject);
   };
