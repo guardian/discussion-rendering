@@ -13,7 +13,8 @@ import {
   UserProfile,
   AdditionalHeadersType,
   PageSizeType,
-  OrderByType
+  OrderByType,
+  Pillar
 } from "./types";
 import {
   getDiscussion,
@@ -31,6 +32,7 @@ import { LoadingComments } from "./components/LoadingComments/LoadingComments";
 type Props = {
   shortUrl: string;
   baseUrl: string;
+  pillar: Pillar;
   commentToScrollTo?: number;
   initialPage?: number;
   pageSizeOverride?: PageSizeType;
@@ -151,6 +153,7 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
 export const App = ({
   baseUrl,
   shortUrl,
+  pillar,
   initialPage,
   commentToScrollTo,
   pageSizeOverride,
@@ -302,7 +305,11 @@ export const App = ({
         {picks && picks.length ? (
           <div className={picksWrapper}>
             {!!picks.length && (
-              <TopPicks baseUrl={baseUrl} comments={picks.slice(0, 2)} />
+              <TopPicks
+                baseUrl={baseUrl}
+                pillar={pillar}
+                comments={picks.slice(0, 2)}
+              />
             )}
           </div>
         ) : (
@@ -318,7 +325,7 @@ export const App = ({
                     <CommentContainer
                       baseUrl={baseUrl}
                       comment={comment}
-                      pillar="news"
+                      pillar={pillar}
                       shortUrl={shortUrl}
                       onAddComment={onAddComment}
                       user={user}
@@ -364,7 +371,9 @@ export const App = ({
           user={user}
         />
       )}
-      {!!picks.length && <TopPicks baseUrl={baseUrl} comments={picks} />}
+      {!!picks.length && (
+        <TopPicks baseUrl={baseUrl} pillar={pillar} comments={picks} />
+      )}
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}
@@ -393,7 +402,7 @@ export const App = ({
               <CommentContainer
                 baseUrl={baseUrl}
                 comment={comment}
-                pillar="news"
+                pillar={pillar}
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
                 user={user}

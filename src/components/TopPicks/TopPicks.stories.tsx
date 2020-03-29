@@ -56,6 +56,7 @@ const commentWithShortBody: CommentType = {
 export const SingleComment = () => (
   <TopPicks
     baseUrl="https://discussion.guardianapis.com/discussion-api"
+    pillar="news"
     comments={[commentWithShortBody]}
   />
 );
@@ -64,6 +65,7 @@ SingleComment.story = { name: "Single Comment" };
 export const MulitColumn = () => (
   <TopPicks
     baseUrl="https://discussion.guardianapis.com/discussion-api"
+    pillar="culture"
     comments={[
       commentWithLongBody,
       commentWithShortBody,
@@ -77,6 +79,7 @@ MulitColumn.story = { name: "Mulitple Columns Comments" };
 export const SingleColumn = () => (
   <TopPicks
     baseUrl="https://discussion.guardianapis.com/discussion-api"
+    pillar="sport"
     comments={[
       commentWithLongBody,
       commentWithShortBody,

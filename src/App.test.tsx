@@ -29,6 +29,7 @@ describe("App", () => {
       <App
         baseUrl=""
         shortUrl=""
+        pillar="news"
         expanded={false}
         additionalHeaders={{
           "D2-X-UID": "testD2Header",
@@ -48,6 +49,7 @@ describe("App", () => {
       <App
         baseUrl=""
         shortUrl=""
+        pillar="news"
         // user={undefined}
         expanded={false}
         additionalHeaders={{
@@ -66,6 +68,7 @@ describe("App", () => {
       <App
         baseUrl=""
         shortUrl=""
+        pillar="news"
         user={aUser}
         expanded={true}
         additionalHeaders={{

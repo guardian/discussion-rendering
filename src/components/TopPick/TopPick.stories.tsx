@@ -56,6 +56,7 @@ export const LongPick = () => (
   >
     <TopPick
       baseUrl="https://discussion.guardianapis.com/discussion-api"
+      pillar="news"
       comment={comment}
     />
   </div>
@@ -71,6 +72,7 @@ export const ShortPick = () => (
   >
     <TopPick
       baseUrl="https://discussion.guardianapis.com/discussion-api"
+      pillar="opinion"
       comment={commentWithShortBody}
     />
   </div>
