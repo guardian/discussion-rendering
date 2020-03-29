@@ -1,11 +1,10 @@
 import React from "react";
-import MockDate from "mockdate";
 
 import { Timestamp } from "./Timestamp";
 
 export default { component: Timestamp, title: "Timestamp" };
 
-MockDate.set("Fri March 27 2020 12:00:00 GMT+0000 (Greenwich Mean Time)");
+// Date is mocked to "Fri March 27 2020 12:00:00 GMT+0000 (Greenwich Mean Time)" in config
 
 export const TwoMonths = () => (
   <Timestamp isoDateTime={"2020-01-26T14:22:39Z"} linkTo="" />
