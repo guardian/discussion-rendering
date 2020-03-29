@@ -1,30 +1,28 @@
 import React from "react";
+import MockDate from "mockdate";
+
 import { Timestamp } from "./Timestamp";
 
 export default { component: Timestamp, title: "Timestamp" };
 
-const hoursBeforeNow = (hours: number) => {
-  var date = new Date();
-  date.setHours(date.getHours() - hours);
-  return date.toISOString();
-};
+MockDate.set("Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)");
 
-export const Default = () => (
-  <Timestamp isoDateTime={"2010-11-18T14:22:39Z"} linkTo="" />
+export const TwoMonths = () => (
+  <Timestamp isoDateTime={"2019-09-14T14:22:39Z"} linkTo="" />
 );
-Default.story = { name: "default" };
+TwoMonths.story = { name: "Two months" };
 
 export const OneHour = () => (
-  <Timestamp isoDateTime={hoursBeforeNow(1)} linkTo="" />
+  <Timestamp isoDateTime={"2019-11-17T11:00:00Z"} linkTo="" />
 );
 OneHour.story = { name: "One Hour" };
 
 export const TwentyThreeHours = () => (
-  <Timestamp isoDateTime={hoursBeforeNow(23)} linkTo="" />
+  <Timestamp isoDateTime={"2019-11-16T13:00:00Z"} linkTo="" />
 );
 TwentyThreeHours.story = { name: "Twenty three hours" };
 
 export const TwentyFiveHours = () => (
-  <Timestamp isoDateTime={hoursBeforeNow(25)} linkTo="" />
+  <Timestamp isoDateTime={"2019-11-16T11:00:00Z"} linkTo="" />
 );
 TwentyFiveHours.story = { name: "Twenty five hours" };
