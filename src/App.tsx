@@ -183,20 +183,11 @@ export const App = ({
       setLoading(false);
       if (json?.status !== "error") {
         setComments(json?.discussion?.comments);
+        setCommentCount(json.discussion.topLevelCommentCount);
       }
       setTotalPages(json?.pages);
     });
   }, [filters, page, shortUrl]);
-
-  useEffect(() => {
-    setLoading(true);
-    const fetchCommentCount = async () => {
-      const json = await getCommentCount(shortUrl);
-      setLoading(false);
-      setCommentCount(json?.numberOfComments);
-    };
-    fetchCommentCount();
-  }, [shortUrl]);
 
   useEffect(() => {
     const fetchPicks = async () => {
