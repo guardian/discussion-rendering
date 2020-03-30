@@ -1,4 +1,10 @@
-export type Pillar = "news" | "opinion" | "sport" | "culture" | "lifestyle";
+export type Pillar =
+  | "news"
+  | "opinion"
+  | "sport"
+  | "culture"
+  | "lifestyle"
+  | "labs";
 
 export interface CommentType {
   id: number;
