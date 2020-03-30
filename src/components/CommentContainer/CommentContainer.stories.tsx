@@ -6,7 +6,7 @@ import { CommentType } from "../../types";
 export default { title: "CommentContainer" };
 
 const commentData: CommentType = {
-  id: 25487686,
+  id: "25487686",
   body:
     "Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!",
   date: "26 July 2013 4:13pm",
@@ -37,7 +37,7 @@ const commentData: CommentType = {
 };
 
 const threadComment: CommentType = {
-  id: 25488498,
+  id: "25488498",
   body: "<p>It's still there FrankDeFord - and thanks, I will pass that on</p>",
   date: "26 July 2013 4:35pm",
   isoDateTime: "2013-07-26T15:13:20Z",

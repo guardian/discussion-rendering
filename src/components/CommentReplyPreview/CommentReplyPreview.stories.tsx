@@ -6,7 +6,7 @@ import { CommentType } from "../../types";
 export default { title: "CommentReplyPreview" };
 
 const commentBeingRepliedTo: CommentType = {
-  id: 25487686,
+  id: "25487686",
   body:
     "Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!",
   date: "26 July 2013 4:13pm",

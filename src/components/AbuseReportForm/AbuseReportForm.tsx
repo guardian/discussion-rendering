@@ -11,7 +11,7 @@ import { Pillar } from "../../types";
 import { reportAbuse } from "../../lib/api";
 
 type Props = {
-  commentId: number;
+  commentId: string;
   pillar: Pillar;
 };
 
@@ -78,7 +78,7 @@ const errorMessageStyles = css`
 `;
 
 export const Form: React.FC<{
-  commentId: number;
+  commentId: string;
   toggleSetShowForm: () => void;
   pillar: Pillar;
 }> = ({ commentId, toggleSetShowForm, pillar }) => {
@@ -277,7 +277,7 @@ export const Form: React.FC<{
 };
 
 export const AbuseReportForm: React.FC<{
-  commentId: number;
+  commentId: string;
   pillar: Pillar;
 }> = ({ commentId, pillar }: Props) => {
   const [showForm, setShowForm] = useState(false);

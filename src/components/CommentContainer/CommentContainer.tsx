@@ -19,7 +19,7 @@ type Props = {
   threads: ThreadsType;
   commentBeingRepliedTo?: CommentType;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
-  commentToScrollTo?: number;
+  commentToScrollTo?: string;
 };
 
 const nestingStyles = css`
@@ -122,7 +122,7 @@ export const CommentContainer = ({
     setResponses(comment.responses || []);
   }, [comment]);
 
-  const expand = (commentId: number) => {
+  const expand = (commentId: string) => {
     setLoading(true);
     getMoreResponses(commentId)
       .then(json => {

@@ -7,7 +7,7 @@ import { palette } from "@guardian/src-foundations";
 import { recommend } from "../../lib/api";
 
 type Props = {
-  commentId: number;
+  commentId: string;
   initialCount: number;
   alreadyRecommended: boolean;
 };

@@ -16,12 +16,7 @@ import {
   OrderByType,
   Pillar
 } from "./types";
-import {
-  getDiscussion,
-  getCommentCount,
-  getPicks,
-  initialiseApi
-} from "./lib/api";
+import { getDiscussion, getPicks, initialiseApi } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
@@ -33,7 +28,7 @@ type Props = {
   shortUrl: string;
   baseUrl: string;
   pillar: Pillar;
-  commentToScrollTo?: number;
+  commentToScrollTo?: string;
   initialPage?: number;
   pageSizeOverride?: PageSizeType;
   orderByOverride?: OrderByType;

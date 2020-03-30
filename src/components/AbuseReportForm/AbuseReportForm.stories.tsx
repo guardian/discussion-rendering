@@ -14,18 +14,18 @@ const wrapperStyles = css`
 
 export const Container = () => (
   <div className={wrapperStyles}>
-    <AbuseReportForm commentId={123} pillar={"sport"} />
+    <AbuseReportForm commentId={"123"} pillar={"sport"} />
   </div>
 );
 
 export const Dialog = () => (
   <div className={wrapperStyles}>
-    <Form toggleSetShowForm={() => {}} pillar={"sport"} commentId={123} />
+    <Form toggleSetShowForm={() => {}} pillar={"sport"} commentId={"123"} />
   </div>
 );
 
 export const DialogWithError = () => (
   <div className={wrapperStyles}>
-    <Form toggleSetShowForm={() => {}} pillar={"sport"} commentId={123} />
+    <Form toggleSetShowForm={() => {}} pillar={"sport"} commentId={"123"} />
   </div>
 );

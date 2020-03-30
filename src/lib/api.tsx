@@ -121,7 +121,7 @@ export const comment = (
 export const reply = (
   shortUrl: string,
   body: string,
-  parentCommentId: number
+  parentCommentId: string
 ): Promise<CommentResponse> => {
   const url = joinUrl([
     options.baseUrl,
@@ -164,7 +164,7 @@ export const reportAbuse = ({
   email,
   reason
 }: {
-  commentId: number;
+  commentId: string;
   categoryId: number;
   reason?: string;
   email?: string;
@@ -186,7 +186,7 @@ export const reportAbuse = ({
   }).then(resp => resp.json());
 };
 
-export const recommend = (commentId: number): Promise<boolean> => {
+export const recommend = (commentId: string): Promise<boolean> => {
   const url = joinUrl([
     options.baseUrl,
     "comment",
@@ -240,7 +240,7 @@ export const addUserName = (userName: string): Promise<UserNameResponse> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-export const pickComment = (commentId: number): Promise<CommentResponse> => {
+export const pickComment = (commentId: string): Promise<CommentResponse> => {
   const url = joinUrl([
     options.baseUrl,
     "comment",
@@ -257,7 +257,7 @@ export const pickComment = (commentId: number): Promise<CommentResponse> => {
     .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
-export const unPickComment = (commentId: number): Promise<CommentResponse> => {
+export const unPickComment = (commentId: string): Promise<CommentResponse> => {
   const url = joinUrl([
     options.baseUrl,
     "comment",
@@ -275,7 +275,7 @@ export const unPickComment = (commentId: number): Promise<CommentResponse> => {
 };
 
 export const getMoreResponses = (
-  commentId: number
+  commentId: string
 ): Promise<{
   status: "ok" | "error";
   comment: CommentType;

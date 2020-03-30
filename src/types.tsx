@@ -1,7 +1,7 @@
 export type Pillar = "news" | "opinion" | "sport" | "culture" | "lifestyle";
 
 export interface CommentType {
-  id: number;
+  id: string;
   body: string;
   date: string;
   isoDateTime: string;
