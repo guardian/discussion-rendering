@@ -188,8 +188,9 @@ export const CommentContainer = ({
         )}
         {commentBeingRepliedTo &&
           (commentBeingRepliedTo.id === comment.id ||
-            responses?.find(
-              response => response.id === commentBeingRepliedTo.id
+            responses.find(
+              (response: CommentType) =>
+                response.id === commentBeingRepliedTo.id
             )) &&
           user && (
             <div className={nestingStyles}>

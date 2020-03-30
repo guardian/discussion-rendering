@@ -1,7 +1,7 @@
 import { UserProfile, CommentType } from "../types";
 
 export const simulateNewComment = (
-  commentId: number,
+  commentId: string,
   body: string,
   user: UserProfile,
   commentBeingRepliedTo?: CommentType

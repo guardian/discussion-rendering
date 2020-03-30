@@ -298,7 +298,7 @@ export const CommentForm = ({
         onAddComment(
           simulateNewComment(
             // response.message is the id of the comment that was created on the server
-            parseInt(response.message),
+            response.message,
             body,
             user,
             commentBeingRepliedTo
@@ -380,6 +380,7 @@ export const CommentForm = ({
           </div>
         )}
         <textarea
+          data-testid="comment-input"
           placeholder={"Join the discussion"}
           className={cx(
             commentTextArea,
@@ -397,7 +398,7 @@ export const CommentForm = ({
         />
         <div className={bottomContainer}>
           <div className={buttonContainerStyles}>
-            <Button type="submit" size="small">
+            <Button type="submit" size="small" data-testid="post-comment">
               <div className={buttonTextStyles}>Post your comment</div>
             </Button>
             {(isActive || body) && (

@@ -17,7 +17,7 @@ export interface CommentType {
     commentApiUrl: string;
     isoDateTime: string;
     date: string;
-    commentId: number;
+    commentId: string;
     commentWebUrl: string;
   };
   responses?: CommentType[];

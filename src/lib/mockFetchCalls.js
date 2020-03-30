@@ -3,6 +3,8 @@ import fetchMock from "fetch-mock";
 import { discussion } from "../../fixtures/discussion";
 import { comment } from "../../fixtures/comment";
 
+export const mockedMessageID = "123456";
+
 export const mockFetchCalls = () => {
   fetchMock
     .restore()
@@ -93,7 +95,7 @@ export const mockFetchCalls = () => {
       status: 200,
       body: {
         status: "ok",
-        message: "123456"
+        message: mockedMessageID
       }
     });
 };

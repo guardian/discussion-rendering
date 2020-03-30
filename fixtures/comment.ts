@@ -1,4 +1,6 @@
-export const comment = {
+import { CommentType } from "../src/types";
+
+export const comment: CommentType = {
   id: 138809272,
   body:
     "<p>Begone ye self-serving Tory isolationists.</p> <p>Never has there been a more significant time for Big Government and public health provision. Nature has spoken.</p>",
@@ -19,17 +21,6 @@ export const comment = {
     avatar: "https://avatar.guim.co.uk/user/13239086",
     secureAvatarUrl: "https://avatar.guim.co.uk/user/13239086",
     badge: []
-  },
-  discussion: {
-    key: "/p/ddp96",
-    webUrl:
-      "https://www.theguardian.com/commentisfree/2020/mar/09/coronavirus-outbreak-nhs-staff-shortages",
-    apiUrl:
-      "https://discussion.guardianapis.com/discussion-api/discussion//p/ddp96",
-    title:
-      "Even a starved NHS is still our best defence against the coronavirus",
-    isClosedForComments: true,
-    isClosedForRecommendation: true
   },
   responses: [
     {
@@ -170,5 +161,39 @@ export const comment = {
     editorsPickCount: 0,
     blockedCount: 1,
     responseCount: 4
+  }
+};
+
+const test: CommentType = {
+  id: 138809396,
+  body:
+    "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
+  date: "09 March 2020 7:19pm",
+  isoDateTime: "2020-03-09T19:19:03Z",
+  status: "blocked",
+  webUrl: "https://discussion.theguardian.com/comment-permalink/138809396",
+  apiUrl:
+    "https://discussion.guardianapis.com/discussion-api/comment/138809396",
+  numRecommends: 0,
+  isHighlighted: false,
+  responseTo: {
+    displayName: "blipvert",
+    commentApiUrl:
+      "https://discussion.guardianapis.com/discussion-api/comment/138809272",
+    isoDateTime: "2020-03-09T19:09:28Z",
+    date: "09 March 2020 7:09pm",
+    commentId: "138809272",
+    commentWebUrl:
+      "https://discussion.theguardian.com/comment-permalink/138809272"
+  },
+  userProfile: {
+    userId: "13093174",
+    displayName: "Cricketnut",
+    webUrl: "https://profile.theguardian.com/user/id/13093174",
+    apiUrl:
+      "https://discussion.guardianapis.com/discussion-api/profile/13093174",
+    avatar: "https://avatar.guim.co.uk/user/13093174",
+    secureAvatarUrl: "https://avatar.guim.co.uk/user/13093174",
+    badge: []
   }
 };
