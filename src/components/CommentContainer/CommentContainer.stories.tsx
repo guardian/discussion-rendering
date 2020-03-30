@@ -119,18 +119,3 @@ export const threadedComment = () => (
   />
 );
 threadedComment.story = { name: "threaded" };
-<<<<<<< HEAD
-
-export const replyableComment = () => (
-  <CommentContainer
-    baseUrl="https://discussion.theguardian.com/discussion-api"
-    comment={commentDataThreaded}
-    pillar="lifestyle"
-    shortUrl="randomShortURL"
-    user={aUser}
-    threads="collapsed"
-    setCommentBeingRepliedTo={comment => {}}
-  />
-);
-=======
->>>>>>> 670a6d4bf7386e2c3fac2e3e08bfba0527a3356b
