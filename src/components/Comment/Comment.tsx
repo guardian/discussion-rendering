@@ -134,7 +134,8 @@ const iconWrapper = css`
 `;
 
 const timestampWrapperStyles = css`
-  margin-left: 10px;
+  margin-left: ${space[2]}px;
+  margin-bottom: -2px;
   display: flex;
   flex-direction: column;
   justify-content: center;
