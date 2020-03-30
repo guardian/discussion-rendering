@@ -217,10 +217,10 @@ export const Pagination = ({
   const showForwardButton = totalPages > 4 && currentPage !== totalPages;
 
   // Pagination Text
-  let { pageSize } = filters;
-  let endIndex = pageSize * currentPage;
-  let startIndex = endIndex - (pageSize - 1);
-  if (endIndex > commentCount) endIndex = commentCount;
+  let { pageSize } = filters; // e.g: pageSize of 25
+  let endIndex = pageSize * currentPage; // e.g: currentPage is page 2, endIndex is 25 * 2 = 50
+  let startIndex = endIndex - (pageSize - 1); // e.g: 50 - (25 - 1) startIndex is 26. Example page 2 has comments 26 - 50 on it.
+  if (endIndex > commentCount) endIndex = commentCount; // If there are less total comments than allowed on the page, endIndex is total comment count
 
   return (
     <div className={paginationWrapper}>
