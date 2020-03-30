@@ -20,6 +20,7 @@ type Props = {
   user?: UserProfile;
   comment: CommentType;
   pillar: Pillar;
+  isClosedForComments: boolean;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
   isReply: boolean;
   wasScrolledTo?: boolean;
@@ -179,6 +180,7 @@ export const Comment = ({
   baseUrl,
   comment,
   pillar,
+  isClosedForComments,
   setCommentBeingRepliedTo,
   user,
   isReply,
@@ -298,18 +300,21 @@ export const Comment = ({
               />
               <div className={spaceBetween}>
                 <div className={commentControls}>
-                  <button
-                    onClick={() => setCommentBeingRepliedTo(comment)}
-                    className={cx(
-                      commentControlsButtonStyles,
-                      removePaddingLeft
-                    )}
-                  >
-                    <div className={flexRowStyles}>
-                      <ReplyArrow />
-                      Reply
-                    </div>
-                  </button>
+                  {/* When commenting is closed, no reply link shows at all */}
+                  {!isClosedForComments && (
+                    <button
+                      onClick={() => setCommentBeingRepliedTo(comment)}
+                      className={cx(
+                        commentControlsButtonStyles,
+                        removePaddingLeft
+                      )}
+                    >
+                      <div className={flexRowStyles}>
+                        <ReplyArrow />
+                        Reply
+                      </div>
+                    </button>
+                  )}
                   <button className={commentControlsButtonStyles}>Share</button>
                   {/* Only staff can pick, and they cannot pick thier own comment */}
                   {user &&
