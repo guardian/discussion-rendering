@@ -57,6 +57,7 @@
     "eslint-plugin-react-hooks": "^2.3.0",
     "fetch-mock": "^9.3.1",
     "husky": "^4.2.3",
+    "mockdate": "^2.0.5",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "react": "^16.12.0",
