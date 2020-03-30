@@ -52,7 +52,7 @@ const threadComment: CommentType = {
       "https://discussion.guardianapis.com/discussion-api/comment/25487686",
     isoDateTime: "2013-07-26T15:13:20Z",
     date: "26 July 2013 4:13pm",
-    commentId: 25487686,
+    commentId: "25487686",
     commentWebUrl:
       "https://discussion.theguardian.com/comment-permalink/25487686"
   },
