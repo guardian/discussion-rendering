@@ -1,4 +1,4 @@
-import { CommentType } from "../src/types";
+import { CommentType } from "../types";
 
 export const comment: CommentType = {
   id: "138809272",

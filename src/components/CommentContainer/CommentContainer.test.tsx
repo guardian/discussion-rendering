@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 
 import { CommentType } from "../../types";
-import { comment } from "../../../fixtures/comment";
+import { comment } from "../../fixtures/comment";
 import { mockFetchCalls, mockedMessageID } from "../../lib/mockFetchCalls";
 
 import { CommentContainer } from "./CommentContainer";
