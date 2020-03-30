@@ -13,7 +13,12 @@ export const Default = () => {
     threads: "collapsed"
   });
   return (
-    <Filters filters={filters} onFilterChange={setFilters} totalPages={5} />
+    <Filters
+      filters={filters}
+      onFilterChange={setFilters}
+      totalPages={5}
+      commentCount={74}
+    />
   );
 };
 Default.story = { name: "default" };

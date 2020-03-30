@@ -144,5 +144,6 @@ export type AdditionalHeadersType = { [key: string]: string };
 export type DropdownOptionType = {
   value: string;
   title: string;
+  disabled?: boolean;
   isActive?: boolean;
 };

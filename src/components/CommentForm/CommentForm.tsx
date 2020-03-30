@@ -199,7 +199,6 @@ export const CommentForm = ({
   };
 
   const fetchShowPreview = async () => {
-    // TODO: add error management
     if (!body) return;
 
     try {
