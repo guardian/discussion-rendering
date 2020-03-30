@@ -186,7 +186,7 @@ export const App = ({
       setLoading(false);
       if (json?.status !== "error") {
         setComments(json?.discussion?.comments);
-        setCommentCount(json.discussion.topLevelCommentCount);
+        setCommentCount(json?.discussion?.topLevelCommentCount);
       }
       setTotalPages(json?.pages);
     });
