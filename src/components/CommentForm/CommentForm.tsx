@@ -104,6 +104,17 @@ const msgContainerStyles = css`
   margin-top: 8px;
 `;
 
+const linkStyles = css`
+  a {
+    color: ${text.anchorPrimary};
+    text-decoration: none;
+    :hover,
+    :focus {
+      text-decoration: underline;
+    }
+  }
+`;
+
 const wrapperHeaderTextStyles = css`
   background-color: #f6f6f6;
   padding: 8px 10px 10px 8px;
@@ -343,25 +354,25 @@ export const CommentForm = ({
         {error && (
           <div className={msgContainerStyles}>
             <p
-              className={errorTextStyles}
+              className={cx(errorTextStyles, linkStyles)}
               dangerouslySetInnerHTML={{ __html: error }}
             />
           </div>
         )}
         {info && (
           <div className={msgContainerStyles}>
-            <p className={infoTextStyles}>{info}</p>
+            <p className={cx(infoTextStyles, linkStyles)}>{info}</p>
           </div>
         )}
         {isActive && (
           <div className={wrapperHeaderTextStyles}>
-            <p className={headerTextStyles}>
+            <p className={cx(headerTextStyles, linkStyles)}>
               Please keep comments respectful and abide by the{" "}
               <a href="/community-standards">community guidelines</a>.
             </p>
 
             {user.privateFields && user.privateFields.isPremoderated && (
-              <p className={errorTextStyles}>
+              <p className={cx(errorTextStyles, linkStyles)}>
                 Your comments are currently being pre-moderated (
                 <a href="/community-faqs#311" target="_blank">
                   why?
