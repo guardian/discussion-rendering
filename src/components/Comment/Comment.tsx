@@ -113,9 +113,12 @@ const regularFont = css`
   }
 `;
 
-const iconPosition = css`
-  left: 3px;
-  bottom: 0;
+const svgOverrides = css`
+  svg {
+    fill: ${neutral[46]} !important;
+    left: 3px !important;
+    bottom: 0 !important;
+  }
 `;
 
 const commentDetails = css`
@@ -262,7 +265,7 @@ export const Comment = ({
                     className={cx(
                       colourStyles(pillar),
                       regularFont,
-                      iconPosition
+                      svgOverrides
                     )}
                   >
                     <Link
