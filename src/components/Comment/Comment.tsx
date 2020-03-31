@@ -66,24 +66,23 @@ const linkStyles = css`
   }
 `;
 
-const alignItemsCenter = css`
-  align-items: center;
-`;
-
 const Column = ({
   children,
   justify = "flex-start",
-  fullWidth = false
+  fullWidth = false,
+  alignItems = "stretch"
 }: {
   children: JSX.Element | JSX.Element[];
   justify?: "flex-start" | "space-between"; // Extend as required
   fullWidth?: boolean;
+  alignItems?: "stretch" | "center" | "flex-start" | "flex-end";
 }) => (
   <div
     className={css`
       display: flex;
       flex-direction: column;
       justify-content: ${justify};
+      align-items: ${alignItems};
       ${fullWidth} {
         width: 100%;
       }
@@ -96,17 +95,20 @@ const Column = ({
 const Row = ({
   children,
   justify = "flex-start",
-  fullWidth = false
+  fullWidth = false,
+  alignItems = "stretch"
 }: {
   children: JSX.Element | JSX.Element[];
   justify?: "flex-start" | "space-between"; // Extend as required
   fullWidth?: boolean;
+  alignItems?: "stretch" | "center" | "flex-start" | "flex-end";
 }) => (
   <div
     className={css`
       display: flex;
       flex-direction: row;
       justify-content: ${justify};
+      align-items: ${alignItems};
       ${fullWidth} {
         width: 100%;
       }
@@ -192,34 +194,32 @@ export const Comment = ({
               <header>
                 <Row justify="space-between" fullWidth={true}>
                   <Column>
-                    <Row>
-                      <div className={alignItemsCenter}>
-                        <div className={marginRight}>
-                          <div className={commentProfileName(pillar)}>
-                            <a
-                              href={joinUrl([
-                                "https://profile.theguardian.com/user",
-                                comment.userProfile.userId
-                              ])}
-                              className={linkStyles}
-                            >
-                              {comment.userProfile.displayName}
-                            </a>
-                          </div>
+                    <Row alignItems="center">
+                      <div className={marginRight}>
+                        <div className={commentProfileName(pillar)}>
+                          <a
+                            href={joinUrl([
+                              "https://profile.theguardian.com/user",
+                              comment.userProfile.userId
+                            ])}
+                            className={linkStyles}
+                          >
+                            {comment.userProfile.displayName}
+                          </a>
                         </div>
-                        <Timestamp
-                          isoDateTime={comment.isoDateTime}
-                          linkTo={joinUrl([
-                            // Remove the discussion-api path from the baseUrl
-                            baseUrl
-                              .split("/")
-                              .filter(path => path !== "discussion-api")
-                              .join("/"),
-                            "comment-permalink",
-                            comment.id.toString()
-                          ])}
-                        />
                       </div>
+                      <Timestamp
+                        isoDateTime={comment.isoDateTime}
+                        linkTo={joinUrl([
+                          // Remove the discussion-api path from the baseUrl
+                          baseUrl
+                            .split("/")
+                            .filter(path => path !== "discussion-api")
+                            .join("/"),
+                          "comment-permalink",
+                          comment.id.toString()
+                        ])}
+                      />
                     </Row>
                     <Row>
                       <Badges comment={comment} isHighlighted={isHighlighted} />
