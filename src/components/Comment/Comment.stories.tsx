@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Comment } from "./Comment";
-import { CommentType } from "../../types";
+import { CommentType, UserProfile } from "../../types";
 
 export default { title: "Comment" };
 
@@ -55,7 +55,7 @@ const blockedCommentData = {
     "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>."
 };
 
-const replyCommentData = {
+const replyCommentData: CommentType = {
   ...commentData,
   responseTo: {
     displayName: "ArtVandelay",
@@ -67,7 +67,7 @@ const replyCommentData = {
   }
 };
 
-const staffUser = {
+const staffUser: UserProfile = {
   userId: "abc123",
   displayName: "Jane Smith",
   webUrl: "",
