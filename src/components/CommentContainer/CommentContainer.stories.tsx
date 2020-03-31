@@ -99,6 +99,7 @@ export const defaultStory = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
+    isClosedForComments={false}
     shortUrl="randomShortURL"
     user={aUser}
     onAddComment={(commentId, body, user) => {}}
@@ -113,6 +114,7 @@ export const threadedComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentDataThreaded}
     pillar={"lifestyle"}
+    isClosedForComments={false}
     shortUrl="randomShortURL"
     user={aUser}
     onAddComment={(commentId, body, user) => {}}

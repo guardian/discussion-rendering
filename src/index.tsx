@@ -7,6 +7,7 @@ ReactDOM.render(
   <App
     baseUrl="https://discussion.theguardian.com/discussion-api"
     pillar="news"
+    isClosedForComments={false}
     shortUrl="/p/39f5z"
     additionalHeaders={{
       "D2-X-UID": "testD2Header",
