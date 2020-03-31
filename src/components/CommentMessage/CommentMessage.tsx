@@ -5,7 +5,6 @@ import { space, palette } from "@guardian/src-foundations";
 import { neutral, background } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
-import { Flex } from "../Flex/Flex";
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { pickComment, unPickComment } from "../../lib/api";
 
