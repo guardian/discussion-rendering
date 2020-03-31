@@ -6,7 +6,7 @@ import { UserProfile } from "./types";
 
 export default { component: App, title: "App" };
 
-const user: UserProfile = {
+const aUser: UserProfile = {
   userId: "abc123",
   displayName: "Jane Smith",
   webUrl: "",
@@ -32,7 +32,7 @@ export const Default = () => (
       shortUrl="p/39f5z"
       baseUrl="https://discussion.theguardian.com/discussion-api"
       pillar="culture"
-      user={user}
+      user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
@@ -55,7 +55,7 @@ export const InitialPage = () => (
       initialPage={3}
       baseUrl="https://discussion.theguardian.com/discussion-api"
       pillar="lifestyle"
-      user={user}
+      user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
@@ -80,7 +80,7 @@ export const Overrides = () => (
       orderByOverride={"oldest"}
       baseUrl="https://discussion.theguardian.com/discussion-api"
       pillar="opinion"
-      user={user}
+      user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
@@ -103,7 +103,7 @@ export const Expanded = () => (
       initialPage={3}
       baseUrl="https://discussion.theguardian.com/discussion-api"
       pillar="sport"
-      user={user}
+      user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
         "GU-Client": "testClientHeader"
