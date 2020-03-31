@@ -1,4 +1,11 @@
 import { configure, addParameters } from "@storybook/react";
+import MockDate from "mockdate";
+
+MockDate.set("Fri March 27 2020 12:00:00 GMT+0000 (Greenwich Mean Time)");
+
+import { mockFetchCalls } from "../src/lib/mockFetchCalls";
+
+mockFetchCalls();
 
 const guardianViewports = {
   mobileMedium: {

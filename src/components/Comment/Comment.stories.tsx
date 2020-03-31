@@ -55,6 +55,18 @@ const blockedCommentData = {
     "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>."
 };
 
+const replyCommentData = {
+  ...commentData,
+  responseTo: {
+    displayName: "ArtVandelay",
+    commentApiUrl: "",
+    isoDateTime: "",
+    date: "",
+    commentId: "123456",
+    commentWebUrl: ""
+  }
+};
+
 const staffUser = {
   userId: "abc123",
   displayName: "Jane Smith",
@@ -75,6 +87,7 @@ export const Default = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />
@@ -84,24 +97,14 @@ Default.story = { name: "Default" };
 export const ReplyComment = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
-    comment={commentData}
+    comment={replyCommentData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
   />
 );
-Default.story = { name: "Reply Default" };
-
-export const UnpickedComment = () => (
-  <Comment
-    baseUrl="https://discussion.theguardian.com/discussion-api"
-    comment={commentData}
-    pillar={"sport"}
-    setCommentBeingRepliedTo={() => {}}
-    isReply={false}
-  />
-);
-UnpickedComment.story = { name: "Unpicked Comment" };
+ReplyComment.story = { name: "Reply Default" };
 
 export const PickedComment = () => (
   <Comment
@@ -111,6 +114,7 @@ export const PickedComment = () => (
       isHighlighted: true
     }}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />
@@ -122,6 +126,7 @@ export const StaffUserComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentStaffData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />
@@ -136,6 +141,7 @@ export const PickedStaffUserComment = () => (
       isHighlighted: true
     }}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />
@@ -147,6 +153,7 @@ export const LoggedInAsModerator = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     user={staffUser}
     isReply={false}
@@ -159,6 +166,7 @@ export const BlockedComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={blockedCommentData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />

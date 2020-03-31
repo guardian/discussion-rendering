@@ -2,8 +2,6 @@ import React from "react";
 import { App } from "./App";
 import { css } from "emotion";
 
-import { mockSignIn } from "./lib/mockSignIn";
-
 export default { component: App, title: "App" };
 
 const aUser = {
@@ -21,8 +19,6 @@ const aUser = {
   }
 };
 
-mockSignIn();
-
 export const Default = () => (
   <div
     className={css`
@@ -33,6 +29,8 @@ export const Default = () => (
     <App
       shortUrl="p/39f5z"
       baseUrl="https://discussion.theguardian.com/discussion-api"
+      pillar="culture"
+      isClosedForComments={false}
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
@@ -55,6 +53,8 @@ export const InitialPage = () => (
       shortUrl="p/39f5z"
       initialPage={3}
       baseUrl="https://discussion.theguardian.com/discussion-api"
+      pillar="lifestyle"
+      isClosedForComments={false}
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
@@ -79,6 +79,8 @@ export const Overrides = () => (
       pageSizeOverride={50}
       orderByOverride={"oldest"}
       baseUrl="https://discussion.theguardian.com/discussion-api"
+      pillar="opinion"
+      isClosedForComments={false}
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
@@ -121,6 +123,8 @@ export const Expanded = () => (
       shortUrl="p/39f5z"
       initialPage={3}
       baseUrl="https://discussion.theguardian.com/discussion-api"
+      pillar="sport"
+      isClosedForComments={false}
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
@@ -131,3 +135,26 @@ export const Expanded = () => (
   </div>
 );
 Expanded.story = { name: "expanded by default and on page 3" };
+
+export const Closed = () => (
+  <div
+    className={css`
+      width: 100%;
+      max-width: 620px;
+    `}
+  >
+    <App
+      shortUrl="p/39f5z"
+      baseUrl="https://discussion.theguardian.com/discussion-api"
+      pillar="lifestyle"
+      isClosedForComments={true}
+      user={aUser}
+      additionalHeaders={{
+        "D2-X-UID": "testD2Header",
+        "GU-Client": "testClientHeader"
+      }}
+      expanded={true}
+    />
+  </div>
+);
+Closed.story = { name: "closed for comments" };

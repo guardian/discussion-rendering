@@ -1,4 +1,10 @@
-export type Pillar = "news" | "opinion" | "sport" | "culture" | "lifestyle";
+export type Pillar =
+  | "news"
+  | "opinion"
+  | "sport"
+  | "culture"
+  | "lifestyle"
+  | "labs";
 
 export interface CommentType {
   id: number;
@@ -17,7 +23,7 @@ export interface CommentType {
     commentApiUrl: string;
     isoDateTime: string;
     date: string;
-    commentId: number;
+    commentId: string;
     commentWebUrl: string;
   };
   responses?: CommentType[];
@@ -27,6 +33,14 @@ export interface CommentType {
     editorsPickCount: number;
     blockedCount: number;
     responseCount: number;
+  };
+  discussion?: {
+    key: string;
+    webUrl: string;
+    apiUrl: string;
+    title: string;
+    isClosedForComments: boolean;
+    isClosedForRecommendation: boolean;
   };
 }
 
@@ -144,5 +158,6 @@ export type AdditionalHeadersType = { [key: string]: string };
 export type DropdownOptionType = {
   value: string;
   title: string;
+  disabled?: boolean;
   isActive?: boolean;
 };

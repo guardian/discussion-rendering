@@ -4,6 +4,7 @@ import { css, cx } from "emotion";
 import { space, palette } from "@guardian/src-foundations";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
+import { Link } from "@guardian/src-link";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
@@ -20,6 +21,7 @@ type Props = {
   user?: UserProfile;
   comment: CommentType;
   pillar: Pillar;
+  isClosedForComments: boolean;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
   isReply: boolean;
   wasScrolledTo?: boolean;
@@ -55,6 +57,11 @@ const commentCss = css`
   ${textSans.small()}
   margin-top: 0.375rem;
   margin-bottom: 0.5rem;
+
+  p {
+    margin-top: 0;
+    margin-bottom: ${space[3]}px;
+  }
 `;
 
 const blockedCommentStyles = css`
@@ -91,10 +98,28 @@ const avatarMargin = css`
   margin-right: ${space[2]}px;
 `;
 
-const commentProfileName = (pillar: Pillar) => css`
-  margin-top: 0;
+const colourStyles = (pillar: Pillar) => css`
   color: ${palette[pillar][400]};
-  ${textSans.small({ fontWeight: "bold" })}
+`;
+
+const boldFont = css`
+  a {
+    ${textSans.small({ fontWeight: "bold" })}
+  }
+`;
+
+const regularFont = css`
+  a {
+    ${textSans.small()}
+  }
+`;
+
+const svgOverrides = css`
+  svg {
+    fill: ${neutral[46]} !important;
+    left: 3px !important;
+    bottom: 0 !important;
+  }
 `;
 
 const commentDetails = css`
@@ -113,7 +138,8 @@ const iconWrapper = css`
 `;
 
 const timestampWrapperStyles = css`
-  margin-left: 10px;
+  margin-left: ${space[2]}px;
+  margin-bottom: -2px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -175,6 +201,7 @@ export const Comment = ({
   baseUrl,
   comment,
   pillar,
+  isClosedForComments,
   setCommentBeingRepliedTo,
   user,
   isReply,
@@ -233,17 +260,37 @@ export const Comment = ({
           <header className={headerStyles}>
             <Column>
               <Row>
-                <div className={commentProfileName(pillar)}>
-                  <a
+                <div className={cx(colourStyles(pillar), boldFont)}>
+                  <Link
                     href={joinUrl([
                       "https://profile.theguardian.com/user",
                       comment.userProfile.userId
                     ])}
-                    className={linkStyles(pillar)}
+                    subdued={true}
                   >
                     {comment.userProfile.displayName}
-                  </a>
+                  </Link>
                 </div>
+                {comment.responseTo ? (
+                  <div
+                    className={cx(
+                      colourStyles(pillar),
+                      regularFont,
+                      svgOverrides
+                    )}
+                  >
+                    <Link
+                      href={`#comment-${comment.responseTo.commentId}`}
+                      subdued={true}
+                      icon={<ReplyArrow />}
+                      iconSide="left"
+                    >
+                      {comment.responseTo.displayName}
+                    </Link>
+                  </div>
+                ) : (
+                  <></>
+                )}
                 <div className={timestampWrapperStyles}>
                   <Timestamp
                     isoDateTime={comment.isoDateTime}
@@ -294,29 +341,35 @@ export const Comment = ({
               />
               <div className={spaceBetween}>
                 <div className={commentControls}>
-                  {user ? (
-                    <button
-                      onClick={() => setCommentBeingRepliedTo(comment)}
-                      className={cx(
-                        commentControlsButtonStyles,
-                        removePaddingLeft
+                  {/* When commenting is closed, no reply link shows at all */}
+                  {!isClosedForComments && (
+                    <>
+                      {/* If user is not logged in we link to the login page */}
+                      {user ? (
+                        <button
+                          onClick={() => setCommentBeingRepliedTo(comment)}
+                          className={cx(
+                            commentControlsButtonStyles,
+                            removePaddingLeft
+                          )}
+                        >
+                          <div className={flexRowStyles}>
+                            <ReplyArrow />
+                            Reply
+                          </div>
+                        </button>
+                      ) : (
+                        <Row>
+                          <ReplyArrow />
+                          <a
+                            className={linkStyles(pillar)}
+                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                          >
+                            Reply
+                          </a>
+                        </Row>
                       )}
-                    >
-                      <div className={flexRowStyles}>
-                        <ReplyArrow />
-                        Reply
-                      </div>
-                    </button>
-                  ) : (
-                    <Row>
-                      <ReplyArrow />
-                      <a
-                        className={linkStyles(pillar)}
-                        href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                      >
-                        Reply
-                      </a>
-                    </Row>
+                    </>
                   )}
                   <button className={commentControlsButtonStyles}>Share</button>
                   {/* Only staff can pick, and they cannot pick thier own comment */}

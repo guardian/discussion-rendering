@@ -43,15 +43,18 @@ const commentTextArea = css`
   }
 `;
 
-const placeholderCommentStyles = css`
+const greyPlaceholder = css`
   ::placeholder {
-    font-weight: bold;
-    color: black;
+    color: ${neutral[46]};
   }
 `;
-const placeholderReplyStyles = css`
+
+// Opacity? See: https://stackoverflow.com/questions/19621306/css-placeholder-text-color-on-firefox
+const blackPlaceholder = css`
   ::placeholder {
-    color: grey;
+    font-weight: bold;
+    opacity: 1;
+    color: ${neutral[0]};
   }
 `;
 
@@ -102,6 +105,17 @@ const infoTextStyles = css`
 
 const msgContainerStyles = css`
   margin-top: 8px;
+`;
+
+const linkStyles = css`
+  a {
+    color: ${text.anchorPrimary};
+    text-decoration: none;
+    :hover,
+    :focus {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const wrapperHeaderTextStyles = css`
@@ -199,7 +213,6 @@ export const CommentForm = ({
   };
 
   const fetchShowPreview = async () => {
-    // TODO: add error management
     if (!body) return;
 
     try {
@@ -344,25 +357,25 @@ export const CommentForm = ({
         {error && (
           <div className={msgContainerStyles}>
             <p
-              className={errorTextStyles}
+              className={cx(errorTextStyles, linkStyles)}
               dangerouslySetInnerHTML={{ __html: error }}
             />
           </div>
         )}
         {info && (
           <div className={msgContainerStyles}>
-            <p className={infoTextStyles}>{info}</p>
+            <p className={cx(infoTextStyles, linkStyles)}>{info}</p>
           </div>
         )}
         {isActive && (
           <div className={wrapperHeaderTextStyles}>
-            <p className={headerTextStyles}>
+            <p className={cx(headerTextStyles, linkStyles)}>
               Please keep comments respectful and abide by the{" "}
               <a href="/community-standards">community guidelines</a>.
             </p>
 
             {user.privateFields && user.privateFields.isPremoderated && (
-              <p className={errorTextStyles}>
+              <p className={cx(errorTextStyles, linkStyles)}>
                 Your comments are currently being pre-moderated (
                 <a href="/community-faqs#311" target="_blank">
                   why?
@@ -373,12 +386,13 @@ export const CommentForm = ({
           </div>
         )}
         <textarea
-          placeholder={"Join the discussion"}
+          placeholder={
+            commentBeingRepliedTo || !isActive ? "Join the discussion" : ""
+          }
           className={cx(
             commentTextArea,
-            commentBeingRepliedTo
-              ? placeholderReplyStyles
-              : placeholderCommentStyles
+            commentBeingRepliedTo && isActive && greyPlaceholder,
+            !commentBeingRepliedTo && !isActive && blackPlaceholder
           )}
           ref={textAreaRef}
           style={{ height: isActive ? "132px" : "50px" }}

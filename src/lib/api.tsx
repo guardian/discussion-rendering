@@ -203,25 +203,6 @@ export const recommend = (commentId: number): Promise<boolean> => {
   }).then(resp => resp.ok);
 };
 
-export const getCommentCount = (
-  shortUrl: string
-): Promise<{ shortUrl: string; numberOfComments: number }> => {
-  const url = joinUrl([
-    options.baseUrl,
-    "discussion",
-    shortUrl,
-    "comments/count"
-  ]);
-
-  return fetch(url, {
-    headers: {
-      ...options.headers
-    }
-  })
-    .then(resp => resp.json())
-    .catch(error => console.error(`Error fetching ${url}`, error));
-};
-
 export const addUserName = (userName: string): Promise<UserNameResponse> => {
   const url = "https://idapi.theguardian.com/user/me";
   return fetch(url, {

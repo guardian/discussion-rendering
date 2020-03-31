@@ -22,7 +22,7 @@ const comment: CommentType = {
       "https://discussion.guardianapis.com/discussion-api/comment/25487686",
     isoDateTime: "2013-07-26T15:13:20Z",
     date: "26 July 2013 4:13pm",
-    commentId: 25487686,
+    commentId: "25487686",
     commentWebUrl:
       "https://discussion.theguardian.com/comment-permalink/25487686"
   },
@@ -56,6 +56,7 @@ const commentWithShortBody: CommentType = {
 export const SingleComment = () => (
   <TopPicks
     baseUrl="https://discussion.guardianapis.com/discussion-api"
+    pillar="news"
     comments={[commentWithShortBody]}
   />
 );
@@ -64,6 +65,7 @@ SingleComment.story = { name: "Single Comment" };
 export const MulitColumn = () => (
   <TopPicks
     baseUrl="https://discussion.guardianapis.com/discussion-api"
+    pillar="culture"
     comments={[
       commentWithLongBody,
       commentWithShortBody,
@@ -77,6 +79,7 @@ MulitColumn.story = { name: "Mulitple Columns Comments" };
 export const SingleColumn = () => (
   <TopPicks
     baseUrl="https://discussion.guardianapis.com/discussion-api"
+    pillar="sport"
     comments={[
       commentWithLongBody,
       commentWithShortBody,

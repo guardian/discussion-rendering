@@ -52,7 +52,7 @@ const threadComment: CommentType = {
       "https://discussion.guardianapis.com/discussion-api/comment/25487686",
     isoDateTime: "2013-07-26T15:13:20Z",
     date: "26 July 2013 4:13pm",
-    commentId: 25487686,
+    commentId: "25487686",
     commentWebUrl:
       "https://discussion.theguardian.com/comment-permalink/25487686"
   },
@@ -99,6 +99,7 @@ export const defaultStory = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
+    isClosedForComments={false}
     shortUrl="randomShortURL"
     user={aUser}
     onAddComment={(commentId, body, user) => {}}
@@ -113,6 +114,7 @@ export const threadedComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentDataThreaded}
     pillar={"lifestyle"}
+    isClosedForComments={false}
     shortUrl="randomShortURL"
     user={aUser}
     onAddComment={(commentId, body, user) => {}}
@@ -121,16 +123,3 @@ export const threadedComment = () => (
   />
 );
 threadedComment.story = { name: "threaded" };
-
-export const replyableComment = () => (
-  <CommentContainer
-    baseUrl="https://discussion.theguardian.com/discussion-api"
-    comment={commentDataThreaded}
-    pillar="lifestyle"
-    shortUrl="randomShortURL"
-    user={aUser}
-    onAddComment={(commentId, body, user) => {}}
-    threads="collapsed"
-    setCommentBeingRepliedTo={comment => {}}
-  />
-);

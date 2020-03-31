@@ -13,14 +13,10 @@ import {
   UserProfile,
   AdditionalHeadersType,
   PageSizeType,
-  OrderByType
+  OrderByType,
+  Pillar
 } from "./types";
-import {
-  getDiscussion,
-  getCommentCount,
-  getPicks,
-  initialiseApi
-} from "./lib/api";
+import { getDiscussion, getPicks, initialiseApi } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
@@ -31,6 +27,8 @@ import { LoadingComments } from "./components/LoadingComments/LoadingComments";
 type Props = {
   shortUrl: string;
   baseUrl: string;
+  pillar: Pillar;
+  isClosedForComments: boolean;
   commentToScrollTo?: number;
   initialPage?: number;
   pageSizeOverride?: PageSizeType;
@@ -102,16 +100,25 @@ const rememberFilters = (filtersToRemember: FilterOptions) => {
   }
 };
 
-const initialiseFilters = (
-  pageSizeOverride?: PageSizeType,
-  orderByOverride?: OrderByType
-) => {
+const initialiseFilters = ({
+  pageSizeOverride,
+  orderByOverride,
+  permalinkBeingUsed
+}: {
+  pageSizeOverride?: PageSizeType;
+  orderByOverride?: OrderByType;
+  permalinkBeingUsed: boolean;
+}) => {
   const initialisedFilters = initFiltersFromLocalStorage();
   return {
     ...initialisedFilters,
     // Override if prop given
     pageSize: pageSizeOverride || initialisedFilters.pageSize,
-    orderBy: orderByOverride || initialisedFilters.orderBy
+    orderBy: orderByOverride || initialisedFilters.orderBy,
+    threads:
+      initialisedFilters.threads === "collapsed" && permalinkBeingUsed
+        ? "expanded"
+        : initialisedFilters.threads
   };
 };
 
@@ -142,6 +149,8 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
 export const App = ({
   baseUrl,
   shortUrl,
+  pillar,
+  isClosedForComments,
   initialPage,
   commentToScrollTo,
   pageSizeOverride,
@@ -151,7 +160,11 @@ export const App = ({
   expanded
 }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
-    initialiseFilters(pageSizeOverride, orderByOverride)
+    initialiseFilters({
+      pageSizeOverride,
+      orderByOverride,
+      permalinkBeingUsed: !!commentToScrollTo
+    })
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
   const [loading, setLoading] = useState<boolean>(true);
@@ -170,20 +183,11 @@ export const App = ({
       setLoading(false);
       if (json?.status !== "error") {
         setComments(json?.discussion?.comments);
+        setCommentCount(json?.discussion?.topLevelCommentCount);
       }
       setTotalPages(json?.pages);
     });
   }, [filters, page, shortUrl]);
-
-  useEffect(() => {
-    setLoading(true);
-    const fetchCommentCount = async () => {
-      const json = await getCommentCount(shortUrl);
-      setLoading(false);
-      setCommentCount(json?.numberOfComments);
-    };
-    fetchCommentCount();
-  }, [shortUrl]);
 
   useEffect(() => {
     const fetchPicks = async () => {
@@ -224,6 +228,20 @@ export const App = ({
   }, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
 
   const onFilterChange = (newFilterObject: FilterOptions) => {
+    // If we're reducing the pageSize then we may need to override the page we're on to prevent making
+    // requests for pages that don't exist.
+    // E.g. If we used to have 102 comments and a pageSize of 25 then the current page could be 5 (showing 2
+    // comments). If we then change pageSize to be 50 then there is no longer a page 5 and trying to ask for it
+    // from the api would return an error so, in order to respect the readers desire to be on the last page, we
+    // need to work out the maximum page possible and use that instead.
+    let maxPagePossible = Math.floor(commentCount / newFilterObject.pageSize);
+    // Add 1 if there is a remainder
+    if (commentCount % newFilterObject.pageSize) {
+      maxPagePossible = maxPagePossible + 1;
+    }
+    // Check
+    if (page > maxPagePossible) setPage(maxPagePossible);
+
     rememberFilters(newFilterObject);
     setFilters(newFilterObject);
   };
@@ -279,7 +297,7 @@ export const App = ({
   if (!isExpanded) {
     return (
       <div className={commentContainerStyles}>
-        {user && (
+        {user && !isClosedForComments && (
           <CommentForm
             shortUrl={shortUrl}
             onAddComment={onAddComment}
@@ -289,7 +307,11 @@ export const App = ({
         {picks && picks.length ? (
           <div className={picksWrapper}>
             {!!picks.length && (
-              <TopPicks baseUrl={baseUrl} comments={picks.slice(0, 2)} />
+              <TopPicks
+                baseUrl={baseUrl}
+                pillar={pillar}
+                comments={picks.slice(0, 2)}
+              />
             )}
           </div>
         ) : (
@@ -305,7 +327,8 @@ export const App = ({
                     <CommentContainer
                       baseUrl={baseUrl}
                       comment={comment}
-                      pillar="news"
+                      pillar={pillar}
+                      isClosedForComments={isClosedForComments}
                       shortUrl={shortUrl}
                       onAddComment={onAddComment}
                       user={user}
@@ -344,18 +367,21 @@ export const App = ({
 
   return (
     <div className={containerStyles}>
-      {user && (
+      {user && !isClosedForComments && (
         <CommentForm
           shortUrl={shortUrl}
           onAddComment={onAddComment}
           user={user}
         />
       )}
-      {!!picks.length && <TopPicks baseUrl={baseUrl} comments={picks} />}
+      {!!picks.length && (
+        <TopPicks baseUrl={baseUrl} pillar={pillar} comments={picks} />
+      )}
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}
         totalPages={totalPages}
+        commentCount={commentCount}
       />
       {showPagination && (
         <Pagination
@@ -379,7 +405,8 @@ export const App = ({
               <CommentContainer
                 baseUrl={baseUrl}
                 comment={comment}
-                pillar="news"
+                pillar={pillar}
+                isClosedForComments={isClosedForComments}
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
                 user={user}
