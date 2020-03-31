@@ -62,7 +62,7 @@ const replyCommentData = {
     commentApiUrl: "",
     isoDateTime: "",
     date: "",
-    commentId: 123456,
+    commentId: "123456",
     commentWebUrl: ""
   }
 };
@@ -87,6 +87,7 @@ export const Default = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />
@@ -98,6 +99,7 @@ export const ReplyComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={replyCommentData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
   />
@@ -112,6 +114,7 @@ export const PickedComment = () => (
       isHighlighted: true
     }}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />
@@ -123,6 +126,7 @@ export const StaffUserComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentStaffData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />
@@ -137,6 +141,7 @@ export const PickedStaffUserComment = () => (
       isHighlighted: true
     }}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />
@@ -148,6 +153,7 @@ export const LoggedInAsModerator = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     user={staffUser}
     isReply={false}
@@ -160,6 +166,7 @@ export const BlockedComment = () => (
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={blockedCommentData}
     pillar={"sport"}
+    isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
   />

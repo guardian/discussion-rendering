@@ -75,11 +75,12 @@
     "start": "react-scripts start",
     "build": "rollup --config && yarn createTsDec",
     "test": "react-scripts test",
+    "tsc": "tsc --project tsconfig.project.json",
     "eject": "react-scripts eject",
     "storybook": "start-storybook",
     "build-storybook": "node --max-old-space-size=4096 $(yarn bin)/build-storybook",
     "lint": "eslint . --ext .ts,.tsx",
-    "createTsDec": "tsc --project tsconfig.json --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false"
+    "createTsDec": "tsc --project tsconfig.module.json --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false"
   },
   "eslintConfig": {
     "extends": "react-app",
