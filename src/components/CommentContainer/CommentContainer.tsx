@@ -72,6 +72,10 @@ const selectedStyles = css`
   padding-right: ${space[2]}px;
 `;
 
+const removeMargin = css`
+  margin: 0px;
+`;
+
 export const avatar = (avatarSize: number): string => css`
   border-radius: ${avatarSize + 10}px;
   width: ${avatarSize}px;
@@ -153,7 +157,7 @@ export const CommentContainer = ({
       <>
         {showResponses && responses && (
           <div className={nestingStyles}>
-            <ul className={commentContainerStyles}>
+            <ul className={cx(commentContainerStyles, removeMargin)}>
               {responses.map(responseComment => (
                 <li key={responseComment.id}>
                   <Comment
