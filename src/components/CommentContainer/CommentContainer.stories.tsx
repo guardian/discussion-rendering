@@ -72,7 +72,7 @@ const threadComment: CommentType = {
   }
 };
 
-const user = {
+const aUser = {
   userId: "abc123",
   displayName: "Jane Smith",
   webUrl: "",
@@ -100,7 +100,7 @@ export const defaultStory = () => (
     comment={commentData}
     pillar={"sport"}
     shortUrl="randomShortURL"
-    user={user}
+    user={aUser}
     onAddComment={(commentId, body, user) => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
@@ -114,7 +114,7 @@ export const threadedComment = () => (
     comment={commentDataThreaded}
     pillar={"lifestyle"}
     shortUrl="randomShortURL"
-    user={user}
+    user={aUser}
     onAddComment={(commentId, body, user) => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
@@ -128,7 +128,7 @@ export const replyableComment = () => (
     comment={commentDataThreaded}
     pillar="lifestyle"
     shortUrl="randomShortURL"
-    user={user}
+    user={aUser}
     onAddComment={(commentId, body, user) => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
