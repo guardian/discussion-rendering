@@ -75,6 +75,7 @@
     "start": "react-scripts start",
     "build": "rollup --config && yarn createTsDec",
     "test": "react-scripts test",
+    "tsc": "tsc --project tsconfig.project.json",
     "eject": "react-scripts eject",
     "storybook": "start-storybook",
     "build-storybook": "node --max-old-space-size=4096 $(yarn bin)/build-storybook",
