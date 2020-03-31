@@ -62,7 +62,7 @@ const replyCommentData = {
     commentApiUrl: "",
     isoDateTime: "",
     date: "",
-    commentId: 123456,
+    commentId: "123456",
     commentWebUrl: ""
   }
 };
