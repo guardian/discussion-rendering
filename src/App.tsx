@@ -13,14 +13,10 @@ import {
   UserProfile,
   AdditionalHeadersType,
   PageSizeType,
-  OrderByType
+  OrderByType,
+  Pillar
 } from "./types";
-import {
-  getDiscussion,
-  getCommentCount,
-  getPicks,
-  initialiseApi
-} from "./lib/api";
+import { getDiscussion, getPicks, initialiseApi } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
 import { TopPicks } from "./components/TopPicks/TopPicks";
 import { CommentForm } from "./components/CommentForm/CommentForm";
@@ -31,6 +27,7 @@ import { LoadingComments } from "./components/LoadingComments/LoadingComments";
 type Props = {
   shortUrl: string;
   baseUrl: string;
+  pillar: Pillar;
   commentToScrollTo?: number;
   initialPage?: number;
   pageSizeOverride?: PageSizeType;
@@ -151,6 +148,7 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
 export const App = ({
   baseUrl,
   shortUrl,
+  pillar,
   initialPage,
   commentToScrollTo,
   pageSizeOverride,
@@ -183,20 +181,11 @@ export const App = ({
       setLoading(false);
       if (json?.status !== "error") {
         setComments(json?.discussion?.comments);
+        setCommentCount(json?.discussion?.topLevelCommentCount);
       }
       setTotalPages(json?.pages);
     });
   }, [filters, page, shortUrl]);
-
-  useEffect(() => {
-    setLoading(true);
-    const fetchCommentCount = async () => {
-      const json = await getCommentCount(shortUrl);
-      setLoading(false);
-      setCommentCount(json?.numberOfComments);
-    };
-    fetchCommentCount();
-  }, [shortUrl]);
 
   useEffect(() => {
     const fetchPicks = async () => {
@@ -237,6 +226,20 @@ export const App = ({
   }, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
 
   const onFilterChange = (newFilterObject: FilterOptions) => {
+    // If we're reducing the pageSize then we may need to override the page we're on to prevent making
+    // requests for pages that don't exist.
+    // E.g. If we used to have 102 comments and a pageSize of 25 then the current page could be 5 (showing 2
+    // comments). If we then change pageSize to be 50 then there is no longer a page 5 and trying to ask for it
+    // from the api would return an error so, in order to respect the readers desire to be on the last page, we
+    // need to work out the maximum page possible and use that instead.
+    let maxPagePossible = Math.floor(commentCount / newFilterObject.pageSize);
+    // Add 1 if there is a remainder
+    if (commentCount % newFilterObject.pageSize) {
+      maxPagePossible = maxPagePossible + 1;
+    }
+    // Check
+    if (page > maxPagePossible) setPage(maxPagePossible);
+
     rememberFilters(newFilterObject);
     setFilters(newFilterObject);
   };
@@ -302,7 +305,11 @@ export const App = ({
         {picks && picks.length ? (
           <div className={picksWrapper}>
             {!!picks.length && (
-              <TopPicks baseUrl={baseUrl} comments={picks.slice(0, 2)} />
+              <TopPicks
+                baseUrl={baseUrl}
+                pillar={pillar}
+                comments={picks.slice(0, 2)}
+              />
             )}
           </div>
         ) : (
@@ -318,7 +325,7 @@ export const App = ({
                     <CommentContainer
                       baseUrl={baseUrl}
                       comment={comment}
-                      pillar="news"
+                      pillar={pillar}
                       shortUrl={shortUrl}
                       onAddComment={onAddComment}
                       user={user}
@@ -364,11 +371,14 @@ export const App = ({
           user={user}
         />
       )}
-      {!!picks.length && <TopPicks baseUrl={baseUrl} comments={picks} />}
+      {!!picks.length && (
+        <TopPicks baseUrl={baseUrl} pillar={pillar} comments={picks} />
+      )}
       <Filters
         filters={filters}
         onFilterChange={onFilterChange}
         totalPages={totalPages}
+        commentCount={commentCount}
       />
       {showPagination && (
         <Pagination
@@ -392,7 +402,7 @@ export const App = ({
               <CommentContainer
                 baseUrl={baseUrl}
                 comment={comment}
-                pillar="news"
+                pillar={pillar}
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
                 user={user}

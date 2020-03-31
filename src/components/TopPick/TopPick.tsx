@@ -7,7 +7,7 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { Link } from "@guardian/src-link";
 
 import { GuardianStaff } from "../Badges/Badges";
-import { CommentType } from "../../types";
+import { CommentType, Pillar } from "../../types";
 import { Avatar } from "../Avatar/Avatar";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { Timestamp } from "../Timestamp/Timestamp";
@@ -15,6 +15,7 @@ import { joinUrl } from "../../lib/joinUrl";
 
 type Props = {
   baseUrl: string;
+  pillar: Pillar;
   comment: CommentType;
 };
 
@@ -49,31 +50,34 @@ const pickComment = css`
     border-top: ${arrowSize}px solid ${bg};
     bottom: -${arrowSize - 1}px;
   }
+
+  p {
+    margin-top: 0;
+    margin-bottom: ${space[3]}px;
+  }
 `;
 
 const pickMetaWrapper = css`
   display: flex;
   justify-content: space-between;
-  padding-top: ${space[2]}px;
+  padding-top: ${space[1]}px;
 `;
 
-const userDetails = css`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const userMetaStyles = css`
-  display: flex;
-  flex-direction: column;
-`;
-
-const userName = css`
+const userNameStyles = (pillar: Pillar) => css`
+  margin-top: 3px;
+  margin-bottom: -6px;
   font-weight: bold;
-  color: ${palette.news.main}; /* TODO USE PILLAR */
+  color: ${palette[pillar].main};
 `;
 
 const avatarMargin = css`
   margin-right: ${space[2]}px;
+`;
+
+const smallFontSize = css`
+  a {
+    ${textSans.small()}
+  }
 `;
 
 const linkStyles = css`
@@ -81,6 +85,13 @@ const linkStyles = css`
   :hover {
     text-decoration: underline;
   }
+`;
+
+const titleStyles = css`
+  ${textSans.small()};
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: ${space[1]}px;
 `;
 
 const inheritColour = css`
@@ -111,26 +122,40 @@ const Bottom = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div>{children}</div>
 );
 
+const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div
+    className={css`
+      display: flex;
+      flex-direction: column;
+    `}
+  >
+    {children}
+  </div>
+);
+
+const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div
+    className={css`
+      display: flex;
+      flex-direction: row;
+    `}
+  >
+    {children}
+  </div>
+);
+
 const truncateText = (input: string, limit: number) => {
   // If input greater than limit trucate by limit and append an ellipsis
   if (input.length > limit) return input.substr(0, limit) + "&#8230;";
   return input;
 };
 
-export const TopPick = ({ baseUrl, comment }: Props) => (
+export const TopPick = ({ baseUrl, pillar, comment }: Props) => (
   <div className={pickStyles}>
     <div className={pickComment}>
       <SpaceBetween>
         <Top>
-          <h3
-            className={css`
-              ${textSans.small()};
-              font-weight: bold;
-              margin: 0px;
-            `}
-          >
-            Guardian Pick
-          </h3>
+          <h3 className={titleStyles}>Guardian Pick</h3>
           <p
             dangerouslySetInnerHTML={{
               __html: truncateText(comment.body, 450)
@@ -138,26 +163,28 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
           ></p>
         </Top>
         <Bottom>
-          <Link
-            priority="primary"
-            subdued={true}
-            href={joinUrl([
-              // Remove the discussion-api path from the baseUrl
-              baseUrl
-                .split("/")
-                .filter(path => path !== "discussion-api")
-                .join("/"),
-              "comment-permalink",
-              comment.id.toString()
-            ])}
-          >
-            Jump to comment
-          </Link>
+          <div className={smallFontSize}>
+            <Link
+              priority="primary"
+              subdued={true}
+              href={joinUrl([
+                // Remove the discussion-api path from the baseUrl
+                baseUrl
+                  .split("/")
+                  .filter(path => path !== "discussion-api")
+                  .join("/"),
+                "comment-permalink",
+                comment.id.toString()
+              ])}
+            >
+              Jump to comment
+            </Link>
+          </div>
         </Bottom>
       </SpaceBetween>
     </div>
     <div className={pickMetaWrapper}>
-      <div className={userDetails}>
+      <Row>
         <div className={avatarMargin}>
           <Avatar
             imageUrl={comment.userProfile.avatar}
@@ -165,8 +192,8 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
             size="medium"
           />
         </div>
-        <div className={userMetaStyles}>
-          <span className={userName}>
+        <Column>
+          <span className={userNameStyles(pillar)}>
             <a
               href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
               className={cx(linkStyles, inheritColour)}
@@ -192,8 +219,8 @@ export const TopPick = ({ baseUrl, comment }: Props) => (
           ) : (
             <></>
           )}
-        </div>
-      </div>
+        </Column>
+      </Row>
       <div>
         <RecommendationCount
           commentId={comment.id}

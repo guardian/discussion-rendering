@@ -54,10 +54,10 @@ const ulExpanded = css`
   display: block;
 `;
 
-const linkStyles = css`
+const linkStyles = (disabled: boolean) => css`
   ${textSans.small()};
   text-align: left;
-  color: ${neutral[46]};
+  color: ${disabled ? neutral[86] : neutral[46]};
   position: relative;
   text-decoration: none;
   margin-top: 1px;
@@ -66,18 +66,21 @@ const linkStyles = css`
   padding-bottom: 8px;
   padding-left: 8px;
   width: 100%;
-  cursor: pointer;
+  cursor: ${disabled ? "default" : "pointer"};
   background-color: white;
   border: none;
 
-  :hover {
-    background-color: ${neutral[93]};
-    text-decoration: underline;
-  }
+  ${!disabled &&
+    `
+    :hover {
+      background-color: ${neutral[93]};
+      text-decoration: underline;
+    }
 
-  :focus {
-    text-decoration: underline;
-  }
+    :focus {
+      text-decoration: underline;
+    }
+  `}
 `;
 
 const firstStyles = css`
@@ -208,11 +211,11 @@ export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
               <button
                 onClick={() => onSelect(option.value)}
                 className={cx(
-                  linkStyles,
+                  linkStyles(!!option.disabled),
                   option.isActive && activeStyles(pillar),
                   index === 0 && firstStyles
                 )}
-                disabled={option.isActive}
+                disabled={option.isActive || option.disabled}
               >
                 {option.title}
               </button>

@@ -1,4 +1,10 @@
-export type Pillar = "news" | "opinion" | "sport" | "culture" | "lifestyle";
+export type Pillar =
+  | "news"
+  | "opinion"
+  | "sport"
+  | "culture"
+  | "lifestyle"
+  | "labs";
 
 export interface CommentType {
   id: number;
@@ -144,5 +150,6 @@ export type AdditionalHeadersType = { [key: string]: string };
 export type DropdownOptionType = {
   value: string;
   title: string;
+  disabled?: boolean;
   isActive?: boolean;
 };
