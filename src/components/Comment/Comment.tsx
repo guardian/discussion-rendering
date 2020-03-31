@@ -4,6 +4,7 @@ import { css, cx } from "emotion";
 import { space, palette } from "@guardian/src-foundations";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
+import { Link } from "@guardian/src-link";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
@@ -96,10 +97,28 @@ const avatarMargin = css`
   margin-right: ${space[2]}px;
 `;
 
-const commentProfileName = (pillar: Pillar) => css`
-  margin-top: 0;
+const colourStyles = (pillar: Pillar) => css`
   color: ${palette[pillar][400]};
-  ${textSans.small({ fontWeight: "bold" })}
+`;
+
+const boldFont = css`
+  a {
+    ${textSans.small({ fontWeight: "bold" })}
+  }
+`;
+
+const regularFont = css`
+  a {
+    ${textSans.small()}
+  }
+`;
+
+const svgOverrides = css`
+  svg {
+    fill: ${neutral[46]} !important;
+    left: 3px !important;
+    bottom: 0 !important;
+  }
 `;
 
 const commentDetails = css`
@@ -118,18 +137,11 @@ const iconWrapper = css`
 `;
 
 const timestampWrapperStyles = css`
-  margin-left: 10px;
+  margin-left: ${space[2]}px;
+  margin-bottom: -2px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-`;
-
-const linkStyles = css`
-  color: inherit;
-  text-decoration: none;
-  :hover {
-    text-decoration: underline;
-  }
 `;
 
 const flexRowStyles = css`
@@ -237,17 +249,37 @@ export const Comment = ({
           <header className={headerStyles}>
             <Column>
               <Row>
-                <div className={commentProfileName(pillar)}>
-                  <a
+                <div className={cx(colourStyles(pillar), boldFont)}>
+                  <Link
                     href={joinUrl([
                       "https://profile.theguardian.com/user",
                       comment.userProfile.userId
                     ])}
-                    className={linkStyles}
+                    subdued={true}
                   >
                     {comment.userProfile.displayName}
-                  </a>
+                  </Link>
                 </div>
+                {comment.responseTo ? (
+                  <div
+                    className={cx(
+                      colourStyles(pillar),
+                      regularFont,
+                      svgOverrides
+                    )}
+                  >
+                    <Link
+                      href={`#comment-${comment.responseTo.commentId}`}
+                      subdued={true}
+                      icon={<ReplyArrow />}
+                      iconSide="left"
+                    >
+                      {comment.responseTo.displayName}
+                    </Link>
+                  </div>
+                ) : (
+                  <></>
+                )}
                 <div className={timestampWrapperStyles}>
                   <Timestamp
                     isoDateTime={comment.isoDateTime}
