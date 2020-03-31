@@ -7,7 +7,7 @@ export default { component: CommentForm, title: "CommentForm" };
 
 const shortUrl = "/p/39f5z";
 
-const user = {
+const aUser = {
   userId: "abc123",
   displayName: "Jane Smith",
   webUrl: "",
@@ -56,7 +56,7 @@ const aComment: CommentType = {
 export const Default = () => (
   <CommentForm
     shortUrl={shortUrl}
-    user={user}
+    user={aUser}
     onAddComment={(commentId, body, user) => {}}
   />
 );
@@ -65,7 +65,7 @@ Default.story = { name: "default" };
 export const Active = () => (
   <CommentForm
     shortUrl={shortUrl}
-    user={user}
+    user={aUser}
     onAddComment={(commentId, body, user) => {}}
     commentBeingRepliedTo={aComment}
   />
@@ -76,9 +76,9 @@ export const Premoderated = () => (
   <CommentForm
     shortUrl={shortUrl}
     user={{
-      ...user,
+      ...aUser,
       privateFields: {
-        ...user.privateFields,
+        ...aUser.privateFields,
         isPremoderated: true
       }
     }}
