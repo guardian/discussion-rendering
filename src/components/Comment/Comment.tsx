@@ -174,6 +174,7 @@ export const Comment = ({
         {/* Default view */}
         <div
           className={css`
+            width: 100%;
             ${until.mobileLandscape} {
               display: none;
             }
@@ -251,6 +252,7 @@ export const Comment = ({
         {/* Mobile view */}
         <div
           className={css`
+            width: 100%;
             ${from.mobileLandscape} {
               display: none;
             }
