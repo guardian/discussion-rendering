@@ -23,7 +23,7 @@ export interface CommentType {
     commentApiUrl: string;
     isoDateTime: string;
     date: string;
-    commentId: number;
+    commentId: string;
     commentWebUrl: string;
   };
   responses?: CommentType[];
@@ -33,6 +33,14 @@ export interface CommentType {
     editorsPickCount: number;
     blockedCount: number;
     responseCount: number;
+  };
+  discussion?: {
+    key: string;
+    webUrl: string;
+    apiUrl: string;
+    title: string;
+    isClosedForComments: boolean;
+    isClosedForRecommendation: boolean;
   };
 }
 
