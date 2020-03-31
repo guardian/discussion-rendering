@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Comment } from "./Comment";
-import { CommentType } from "../../types";
+import { CommentType, UserProfile } from "../../types";
 
 export default { title: "Comment" };
 
@@ -55,19 +55,19 @@ const blockedCommentData = {
     "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>."
 };
 
-const replyCommentData = {
+const replyCommentData: CommentType = {
   ...commentData,
   responseTo: {
     displayName: "ArtVandelay",
     commentApiUrl: "",
     isoDateTime: "",
     date: "",
-    commentId: 123456,
+    commentId: "123456",
     commentWebUrl: ""
   }
 };
 
-const staffUser = {
+const staffUser: UserProfile = {
   userId: "abc123",
   displayName: "Jane Smith",
   webUrl: "",
@@ -89,21 +89,41 @@ export const Default = () => (
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isClosedForComments={false}
   />
 );
 Default.story = { name: "Default" };
 
-export const MobileWidth = () => (
+export const MobileDefault = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isClosedForComments={false}
   />
 );
-MobileWidth.story = {
-  name: "Mobile Width",
+MobileDefault.story = {
+  name: "Mobile Default",
+  parameters: {
+    viewport: { defaultViewport: "mobileMedium" },
+    chromatic: { viewports: [375] }
+  }
+};
+
+export const MobileReply = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={replyCommentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={true}
+    isClosedForComments={false}
+  />
+);
+MobileReply.story = {
+  name: "Mobile Reply",
   parameters: {
     viewport: { defaultViewport: "mobileMedium" },
     chromatic: { viewports: [375] }
@@ -117,6 +137,7 @@ export const ReplyComment = () => (
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
+    isClosedForComments={false}
   />
 );
 ReplyComment.story = { name: "Reply Default" };
@@ -131,6 +152,7 @@ export const PickedComment = () => (
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isClosedForComments={false}
   />
 );
 PickedComment.story = { name: "Picked Comment" };
@@ -142,6 +164,7 @@ export const StaffUserComment = () => (
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isClosedForComments={false}
   />
 );
 StaffUserComment.story = { name: "Staff User Comment" };
@@ -168,6 +191,7 @@ export const LoggedInAsModerator = () => (
     setCommentBeingRepliedTo={() => {}}
     user={staffUser}
     isReply={false}
+    isClosedForComments={false}
   />
 );
 LoggedInAsModerator.story = { name: "Logged in as moderator" };
@@ -179,6 +203,7 @@ export const BlockedComment = () => (
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isClosedForComments={false}
   />
 );
 BlockedComment.story = { name: "Blocked comment" };
