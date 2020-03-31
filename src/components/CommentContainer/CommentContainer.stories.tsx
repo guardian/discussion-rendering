@@ -104,6 +104,7 @@ export const defaultStory = () => (
     onAddComment={(commentId, body, user) => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
+    isClosedForComments={false}
   />
 );
 defaultStory.story = { name: "default" };
@@ -118,6 +119,7 @@ export const threadedComment = () => (
     onAddComment={(commentId, body, user) => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
+    isClosedForComments={false}
   />
 );
 threadedComment.story = { name: "threaded" };

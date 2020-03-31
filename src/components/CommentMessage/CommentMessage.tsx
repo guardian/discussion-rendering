@@ -32,6 +32,10 @@ const commentControlsButton = (pillar: Pillar) => css`
 
 const commentCss = css`
   ${textSans.small()}
+  p {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
 `;
 
 const blockedCommentStyles = css`
@@ -86,6 +90,7 @@ export const CommentMessage = ({
   comment,
   pillar,
   setCommentBeingRepliedTo,
+  isClosedForComments,
   user,
   isHighlighted,
   setIsHighlighted,
@@ -94,6 +99,7 @@ export const CommentMessage = ({
   comment: CommentType;
   pillar: Pillar;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
+  isClosedForComments: boolean;
   user?: UserProfile;
   isHighlighted: boolean;
   setIsHighlighted: (isHighlighted: boolean) => void;
@@ -131,15 +137,17 @@ export const CommentMessage = ({
           />
           <div className={spaceBetweenStyles}>
             <div className={commentControls}>
-              <button
-                onClick={() => setCommentBeingRepliedTo(comment)}
-                className={cx(commentControlsButtonStyles, removePaddingLeft)}
-              >
-                <Row>
-                  <ReplyArrow />
-                  Reply
-                </Row>
-              </button>
+              {!isClosedForComments && (
+                <button
+                  onClick={() => setCommentBeingRepliedTo(comment)}
+                  className={cx(commentControlsButtonStyles, removePaddingLeft)}
+                >
+                  <Row>
+                    <ReplyArrow />
+                    Reply
+                  </Row>
+                </button>
+              )}
               <button className={commentControlsButtonStyles}>Share</button>
               {/* Only staff can pick, and they cannot pick thier own comment */}
               {user &&

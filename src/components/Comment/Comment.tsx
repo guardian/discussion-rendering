@@ -222,7 +222,7 @@ export const Comment = ({
                           </Link>
                         </div>
                       </div>
-                      <>
+                      <div className={marginRight}>
                         {comment.responseTo && (
                           <div
                             className={cx(
@@ -241,7 +241,7 @@ export const Comment = ({
                             </Link>
                           </div>
                         )}
-                      </>
+                      </div>
                       <Timestamp
                         isoDateTime={comment.isoDateTime}
                         linkTo={joinUrl([
@@ -278,6 +278,7 @@ export const Comment = ({
                 isHighlighted={isHighlighted}
                 setIsHighlighted={setIsHighlighted}
                 setError={setError}
+                isClosedForComments={isClosedForComments}
               />
             </Column>
           </Row>
@@ -360,6 +361,7 @@ export const Comment = ({
               isHighlighted={isHighlighted}
               setIsHighlighted={setIsHighlighted}
               setError={setError}
+              isClosedForComments={isClosedForComments}
             />
           </Column>
         </div>
