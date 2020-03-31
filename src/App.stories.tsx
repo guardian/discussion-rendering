@@ -94,6 +94,28 @@ export const Overrides = () => (
 );
 Overrides.story = { name: "with page size overridden to 50" };
 
+export const NotLoggedIn = () => (
+  <div
+    className={css`
+      width: 100%;
+      max-width: 620px;
+    `}
+  >
+    <App
+      shortUrl="p/39f5z"
+      pillar="news"
+      isClosedForComments={false}
+      baseUrl="https://discussion.theguardian.com/discussion-api"
+      additionalHeaders={{
+        "D2-X-UID": "testD2Header",
+        "GU-Client": "testClientHeader"
+      }}
+      expanded={false}
+    />
+  </div>
+);
+NotLoggedIn.story = { name: "Logged out state" };
+
 export const Expanded = () => (
   <div
     className={css`
