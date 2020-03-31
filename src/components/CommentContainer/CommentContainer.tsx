@@ -64,6 +64,10 @@ const commentContainerStyles = css`
   padding-left: 0;
 `;
 
+const removeMargin = css`
+  margin: 0px;
+`;
+
 const selectedStyles = css`
   background-color: ${neutral[97]};
   margin-left: -${space[2]}px;
@@ -153,7 +157,7 @@ export const CommentContainer = ({
       <>
         {showResponses && responses && (
           <div className={nestingStyles}>
-            <ul className={commentContainerStyles}>
+            <ul className={cx(commentContainerStyles, removeMargin)}>
               {responses.map(responseComment => (
                 <li key={responseComment.id}>
                   <Comment
