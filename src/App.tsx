@@ -28,6 +28,7 @@ type Props = {
   shortUrl: string;
   baseUrl: string;
   pillar: Pillar;
+  isClosedForComments: boolean;
   commentToScrollTo?: number;
   initialPage?: number;
   pageSizeOverride?: PageSizeType;
@@ -149,6 +150,7 @@ export const App = ({
   baseUrl,
   shortUrl,
   pillar,
+  isClosedForComments,
   initialPage,
   commentToScrollTo,
   pageSizeOverride,
@@ -295,7 +297,7 @@ export const App = ({
   if (!isExpanded) {
     return (
       <div className={commentContainerStyles}>
-        {user && (
+        {user && !isClosedForComments && (
           <CommentForm
             shortUrl={shortUrl}
             onAddComment={onAddComment}
@@ -326,6 +328,7 @@ export const App = ({
                       baseUrl={baseUrl}
                       comment={comment}
                       pillar={pillar}
+                      isClosedForComments={isClosedForComments}
                       shortUrl={shortUrl}
                       onAddComment={onAddComment}
                       user={user}
@@ -364,7 +367,7 @@ export const App = ({
 
   return (
     <div className={containerStyles}>
-      {user && (
+      {user && !isClosedForComments && (
         <CommentForm
           shortUrl={shortUrl}
           onAddComment={onAddComment}
@@ -403,6 +406,7 @@ export const App = ({
                 baseUrl={baseUrl}
                 comment={comment}
                 pillar={pillar}
+                isClosedForComments={isClosedForComments}
                 shortUrl={shortUrl}
                 onAddComment={onAddComment}
                 user={user}

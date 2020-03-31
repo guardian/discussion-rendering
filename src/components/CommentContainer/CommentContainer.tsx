@@ -14,6 +14,7 @@ type Props = {
   baseUrl: string;
   comment: CommentType;
   pillar: Pillar;
+  isClosedForComments: boolean;
   shortUrl: string;
   user?: UserProfile;
   onAddComment: (commentId: number, body: string, user: UserProfile) => void;
@@ -98,6 +99,7 @@ export const CommentContainer = ({
   baseUrl,
   comment,
   pillar,
+  isClosedForComments,
   onAddComment,
   user,
   shortUrl,
@@ -142,6 +144,7 @@ export const CommentContainer = ({
         baseUrl={baseUrl}
         comment={comment}
         pillar={pillar}
+        isClosedForComments={isClosedForComments}
         setCommentBeingRepliedTo={setCommentBeingRepliedTo}
         user={user}
         isReply={false}
@@ -157,6 +160,7 @@ export const CommentContainer = ({
                     baseUrl={baseUrl}
                     comment={responseComment}
                     pillar={pillar}
+                    isClosedForComments={isClosedForComments}
                     setCommentBeingRepliedTo={setCommentBeingRepliedTo}
                     user={user}
                     isReply={true}
