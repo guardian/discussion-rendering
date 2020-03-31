@@ -120,8 +120,8 @@ const timestampWrapperStyles = css`
 `;
 
 const linkStyles = (pillar: Pillar) => css`
-${textSans.xsmall({ fontWeight: "bold" })}
-color: ${palette[pillar][400]};
+  ${textSans.xsmall({ fontWeight: "bold" })};
+  color: ${palette[pillar][400]};
   text-decoration: none;
   :hover {
     text-decoration: underline;
