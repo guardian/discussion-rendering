@@ -43,44 +43,14 @@ const commentTextArea = css`
   }
 `;
 
-// https://stackoverflow.com/questions/9451902/changing-an-inputs-html5-placeholder-color-with-css-does-not-work-on-chrome
 const greyPlaceholder = css`
-  ::-webkit-input-placeholder {
-    color: ${neutral[46]};
-  }
-
-  ::-moz-placeholder {
-    color: ${neutral[46]};
-  }
-
-  ::-ms-placeholder {
-    color: ${neutral[46]};
-  }
-
   ::placeholder {
     color: ${neutral[46]};
   }
 `;
 
+// Opacity? See: https://stackoverflow.com/questions/19621306/css-placeholder-text-color-on-firefox
 const blackPlaceholder = css`
-  ::-webkit-input-placeholder {
-    font-weight: bold;
-    opacity: 1;
-    color: ${neutral[0]};
-  }
-
-  ::-moz-placeholder {
-    font-weight: bold;
-    opacity: 1;
-    color: ${neutral[0]};
-  }
-
-  ::-ms-placeholder {
-    font-weight: bold;
-    opacity: 1;
-    color: ${neutral[0]};
-  }
-
   ::placeholder {
     font-weight: bold;
     opacity: 1;
