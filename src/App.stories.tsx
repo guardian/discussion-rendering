@@ -2,11 +2,9 @@ import React from "react";
 import { App } from "./App";
 import { css } from "emotion";
 
-import { UserProfile } from "./types";
-
 export default { component: App, title: "App" };
 
-const aUser: UserProfile = {
+const aUser = {
   userId: "abc123",
   displayName: "Jane Smith",
   webUrl: "",
