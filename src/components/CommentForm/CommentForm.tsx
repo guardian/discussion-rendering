@@ -43,15 +43,18 @@ const commentTextArea = css`
   }
 `;
 
-const placeholderCommentStyles = css`
+const greyPlaceholder = css`
   ::placeholder {
-    font-weight: bold;
-    color: black;
+    color: ${neutral[46]};
   }
 `;
-const placeholderReplyStyles = css`
+
+// Opacity? See: https://stackoverflow.com/questions/19621306/css-placeholder-text-color-on-firefox
+const blackPlaceholder = css`
   ::placeholder {
-    color: grey;
+    font-weight: bold;
+    opacity: 1;
+    color: ${neutral[0]};
   }
 `;
 
@@ -383,12 +386,13 @@ export const CommentForm = ({
           </div>
         )}
         <textarea
-          placeholder={"Join the discussion"}
+          placeholder={
+            commentBeingRepliedTo || !isActive ? "Join the discussion" : ""
+          }
           className={cx(
             commentTextArea,
-            commentBeingRepliedTo
-              ? placeholderReplyStyles
-              : placeholderCommentStyles
+            commentBeingRepliedTo && isActive && greyPlaceholder,
+            !commentBeingRepliedTo && !isActive && blackPlaceholder
           )}
           ref={textAreaRef}
           style={{ height: isActive ? "132px" : "50px" }}
