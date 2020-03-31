@@ -65,21 +65,25 @@ const greyPlaceholder = css`
 const blackPlaceholder = css`
   ::-webkit-input-placeholder {
     font-weight: bold;
+    opacity: 1;
     color: ${neutral[0]};
   }
 
   ::-moz-placeholder {
     font-weight: bold;
+    opacity: 1;
     color: ${neutral[0]};
   }
 
   ::-ms-placeholder {
     font-weight: bold;
+    opacity: 1;
     color: ${neutral[0]};
   }
 
   ::placeholder {
     font-weight: bold;
+    opacity: 1;
     color: ${neutral[0]};
   }
 `;
