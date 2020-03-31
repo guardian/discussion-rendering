@@ -101,6 +101,8 @@ export const NotLoggedIn = () => (
   >
     <App
       shortUrl="p/39f5z"
+      pillar="news"
+      isClosedForComments={false}
       baseUrl="https://discussion.theguardian.com/discussion-api"
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
