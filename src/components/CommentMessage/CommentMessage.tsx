@@ -58,6 +58,29 @@ const commentLinkStyling = css`
   }
 `;
 
+const Row = ({
+  children,
+  justify = "flex-start",
+  fullWidth = false
+}: {
+  children: React.ReactNode;
+  justify?: "flex-start" | "space-between"; // Extend as required
+  fullWidth?: boolean;
+}) => (
+  <div
+    className={css`
+      display: flex;
+      flex-direction: row;
+      justify-content: ${justify};
+      ${fullWidth} {
+        width: 100%;
+      }
+    `}
+  >
+    {children}
+  </div>
+);
+
 const ReplyArrow = () => (
   <svg
     width="18"
@@ -123,10 +146,10 @@ export const CommentMessage = ({
                 onClick={() => setCommentBeingRepliedTo(comment)}
                 className={cx(commentControlsButtonStyles, removePaddingLeft)}
               >
-                <Flex direction="row">
+                <Row>
                   <ReplyArrow />
                   Reply
-                </Flex>
+                </Row>
               </button>
               <button className={commentControlsButtonStyles}>Share</button>
               {/* Only staff can pick, and they cannot pick thier own comment */}
