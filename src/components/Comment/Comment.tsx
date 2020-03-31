@@ -5,6 +5,7 @@ import { space, palette } from "@guardian/src-foundations";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { Link } from "@guardian/src-link";
+import { until, from } from "@guardian/src-foundations/mq";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
@@ -94,7 +95,7 @@ const selectedStyles = css`
   padding-right: ${space[2]}px;
 `;
 
-const avatarMargin = css`
+const marginRight = css`
   margin-right: ${space[2]}px;
 `;
 
@@ -122,23 +123,16 @@ const svgOverrides = css`
   }
 `;
 
-const commentDetails = css`
-  flex-grow: 1;
-`;
-
-const headerStyles = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
 const iconWrapper = css`
   padding: 2px;
   white-space: nowrap;
 `;
 
-const timestampWrapperStyles = css`
+const marginLeftStyles = css`
   margin-left: ${space[2]}px;
+`;
+
+const timestampWrapperStyles = css`
   margin-bottom: -2px;
   display: flex;
   flex-direction: column;
@@ -163,26 +157,86 @@ const removePaddingLeft = css`
   padding-left: 0px;
 `;
 
-const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+const fullWidthStyles = css`
+  width: 100%;
+`;
+
+const Column = ({
+  children,
+  justify = "flex-start",
+  fullWidth = false,
+  alignItems = "stretch"
+}: {
+  children: JSX.Element | JSX.Element[];
+  justify?: "flex-start" | "space-between"; // Extend as required
+  fullWidth?: boolean;
+  alignItems?: "stretch" | "center" | "flex-start" | "flex-end";
+}) => (
   <div
     className={css`
       display: flex;
       flex-direction: column;
+      justify-content: ${justify};
+      align-items: ${alignItems};
+      ${fullWidth} {
+        width: 100%;
+      }
     `}
   >
     {children}
   </div>
 );
 
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+const Row = ({
+  children,
+  justify = "flex-start",
+  fullWidth = false,
+  alignItems = "stretch"
+}: {
+  children: JSX.Element | JSX.Element[];
+  justify?: "flex-start" | "space-between"; // Extend as required
+  fullWidth?: boolean;
+  alignItems?: "stretch" | "center" | "flex-start" | "flex-end";
+}) => (
   <div
     className={css`
       display: flex;
       flex-direction: row;
+      justify-content: ${justify};
+      align-items: ${alignItems};
+      ${fullWidth} {
+        width: 100%;
+      }
     `}
   >
     {children}
   </div>
+);
+
+const Badges = ({
+  comment,
+  isHighlighted
+}: {
+  comment: CommentType;
+  isHighlighted: boolean;
+}) => (
+  <>
+    <>
+      {!!comment.userProfile.badge.filter(obj => obj["name"] === "Staff")
+        .length && (
+        <div className={iconWrapper}>
+          <GuardianStaff />
+        </div>
+      )}
+    </>
+    <>
+      {comment.status !== "blocked" && isHighlighted && (
+        <div className={iconWrapper}>
+          <GuardianPick />
+        </div>
+      )}
+    </>
+  </>
 );
 
 const ReplyArrow = () => (
@@ -248,91 +302,224 @@ export const Comment = ({
         id={`comment-${comment.id}`}
         className={cx(commentWrapper, wasScrolledTo && selectedStyles)}
       >
-        <div className={avatarMargin}>
-          <Avatar
-            imageUrl={comment.userProfile.avatar}
-            displayName={comment.userProfile.displayName}
-            size={isReply ? "small" : "medium"}
-          />
+        {/* Default view */}
+        <div
+          className={css`
+            width: 100%;
+            ${until.mobileLandscape} {
+              display: none;
+            }
+          `}
+        >
+          <Row>
+            <div className={marginRight}>
+              <Avatar
+                imageUrl={comment.userProfile.avatar}
+                displayName={comment.userProfile.displayName}
+                size={isReply ? "small" : "medium"}
+              />
+            </div>
+            <Column>
+              <header>
+                <Row justify="space-between" fullWidth={true}>
+                  <Column>
+                    <Row alignItems="center">
+                      <div className={cx(colourStyles(pillar), boldFont)}>
+                        <Link
+                          href={joinUrl([
+                            "https://profile.theguardian.com/user",
+                            comment.userProfile.userId
+                          ])}
+                          subdued={true}
+                        >
+                          {comment.userProfile.displayName}
+                        </Link>
+                      </div>
+                      {comment.responseTo ? (
+                        <div
+                          className={cx(
+                            colourStyles(pillar),
+                            regularFont,
+                            svgOverrides
+                          )}
+                        >
+                          <Link
+                            href={`#comment-${comment.responseTo.commentId}`}
+                            subdued={true}
+                            icon={<ReplyArrow />}
+                            iconSide="left"
+                          >
+                            {comment.responseTo.displayName}
+                          </Link>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                      <div
+                        className={cx(marginLeftStyles, timestampWrapperStyles)}
+                      >
+                        <Timestamp
+                          isoDateTime={comment.isoDateTime}
+                          linkTo={joinUrl([
+                            // Remove the discussion-api path from the baseUrl
+                            baseUrl
+                              .split("/")
+                              .filter(path => path !== "discussion-api")
+                              .join("/"),
+                            "comment-permalink",
+                            comment.id.toString()
+                          ])}
+                        />
+                      </div>
+                    </Row>
+                    <Row>
+                      <Badges comment={comment} isHighlighted={isHighlighted} />
+                    </Row>
+                  </Column>
+                  <>
+                    {comment.status !== "blocked" && (
+                      <RecommendationCount
+                        commentId={comment.id}
+                        initialCount={comment.numRecommends}
+                        alreadyRecommended={false}
+                      />
+                    )}
+                  </>
+                </Row>
+              </header>
+              {comment.status !== "blocked" ? (
+                <>
+                  <div
+                    className={cx(commentCss, commentLinkStyling)}
+                    dangerouslySetInnerHTML={{ __html: comment.body }}
+                  />
+                  <div className={spaceBetween}>
+                    <div className={commentControls}>
+                      {/* When commenting is closed, no reply link shows at all */}
+                      {!isClosedForComments && (
+                        <>
+                          {/* If user is not logged in we link to the login page */}
+                          {user ? (
+                            <button
+                              onClick={() => setCommentBeingRepliedTo(comment)}
+                              className={cx(
+                                commentControlsButtonStyles,
+                                removePaddingLeft
+                              )}
+                            >
+                              <div className={flexRowStyles}>
+                                <ReplyArrow />
+                                Reply
+                              </div>
+                            </button>
+                          ) : (
+                            <Row>
+                              <ReplyArrow />
+                              <a
+                                className={linkStyles(pillar)}
+                                href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                              >
+                                Reply
+                              </a>
+                            </Row>
+                          )}
+                        </>
+                      )}
+                      <button className={commentControlsButtonStyles}>
+                        Share
+                      </button>
+                      {/* Only staff can pick, and they cannot pick thier own comment */}
+                      {user &&
+                        user.badge.some(e => e.name === "Staff") &&
+                        user.userId !== comment.userProfile.userId && (
+                          <button
+                            onClick={isHighlighted ? unPick : pick}
+                            className={commentControlsButtonStyles}
+                          >
+                            {isHighlighted ? "Unpick" : "Pick"}
+                          </button>
+                        )}
+                    </div>
+                    <div>
+                      <AbuseReportForm commentId={comment.id} pillar={pillar} />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <p
+                  className={cx(blockedCommentStyles, commentLinkStyling)}
+                  dangerouslySetInnerHTML={{ __html: comment.body }}
+                />
+              )}
+            </Column>
+          </Row>
         </div>
 
-        <div className={commentDetails}>
-          <header className={headerStyles}>
-            <Column>
-              <Row>
-                <div className={cx(colourStyles(pillar), boldFont)}>
-                  <Link
-                    href={joinUrl([
-                      "https://profile.theguardian.com/user",
-                      comment.userProfile.userId
-                    ])}
-                    subdued={true}
-                  >
-                    {comment.userProfile.displayName}
-                  </Link>
-                </div>
-                {comment.responseTo ? (
-                  <div
-                    className={cx(
-                      colourStyles(pillar),
-                      regularFont,
-                      svgOverrides
-                    )}
-                  >
-                    <Link
-                      href={`#comment-${comment.responseTo.commentId}`}
-                      subdued={true}
-                      icon={<ReplyArrow />}
-                      iconSide="left"
-                    >
-                      {comment.responseTo.displayName}
-                    </Link>
-                  </div>
-                ) : (
-                  <></>
-                )}
-                <div className={timestampWrapperStyles}>
-                  <Timestamp
-                    isoDateTime={comment.isoDateTime}
-                    linkTo={joinUrl([
-                      // Remove the discussion-api path from the baseUrl
-                      baseUrl
-                        .split("/")
-                        .filter(path => path !== "discussion-api")
-                        .join("/"),
-                      "comment-permalink",
-                      comment.id.toString()
-                    ])}
+        {/* Mobile view */}
+        <div
+          className={css`
+            width: 100%;
+            ${from.mobileLandscape} {
+              display: none;
+            }
+          `}
+        >
+          <Row>
+            <>
+              {!isReply && (
+                <div className={marginRight}>
+                  <Avatar
+                    imageUrl={comment.userProfile.avatar}
+                    displayName={comment.userProfile.displayName}
+                    size={isReply ? "small" : "medium"}
                   />
                 </div>
-              </Row>
-              <Row>
-                {!!comment.userProfile.badge.filter(
-                  obj => obj["name"] === "Staff"
-                ).length ? (
-                  <div className={iconWrapper}>
-                    <GuardianStaff />
+              )}
+            </>
+            <header className={fullWidthStyles}>
+              <Row justify="space-between" fullWidth={true}>
+                <Column>
+                  <div className={cx(colourStyles(pillar), boldFont)}>
+                    <Link
+                      href={joinUrl([
+                        "https://profile.theguardian.com/user",
+                        comment.userProfile.userId
+                      ])}
+                      subdued={true}
+                    >
+                      {comment.userProfile.displayName}
+                    </Link>
                   </div>
-                ) : (
-                  <></>
-                )}
-                {comment.status !== "blocked" && isHighlighted ? (
-                  <div className={iconWrapper}>
-                    <GuardianPick />
+                  <div className={timestampWrapperStyles}>
+                    <Timestamp
+                      isoDateTime={comment.isoDateTime}
+                      linkTo={joinUrl([
+                        // Remove the discussion-api path from the baseUrl
+                        baseUrl
+                          .split("/")
+                          .filter(path => path !== "discussion-api")
+                          .join("/"),
+                        "comment-permalink",
+                        comment.id.toString()
+                      ])}
+                    />
                   </div>
-                ) : (
-                  <></>
-                )}
+                  <Row>
+                    <Badges comment={comment} isHighlighted={isHighlighted} />
+                  </Row>
+                </Column>
+                <>
+                  {comment.status !== "blocked" && (
+                    <RecommendationCount
+                      commentId={comment.id}
+                      initialCount={comment.numRecommends}
+                      alreadyRecommended={false}
+                    />
+                  )}
+                </>
               </Row>
-            </Column>
-            {comment.status !== "blocked" && (
-              <RecommendationCount
-                commentId={comment.id}
-                initialCount={comment.numRecommends}
-                alreadyRecommended={false}
-              />
-            )}
-          </header>
+            </header>
+          </Row>
           {comment.status !== "blocked" ? (
             <>
               <div
