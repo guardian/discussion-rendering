@@ -79,22 +79,6 @@ const iconWrapper = css`
   white-space: nowrap;
 `;
 
-const timestampWrapperStyles = css`
-  margin-left: ${space[2]}px;
-  margin-bottom: -2px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const linkStyles = css`
-  color: inherit;
-  text-decoration: none;
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
 const Column = ({
   children,
   justify = "flex-start",
