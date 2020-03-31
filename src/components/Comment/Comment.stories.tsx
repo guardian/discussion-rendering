@@ -93,7 +93,8 @@ export const MobileWidth = () => (
 MobileWidth.story = {
   name: "Mobile Width",
   parameters: {
-    viewport: { defaultViewport: "mobileMedium" }
+    viewport: { defaultViewport: "mobileMedium" },
+    chromatic: { viewports: [375] }
   }
 };
 
