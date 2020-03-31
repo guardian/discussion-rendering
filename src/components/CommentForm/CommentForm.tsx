@@ -43,15 +43,44 @@ const commentTextArea = css`
   }
 `;
 
-const placeholderCommentStyles = css`
+// https://stackoverflow.com/questions/9451902/changing-an-inputs-html5-placeholder-color-with-css-does-not-work-on-chrome
+const greyPlaceholder = css`
+  ::-webkit-input-placeholder {
+    color: ${neutral[46]};
+  }
+
+  ::-moz-placeholder {
+    color: ${neutral[46]};
+  }
+
+  ::-ms-placeholder {
+    color: ${neutral[46]};
+  }
+
   ::placeholder {
-    font-weight: bold;
-    color: black;
+    color: ${neutral[46]};
   }
 `;
-const placeholderReplyStyles = css`
+
+const blackPlaceholder = css`
+  ::-webkit-input-placeholder {
+    font-weight: bold;
+    color: ${neutral[0]};
+  }
+
+  ::-moz-placeholder {
+    font-weight: bold;
+    color: ${neutral[0]};
+  }
+
+  ::-ms-placeholder {
+    font-weight: bold;
+    color: ${neutral[0]};
+  }
+
   ::placeholder {
-    color: grey;
+    font-weight: bold;
+    color: ${neutral[0]};
   }
 `;
 
@@ -383,12 +412,13 @@ export const CommentForm = ({
           </div>
         )}
         <textarea
-          placeholder={"Join the discussion"}
+          placeholder={
+            commentBeingRepliedTo || !isActive ? "Join the discussion" : ""
+          }
           className={cx(
             commentTextArea,
-            commentBeingRepliedTo
-              ? placeholderReplyStyles
-              : placeholderCommentStyles
+            commentBeingRepliedTo && isActive && greyPlaceholder,
+            !commentBeingRepliedTo && !isActive && blackPlaceholder
           )}
           ref={textAreaRef}
           style={{ height: isActive ? "132px" : "50px" }}
