@@ -1,4 +1,6 @@
-export const comment = {
+import { CommentType } from "../types";
+
+export const comment: CommentType = {
   id: 138809272,
   body:
     "<p>Begone ye self-serving Tory isolationists.</p> <p>Never has there been a more significant time for Big Government and public health provision. Nature has spoken.</p>",

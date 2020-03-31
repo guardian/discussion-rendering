@@ -1,7 +1,7 @@
 import fetchMock from "fetch-mock";
 
-import { discussion } from "../../fixtures/discussion";
-import { comment } from "../../fixtures/comment";
+import { discussion } from "../fixtures/discussion";
+import { comment } from "../fixtures/comment";
 
 export const mockFetchCalls = () => {
   fetchMock

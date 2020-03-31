@@ -30,6 +30,7 @@ export const Default = () => (
       shortUrl="p/39f5z"
       baseUrl="https://discussion.theguardian.com/discussion-api"
       pillar="culture"
+      isClosedForComments={false}
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
@@ -53,6 +54,7 @@ export const InitialPage = () => (
       initialPage={3}
       baseUrl="https://discussion.theguardian.com/discussion-api"
       pillar="lifestyle"
+      isClosedForComments={false}
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
@@ -78,6 +80,7 @@ export const Overrides = () => (
       orderByOverride={"oldest"}
       baseUrl="https://discussion.theguardian.com/discussion-api"
       pillar="opinion"
+      isClosedForComments={false}
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
@@ -101,6 +104,7 @@ export const Expanded = () => (
       initialPage={3}
       baseUrl="https://discussion.theguardian.com/discussion-api"
       pillar="sport"
+      isClosedForComments={false}
       user={aUser}
       additionalHeaders={{
         "D2-X-UID": "testD2Header",
@@ -111,3 +115,26 @@ export const Expanded = () => (
   </div>
 );
 Expanded.story = { name: "expanded by default and on page 3" };
+
+export const Closed = () => (
+  <div
+    className={css`
+      width: 100%;
+      max-width: 620px;
+    `}
+  >
+    <App
+      shortUrl="p/39f5z"
+      baseUrl="https://discussion.theguardian.com/discussion-api"
+      pillar="lifestyle"
+      isClosedForComments={true}
+      user={aUser}
+      additionalHeaders={{
+        "D2-X-UID": "testD2Header",
+        "GU-Client": "testClientHeader"
+      }}
+      expanded={true}
+    />
+  </div>
+);
+Closed.story = { name: "closed for comments" };
