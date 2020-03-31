@@ -33,6 +33,7 @@ const buttonStyles = (pillar: Pillar) => css`
   margin-top: 12px;
   margin-bottom: 12px;
   cursor: pointer;
+  background: ${neutral[100]};
   color: ${palette[pillar][400]};
   height: 24px;
   font-size: 12px;
@@ -63,6 +64,7 @@ const commentContainerStyles = css`
 `;
 
 const selectedStyles = css`
+  background-color: ${neutral[97]};
   margin-left: -${space[2]}px;
   padding-left: ${space[2]}px;
   margin-right: -${space[2]}px;
