@@ -1,4 +1,6 @@
-export const discussion = {
+import { DiscussionResponse } from "../types";
+
+export const discussion: DiscussionResponse = {
   status: "ok",
   currentPage: 1,
   pages: 4,
@@ -61,7 +63,7 @@ export const discussion = {
                 "https://discussion.guardianapis.com/discussion-api/comment/138809269",
               isoDateTime: "2020-03-09T19:09:11Z",
               date: "09 March 2020 7:09pm",
-              commentId: "138809269",
+              commentId: 138809269,
               commentWebUrl:
                 "https://discussion.theguardian.com/comment-permalink/138809269"
             },
@@ -95,7 +97,7 @@ export const discussion = {
                 "https://discussion.guardianapis.com/discussion-api/comment/138809269",
               isoDateTime: "2020-03-09T19:09:11Z",
               date: "09 March 2020 7:09pm",
-              commentId: "138809269",
+              commentId: 138809269,
               commentWebUrl:
                 "https://discussion.theguardian.com/comment-permalink/138809269"
             },
@@ -129,7 +131,7 @@ export const discussion = {
                 "https://discussion.guardianapis.com/discussion-api/comment/138809269",
               isoDateTime: "2020-03-09T19:09:11Z",
               date: "09 March 2020 7:09pm",
-              commentId: "138809269",
+              commentId: 138809269,
               commentWebUrl:
                 "https://discussion.theguardian.com/comment-permalink/138809269"
             },
@@ -163,7 +165,7 @@ export const discussion = {
                 "https://discussion.guardianapis.com/discussion-api/comment/138809269",
               isoDateTime: "2020-03-09T19:09:11Z",
               date: "09 March 2020 7:09pm",
-              commentId: "138809269",
+              commentId: 138809269,
               commentWebUrl:
                 "https://discussion.theguardian.com/comment-permalink/138809269"
             },
@@ -230,7 +232,7 @@ export const discussion = {
                 "https://discussion.guardianapis.com/discussion-api/comment/138809272",
               isoDateTime: "2020-03-09T19:09:28Z",
               date: "09 March 2020 7:09pm",
-              commentId: "138809272",
+              commentId: 138809272,
               commentWebUrl:
                 "https://discussion.theguardian.com/comment-permalink/138809272"
             },
@@ -264,7 +266,7 @@ export const discussion = {
                 "https://discussion.guardianapis.com/discussion-api/comment/138809272",
               isoDateTime: "2020-03-09T19:09:28Z",
               date: "09 March 2020 7:09pm",
-              commentId: "138809272",
+              commentId: 138809272,
               commentWebUrl:
                 "https://discussion.theguardian.com/comment-permalink/138809272"
             },
@@ -353,7 +355,7 @@ export const discussion = {
                 "https://discussion.guardianapis.com/discussion-api/comment/138811091",
               isoDateTime: "2020-03-09T20:54:08Z",
               date: "09 March 2020 8:54pm",
-              commentId: "138811091",
+              commentId: 138811091,
               commentWebUrl:
                 "https://discussion.theguardian.com/comment-permalink/138811091"
             },

@@ -1,4 +1,6 @@
-export const comment = {
+import { CommentType } from "../types";
+
+export const comment: CommentType = {
   id: 138809272,
   body:
     "<p>Begone ye self-serving Tory isolationists.</p> <p>Never has there been a more significant time for Big Government and public health provision. Nature has spoken.</p>",
@@ -20,17 +22,6 @@ export const comment = {
     secureAvatarUrl: "https://avatar.guim.co.uk/user/13239086",
     badge: []
   },
-  discussion: {
-    key: "/p/ddp96",
-    webUrl:
-      "https://www.theguardian.com/commentisfree/2020/mar/09/coronavirus-outbreak-nhs-staff-shortages",
-    apiUrl:
-      "https://discussion.guardianapis.com/discussion-api/discussion//p/ddp96",
-    title:
-      "Even a starved NHS is still our best defence against the coronavirus",
-    isClosedForComments: true,
-    isClosedForRecommendation: true
-  },
   responses: [
     {
       id: 138809396,
@@ -50,7 +41,7 @@ export const comment = {
           "https://discussion.guardianapis.com/discussion-api/comment/138809272",
         isoDateTime: "2020-03-09T19:09:28Z",
         date: "09 March 2020 7:09pm",
-        commentId: "138809272",
+        commentId: 138809272,
         commentWebUrl:
           "https://discussion.theguardian.com/comment-permalink/138809272"
       },
@@ -83,7 +74,7 @@ export const comment = {
           "https://discussion.guardianapis.com/discussion-api/comment/138809272",
         isoDateTime: "2020-03-09T19:09:28Z",
         date: "09 March 2020 7:09pm",
-        commentId: "138809272",
+        commentId: 138809272,
         commentWebUrl:
           "https://discussion.theguardian.com/comment-permalink/138809272"
       },
@@ -115,7 +106,7 @@ export const comment = {
           "https://discussion.guardianapis.com/discussion-api/comment/138809272",
         isoDateTime: "2020-03-09T19:09:28Z",
         date: "09 March 2020 7:09pm",
-        commentId: "138809272",
+        commentId: 138809272,
         commentWebUrl:
           "https://discussion.theguardian.com/comment-permalink/138809272"
       },
@@ -148,7 +139,7 @@ export const comment = {
           "https://discussion.guardianapis.com/discussion-api/comment/138809487",
         isoDateTime: "2020-03-09T19:24:46Z",
         date: "09 March 2020 7:24pm",
-        commentId: "138809487",
+        commentId: 138809487,
         commentWebUrl:
           "https://discussion.theguardian.com/comment-permalink/138809487"
       },

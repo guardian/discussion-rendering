@@ -119,7 +119,7 @@ export interface UserProfile {
 
 export interface DiscussionResponse {
   status: string;
-  page: number;
+  currentPage: number;
   pages: number;
   pageSize: number;
   orderBy: string;
