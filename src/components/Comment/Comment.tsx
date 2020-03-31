@@ -5,7 +5,9 @@ import { space, palette } from "@guardian/src-foundations";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { until, from } from "@guardian/src-foundations/mq";
+import { Link } from "@guardian/src-link";
 
+import { ReplyArrow } from "../ReplyArrow/ReplyArrow";
 import { CommentMessage } from "../CommentMessage/CommentMessage";
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
@@ -20,6 +22,7 @@ type Props = {
   user?: UserProfile;
   comment: CommentType;
   pillar: Pillar;
+  isClosedForComments: boolean;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
   isReply: boolean;
   wasScrolledTo?: boolean;
@@ -43,10 +46,28 @@ const marginRight = css`
   margin-right: ${space[2]}px;
 `;
 
-const commentProfileName = (pillar: Pillar) => css`
-  margin-top: 0;
+const colourStyles = (pillar: Pillar) => css`
   color: ${palette[pillar][400]};
-  ${textSans.small({ fontWeight: "bold" })}
+`;
+
+const boldFont = css`
+  a {
+    ${textSans.small({ fontWeight: "bold" })}
+  }
+`;
+
+const regularFont = css`
+  a {
+    ${textSans.small()}
+  }
+`;
+
+const svgOverrides = css`
+  svg {
+    fill: ${neutral[46]} !important;
+    left: 3px !important;
+    bottom: 0 !important;
+  }
 `;
 
 const flexGrow = css`
@@ -56,6 +77,14 @@ const flexGrow = css`
 const iconWrapper = css`
   padding: 2px;
   white-space: nowrap;
+`;
+
+const timestampWrapperStyles = css`
+  margin-left: ${space[2]}px;
+  margin-bottom: -2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const linkStyles = css`
@@ -148,6 +177,7 @@ export const Comment = ({
   baseUrl,
   comment,
   pillar,
+  isClosedForComments,
   setCommentBeingRepliedTo,
   user,
   isReply,
@@ -196,18 +226,38 @@ export const Comment = ({
                   <Column>
                     <Row alignItems="center">
                       <div className={marginRight}>
-                        <div className={commentProfileName(pillar)}>
-                          <a
+                        <div className={cx(colourStyles(pillar), boldFont)}>
+                          <Link
                             href={joinUrl([
                               "https://profile.theguardian.com/user",
                               comment.userProfile.userId
                             ])}
-                            className={linkStyles}
+                            subdued={true}
                           >
                             {comment.userProfile.displayName}
-                          </a>
+                          </Link>
                         </div>
                       </div>
+                      <>
+                        {comment.responseTo && (
+                          <div
+                            className={cx(
+                              colourStyles(pillar),
+                              regularFont,
+                              svgOverrides
+                            )}
+                          >
+                            <Link
+                              href={`#comment-${comment.responseTo.commentId}`}
+                              subdued={true}
+                              icon={<ReplyArrow />}
+                              iconSide="left"
+                            >
+                              {comment.responseTo.displayName}
+                            </Link>
+                          </div>
+                        )}
+                      </>
                       <Timestamp
                         isoDateTime={comment.isoDateTime}
                         linkTo={joinUrl([
@@ -274,16 +324,16 @@ export const Comment = ({
             <Row justify="space-between" fullWidth={true}>
               <Column>
                 <div className={marginRight}>
-                  <div className={commentProfileName(pillar)}>
-                    <a
+                  <div className={cx(colourStyles(pillar), boldFont)}>
+                    <Link
                       href={joinUrl([
                         "https://profile.theguardian.com/user",
                         comment.userProfile.userId
                       ])}
-                      className={linkStyles}
+                      subdued={true}
                     >
                       {comment.userProfile.displayName}
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <>

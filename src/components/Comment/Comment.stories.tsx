@@ -55,6 +55,18 @@ const blockedCommentData = {
     "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>."
 };
 
+const replyCommentData = {
+  ...commentData,
+  responseTo: {
+    displayName: "ArtVandelay",
+    commentApiUrl: "",
+    isoDateTime: "",
+    date: "",
+    commentId: 123456,
+    commentWebUrl: ""
+  }
+};
+
 const staffUser = {
   userId: "abc123",
   displayName: "Jane Smith",
@@ -101,13 +113,13 @@ MobileWidth.story = {
 export const ReplyComment = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
-    comment={commentData}
+    comment={replyCommentData}
     pillar={"sport"}
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
   />
 );
-Default.story = { name: "Reply Default" };
+ReplyComment.story = { name: "Reply Default" };
 
 export const PickedComment = () => (
   <Comment
