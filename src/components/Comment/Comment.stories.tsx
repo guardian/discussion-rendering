@@ -107,7 +107,7 @@ export const ReplyComment = () => (
     isReply={true}
   />
 );
-ReplyComment.story = { name: "Reply Default" };
+Default.story = { name: "Reply Default" };
 
 export const PickedComment = () => (
   <Comment
