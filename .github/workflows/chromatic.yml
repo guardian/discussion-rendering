@@ -1,8 +1,8 @@
-name: 👓
+name: chromatic
 on: push
 
 jobs:
-  chromatic:
+  👓:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
