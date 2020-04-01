@@ -121,12 +121,6 @@ const commentDetails = css`
   flex-grow: 1;
 `;
 
-const headerStyles = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
 const iconWrapper = css`
   padding: 2px;
   white-space: nowrap;
@@ -247,7 +241,7 @@ export const Comment = ({
         </div>
 
         <div className={commentDetails}>
-          <header className={headerStyles}>
+          <header className={cx(flexRowStyles, spaceBetweenStyles)}>
             <Column>
               <Row>
                 <div className={cx(colourStyles(pillar), boldFont)}>
