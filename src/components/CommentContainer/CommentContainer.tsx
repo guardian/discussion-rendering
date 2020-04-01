@@ -17,7 +17,6 @@ type Props = {
   isClosedForComments: boolean;
   shortUrl: string;
   user?: UserProfile;
-  onAddComment: (commentId: number, body: string, user: UserProfile) => void;
   threads: ThreadsType;
   commentBeingRepliedTo?: CommentType;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
@@ -104,7 +103,6 @@ export const CommentContainer = ({
   comment,
   pillar,
   isClosedForComments,
-  onAddComment,
   user,
   shortUrl,
   threads,
@@ -114,7 +112,7 @@ export const CommentContainer = ({
 }: Props) => {
   // Filter logic
   const [expanded, setExpanded] = useState<boolean>(threads === "expanded");
-  const [responses, setResponses] = useState(comment.responses);
+  const [responses, setResponses] = useState(comment.responses || []);
   const [loading, setLoading] = useState<boolean>(false);
 
   const showResponses = threads !== "unthreaded";
@@ -127,7 +125,7 @@ export const CommentContainer = ({
   };
 
   useEffect(() => {
-    setResponses(comment.responses);
+    setResponses(comment.responses || []);
   }, [comment]);
 
   const expand = (commentId: number) => {
@@ -135,7 +133,7 @@ export const CommentContainer = ({
     getMoreResponses(commentId)
       .then(json => {
         setExpanded(true);
-        setResponses(json.comment.responses);
+        setResponses(json.comment.responses || []);
       })
       .finally(() => {
         setLoading(false);
@@ -198,8 +196,9 @@ export const CommentContainer = ({
         )}
         {commentBeingRepliedTo &&
           (commentBeingRepliedTo.id === comment.id ||
-            responses?.find(
-              response => response.id === commentBeingRepliedTo.id
+            responses.find(
+              (response: CommentType) =>
+                response.id === commentBeingRepliedTo.id
             )) &&
           user && (
             <div className={nestingStyles}>
@@ -209,7 +208,9 @@ export const CommentContainer = ({
               />
               <CommentForm
                 shortUrl={shortUrl}
-                onAddComment={onAddComment}
+                onAddComment={response =>
+                  setResponses([...responses, response])
+                }
                 user={user}
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
                 commentBeingRepliedTo={commentBeingRepliedTo}

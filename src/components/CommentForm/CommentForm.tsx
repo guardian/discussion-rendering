@@ -6,6 +6,7 @@ import { palette, space } from "@guardian/src-foundations";
 import { neutral, text } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 
+import { simulateNewComment } from "../../lib/simulateNewComment";
 import { comment, reply, preview, addUserName } from "../../lib/api";
 import { CommentResponse, UserProfile, CommentType } from "../../types";
 
@@ -14,7 +15,7 @@ import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome"
 type Props = {
   shortUrl: string;
   user: UserProfile;
-  onAddComment: (commentId: number, body: string, user: UserProfile) => void;
+  onAddComment: (response: CommentType) => void;
   setCommentBeingRepliedTo?: () => void;
   commentBeingRepliedTo?: CommentType;
 };
@@ -309,7 +310,15 @@ export const CommentForm = ({
             address.`);
       } else if (response.status === "ok") {
         // response.message is the id of the comment that was created on the server
-        onAddComment(parseInt(response.message), body, user);
+        onAddComment(
+          simulateNewComment(
+            // response.message is the id of the comment that was created on the server
+            parseInt(response.message),
+            body,
+            user,
+            commentBeingRepliedTo
+          )
+        );
         resetForm();
       } else {
         setError("Sorry, there was a problem posting your comment.");
