@@ -122,10 +122,6 @@ const svgOverrides = css`
   }
 `;
 
-const commentDetails = css`
-  flex-grow: 1;
-`;
-
 const headerStyles = css`
   display: flex;
   flex-direction: row;
@@ -256,7 +252,7 @@ export const Comment = ({
           />
         </div>
 
-        <div className={commentDetails}>
+        <div>
           <header className={headerStyles}>
             <Column>
               <Row>
