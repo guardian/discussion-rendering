@@ -46,11 +46,6 @@ const commentControlsButton = (pillar: Pillar) => css`
   }
 `;
 
-const spaceBetween = css`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const commentCss = css`
   display: block;
   clear: left;
@@ -94,7 +89,7 @@ const selectedStyles = css`
   padding-right: ${space[2]}px;
 `;
 
-const avatarMargin = css`
+const rightMarginStyles = css`
   margin-right: ${space[2]}px;
 `;
 
@@ -122,10 +117,6 @@ const svgOverrides = css`
   }
 `;
 
-const commentDetails = css`
-  flex-grow: 1;
-`;
-
 const headerStyles = css`
   display: flex;
   flex-direction: row;
@@ -137,11 +128,12 @@ const iconWrapper = css`
   white-space: nowrap;
 `;
 
-const timestampWrapperStyles = css`
+const marginLeftStyles = css`
   margin-left: ${space[2]}px;
+`;
+
+const timestampWrapperStyles = css`
   margin-bottom: -2px;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
 `;
 
@@ -154,9 +146,23 @@ const linkStyles = (pillar: Pillar) => css`
   }
 `;
 
+const flexGrowStyles = css`
+  flex-grow: 1;
+`;
+
+const spaceBetweenStyles = css`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const flexRowStyles = css`
   display: flex;
   flex-direction: row;
+`;
+
+const flexColStyles = css`
+  display: flex;
+  flex-direction: column;
 `;
 
 const removePaddingLeft = css`
@@ -164,25 +170,11 @@ const removePaddingLeft = css`
 `;
 
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-    `}
-  >
-    {children}
-  </div>
+  <div className={flexColStyles}>{children}</div>
 );
 
 const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
+  <div className={flexRowStyles}>{children}</div>
 );
 
 const ReplyArrow = () => (
@@ -248,7 +240,7 @@ export const Comment = ({
         id={`comment-${comment.id}`}
         className={cx(commentWrapper, wasScrolledTo && selectedStyles)}
       >
-        <div className={avatarMargin}>
+        <div className={rightMarginStyles}>
           <Avatar
             imageUrl={comment.userProfile.avatar}
             displayName={comment.userProfile.displayName}
@@ -256,7 +248,7 @@ export const Comment = ({
           />
         </div>
 
-        <div className={commentDetails}>
+        <div className={flexGrowStyles}>
           <header className={headerStyles}>
             <Column>
               <Row>
@@ -291,7 +283,13 @@ export const Comment = ({
                 ) : (
                   <></>
                 )}
-                <div className={timestampWrapperStyles}>
+                <div
+                  className={cx(
+                    timestampWrapperStyles,
+                    marginLeftStyles,
+                    flexColStyles
+                  )}
+                >
                   <Timestamp
                     isoDateTime={comment.isoDateTime}
                     linkTo={joinUrl([
@@ -339,7 +337,7 @@ export const Comment = ({
                 className={cx(commentCss, commentLinkStyling)}
                 dangerouslySetInnerHTML={{ __html: comment.body }}
               />
-              <div className={spaceBetween}>
+              <div className={spaceBetweenStyles}>
                 <div className={commentControls}>
                   {/* When commenting is closed, no reply link shows at all */}
                   {!isClosedForComments && (
