@@ -309,10 +309,10 @@ export const CommentForm = ({
             <strong>resend the verification email</strong></a> to your email
             address.`);
       } else if (response.status === "ok") {
-        // response.message is the id of the comment that was created on the server
         onAddComment(
           simulateNewComment(
             // response.message is the id of the comment that was created on the server
+            // it is returned as a string, so we need to cast to an number to be compatable
             parseInt(response.message),
             body,
             user,
