@@ -246,6 +246,7 @@ export const Comment = ({
       )}
       <div
         id={`comment-${comment.id}`}
+        data-testid={comment.id}
         className={cx(commentWrapper, wasScrolledTo && selectedStyles)}
       >
         <div className={avatarMargin}>

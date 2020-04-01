@@ -102,7 +102,6 @@ export const defaultStory = () => (
     isClosedForComments={false}
     shortUrl="randomShortURL"
     user={aUser}
-    onAddComment={comment => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
   />
@@ -117,7 +116,6 @@ export const threadedComment = () => (
     isClosedForComments={false}
     shortUrl="randomShortURL"
     user={aUser}
-    onAddComment={comment => {}}
     threads="collapsed"
     setCommentBeingRepliedTo={comment => {}}
   />
