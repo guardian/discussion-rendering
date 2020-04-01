@@ -461,18 +461,22 @@ export const Comment = ({
                 />
               </div>
               <Row>
-                {!!comment.userProfile.badge.filter(
-                  obj => obj["name"] === "Staff"
-                ).length && (
-                  <div className={iconWrapper}>
-                    <GuardianStaff />
-                  </div>
-                )}
-                {comment.status !== "blocked" && isHighlighted && (
-                  <div className={iconWrapper}>
-                    <GuardianPick />
-                  </div>
-                )}
+                <>
+                  {!!comment.userProfile.badge.filter(
+                    obj => obj["name"] === "Staff"
+                  ).length && (
+                    <div className={iconWrapper}>
+                      <GuardianStaff />
+                    </div>
+                  )}
+                </>
+                <>
+                  {comment.status !== "blocked" && isHighlighted && (
+                    <div className={iconWrapper}>
+                      <GuardianPick />
+                    </div>
+                  )}
+                </>
               </Row>
             </Column>
             <>
