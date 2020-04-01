@@ -155,12 +155,16 @@ const iconWrapper = css`
   white-space: nowrap;
 `;
 
-const timestampWrapperStyles = css`
+const defaultTimestampWrapperStyles = css`
   margin-left: ${space[2]}px;
   margin-bottom: -2px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+const mobileTimestampWrapperStyles = css`
+  margin-bottom: -2px;
 `;
 
 const linkStyles = (pillar: Pillar) => css`
@@ -311,7 +315,7 @@ export const Comment = ({
                   ) : (
                     <></>
                   )}
-                  <div className={timestampWrapperStyles}>
+                  <div className={defaultTimestampWrapperStyles}>
                     <Timestamp
                       isoDateTime={comment.isoDateTime}
                       linkTo={joinUrl([
@@ -446,7 +450,7 @@ export const Comment = ({
                   {comment.userProfile.displayName}
                 </Link>
               </div>
-              <div className={timestampWrapperStyles}>
+              <div className={mobileTimestampWrapperStyles}>
                 <Timestamp
                   isoDateTime={comment.isoDateTime}
                   linkTo={joinUrl([
