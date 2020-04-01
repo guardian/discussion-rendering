@@ -5,6 +5,7 @@ import { space, palette } from "@guardian/src-foundations";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { Link } from "@guardian/src-link";
+import { until, from } from "@guardian/src-foundations/mq";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
@@ -94,7 +95,7 @@ const selectedStyles = css`
   padding-right: ${space[2]}px;
 `;
 
-const avatarMargin = css`
+const marginRight = css`
   margin-right: ${space[2]}px;
 `;
 
@@ -130,6 +131,23 @@ const headerStyles = css`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const fullWidthStyles = css`
+  width: 100%;
+`;
+
+const hideOnMobile = css`
+  width: 100%;
+  ${until.mobileLandscape} {
+    display: none;
+  }
+`;
+const displayOnMobile = css`
+  width: 100%;
+  ${from.mobileLandscape} {
+    display: none;
+  }
 `;
 
 const iconWrapper = css`
@@ -246,156 +264,290 @@ export const Comment = ({
       )}
       <div
         id={`comment-${comment.id}`}
-        className={cx(commentWrapper, wasScrolledTo && selectedStyles)}
+        className={cx(wasScrolledTo && selectedStyles)}
       >
-        <div className={avatarMargin}>
-          <Avatar
-            imageUrl={comment.userProfile.avatar}
-            displayName={comment.userProfile.displayName}
-            size={isReply ? "small" : "medium"}
-          />
-        </div>
+        {/* Default view */}
+        <div className={cx(hideOnMobile, commentWrapper)}>
+          <div className={marginRight}>
+            <Avatar
+              imageUrl={comment.userProfile.avatar}
+              displayName={comment.userProfile.displayName}
+              size={isReply ? "small" : "medium"}
+            />
+          </div>
 
-        <div className={commentDetails}>
-          <header className={headerStyles}>
-            <Column>
-              <Row>
-                <div className={cx(colourStyles(pillar), boldFont)}>
-                  <Link
-                    href={joinUrl([
-                      "https://profile.theguardian.com/user",
-                      comment.userProfile.userId
-                    ])}
-                    subdued={true}
-                  >
-                    {comment.userProfile.displayName}
-                  </Link>
-                </div>
-                {comment.responseTo ? (
-                  <div
-                    className={cx(
-                      colourStyles(pillar),
-                      regularFont,
-                      svgOverrides
-                    )}
-                  >
+          <div className={commentDetails}>
+            <header className={headerStyles}>
+              <Column>
+                <Row>
+                  <div className={cx(colourStyles(pillar), boldFont)}>
                     <Link
-                      href={`#comment-${comment.responseTo.commentId}`}
+                      href={joinUrl([
+                        "https://profile.theguardian.com/user",
+                        comment.userProfile.userId
+                      ])}
                       subdued={true}
-                      icon={<ReplyArrow />}
-                      iconSide="left"
                     >
-                      {comment.responseTo.displayName}
+                      {comment.userProfile.displayName}
                     </Link>
                   </div>
-                ) : (
-                  <></>
-                )}
-                <div className={timestampWrapperStyles}>
-                  <Timestamp
-                    isoDateTime={comment.isoDateTime}
-                    linkTo={joinUrl([
-                      // Remove the discussion-api path from the baseUrl
-                      baseUrl
-                        .split("/")
-                        .filter(path => path !== "discussion-api")
-                        .join("/"),
-                      "comment-permalink",
-                      comment.id.toString()
-                    ])}
-                  />
+                  {comment.responseTo ? (
+                    <div
+                      className={cx(
+                        colourStyles(pillar),
+                        regularFont,
+                        svgOverrides
+                      )}
+                    >
+                      <Link
+                        href={`#comment-${comment.responseTo.commentId}`}
+                        subdued={true}
+                        icon={<ReplyArrow />}
+                        iconSide="left"
+                      >
+                        {comment.responseTo.displayName}
+                      </Link>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  <div className={timestampWrapperStyles}>
+                    <Timestamp
+                      isoDateTime={comment.isoDateTime}
+                      linkTo={joinUrl([
+                        // Remove the discussion-api path from the baseUrl
+                        baseUrl
+                          .split("/")
+                          .filter(path => path !== "discussion-api")
+                          .join("/"),
+                        "comment-permalink",
+                        comment.id.toString()
+                      ])}
+                    />
+                  </div>
+                </Row>
+                <Row>
+                  <>
+                    {!!comment.userProfile.badge.filter(
+                      obj => obj["name"] === "Staff"
+                    ).length && (
+                      <div className={iconWrapper}>
+                        <GuardianStaff />
+                      </div>
+                    )}
+                    {comment.status !== "blocked" && isHighlighted && (
+                      <div className={iconWrapper}>
+                        <GuardianPick />
+                      </div>
+                    )}
+                  </>
+                </Row>
+              </Column>
+              {comment.status !== "blocked" && (
+                <RecommendationCount
+                  commentId={comment.id}
+                  initialCount={comment.numRecommends}
+                  alreadyRecommended={false}
+                />
+              )}
+            </header>
+            {comment.status !== "blocked" ? (
+              <>
+                <div
+                  className={cx(commentCss, commentLinkStyling)}
+                  dangerouslySetInnerHTML={{ __html: comment.body }}
+                />
+                <div className={spaceBetween}>
+                  <div className={commentControls}>
+                    {/* When commenting is closed, no reply link shows at all */}
+                    {!isClosedForComments && (
+                      <>
+                        {/* If user is not logged in we link to the login page */}
+                        {user ? (
+                          <button
+                            onClick={() => setCommentBeingRepliedTo(comment)}
+                            className={cx(
+                              commentControlsButtonStyles,
+                              removePaddingLeft
+                            )}
+                          >
+                            <div className={flexRowStyles}>
+                              <ReplyArrow />
+                              Reply
+                            </div>
+                          </button>
+                        ) : (
+                          <Row>
+                            <ReplyArrow />
+                            <a
+                              className={linkStyles(pillar)}
+                              href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                            >
+                              Reply
+                            </a>
+                          </Row>
+                        )}
+                      </>
+                    )}
+                    <button className={commentControlsButtonStyles}>
+                      Share
+                    </button>
+                    {/* Only staff can pick, and they cannot pick thier own comment */}
+                    {user &&
+                      user.badge.some(e => e.name === "Staff") &&
+                      user.userId !== comment.userProfile.userId && (
+                        <button
+                          onClick={isHighlighted ? unPick : pick}
+                          className={commentControlsButtonStyles}
+                        >
+                          {isHighlighted ? "Unpick" : "Pick"}
+                        </button>
+                      )}
+                  </div>
+                  <div>
+                    <AbuseReportForm commentId={comment.id} pillar={pillar} />
+                  </div>
                 </div>
-              </Row>
+              </>
+            ) : (
+              <p
+                className={cx(blockedCommentStyles, commentLinkStyling)}
+                dangerouslySetInnerHTML={{ __html: comment.body }}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile view */}
+      <div className={displayOnMobile}>
+        <Row>
+          <>
+            {!isReply && (
+              <div className={marginRight}>
+                <Avatar
+                  imageUrl={comment.userProfile.avatar}
+                  displayName={comment.userProfile.displayName}
+                  size={isReply ? "small" : "medium"}
+                />
+              </div>
+            )}
+          </>
+          <header className={cx(headerStyles, fullWidthStyles)}>
+            <Column>
+              <div className={cx(colourStyles(pillar), boldFont)}>
+                <Link
+                  href={joinUrl([
+                    "https://profile.theguardian.com/user",
+                    comment.userProfile.userId
+                  ])}
+                  subdued={true}
+                >
+                  {comment.userProfile.displayName}
+                </Link>
+              </div>
+              <div className={timestampWrapperStyles}>
+                <Timestamp
+                  isoDateTime={comment.isoDateTime}
+                  linkTo={joinUrl([
+                    // Remove the discussion-api path from the baseUrl
+                    baseUrl
+                      .split("/")
+                      .filter(path => path !== "discussion-api")
+                      .join("/"),
+                    "comment-permalink",
+                    comment.id.toString()
+                  ])}
+                />
+              </div>
               <Row>
                 {!!comment.userProfile.badge.filter(
                   obj => obj["name"] === "Staff"
-                ).length ? (
+                ).length && (
                   <div className={iconWrapper}>
                     <GuardianStaff />
                   </div>
-                ) : (
-                  <></>
                 )}
-                {comment.status !== "blocked" && isHighlighted ? (
+                {comment.status !== "blocked" && isHighlighted && (
                   <div className={iconWrapper}>
                     <GuardianPick />
                   </div>
-                ) : (
-                  <></>
                 )}
               </Row>
             </Column>
-            {comment.status !== "blocked" && (
-              <RecommendationCount
-                commentId={comment.id}
-                initialCount={comment.numRecommends}
-                alreadyRecommended={false}
-              />
-            )}
-          </header>
-          {comment.status !== "blocked" ? (
             <>
-              <div
-                className={cx(commentCss, commentLinkStyling)}
-                dangerouslySetInnerHTML={{ __html: comment.body }}
-              />
-              <div className={spaceBetween}>
-                <div className={commentControls}>
-                  {/* When commenting is closed, no reply link shows at all */}
-                  {!isClosedForComments && (
-                    <>
-                      {/* If user is not logged in we link to the login page */}
-                      {user ? (
-                        <button
-                          onClick={() => setCommentBeingRepliedTo(comment)}
-                          className={cx(
-                            commentControlsButtonStyles,
-                            removePaddingLeft
-                          )}
-                        >
-                          <div className={flexRowStyles}>
-                            <ReplyArrow />
-                            Reply
-                          </div>
-                        </button>
-                      ) : (
-                        <Row>
-                          <ReplyArrow />
-                          <a
-                            className={linkStyles(pillar)}
-                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                          >
-                            Reply
-                          </a>
-                        </Row>
-                      )}
-                    </>
-                  )}
-                  <button className={commentControlsButtonStyles}>Share</button>
-                  {/* Only staff can pick, and they cannot pick thier own comment */}
-                  {user &&
-                    user.badge.some(e => e.name === "Staff") &&
-                    user.userId !== comment.userProfile.userId && (
-                      <button
-                        onClick={isHighlighted ? unPick : pick}
-                        className={commentControlsButtonStyles}
-                      >
-                        {isHighlighted ? "Unpick" : "Pick"}
-                      </button>
-                    )}
-                </div>
-                <div>
-                  <AbuseReportForm commentId={comment.id} pillar={pillar} />
-                </div>
-              </div>
+              {comment.status !== "blocked" && (
+                <RecommendationCount
+                  commentId={comment.id}
+                  initialCount={comment.numRecommends}
+                  alreadyRecommended={false}
+                />
+              )}
             </>
-          ) : (
-            <p
-              className={cx(blockedCommentStyles, commentLinkStyling)}
+          </header>
+        </Row>
+        {comment.status !== "blocked" ? (
+          <>
+            <div
+              className={cx(commentCss, commentLinkStyling)}
               dangerouslySetInnerHTML={{ __html: comment.body }}
             />
-          )}
-        </div>
+            <header className={headerStyles}>
+              <div className={commentControls}>
+                {/* When commenting is closed, no reply link shows at all */}
+                {!isClosedForComments && (
+                  <>
+                    {/* If user is not logged in we link to the login page */}
+                    {user ? (
+                      <button
+                        onClick={() => setCommentBeingRepliedTo(comment)}
+                        className={cx(
+                          commentControlsButtonStyles,
+                          removePaddingLeft
+                        )}
+                      >
+                        <div className={flexRowStyles}>
+                          <ReplyArrow />
+                          Reply
+                        </div>
+                      </button>
+                    ) : (
+                      <Row>
+                        <ReplyArrow />
+                        <a
+                          className={linkStyles(pillar)}
+                          href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                        >
+                          Reply
+                        </a>
+                      </Row>
+                    )}
+                  </>
+                )}
+                <button className={commentControlsButtonStyles}>Share</button>
+                {/* Only staff can pick, and they cannot pick thier own comment */}
+                {user &&
+                  user.badge.some(e => e.name === "Staff") &&
+                  user.userId !== comment.userProfile.userId && (
+                    <button
+                      onClick={isHighlighted ? unPick : pick}
+                      className={commentControlsButtonStyles}
+                    >
+                      {isHighlighted ? "Unpick" : "Pick"}
+                    </button>
+                  )}
+              </div>
+              <div>
+                <AbuseReportForm commentId={comment.id} pillar={pillar} />
+              </div>
+            </header>
+          </>
+        ) : (
+          <p
+            className={cx(blockedCommentStyles, commentLinkStyling)}
+            dangerouslySetInnerHTML={{ __html: comment.body }}
+          />
+        )}
       </div>
     </>
   );
