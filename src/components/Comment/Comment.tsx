@@ -164,6 +164,7 @@ const flexColStyles = css`
 `;
 
 const spaceBetweenStyles = css`
+  display: flex;
   justify-content: space-between;
 `;
 
@@ -365,7 +366,7 @@ export const Comment = ({
                     className={cx(commentCss, commentLinkStyling)}
                     dangerouslySetInnerHTML={{ __html: comment.body }}
                   />
-                  <div className={cx(flexRowStyles, spaceBetweenStyles)}>
+                  <div className={spaceBetweenStyles}>
                     <div className={commentControls}>
                       {/* When commenting is closed, no reply link shows at all */}
                       {!isClosedForComments && (
