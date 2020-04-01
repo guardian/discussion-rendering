@@ -74,7 +74,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "rollup --config && yarn createTsDec",
-    "test": "react-scripts test",
+    "test": "jest",
     "tsc": "tsc --project tsconfig.project.json",
     "eject": "react-scripts eject",
     "storybook": "start-storybook",
