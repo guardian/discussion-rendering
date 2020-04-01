@@ -141,6 +141,10 @@ const linkStyles = (pillar: Pillar) => css`
   }
 `;
 
+const flexGrowStyles = css`
+  flex-grow: 1;
+`;
+
 const removePaddingLeft = css`
   padding-left: 0px;
 `;
@@ -281,7 +285,7 @@ export const Comment = ({
                 size={isReply ? "small" : "medium"}
               />
             </div>
-            <Column>
+            <div className={cx(flexColStyles, flexGrowStyles)}>
               <header>
                 <div
                   className={cx(
@@ -425,7 +429,7 @@ export const Comment = ({
                   dangerouslySetInnerHTML={{ __html: comment.body }}
                 />
               )}
-            </Column>
+            </div>
           </Row>
         </div>
 
