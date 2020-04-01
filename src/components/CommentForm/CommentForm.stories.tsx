@@ -55,11 +55,7 @@ const aComment: CommentType = {
 };
 
 export const Default = () => (
-  <CommentForm
-    shortUrl={shortUrl}
-    user={aUser}
-    onAddComment={(commentId, body, user) => {}}
-  />
+  <CommentForm shortUrl={shortUrl} user={aUser} onAddComment={comment => {}} />
 );
 Default.story = { name: "default" };
 
@@ -67,7 +63,7 @@ export const Active = () => (
   <CommentForm
     shortUrl={shortUrl}
     user={aUser}
-    onAddComment={(commentId, body, user) => {}}
+    onAddComment={comment => {}}
     commentBeingRepliedTo={aComment}
   />
 );
@@ -83,7 +79,7 @@ export const Premoderated = () => (
         isPremoderated: true
       }
     }}
-    onAddComment={(commentId, body, user) => {}}
+    onAddComment={comment => {}}
     commentBeingRepliedTo={aComment}
   />
 );

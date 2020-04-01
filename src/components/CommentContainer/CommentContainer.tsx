@@ -17,7 +17,7 @@ type Props = {
   isClosedForComments: boolean;
   shortUrl: string;
   user?: UserProfile;
-  onAddComment: (commentId: number, body: string, user: UserProfile) => void;
+  onAddComment: (comment: CommentType) => void;
   threads: ThreadsType;
   commentBeingRepliedTo?: CommentType;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
@@ -199,7 +199,8 @@ export const CommentContainer = ({
         {commentBeingRepliedTo &&
           (commentBeingRepliedTo.id === comment.id ||
             responses?.find(
-              response => response.id === commentBeingRepliedTo.id
+              (response: CommentType) =>
+                response.id === commentBeingRepliedTo.id
             )) &&
           user && (
             <div className={nestingStyles}>
