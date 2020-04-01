@@ -46,11 +46,6 @@ const commentControlsButton = (pillar: Pillar) => css`
   }
 `;
 
-const spaceBetween = css`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const commentCss = css`
   display: block;
   clear: left;
@@ -154,35 +149,30 @@ const linkStyles = (pillar: Pillar) => css`
   }
 `;
 
+const removePaddingLeft = css`
+  padding-left: 0px;
+`;
+
 const flexRowStyles = css`
   display: flex;
   flex-direction: row;
 `;
 
-const removePaddingLeft = css`
-  padding-left: 0px;
+const flexColStyles = css`
+  display: flex;
+  flex-direction: column;
+`;
+
+const spaceBetweenStyles = css`
+  justify-content: space-between;
 `;
 
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-    `}
-  >
-    {children}
-  </div>
+  <div className={flexColStyles}>{children}</div>
 );
 
 const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
+  <div className={flexRowStyles}>{children}</div>
 );
 
 const ReplyArrow = () => (
@@ -339,7 +329,7 @@ export const Comment = ({
                 className={cx(commentCss, commentLinkStyling)}
                 dangerouslySetInnerHTML={{ __html: comment.body }}
               />
-              <div className={spaceBetween}>
+              <div className={cx(flexRowStyles, spaceBetweenStyles)}>
                 <div className={commentControls}>
                   {/* When commenting is closed, no reply link shows at all */}
                   {!isClosedForComments && (
