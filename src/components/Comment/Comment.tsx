@@ -53,7 +53,7 @@ const commentCss = css`
   ${textSans.small()}
 
   p {
-    margin-top: 0;
+    margin-top: ${space[2]}px;
     margin-bottom: ${space[3]}px;
   }
 `;
@@ -361,7 +361,7 @@ export const Comment = ({
                     className={cx(commentCss, commentLinkStyling)}
                     dangerouslySetInnerHTML={{ __html: comment.body }}
                   />
-                  <div className={spaceBetweenStyles}>
+                  <div className={cx(flexRowStyles, spaceBetweenStyles)}>
                     <div className={commentControls}>
                       {/* When commenting is closed, no reply link shows at all */}
                       {!isClosedForComments && (
@@ -381,7 +381,13 @@ export const Comment = ({
                               </div>
                             </button>
                           ) : (
-                            <Row>
+                            <div
+                              className={cx(
+                                flexRowStyles,
+                                commentControlsButtonStyles,
+                                removePaddingLeft
+                              )}
+                            >
                               <ReplyArrow />
                               <a
                                 className={linkStyles(pillar)}
@@ -389,7 +395,7 @@ export const Comment = ({
                               >
                                 Reply
                               </a>
-                            </Row>
+                            </div>
                           )}
                         </>
                       )}
@@ -500,7 +506,7 @@ export const Comment = ({
                 className={cx(commentCss, commentLinkStyling)}
                 dangerouslySetInnerHTML={{ __html: comment.body }}
               />
-              <div className={spaceBetweenStyles}>
+              <div className={cx(flexRowStyles, spaceBetweenStyles)}>
                 <div className={commentControls}>
                   {/* When commenting is closed, no reply link shows at all */}
                   {!isClosedForComments && (
