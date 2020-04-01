@@ -47,11 +47,6 @@ const commentControlsButton = (pillar: Pillar) => css`
   }
 `;
 
-const spaceBetween = css`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const commentCss = css`
   display: block;
   clear: left;
@@ -146,11 +141,6 @@ const linkStyles = (pillar: Pillar) => css`
   }
 `;
 
-const flexRowStyles = css`
-  display: flex;
-  flex-direction: row;
-`;
-
 const removePaddingLeft = css`
   padding-left: 0px;
 `;
@@ -159,56 +149,30 @@ const fullWidthStyles = css`
   width: 100%;
 `;
 
-const Column = ({
-  children,
-  justify = "flex-start",
-  fullWidth = false,
-  alignItems = "stretch"
-}: {
-  children: JSX.Element | JSX.Element[];
-  justify?: "flex-start" | "space-between"; // Extend as required
-  fullWidth?: boolean;
-  alignItems?: "stretch" | "center" | "flex-start" | "flex-end";
-}) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-      justify-content: ${justify};
-      align-items: ${alignItems};
-      ${fullWidth} {
-        width: 100%;
-      }
-    `}
-  >
-    {children}
-  </div>
+const flexRowStyles = css`
+  display: flex;
+  flex-direction: row;
+`;
+
+const flexColStyles = css`
+  display: flex;
+  flex-direction: column;
+`;
+
+const spaceBetweenStyles = css`
+  justify-content: space-between;
+`;
+
+const alignItemsCenter = css`
+  align-items: center;
+`;
+
+const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div className={flexColStyles}>{children}</div>
 );
 
-const Row = ({
-  children,
-  justify = "flex-start",
-  fullWidth = false,
-  alignItems = "stretch"
-}: {
-  children: JSX.Element | JSX.Element[];
-  justify?: "flex-start" | "space-between"; // Extend as required
-  fullWidth?: boolean;
-  alignItems?: "stretch" | "center" | "flex-start" | "flex-end";
-}) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-      justify-content: ${justify};
-      align-items: ${alignItems};
-      ${fullWidth} {
-        width: 100%;
-      }
-    `}
-  >
-    {children}
-  </div>
+const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div className={flexRowStyles}>{children}</div>
 );
 
 const Badges = ({
@@ -319,9 +283,15 @@ export const Comment = ({
             </div>
             <Column>
               <header>
-                <Row justify="space-between" fullWidth={true}>
+                <div
+                  className={cx(
+                    flexRowStyles,
+                    spaceBetweenStyles,
+                    fullWidthStyles
+                  )}
+                >
                   <Column>
-                    <Row alignItems="center">
+                    <div className={cx(flexRowStyles, alignItemsCenter)}>
                       <div className={cx(colourStyles(pillar), boldFont)}>
                         <Link
                           href={joinUrl([
@@ -369,7 +339,7 @@ export const Comment = ({
                           ])}
                         />
                       </div>
-                    </Row>
+                    </div>
                     <Row>
                       <Badges comment={comment} isHighlighted={isHighlighted} />
                     </Row>
@@ -383,7 +353,7 @@ export const Comment = ({
                       />
                     )}
                   </>
-                </Row>
+                </div>
               </header>
               {comment.status !== "blocked" ? (
                 <>
@@ -391,7 +361,7 @@ export const Comment = ({
                     className={cx(commentCss, commentLinkStyling)}
                     dangerouslySetInnerHTML={{ __html: comment.body }}
                   />
-                  <div className={spaceBetween}>
+                  <div className={spaceBetweenStyles}>
                     <div className={commentControls}>
                       {/* When commenting is closed, no reply link shows at all */}
                       {!isClosedForComments && (
@@ -475,7 +445,13 @@ export const Comment = ({
               )}
             </>
             <header className={fullWidthStyles}>
-              <Row justify="space-between" fullWidth={true}>
+              <div
+                className={cx(
+                  flexRowStyles,
+                  spaceBetweenStyles,
+                  fullWidthStyles
+                )}
+              >
                 <Column>
                   <div className={cx(colourStyles(pillar), boldFont)}>
                     <Link
@@ -515,7 +491,7 @@ export const Comment = ({
                     />
                   )}
                 </>
-              </Row>
+              </div>
             </header>
           </Row>
           {comment.status !== "blocked" ? (
@@ -524,7 +500,7 @@ export const Comment = ({
                 className={cx(commentCss, commentLinkStyling)}
                 dangerouslySetInnerHTML={{ __html: comment.body }}
               />
-              <div className={spaceBetween}>
+              <div className={spaceBetweenStyles}>
                 <div className={commentControls}>
                   {/* When commenting is closed, no reply link shows at all */}
                   {!isClosedForComments && (
