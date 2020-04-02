@@ -94,6 +94,24 @@ export const Default = () => (
 );
 Default.story = { name: "Default" };
 
+export const MobileDefault = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+    isClosedForComments={false}
+  />
+);
+MobileDefault.story = {
+  name: "Mobile Default",
+  parameters: {
+    viewport: { defaultViewport: "mobileMedium" },
+    chromatic: { viewports: [375] }
+  }
+};
+
 export const ReplyComment = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
@@ -105,6 +123,24 @@ export const ReplyComment = () => (
   />
 );
 ReplyComment.story = { name: "Reply Default" };
+
+export const MobileReply = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={replyCommentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={true}
+    isClosedForComments={false}
+  />
+);
+MobileReply.story = {
+  name: "Mobile Reply",
+  parameters: {
+    viewport: { defaultViewport: "mobileMedium" },
+    chromatic: { viewports: [375] }
+  }
+};
 
 export const PickedComment = () => (
   <Comment

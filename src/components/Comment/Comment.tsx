@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { space, palette } from "@guardian/src-foundations";
+import { from, until } from "@guardian/src-foundations/mq";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { Link } from "@guardian/src-link";
@@ -96,6 +97,10 @@ const selectedStyles = css`
 
 const avatarMargin = css`
   margin-right: ${space[2]}px;
+
+  ${until.mobileLandscape} {
+    display: none;
+  }
 `;
 
 const colourStyles = (pillar: Pillar) => css`
@@ -161,6 +166,23 @@ const flexRowStyles = css`
 
 const removePaddingLeft = css`
   padding-left: 0px;
+`;
+
+const hideBelowMobileLandscape = css`
+  ${until.mobileLandscape} {
+    display: none;
+  }
+`;
+
+const hideAboveMobileLandscape = css`
+  ${from.mobileLandscape} {
+    display: none;
+  }
+`;
+
+const negativeMargin = css`
+  margin-top: 0px;
+  margin-bottom: -6px;
 `;
 
 const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
@@ -233,6 +255,12 @@ export const Comment = ({
     }
   };
 
+  const showStaffbadge = comment.userProfile.badge.find(
+    obj => obj["name"] === "Staff"
+  );
+
+  const showPickBadge = comment.status !== "blocked" && isHighlighted;
+
   return (
     <>
       {error && (
@@ -248,7 +276,7 @@ export const Comment = ({
         id={`comment-${comment.id}`}
         className={cx(commentWrapper, wasScrolledTo && selectedStyles)}
       >
-        <div className={avatarMargin}>
+        <div className={cx(avatarMargin)}>
           <Avatar
             imageUrl={comment.userProfile.avatar}
             displayName={comment.userProfile.displayName}
@@ -259,71 +287,129 @@ export const Comment = ({
         <div className={commentDetails}>
           <header className={headerStyles}>
             <Column>
-              <Row>
-                <div className={cx(colourStyles(pillar), boldFont)}>
-                  <Link
-                    href={joinUrl([
-                      "https://profile.theguardian.com/user",
-                      comment.userProfile.userId
-                    ])}
-                    subdued={true}
-                  >
-                    {comment.userProfile.displayName}
-                  </Link>
-                </div>
-                {comment.responseTo ? (
+              <div
+                className={cx(
+                  comment.responseTo && hideBelowMobileLandscape,
+                  hideAboveMobileLandscape
+                )}
+              >
+                <Row>
                   <div
-                    className={cx(
-                      colourStyles(pillar),
-                      regularFont,
-                      svgOverrides
-                    )}
+                    className={css`
+                      margin-right: ${space[2]}px;
+                    `}
                   >
-                    <Link
-                      href={`#comment-${comment.responseTo.commentId}`}
-                      subdued={true}
-                      icon={<ReplyArrow />}
-                      iconSide="left"
+                    <Avatar
+                      imageUrl={comment.userProfile.avatar}
+                      displayName={""}
+                      size="small"
+                    />
+                  </div>
+                  <Column>
+                    <div
+                      className={cx(
+                        colourStyles(pillar),
+                        boldFont,
+                        negativeMargin
+                      )}
                     >
-                      {comment.responseTo.displayName}
+                      <Link
+                        href={joinUrl([
+                          "https://profile.theguardian.com/user",
+                          comment.userProfile.userId
+                        ])}
+                        subdued={true}
+                      >
+                        {comment.userProfile.displayName}
+                      </Link>
+                    </div>
+                    <Timestamp
+                      isoDateTime={comment.isoDateTime}
+                      linkTo={joinUrl([
+                        // Remove the discussion-api path from the baseUrl
+                        baseUrl
+                          .split("/")
+                          .filter(path => path !== "discussion-api")
+                          .join("/"),
+                        "comment-permalink",
+                        comment.id.toString()
+                      ])}
+                    />
+                  </Column>
+                </Row>
+              </div>
+              <div
+                className={cx(!comment.responseTo && hideBelowMobileLandscape)}
+              >
+                <Row>
+                  <div className={cx(colourStyles(pillar), boldFont)}>
+                    <Link
+                      href={joinUrl([
+                        "https://profile.theguardian.com/user",
+                        comment.userProfile.userId
+                      ])}
+                      subdued={true}
+                    >
+                      {comment.userProfile.displayName}
                     </Link>
                   </div>
-                ) : (
-                  <></>
-                )}
-                <div className={timestampWrapperStyles}>
-                  <Timestamp
-                    isoDateTime={comment.isoDateTime}
-                    linkTo={joinUrl([
-                      // Remove the discussion-api path from the baseUrl
-                      baseUrl
-                        .split("/")
-                        .filter(path => path !== "discussion-api")
-                        .join("/"),
-                      "comment-permalink",
-                      comment.id.toString()
-                    ])}
-                  />
-                </div>
-              </Row>
-              <Row>
-                {!!comment.userProfile.badge.filter(
-                  obj => obj["name"] === "Staff"
-                ).length ? (
-                  <div className={iconWrapper}>
-                    <GuardianStaff />
+                  {comment.responseTo ? (
+                    <div
+                      className={cx(
+                        colourStyles(pillar),
+                        regularFont,
+                        svgOverrides
+                      )}
+                    >
+                      <Link
+                        href={`#comment-${comment.responseTo.commentId}`}
+                        subdued={true}
+                        icon={<ReplyArrow />}
+                        iconSide="left"
+                      >
+                        {comment.responseTo.displayName}
+                      </Link>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  <div
+                    className={cx(
+                      timestampWrapperStyles,
+                      comment.responseTo && hideBelowMobileLandscape
+                    )}
+                  >
+                    <Timestamp
+                      isoDateTime={comment.isoDateTime}
+                      linkTo={joinUrl([
+                        // Remove the discussion-api path from the baseUrl
+                        baseUrl
+                          .split("/")
+                          .filter(path => path !== "discussion-api")
+                          .join("/"),
+                        "comment-permalink",
+                        comment.id.toString()
+                      ])}
+                    />
                   </div>
-                ) : (
-                  <></>
-                )}
-                {comment.status !== "blocked" && isHighlighted ? (
-                  <div className={iconWrapper}>
-                    <GuardianPick />
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </Row>
+                </Row>
+                <Row>
+                  {showStaffbadge ? (
+                    <div className={iconWrapper}>
+                      <GuardianStaff />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  {showPickBadge ? (
+                    <div className={iconWrapper}>
+                      <GuardianPick />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </Row>
+              </div>
             </Column>
             {comment.status !== "blocked" && (
               <RecommendationCount
@@ -333,6 +419,29 @@ export const Comment = ({
               />
             )}
           </header>
+          <div
+            className={cx(
+              comment.responseTo && hideBelowMobileLandscape,
+              hideAboveMobileLandscape
+            )}
+          >
+            <Row>
+              {showStaffbadge ? (
+                <div className={iconWrapper}>
+                  <GuardianStaff />
+                </div>
+              ) : (
+                <></>
+              )}
+              {showPickBadge ? (
+                <div className={iconWrapper}>
+                  <GuardianPick />
+                </div>
+              ) : (
+                <></>
+              )}
+            </Row>
+          </div>
           {comment.status !== "blocked" ? (
             <>
               <div
