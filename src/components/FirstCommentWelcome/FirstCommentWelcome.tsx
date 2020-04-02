@@ -23,11 +23,6 @@ const textStyling = css`
   ${textSans.small()};
 `;
 
-const flexCol = css`
-  display: flex;
-  flex-direction: column;
-`;
-
 const flexRow = css`
   display: flex;
   flex-direction: row;
@@ -67,36 +62,30 @@ export const FirstCommentWelcome = ({
         submitForm(userName);
       }}
     >
-      <div>
-        <h3
-          className={css`
-            ${headline.xxsmall({ fontWeight: "bold" })};
-          `}
-        >
-          Welcome, you’re about to make your first comment!
-        </h3>
-      </div>
-      <div>
-        <p className={textStyling}>
-          Before you post, we’d like to thank you for joining the debate - we’re
-          glad you’ve chosen to participate and we value your opinions and
-          experiences.
-        </p>
-        <p className={textStyling}>
-          Please choose your username under which you would like all your
-          comments to show up. You can only set your username once.
-        </p>
-      </div>
-      <div className={cx(flexCol, textStyling)}>
-        <TextInput
-          label="Username:"
-          supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
-          value={userName}
-          onChange={e => setUserName(e.target.value)}
-          width={30}
-          error={error}
-        />
-      </div>
+      <h3
+        className={css`
+          ${headline.xxsmall({ fontWeight: "bold" })};
+        `}
+      >
+        Welcome, you’re about to make your first comment!
+      </h3>
+      <p className={textStyling}>
+        Before you post, we’d like to thank you for joining the debate - we’re
+        glad you’ve chosen to participate and we value your opinions and
+        experiences.
+      </p>
+      <p className={textStyling}>
+        Please choose your username under which you would like all your comments
+        to show up. You can only set your username once.
+      </p>
+      <TextInput
+        label="Username:"
+        supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
+        value={userName}
+        onChange={e => setUserName(e.target.value)}
+        width={30}
+        error={error}
+      />
       <p className={textStyling}>
         Please keep your posts respectful and abide by the{" "}
         <a
