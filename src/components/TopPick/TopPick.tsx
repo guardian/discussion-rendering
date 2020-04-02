@@ -223,7 +223,6 @@ export const TopPick = ({ baseUrl, pillar, comment }: Props) => (
       </Row>
       <div>
         <RecommendationCount
-          pillar={pillar}
           commentId={comment.id}
           initialCount={comment.numRecommends}
           alreadyRecommended={false}

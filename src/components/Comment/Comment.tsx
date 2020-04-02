@@ -414,7 +414,6 @@ export const Comment = ({
             </Column>
             {comment.status !== "blocked" && (
               <RecommendationCount
-                pillar={pillar}
                 commentId={comment.id}
                 initialCount={comment.numRecommends}
                 alreadyRecommended={false}
