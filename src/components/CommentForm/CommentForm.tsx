@@ -101,7 +101,7 @@ const errorTextStyles = css`
 const infoTextStyles = css`
   margin: 0;
   ${textSans.xsmall()};
-  color: ${text.secondary};
+  color: ${text.supporting};
 `;
 
 const msgContainerStyles = css`
