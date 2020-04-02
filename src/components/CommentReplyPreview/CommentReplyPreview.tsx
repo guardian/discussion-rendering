@@ -40,7 +40,7 @@ const replyDisplayNameStyles = css`
 const replyPreviewHeaderStyle = css`
   ${textSans.small({ fontWeight: "bold" })};
   margin-top: 0px;
-  margin-bottom: 6px;
+  margin-bottom: ${space[2]}px;
 `;
 
 const arrowSize = 15;
@@ -62,7 +62,7 @@ const previewStyle = css`
     border-left: ${arrowSize}px solid ${bg};
     border-top: ${arrowSize}px solid transparent;
     top: -${arrowSize - 1}px;
-    margin-left: 60px;
+    margin-left: ${space[9]}px;
   }
 `;
 
