@@ -90,6 +90,8 @@ export const Root = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 Root.story = {
@@ -108,6 +110,8 @@ export const RootMobile = () => (
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
     isClosedForComments={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 RootMobile.story = {
@@ -126,6 +130,8 @@ export const ReplyComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 ReplyComment.story = {
@@ -144,6 +150,8 @@ export const MobileReply = () => (
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
     isClosedForComments={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 MobileReply.story = {
@@ -165,6 +173,8 @@ export const PickedComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 PickedComment.story = { name: "Picked Comment" };
@@ -177,6 +187,8 @@ export const StaffUserComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 StaffUserComment.story = { name: "Staff User Comment" };
@@ -192,6 +204,8 @@ export const PickedStaffUserComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 PickedStaffUserComment.story = {
@@ -213,6 +227,8 @@ export const PickedStaffUserCommentMobile = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 PickedStaffUserCommentMobile.story = {
@@ -232,6 +248,8 @@ export const LoggedInAsModerator = () => (
     setCommentBeingRepliedTo={() => {}}
     user={staffUser}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 LoggedInAsModerator.story = { name: "Logged in as moderator" };
@@ -244,6 +262,22 @@ export const BlockedComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 BlockedComment.story = { name: "Blocked comment" };
+
+export const MutedComment = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={blockedCommentData}
+    pillar={"sport"}
+    isClosedForComments={false}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+    isMuted={true}
+    toggleMuteStatus={() => {}}
+  />
+);
+MutedComment.story = { name: "Muted comment" };
