@@ -50,7 +50,6 @@ export const FirstCommentWelcome = ({
         const response = await preview(body);
         setPreviewBody(response);
       } catch (e) {
-        // TODO: handle errors?
         setPreviewBody("");
       }
     };
