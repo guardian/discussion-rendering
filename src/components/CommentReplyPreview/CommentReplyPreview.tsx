@@ -14,8 +14,8 @@ const commentControlsButton = (pillar: Pillar) => css`
 `;
 
 const replyWrapperStyles = css`
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: ${space[1]}px;
+  padding-bottom: ${space[1]}px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -31,10 +31,10 @@ const replyArrowStyles = css`
 
 const replyDisplayNameStyles = css`
   ${textSans.small()};
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 5px;
-  margin-right: 10px;
+  padding-top: ${space[1]}px;
+  padding-bottom: ${space[1]}px;
+  padding-right: ${space[1]}px;
+  margin-right: ${space[2]}px;
 `;
 
 const replyPreviewHeaderStyle = css`
@@ -46,10 +46,10 @@ const replyPreviewHeaderStyle = css`
 const arrowSize = 15;
 const bg = neutral[93];
 const previewStyle = css`
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-top: ${space[3]}px;
+  padding-bottom: ${space[3]}px;
+  padding-left: ${space[5]}px;
+  padding-right: ${space[5]}px;
   background-color: ${bg};
   margin-top: ${arrowSize}px;
   margin-bottom: ${arrowSize + 5}px;
