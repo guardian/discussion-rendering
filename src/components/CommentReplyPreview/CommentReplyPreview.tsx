@@ -59,7 +59,7 @@ const previewStyle = css`
   :before {
     content: "";
     position: absolute;
-    border-left: ${arrowSize}px solid #ededed;
+    border-left: ${arrowSize}px solid ${bg};
     border-top: ${arrowSize}px solid transparent;
     top: -${arrowSize - 1}px;
     margin-left: 60px;
