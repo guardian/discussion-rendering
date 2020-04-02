@@ -24,7 +24,7 @@ const labelText = css`
 `;
 
 const staffIcon = css`
-  fill: ${brand[500]};
+  fill: ${brand[400]};
 `;
 
 const staffLabel = css`
