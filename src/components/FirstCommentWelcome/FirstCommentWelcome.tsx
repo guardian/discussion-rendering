@@ -32,10 +32,16 @@ const textStyling = css`
   ${textSans.small()};
 `;
 
-const flexRow = css`
-  display: flex;
-  flex-direction: row;
-`;
+const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+  <div
+    className={css`
+      display: flex;
+      flex-direction: row;
+    `}
+  >
+    {children}
+  </div>
+);
 
 export const FirstCommentWelcome = ({
   body,
@@ -110,7 +116,7 @@ export const FirstCommentWelcome = ({
           className={cx(previewStyle, textStyling)}
           dangerouslySetInnerHTML={{ __html: previewBody || "" }}
         />
-        <div className={flexRow}>
+        <Row>
           <Button size="small" onClick={() => submitForm(userName)}>
             Post your comment
           </Button>
@@ -122,7 +128,7 @@ export const FirstCommentWelcome = ({
           <Button size="small" priority="tertiary" onClick={cancelSubmit}>
             Cancel
           </Button>
-        </div>
+        </Row>
       </form>
     </div>
   );
