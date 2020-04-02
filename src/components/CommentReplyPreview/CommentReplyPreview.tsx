@@ -146,7 +146,7 @@ export const Preview = ({
         }}
       />
       <div>
-        <span
+        <button
           className={cx(
             hideCommentButtonStyles,
             commentControlsButtonStyles,
@@ -155,7 +155,7 @@ export const Preview = ({
           onClick={() => setDisplayReplyComment(!displayReplyComment)}
         >
           {displayReplyComment ? "Hide Comment" : "Show comment"}
-        </span>
+        </button>
       </div>
     </div>
   );
