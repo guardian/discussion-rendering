@@ -101,7 +101,7 @@ const errorTextStyles = css`
 const infoTextStyles = css`
   margin: 0;
   ${textSans.xsmall()};
-  color: ${text.secondary};
+  color: ${text.supporting};
 `;
 
 const msgContainerStyles = css`
@@ -395,6 +395,7 @@ export const CommentForm = ({
           </div>
         )}
         <textarea
+          data-testid="comment-input"
           placeholder={
             commentBeingRepliedTo || !isActive ? "Join the discussion" : ""
           }
@@ -413,7 +414,7 @@ export const CommentForm = ({
         />
         <div className={bottomContainer}>
           <div className={buttonContainerStyles}>
-            <Button type="submit" size="small">
+            <Button type="submit" size="small" data-testid="post-comment">
               <div className={buttonTextStyles}>Post your comment</div>
             </Button>
             {(isActive || body) && (
