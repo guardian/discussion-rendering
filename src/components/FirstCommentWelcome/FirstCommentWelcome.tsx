@@ -7,6 +7,13 @@ import { Button } from "@guardian/src-button";
 
 import { preview } from "../../lib/api";
 
+type Props = {
+  body: string;
+  error?: string;
+  submitForm: (userName: string) => void;
+  cancelSubmit: () => void;
+};
+
 const previewStyle = css`
   padding: ${space[2]}px;
   background-color: ${neutral[93]};
@@ -33,12 +40,7 @@ export const FirstCommentWelcome = ({
   error = "",
   submitForm,
   cancelSubmit
-}: {
-  body: string;
-  error?: string;
-  submitForm: (userName: string) => void;
-  cancelSubmit: () => void;
-}) => {
+}: Props) => {
   const [previewBody, setPreviewBody] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
 
