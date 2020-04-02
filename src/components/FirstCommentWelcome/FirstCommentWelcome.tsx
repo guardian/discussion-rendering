@@ -20,7 +20,7 @@ const previewStyle = css`
 `;
 
 const textStyling = css`
-  ${textSans.xsmall()};
+  ${textSans.small()};
 `;
 
 const flexCol = css`
