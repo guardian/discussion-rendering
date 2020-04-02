@@ -17,13 +17,13 @@ type Props = {
 const previewStyle = css`
   padding: ${space[2]}px;
   background-color: ${neutral[93]};
-  margin-bottom: 20px;
+  margin-bottom: ${space[5]}px;
   position: relative;
   min-height: ${space[9]}px;
 
   /* p is returned by API and this is the only way to apply styles */
   p {
-    padding-left: 10px;
+    padding-left: ${space[2]}px;
   }
 `;
 
