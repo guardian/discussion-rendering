@@ -14,13 +14,17 @@ const commentControlsButton = (pillar: Pillar) => css`
 `;
 
 const replyWrapperStyles = css`
+  padding-top: 5px;
+  padding-bottom: 5px;
   display: flex;
   flex-direction: row;
-  padding: 5px;
+  align-items: center;
 `;
 const replyArrowStyles = css`
   fill: grey;
-  padding: 5px;
+  padding-top: 2px; /* TODO: find a better solution */
+  padding-left: 5px;
+  padding-right: 5px;
 `;
 
 const replyDisplayNameStyles = css`
@@ -67,8 +71,6 @@ const commentStyles = css`
 `;
 
 const hideCommentButtonStyles = css`
-  padding-top: 5px;
-  padding-bottom: 5px;
   ${textSans.xsmall()};
   :hover {
     cursor: pointer;
