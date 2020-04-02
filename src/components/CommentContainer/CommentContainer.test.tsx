@@ -66,6 +66,8 @@ describe("CommentContainer", () => {
         commentBeingRepliedTo={commentBeingRepliedTo}
         setCommentBeingRepliedTo={mockSetCommentBeingRepliedTo}
         isClosedForComments={false}
+        mutes={[]}
+        toggleMuteStatus={() => {}}
       />
     );
 
@@ -102,6 +104,8 @@ describe("CommentContainer", () => {
         commentBeingRepliedTo={commentBeingRepliedTo}
         setCommentBeingRepliedTo={mockSetCommentBeingRepliedTo}
         isClosedForComments={false}
+        mutes={[]}
+        toggleMuteStatus={() => {}}
       />
     );
 
@@ -133,6 +137,8 @@ describe("CommentContainer", () => {
         commentBeingRepliedTo={commentBeingRepliedTo}
         setCommentBeingRepliedTo={mockSetCommentBeingRepliedTo}
         isClosedForComments={false}
+        mutes={[]}
+        toggleMuteStatus={() => {}}
       />
     );
 
@@ -169,6 +175,8 @@ describe("CommentContainer", () => {
         commentBeingRepliedTo={commentBeingRepliedTo}
         setCommentBeingRepliedTo={mockSetCommentBeingRepliedTo}
         isClosedForComments={false}
+        mutes={[]}
+        toggleMuteStatus={() => {}}
       />
     );
 

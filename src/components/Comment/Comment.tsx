@@ -6,6 +6,7 @@ import { from, until } from "@guardian/src-foundations/mq";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
 import { Link } from "@guardian/src-link";
+import { Button } from "@guardian/src-button";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
@@ -26,6 +27,8 @@ type Props = {
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
   isReply: boolean;
   wasScrolledTo?: boolean;
+  isMuted: boolean;
+  toggleMuteStatus: (userId: string) => void;
 };
 
 const commentControls = css`
@@ -67,6 +70,10 @@ const commentCss = css`
 
 const blockedCommentStyles = css`
   color: ${neutral[60]};
+  ${textSans.xsmall()}
+`;
+
+const blockedLinkStyles = css`
   ${textSans.xsmall()}
 `;
 
@@ -168,6 +175,19 @@ const removePaddingLeft = css`
   padding-left: 0px;
 `;
 
+const muteStyles = css`
+  ${textSans.xsmall()};
+  color: ${neutral[46]};
+  margin-right: ${space[2]}px;
+`;
+
+const buttonHeightOverrides = css`
+  button {
+    height: 18px;
+    min-height: 18px;
+  }
+`;
+
 const hideBelowMobileLandscape = css`
   ${until.mobileLandscape} {
     display: none;
@@ -227,7 +247,9 @@ export const Comment = ({
   setCommentBeingRepliedTo,
   user,
   isReply,
-  wasScrolledTo
+  wasScrolledTo,
+  isMuted,
+  toggleMuteStatus
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
   const [isHighlighted, setIsHighlighted] = useState<boolean>(
@@ -420,6 +442,7 @@ export const Comment = ({
               />
             )}
           </header>
+
           <div
             className={cx(
               comment.responseTo && hideBelowMobileLandscape,
@@ -443,7 +466,31 @@ export const Comment = ({
               )}
             </Row>
           </div>
-          {comment.status !== "blocked" ? (
+
+          {/* MUTED */}
+          {isMuted && (
+            <p className={cx(blockedCommentStyles, commentLinkStyling)}>
+              All posts from this user have been muted on this device.{" "}
+              <Button
+                size="small"
+                priority="tertiary"
+                onClick={() => toggleMuteStatus(comment.userProfile.userId)}
+              >
+                <span className={blockedLinkStyles}>Unmute?</span>
+              </Button>
+            </p>
+          )}
+
+          {/* BLOCKED */}
+          {!isMuted && comment.status === "blocked" && (
+            <p
+              className={cx(blockedCommentStyles, commentLinkStyling)}
+              dangerouslySetInnerHTML={{ __html: comment.body }}
+            />
+          )}
+
+          {/* NORMAL */}
+          {!isMuted && comment.status !== "blocked" && (
             <>
               <div
                 className={cx(commentCss, commentLinkStyling)}
@@ -494,16 +541,27 @@ export const Comment = ({
                       </button>
                     )}
                 </div>
-                <div>
+                <Row>
+                  {/* You can't mute unless logged in and you can't yourself */}
+                  {user && comment.userProfile.userId !== user.userId ? (
+                    <div className={buttonHeightOverrides}>
+                      <Button
+                        priority="tertiary"
+                        size="small"
+                        onClick={() =>
+                          toggleMuteStatus(comment.userProfile.userId)
+                        }
+                      >
+                        <span className={muteStyles}>Mute</span>
+                      </Button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                   <AbuseReportForm commentId={comment.id} pillar={pillar} />
-                </div>
+                </Row>
               </div>
             </>
-          ) : (
-            <p
-              className={cx(blockedCommentStyles, commentLinkStyling)}
-              dangerouslySetInnerHTML={{ __html: comment.body }}
-            />
           )}
         </div>
       </div>
