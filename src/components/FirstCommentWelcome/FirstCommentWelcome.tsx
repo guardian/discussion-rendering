@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
-import { textSans } from "@guardian/src-foundations/typography";
+import { textSans, headline } from "@guardian/src-foundations/typography";
 import { space, neutral, palette } from "@guardian/src-foundations";
 import { TextInput } from "@guardian/src-text-input"
 import { Button } from "@guardian/src-button";
@@ -70,7 +70,7 @@ export const FirstCommentWelcome = ({
       <div>
         <h3
           className={css`
-            ${textSans.medium({ fontWeight: "bold" })};
+            ${headline.xxsmall({ fontWeight: "bold" })};
           `}
         >
           Welcome, you’re about to make your first comment!
