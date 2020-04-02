@@ -17,7 +17,6 @@ type Props = {
 const previewStyle = css`
   padding: ${space[2]}px;
   background-color: ${neutral[93]};
-  border-radius: 5px;
   margin-bottom: 20px;
   position: relative;
   min-height: ${space[9]}px;
