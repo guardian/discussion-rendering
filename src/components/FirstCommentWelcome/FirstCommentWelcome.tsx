@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 import { textSans, headline } from "@guardian/src-foundations/typography";
-import { space, neutral, palette } from "@guardian/src-foundations";
+import { space, neutral } from "@guardian/src-foundations";
 import { TextInput } from "@guardian/src-text-input";
 import { Button } from "@guardian/src-button";
 import { Link } from "@guardian/src-link";
