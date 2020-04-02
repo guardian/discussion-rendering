@@ -23,13 +23,13 @@ const replyWrapperStyles = css`
 const replyArrowStyles = css`
   fill: grey;
   padding-top: 2px; /* TODO: find a better solution */
-  padding-left: 5px;
-  padding-right: 5px;
 `;
 
 const replyDisplayNameStyles = css`
   ${textSans.small()};
-  padding: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
   margin-right: 10px;
 `;
 
