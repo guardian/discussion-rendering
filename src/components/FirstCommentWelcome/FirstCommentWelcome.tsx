@@ -124,13 +124,12 @@ export const FirstCommentWelcome = ({
           </Button>
           <div
             className={css`
-              margin-left: 20px;
+              width: ${space[3]}px;
             `}
-          >
-            <Button size="small" priority="tertiary" onClick={cancelSubmit}>
-              Cancel
-            </Button>
-          </div>
+          ></div>
+          <Button size="small" priority="tertiary" onClick={cancelSubmit}>
+            Cancel
+          </Button>
         </div>
       </form>
     </div>
