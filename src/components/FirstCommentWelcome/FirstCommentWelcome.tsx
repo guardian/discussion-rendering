@@ -4,6 +4,7 @@ import { textSans, headline } from "@guardian/src-foundations/typography";
 import { space, neutral, palette } from "@guardian/src-foundations";
 import { TextInput } from "@guardian/src-text-input";
 import { Button } from "@guardian/src-button";
+import { Link } from "@guardian/src-link";
 
 import { preview } from "../../lib/api";
 
@@ -95,18 +96,9 @@ export const FirstCommentWelcome = ({
         />
         <p className={textStyling}>
           Please keep your posts respectful and abide by the{" "}
-          <a
-            className={css`
-              color: ${palette.brand[500]};
-              text-decoration: none;
-              :hover {
-                text-decoration: underline;
-              }
-            `}
-            href="/community-standards"
-          >
-            community guidelines
-          </a>
+          <Link href="/community-standards" priority="primary" subdued={true}>
+            <span className={textStyling}>community guidelines</span>
+          </Link>
           {` -`} and if you spot a comment you think doesn’t adhere to the
           guidelines, please use the ‘Report’ link next to it to let us know.
         </p>
