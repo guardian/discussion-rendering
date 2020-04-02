@@ -133,7 +133,7 @@ export const FirstCommentWelcome = ({
             margin-left: 20px;
           `}
         >
-          <Button size="small" onClick={cancelSubmit}>
+          <Button size="small" priority="tertiary" onClick={cancelSubmit}>
             Cancel
           </Button>
         </div>
