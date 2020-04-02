@@ -20,6 +20,8 @@ const previewStyle = css`
   border-radius: 5px;
   margin-bottom: 20px;
   position: relative;
+  min-height: ${space[9]}px;
+
   /* p is returned by API and this is the only way to apply styles */
   p {
     padding-left: 10px;
@@ -113,12 +115,10 @@ export const FirstCommentWelcome = ({
           Please preview your comment below and click ‘post’ when you’re happy
           with it.
         </p>
-        {previewBody && (
-          <div
-            className={cx(previewStyle, textStyling)}
-            dangerouslySetInnerHTML={{ __html: previewBody || "" }}
-          />
-        )}
+        <div
+          className={cx(previewStyle, textStyling)}
+          dangerouslySetInnerHTML={{ __html: previewBody || "" }}
+        />
         <div className={flexRow}>
           <Button size="small" onClick={() => submitForm(userName)}>
             Post your comment
