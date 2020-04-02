@@ -56,8 +56,8 @@ const commentCss = css`
   display: block;
   clear: left;
   ${textSans.small()}
-  margin-top: ${space[2]}px;
-  margin-bottom: ${space[3]}px;
+  margin-top: ${remSpace[2]}px;
+  margin-bottom: ${remSpace[3]}px;
 
   p {
     margin-top: 0;
