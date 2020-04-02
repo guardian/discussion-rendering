@@ -22,6 +22,8 @@ type Props = {
   commentBeingRepliedTo?: CommentType;
   setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
   commentToScrollTo?: number;
+  mutes: string[];
+  toggleMuteStatus: (userId: string) => void;
 };
 
 const nestingStyles = css`
@@ -110,7 +112,9 @@ export const CommentContainer = ({
   threads,
   commentBeingRepliedTo,
   setCommentBeingRepliedTo,
-  commentToScrollTo
+  commentToScrollTo,
+  mutes,
+  toggleMuteStatus
 }: Props) => {
   // Filter logic
   const [expanded, setExpanded] = useState<boolean>(threads === "expanded");
@@ -152,6 +156,8 @@ export const CommentContainer = ({
         setCommentBeingRepliedTo={setCommentBeingRepliedTo}
         user={user}
         isReply={false}
+        isMuted={mutes.includes(comment.userProfile.userId)}
+        toggleMuteStatus={toggleMuteStatus}
       />
 
       <>
@@ -169,6 +175,8 @@ export const CommentContainer = ({
                     user={user}
                     isReply={true}
                     wasScrolledTo={commentToScrollTo === responseComment.id}
+                    isMuted={mutes.includes(responseComment.userProfile.userId)}
+                    toggleMuteStatus={toggleMuteStatus}
                   />
                 </li>
               ))}

@@ -133,8 +133,6 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
     threads = localStorage.getItem("gu.prefs.discussion.threading");
     pageSize = localStorage.getItem("gu.prefs.discussion.pagesize");
   } catch (error) {
-    // Sometimes it's not possible to access localStorage, we accept this and don't want to
-    // capture these errors
     return DEFAULT_FILTERS;
   }
 
@@ -144,6 +142,30 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
     threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
     pageSize: pageSize ? JSON.parse(pageSize).value : DEFAULT_FILTERS.pageSize
   };
+};
+
+const readMutes = (): string[] => {
+  let mutes;
+  try {
+    // Try to read from local storage
+    mutes = localStorage.getItem("gu.prefs.discussion.mutes");
+  } catch (error) {
+    return [];
+  }
+
+  return mutes ? JSON.parse(mutes).value : [];
+};
+
+const writeMutes = (mutes: string[]) => {
+  try {
+    localStorage.setItem(
+      "gu.prefs.discussioni.mutes",
+      JSON.stringify({ value: mutes })
+    );
+  } catch (error) {
+    // Sometimes it's not possible to access localStorage, we accept this and don't want to
+    // capture these errors
+  }
 };
 
 export const App = ({
@@ -176,6 +198,7 @@ export const App = ({
   >();
   const [comments, setComments] = useState<CommentType[]>([]);
   const [commentCount, setCommentCount] = useState<number>(0);
+  const [mutes, setMutes] = useState<string[]>(readMutes());
 
   useEffect(() => {
     setLoading(true);
@@ -250,6 +273,16 @@ export const App = ({
     setPage(page);
   };
 
+  const toggleMuteStatus = (userId: string) => {
+    if (mutes.includes(userId)) {
+      // Already muted, unmute them
+      setMutes(mutes.filter(id => id !== userId));
+    } else {
+      // Add this user to our list of mutes
+      setMutes([...mutes, userId]);
+    }
+  };
+
   const onAddComment = (comment: CommentType) => {
     comments.pop(); // Remove last item from our local array
     // Replace it with this new comment at the start
@@ -301,6 +334,8 @@ export const App = ({
                       threads={filters.threads}
                       commentBeingRepliedTo={commentBeingRepliedTo}
                       setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                      mutes={mutes}
+                      toggleMuteStatus={toggleMuteStatus}
                     />
                   </li>
                 ))}
@@ -380,6 +415,8 @@ export const App = ({
                 commentBeingRepliedTo={commentBeingRepliedTo}
                 setCommentBeingRepliedTo={setCommentBeingRepliedTo}
                 commentToScrollTo={commentToScrollTo}
+                mutes={mutes}
+                toggleMuteStatus={toggleMuteStatus}
               />
             </li>
           ))}
