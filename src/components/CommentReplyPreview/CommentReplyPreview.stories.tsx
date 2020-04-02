@@ -92,7 +92,6 @@ export const MultiBlockPreview = () => (
         ...commentBeingRepliedTo,
         body: multiLBlockParagraph
       }}
-      pillar={"sport"}
       setDisplayReplyComment={() => {}}
       displayReplyComment={true}
     />
