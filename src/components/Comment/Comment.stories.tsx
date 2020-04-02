@@ -110,6 +110,8 @@ export const RootMobile = () => (
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
     isClosedForComments={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 RootMobile.story = {
@@ -148,6 +150,8 @@ export const MobileReply = () => (
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
     isClosedForComments={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 MobileReply.story = {
@@ -223,6 +227,8 @@ export const PickedStaffUserCommentMobile = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 PickedStaffUserCommentMobile.story = {
