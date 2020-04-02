@@ -80,7 +80,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "rollup --config && yarn createTsDec",
-    "test": "jest --env=jest-environment-jsdom-sixteen",
+    "test": "jest",
     "tsc": "tsc --project tsconfig.project.json",
     "eject": "react-scripts eject",
     "storybook": "start-storybook",
@@ -116,6 +116,7 @@
     }
   },
   "jest": {
+    "testEnvironment": "jest-environment-jsdom-sixteen",
     "moduleNameMapper": {
       "^@guardian/src-foundations/(.*)$": "@guardian/src-foundations/$1/cjs"
     }
