@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { css, cx } from "emotion";
 import { textSans, headline } from "@guardian/src-foundations/typography";
 import { space, neutral, palette } from "@guardian/src-foundations";
-import { TextInput } from "@guardian/src-text-input"
+import { TextInput } from "@guardian/src-text-input";
 import { Button } from "@guardian/src-button";
 
 import { preview } from "../../lib/api";
@@ -128,13 +128,14 @@ export const FirstCommentWelcome = ({
         <Button size="small" onClick={() => submitForm(userName)}>
           Post your comment
         </Button>
-        <div className={css`margin-left: 20px;`}>
-          <Button
-            size="small"
-            onClick={cancelSubmit}
-          >
+        <div
+          className={css`
+            margin-left: 20px;
+          `}
+        >
+          <Button size="small" onClick={cancelSubmit}>
             Cancel
-        </Button>
+          </Button>
         </div>
       </div>
     </form>
