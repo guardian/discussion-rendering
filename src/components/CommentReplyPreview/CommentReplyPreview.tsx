@@ -47,7 +47,7 @@ const previewStyle = css`
   padding-left: 20px;
   padding-right: 20px;
   background-color: ${bg};
-  margin-top: 6px;
+  margin-top: ${arrowSize}px;
   margin-bottom: ${arrowSize + 5}px;
   position: relative;
   display: flex;
