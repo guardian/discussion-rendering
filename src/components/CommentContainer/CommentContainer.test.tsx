@@ -44,7 +44,7 @@ const aUser = {
 };
 
 describe("CommentContainer", () => {
-  it("Reply to comment", async () => {
+  it("Post a comment to a root comment", async () => {
     const newCommentText = "A brand new comment";
 
     // a workaround to emulating hooks outside of render
@@ -111,7 +111,7 @@ describe("CommentContainer", () => {
     expect(commentFormSubmitButton).toBeNull();
   });
 
-  it("Reply to response", async () => {
+  it("Post a comment to a reply comment", async () => {
     const newCommentText = "A brand new comment";
 
     // a workaround to emulating hooks outside of render
