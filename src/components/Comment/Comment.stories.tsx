@@ -82,7 +82,7 @@ const staffUser: UserProfile = {
   }
 };
 
-export const Default = () => (
+export const Root = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
@@ -92,7 +92,31 @@ export const Default = () => (
     isReply={false}
   />
 );
-Default.story = { name: "Default" };
+Root.story = {
+  name: "A root comment on desktop view",
+  parameters: {
+    viewport: { defaultViewport: "desktop" },
+    chromatic: { viewports: [1300] }
+  }
+};
+
+export const RootMobile = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={commentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+    isClosedForComments={false}
+  />
+);
+RootMobile.story = {
+  name: "A root comment on mobile view",
+  parameters: {
+    viewport: { defaultViewport: "mobileMedium" },
+    chromatic: { viewports: [375] }
+  }
+};
 
 export const ReplyComment = () => (
   <Comment
@@ -104,7 +128,31 @@ export const ReplyComment = () => (
     isReply={true}
   />
 );
-ReplyComment.story = { name: "Reply Default" };
+ReplyComment.story = {
+  name: "A reply on desktop view",
+  parameters: {
+    viewport: { defaultViewport: "desktop" },
+    chromatic: { viewports: [1300] }
+  }
+};
+
+export const MobileReply = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={replyCommentData}
+    pillar={"sport"}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={true}
+    isClosedForComments={false}
+  />
+);
+MobileReply.story = {
+  name: "A reply on mobile view",
+  parameters: {
+    viewport: { defaultViewport: "mobileMedium" },
+    chromatic: { viewports: [375] }
+  }
+};
 
 export const PickedComment = () => (
   <Comment
@@ -146,7 +194,34 @@ export const PickedStaffUserComment = () => (
     isReply={false}
   />
 );
-PickedStaffUserComment.story = { name: "Picked Staff User Comment" };
+PickedStaffUserComment.story = {
+  name: "with staff and picked badges on desktop",
+  parameters: {
+    viewport: { defaultViewport: "desktop" },
+    chromatic: { viewports: [1300] }
+  }
+};
+
+export const PickedStaffUserCommentMobile = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={{
+      ...commentStaffData,
+      isHighlighted: true
+    }}
+    pillar={"sport"}
+    isClosedForComments={false}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+  />
+);
+PickedStaffUserCommentMobile.story = {
+  name: "with staff and picked badges on mobile",
+  parameters: {
+    viewport: { defaultViewport: "mobileMedium" },
+    chromatic: { viewports: [375] }
+  }
+};
 
 export const LoggedInAsModerator = () => (
   <Comment
