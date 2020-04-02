@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { css } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
+import { neutral } from "@guardian/src-foundations/palette";
 import { palette } from "@guardian/src-foundations";
 
 import { recommend } from "../../lib/api";
+import { Pillar } from "../../types";
 
 type Props = {
   commentId: number;
   initialCount: number;
   alreadyRecommended: boolean;
+  pillar: Pillar;
 };
 
 const flexStyles = css`
@@ -30,11 +33,11 @@ const ArrowUp = () => (
   </svg>
 );
 
-const buttonStyles = (recommended: Boolean) => css`
+const buttonStyles = (pillar: Pillar, recommended: Boolean) => css`
   cursor: ${recommended ? "default" : "pointer"};
   width: 1.1875rem;
   height: 1.1875rem;
-  background-color: ${recommended ? "#00b2ff" : "#f6f6f6"};
+  background-color: ${recommended ? palette[pillar][400] : neutral[97]};
   border-radius: 62.5rem;
   border: none;
 `;
@@ -48,6 +51,7 @@ const arrowStyles = (recommended: Boolean) => css`
 `;
 
 export const RecommendationCount = ({
+  pillar,
   commentId,
   initialCount,
   alreadyRecommended
@@ -73,7 +77,7 @@ export const RecommendationCount = ({
     <div className={flexStyles}>
       <div className={countStyles}>{count}</div>
       <button
-        className={buttonStyles(recommended)}
+        className={buttonStyles(pillar, recommended)}
         onClick={() => tryToRecommend()}
         disabled={recommended}
       >
