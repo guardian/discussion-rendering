@@ -274,13 +274,18 @@ export const App = ({
   };
 
   const toggleMuteStatus = (userId: string) => {
+    let updatedMutes;
     if (mutes.includes(userId)) {
       // Already muted, unmute them
-      setMutes(mutes.filter(id => id !== userId));
+      updatedMutes = mutes.filter(id => id !== userId);
     } else {
       // Add this user to our list of mutes
-      setMutes([...mutes, userId]);
+      updatedMutes = [...mutes, userId];
     }
+    // Update local state
+    setMutes(updatedMutes);
+    // Remember these new values
+    writeMutes(updatedMutes);
   };
 
   const onAddComment = (comment: CommentType) => {
