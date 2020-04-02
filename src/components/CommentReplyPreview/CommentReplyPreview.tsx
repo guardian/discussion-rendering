@@ -24,22 +24,26 @@ const replyArrowStyles = css`
 `;
 
 const replyDisplayNameStyles = css`
-  ${textSans.small({ fontWeight: "bold" })};
+  ${textSans.small()};
   padding: 5px;
   margin-right: 10px;
 `;
 
 const replyPreviewHeaderStyle = css`
+  margin-top: 0px;
+  margin-bottom: 6px;
   font-weight: bold;
-  margin: 0;
 `;
 
 const arrowSize = 15;
 const bg = neutral[93];
 const previewStyle = css`
-  padding: ${space[2]}px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: ${bg};
-  border-radius: 5px;
+  margin-top: 6px;
   margin-bottom: ${arrowSize + 5}px;
   position: relative;
   display: flex;
@@ -47,14 +51,23 @@ const previewStyle = css`
   :before {
     content: "";
     position: absolute;
-    border-right: ${arrowSize}px solid transparent;
-    border-top: ${arrowSize}px solid ${bg};
-    bottom: -${arrowSize - 1}px;
+    border-left: ${arrowSize}px solid #ededed;
+    border-top: ${arrowSize}px solid transparent;
+    top: -${arrowSize - 1}px;
+    margin-left: 60px;
+  }
+`;
+
+const commentStyles = css`
+  p {
+    margin-top: 0px;
+    margin-bottom: ${space[3]}px;
   }
 `;
 
 const hideCommentButtonStyles = css`
-  padding: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   ${textSans.xsmall()};
   :hover {
     cursor: pointer;
@@ -98,30 +111,53 @@ export const CommentReplyPreview = ({
         </span>
       </div>
       {displayReplyComment && (
-        <div className={previewStyle}>
-          <p className={replyPreviewHeaderStyle}>
-            {commentBeingRepliedTo.userProfile.displayName} @{" "}
-            {commentBeingRepliedTo.date} said:
-          </p>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: commentBeingRepliedTo.body || ""
-            }}
-          />
-          <div>
-            <span
-              className={cx(
-                hideCommentButtonStyles,
-                commentControlsButtonStyles,
-                previewHideCommentButtonStyles
-              )}
-              onClick={() => setDisplayReplyComment(!displayReplyComment)}
-            >
-              {displayReplyComment ? "Hide Comment" : "Show comment"}
-            </span>
-          </div>
-        </div>
+        <Preview
+          pillar={pillar}
+          commentBeingRepliedTo={commentBeingRepliedTo}
+          setDisplayReplyComment={setDisplayReplyComment}
+          displayReplyComment={displayReplyComment}
+        />
       )}
     </>
+  );
+};
+
+export const Preview = ({
+  commentBeingRepliedTo,
+  pillar,
+  setDisplayReplyComment,
+  displayReplyComment
+}: {
+  commentBeingRepliedTo: CommentType;
+  pillar: Pillar;
+  setDisplayReplyComment: (displayReplyComment: boolean) => void;
+  displayReplyComment: boolean;
+}) => {
+  const commentControlsButtonStyles = commentControlsButton(pillar);
+  return (
+    <div className={previewStyle}>
+      <p className={replyPreviewHeaderStyle}>
+        {commentBeingRepliedTo.userProfile.displayName} @{" "}
+        {commentBeingRepliedTo.date} said:
+      </p>
+      <div
+        className={commentStyles}
+        dangerouslySetInnerHTML={{
+          __html: commentBeingRepliedTo.body || ""
+        }}
+      />
+      <div>
+        <span
+          className={cx(
+            hideCommentButtonStyles,
+            commentControlsButtonStyles,
+            previewHideCommentButtonStyles
+          )}
+          onClick={() => setDisplayReplyComment(!displayReplyComment)}
+        >
+          {displayReplyComment ? "Hide Comment" : "Show comment"}
+        </span>
+      </div>
+    </div>
   );
 };

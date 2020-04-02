@@ -1,14 +1,27 @@
 import React from "react";
 
-import { CommentReplyPreview } from "./CommentReplyPreview";
+import { CommentReplyPreview, Preview } from "./CommentReplyPreview";
 import { CommentType } from "../../types";
+import { css } from "emotion";
 
 export default { title: "CommentReplyPreview" };
+
+const singleLineParagraph =
+  "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>";
+
+const singleBlockParagraph =
+  "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec ullamcorper ante. Nunc vitae quam eros. Donec velit turpis, posuere ut cursus sed, tristique non libero. Donec molestie metus nunc, dapibus ultrices est luctus id. Fusce fringilla metus posuere imperdiet lobortis. Proin ut egestas lorem. Etiam scelerisque dolor felis, ac fermentum ex accumsan id. Ut dignissim et orci vel lobortis. Phasellus feugiat dictum varius. Praesent eu dui ante. Duis in tempor libero, et consectetur lacus. Nunc venenatis libero nec aliquam vulputate. Etiam volutpat accumsan enim ut mollis.</p>";
+
+const multiLBlockParagraph = `
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec ullamcorper ante. Nunc vitae quam eros. Donec velit turpis, posuere ut cursus sed, tristique non libero. Donec molestie metus nunc, dapibus ultrices est luctus id. Fusce fringilla metus posuere imperdiet lobortis. Proin ut egestas lorem. Etiam scelerisque dolor felis, ac fermentum ex accumsan id. Ut dignissim et orci vel lobortis. Phasellus feugiat dictum varius. Praesent eu dui ante. Duis in tempor libero, et consectetur lacus. Nunc venenatis libero nec aliquam vulputate. Etiam volutpat accumsan enim ut mollis.</p>
+
+  <p>Ut molestie feugiat ligula, at suscipit est eleifend eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec faucibus leo eros, faucibus maximus nisi semper sit amet. Nam eu finibus nibh. Quisque venenatis lacus non velit sagittis ultrices. Duis eget elit congue, molestie odio ut, gravida est. Aliquam erat volutpat. Duis feugiat dolor nulla, non elementum lorem finibus id. Duis non nibh justo. Phasellus dapibus pulvinar nulla, vel euismod magna dapibus ut. Vivamus iaculis eros in nisl ultrices fringilla. Cras ex libero, tristique ornare interdum id, porta a mauris. Praesent nulla enim, rhoncus quis lectus sed, viverra sollicitudin mauris.</p>
+`;
 
 const commentBeingRepliedTo: CommentType = {
   id: 25487686,
   body:
-    "Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!",
+    "<p>Beau Jos pizza in Idaho Springs is a great place for mountain pizza pies. Order one with extra thick crust and drizzle it with honey. Y'all can try the Challenge if you fancy, and sketch on your napkins so your art can join their walls. This was 15 years ago, but I hope it's still there! As for music, anything from Boulder's own Big Head Todd &amp; the Monsters - 'Broken Hearted Savior' is a good start, with 'Bittersweet' a good road track. I'm jealous!!!<p>",
   date: "26 July 2013 4:13pm",
   isoDateTime: "2013-07-26T15:13:20Z",
   status: "visible",
@@ -36,11 +49,59 @@ const commentBeingRepliedTo: CommentType = {
   }
 };
 
+const padding = css`
+  padding: 15px;
+`;
+
 export const Default = () => (
   <CommentReplyPreview
     commentBeingRepliedTo={commentBeingRepliedTo}
     pillar={"sport"}
   />
 );
-
 Default.story = { name: "default" };
+
+export const SingleLinePreview = () => (
+  <div className={padding}>
+    <Preview
+      commentBeingRepliedTo={{
+        ...commentBeingRepliedTo,
+        body: singleLineParagraph
+      }}
+      pillar={"sport"}
+      setDisplayReplyComment={() => {}}
+      displayReplyComment={true}
+    />
+  </div>
+);
+SingleLinePreview.story = { name: "Single line" };
+
+export const SingleBlockPreview = () => (
+  <div className={padding}>
+    <Preview
+      commentBeingRepliedTo={{
+        ...commentBeingRepliedTo,
+        body: singleBlockParagraph
+      }}
+      pillar={"sport"}
+      setDisplayReplyComment={() => {}}
+      displayReplyComment={true}
+    />
+  </div>
+);
+SingleBlockPreview.story = { name: "Single Block" };
+
+export const MultiBlockPreview = () => (
+  <div className={padding}>
+    <Preview
+      commentBeingRepliedTo={{
+        ...commentBeingRepliedTo,
+        body: multiLBlockParagraph
+      }}
+      pillar={"sport"}
+      setDisplayReplyComment={() => {}}
+      displayReplyComment={true}
+    />
+  </div>
+);
+MultiBlockPreview.story = { name: "Multi Block" };
