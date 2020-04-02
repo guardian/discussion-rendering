@@ -421,17 +421,22 @@ export const Comment = ({
                     )}
                 </div>
                 <Row>
-                  <div className={buttonHeightOverrides}>
-                    <Button
-                      priority="tertiary"
-                      size="small"
-                      onClick={() =>
-                        toggleMuteStatus(comment.userProfile.userId)
-                      }
-                    >
-                      <span className={muteStyles}>Mute</span>
-                    </Button>
-                  </div>
+                  {/* You can't mute unless logged in and you can't yourself */}
+                  {user && comment.userProfile.userId !== user.userId ? (
+                    <div className={buttonHeightOverrides}>
+                      <Button
+                        priority="tertiary"
+                        size="small"
+                        onClick={() =>
+                          toggleMuteStatus(comment.userProfile.userId)
+                        }
+                      >
+                        <span className={muteStyles}>Mute</span>
+                      </Button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                   <AbuseReportForm commentId={comment.id} pillar={pillar} />
                 </Row>
               </div>
