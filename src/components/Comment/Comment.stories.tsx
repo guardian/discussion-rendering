@@ -90,6 +90,8 @@ export const Default = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 Default.story = { name: "Default" };
@@ -102,6 +104,8 @@ export const ReplyComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 ReplyComment.story = { name: "Reply Default" };
@@ -117,6 +121,8 @@ export const PickedComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 PickedComment.story = { name: "Picked Comment" };
@@ -129,6 +135,8 @@ export const StaffUserComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 StaffUserComment.story = { name: "Staff User Comment" };
@@ -144,6 +152,8 @@ export const PickedStaffUserComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 PickedStaffUserComment.story = { name: "Picked Staff User Comment" };
@@ -157,6 +167,8 @@ export const LoggedInAsModerator = () => (
     setCommentBeingRepliedTo={() => {}}
     user={staffUser}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 LoggedInAsModerator.story = { name: "Logged in as moderator" };
@@ -169,6 +181,8 @@ export const BlockedComment = () => (
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
   />
 );
 BlockedComment.story = { name: "Blocked comment" };
