@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
-import { neutral, space, palette } from "@guardian/src-foundations";
+import { neutral, space, brand } from "@guardian/src-foundations";
 
-import { Pillar, CommentType } from "../../types";
+import { CommentType } from "../../types";
 
-const commentControlsButton = (pillar: Pillar) => css`
+const commentControlsButtonStyles = css`
   ${textSans.small()};
   margin-right: ${space[2]}px;
-  color: ${palette[pillar][400]};
+  color: ${brand[500]};
   border: 0;
 `;
 
@@ -90,13 +90,10 @@ const ReplyArrow = () => (
 );
 
 export const CommentReplyPreview = ({
-  commentBeingRepliedTo,
-  pillar
+  commentBeingRepliedTo
 }: {
   commentBeingRepliedTo: CommentType;
-  pillar: Pillar;
 }) => {
-  const commentControlsButtonStyles = commentControlsButton(pillar);
   const [displayReplyComment, setDisplayReplyComment] = useState<boolean>(
     false
   );
@@ -118,7 +115,6 @@ export const CommentReplyPreview = ({
       </div>
       {displayReplyComment && (
         <Preview
-          pillar={pillar}
           commentBeingRepliedTo={commentBeingRepliedTo}
           setDisplayReplyComment={setDisplayReplyComment}
           displayReplyComment={displayReplyComment}
@@ -130,16 +126,13 @@ export const CommentReplyPreview = ({
 
 export const Preview = ({
   commentBeingRepliedTo,
-  pillar,
   setDisplayReplyComment,
   displayReplyComment
 }: {
   commentBeingRepliedTo: CommentType;
-  pillar: Pillar;
   setDisplayReplyComment: (displayReplyComment: boolean) => void;
   displayReplyComment: boolean;
 }) => {
-  const commentControlsButtonStyles = commentControlsButton(pillar);
   return (
     <div className={previewStyle}>
       <p className={replyPreviewHeaderStyle}>

@@ -53,10 +53,7 @@ const padding = css`
 `;
 
 export const Default = () => (
-  <CommentReplyPreview
-    commentBeingRepliedTo={commentBeingRepliedTo}
-    pillar={"sport"}
-  />
+  <CommentReplyPreview commentBeingRepliedTo={commentBeingRepliedTo} />
 );
 Default.story = { name: "default" };
 
@@ -67,7 +64,6 @@ export const SingleLinePreview = () => (
         ...commentBeingRepliedTo,
         body: singleLineParagraph
       }}
-      pillar={"sport"}
       setDisplayReplyComment={() => {}}
       displayReplyComment={true}
     />
@@ -82,7 +78,6 @@ export const SingleBlockPreview = () => (
         ...commentBeingRepliedTo,
         body: singleBlockParagraph
       }}
-      pillar={"sport"}
       setDisplayReplyComment={() => {}}
       displayReplyComment={true}
     />
