@@ -32,6 +32,12 @@ const textStyling = css`
   ${textSans.small()};
 `;
 
+const Text = ({
+  children
+}: {
+  children: string | JSX.Element | JSX.Element[];
+}) => <p className={textStyling}>{children}</p>;
+
 const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div
     className={css`
@@ -83,15 +89,15 @@ export const FirstCommentWelcome = ({
         >
           Welcome, you’re about to make your first comment!
         </h3>
-        <p className={textStyling}>
+        <Text>
           Before you post, we’d like to thank you for joining the debate - we’re
           glad you’ve chosen to participate and we value your opinions and
           experiences.
-        </p>
-        <p className={textStyling}>
+        </Text>
+        <Text>
           Please choose your username under which you would like all your
           comments to show up. You can only set your username once.
-        </p>
+        </Text>
         <TextInput
           label="Username:"
           supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
@@ -100,18 +106,20 @@ export const FirstCommentWelcome = ({
           width={30}
           error={error}
         />
-        <p className={textStyling}>
-          Please keep your posts respectful and abide by the{" "}
-          <Link href="/community-standards" priority="primary" subdued={true}>
-            <span className={textStyling}>community guidelines</span>
-          </Link>
-          {` -`} and if you spot a comment you think doesn’t adhere to the
-          guidelines, please use the ‘Report’ link next to it to let us know.
-        </p>
-        <p className={textStyling}>
+        <Text>
+          <>
+            Please keep your posts respectful and abide by the{" "}
+            <Link href="/community-standards" priority="primary" subdued={true}>
+              <span className={textStyling}>community guidelines</span>
+            </Link>
+            {` -`} and if you spot a comment you think doesn’t adhere to the
+            guidelines, please use the ‘Report’ link next to it to let us know.
+          </>
+        </Text>
+        <Text>
           Please preview your comment below and click ‘post’ when you’re happy
           with it.
-        </p>
+        </Text>
         <div
           className={cx(previewStyle, textStyling)}
           dangerouslySetInnerHTML={{ __html: previewBody || "" }}
