@@ -7,7 +7,7 @@ import { neutral, space, palette } from "@guardian/src-foundations";
 import { Pillar, CommentType } from "../../types";
 
 const commentControlsButton = (pillar: Pillar) => css`
-  ${textSans.xsmall()};
+  ${textSans.small()};
   margin-right: ${space[2]}px;
   color: ${palette[pillar][400]};
   border: 0;
@@ -71,7 +71,6 @@ const commentStyles = css`
 `;
 
 const hideCommentButtonStyles = css`
-  ${textSans.xsmall()};
   :hover {
     cursor: pointer;
   }
