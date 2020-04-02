@@ -7,7 +7,7 @@ import { neutral, space, palette } from "@guardian/src-foundations";
 import { Pillar, CommentType } from "../../types";
 
 const commentControlsButton = (pillar: Pillar) => css`
-  font-weight: bold;
+  ${textSans.xsmall()};
   margin-right: ${space[2]}px;
   color: ${palette[pillar][400]};
   border: 0;
@@ -30,9 +30,9 @@ const replyDisplayNameStyles = css`
 `;
 
 const replyPreviewHeaderStyle = css`
+  ${textSans.small({ fontWeight: "bold" })};
   margin-top: 0px;
   margin-bottom: 6px;
-  font-weight: bold;
 `;
 
 const arrowSize = 15;
@@ -60,6 +60,7 @@ const previewStyle = css`
 
 const commentStyles = css`
   p {
+    ${textSans.small()};
     margin-top: 0px;
     margin-bottom: ${space[3]}px;
   }
