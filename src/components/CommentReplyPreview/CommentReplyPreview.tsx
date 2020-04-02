@@ -81,6 +81,7 @@ const hideCommentButtonStyles = css`
 `;
 const previewHideCommentButtonStyles = css`
   background-color: inherit;
+  padding-left: 0px;
 `;
 
 const ReplyArrow = () => (
