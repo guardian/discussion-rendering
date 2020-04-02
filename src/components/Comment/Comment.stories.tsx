@@ -186,3 +186,17 @@ export const BlockedComment = () => (
   />
 );
 BlockedComment.story = { name: "Blocked comment" };
+
+export const MutedComment = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={blockedCommentData}
+    pillar={"sport"}
+    isClosedForComments={false}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+    isMuted={true}
+    toggleMuteStatus={() => {}}
+  />
+);
+MutedComment.story = { name: "Muted comment" };
