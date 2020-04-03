@@ -13,6 +13,8 @@ import { RecommendationCount } from "../RecommendationCount/RecommendationCount"
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
 import { Avatar } from "../Avatar/Avatar";
+import { Row } from "../Row/Row";
+import { Column } from "../Column/Column";
 
 import { Pillar, CommentType, UserProfile } from "../../types";
 import { pickComment, unPickComment } from "../../lib/api";
@@ -204,28 +206,6 @@ const negativeMargin = css`
   margin-top: 0px;
   margin-bottom: -6px;
 `;
-
-const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-    `}
-  >
-    {children}
-  </div>
-);
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
-);
 
 const ReplyArrow = () => (
   <svg
