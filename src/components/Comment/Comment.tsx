@@ -175,7 +175,7 @@ const removePaddingLeft = css`
   padding-left: 0px;
 `;
 
-const muteStyles = css`
+const muteReportInnerTextStyles = css`
   ${textSans.xsmall()};
   color: ${neutral[46]};
   margin-right: ${space[2]}px;
@@ -256,6 +256,9 @@ export const Comment = ({
     comment.isHighlighted
   );
   const [error, setError] = useState<string>();
+
+  const [showAbuseForm, setShowAbuseForm] = useState(false);
+  const toggleSetShowForm = () => setShowAbuseForm(!showAbuseForm);
 
   const pick = async () => {
     setError("");
@@ -544,7 +547,7 @@ export const Comment = ({
                 </div>
                 <Row>
                   {/* You can't mute unless logged in and you can't yourself */}
-                  {user && comment.userProfile.userId !== user.userId ? (
+                  {user && comment.userProfile.userId !== user.userId && (
                     <div className={buttonHeightOverrides}>
                       <Button
                         priority="tertiary"
@@ -553,13 +556,32 @@ export const Comment = ({
                           toggleMuteStatus(comment.userProfile.userId)
                         }
                       >
-                        <span className={muteStyles}>Mute</span>
+                        <span className={muteReportInnerTextStyles}>Mute</span>
                       </Button>
                     </div>
-                  ) : (
-                    <></>
                   )}
-                  <AbuseReportForm commentId={comment.id} pillar={pillar} />
+                  <div className={buttonHeightOverrides}>
+                    <Button
+                      priority="tertiary"
+                      size="small"
+                      onClick={toggleSetShowForm}
+                    >
+                      <span className={muteReportInnerTextStyles}>Report</span>
+                    </Button>
+                  </div>
+                  {showAbuseForm && (
+                    <div
+                      className={css`
+                        position: relative;
+                      `}
+                    >
+                      <AbuseReportForm
+                        toggleSetShowForm={toggleSetShowForm}
+                        commentId={comment.id}
+                        pillar={pillar}
+                      />
+                    </div>
+                  )}
                 </Row>
               </div>
             </>
