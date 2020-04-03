@@ -11,6 +11,7 @@ import { comment, reply, preview, addUserName } from "../../lib/api";
 import { CommentResponse, UserProfile, CommentType } from "../../types";
 
 import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
+import { Row } from "../Row/Row";
 
 type Props = {
   shortUrl: string;
@@ -140,11 +141,6 @@ const commentAddOns = css`
   min-width: 11px;
   line-height: 17px;
   list-style-type: none;
-`;
-
-const addOnsContainer = css`
-  display: flex;
-  flex-direction: row;
 `;
 
 const bottomContainer = css`
@@ -433,7 +429,7 @@ export const CommentForm = ({
             )}
           </div>
           {isActive && (
-            <div className={addOnsContainer}>
+            <Row>
               <button
                 onClick={e => {
                   e.preventDefault();
@@ -470,7 +466,7 @@ export const CommentForm = ({
               >
                 Link
               </button>
-            </div>
+            </Row>
           )}
         </div>
       </form>

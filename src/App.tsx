@@ -23,6 +23,7 @@ import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
 import { Pagination } from "./components/Pagination/Pagination";
 import { LoadingComments } from "./components/LoadingComments/LoadingComments";
+import { Column } from "./components/Column/Column";
 
 type Props = {
   shortUrl: string;
@@ -37,11 +38,6 @@ type Props = {
   additionalHeaders: AdditionalHeadersType;
   expanded: boolean;
 };
-
-const containerStyles = css`
-  display: flex;
-  flex-direction: column;
-`;
 
 const footerStyles = css`
   display: flex;
@@ -372,7 +368,7 @@ export const App = ({
   }
 
   return (
-    <div className={containerStyles}>
+    <Column>
       {user && !isClosedForComments && (
         <CommentForm
           shortUrl={shortUrl}
@@ -444,6 +440,6 @@ export const App = ({
           />
         </footer>
       )}
-    </div>
+    </Column>
   );
 };

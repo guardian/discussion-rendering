@@ -4,6 +4,8 @@ import { css } from "emotion";
 import { textSans } from "@guardian/src-foundations/typography";
 import { palette } from "@guardian/src-foundations";
 
+import { Row } from "../Row/Row";
+
 import { recommend } from "../../lib/api";
 
 type Props = {
@@ -12,11 +14,6 @@ type Props = {
   alreadyRecommended: boolean;
   isSignedIn: boolean;
 };
-
-const flexStyles = css`
-  display: flex;
-  flex-direction: row;
-`;
 
 const countStyles = css`
   ${textSans.xsmall({ fontWeight: "light" })}
@@ -72,7 +69,7 @@ export const RecommendationCount = ({
   };
 
   return (
-    <div className={flexStyles}>
+    <Row>
       <div className={countStyles}>{count}</div>
       <button
         className={buttonStyles(recommended, isSignedIn)}
@@ -83,6 +80,6 @@ export const RecommendationCount = ({
           <ArrowUp />
         </div>
       </button>
-    </div>
+    </Row>
   );
 };

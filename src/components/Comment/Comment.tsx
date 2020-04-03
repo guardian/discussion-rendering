@@ -168,11 +168,6 @@ const linkStyles = (pillar: Pillar) => css`
   }
 `;
 
-const flexRowStyles = css`
-  display: flex;
-  flex-direction: row;
-`;
-
 const removePaddingLeft = css`
   padding-left: 0px;
 `;
@@ -491,10 +486,12 @@ export const Comment = ({
                             removePaddingLeft
                           )}
                         >
-                          <div className={flexRowStyles}>
-                            <ReplyArrow />
-                            Reply
-                          </div>
+                          <Row>
+                            <>
+                              <ReplyArrow />
+                              Reply
+                            </>
+                          </Row>
                         </button>
                       ) : (
                         <Row>
