@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { css } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
-import { palette } from "@guardian/src-foundations";
+import { neutral } from "@guardian/src-foundations/palette";
+import { brand } from "@guardian/src-foundations";
 
 import { recommend } from "../../lib/api";
 
@@ -21,7 +22,7 @@ const flexStyles = css`
 const countStyles = css`
   ${textSans.xsmall({ fontWeight: "light" })}
   min-width: 0.75rem;
-  color: ${palette.neutral[46]};
+  color: ${neutral[46]};
   margin-right: 0.3125rem;
 `;
 
@@ -35,7 +36,7 @@ const buttonStyles = (recommended: boolean, isSignedIn: boolean) => css`
   cursor: ${recommended || !isSignedIn ? "default" : "pointer"};
   width: 1.1875rem;
   height: 1.1875rem;
-  background-color: ${recommended ? "#00b2ff" : "#f6f6f6"};
+  background-color: ${recommended ? brand[400] : neutral[97]};
   border-radius: 62.5rem;
   border: none;
 `;
@@ -44,7 +45,7 @@ const arrowStyles = (recommended: Boolean) => css`
   margin-left: -4px;
   margin-bottom: -2px;
   svg {
-    fill: ${recommended ? palette.neutral[100] : palette.neutral[46]};
+    fill: ${recommended ? neutral[100] : neutral[46]};
   }
 `;
 
