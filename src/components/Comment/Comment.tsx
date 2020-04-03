@@ -158,15 +158,6 @@ const timestampWrapperStyles = css`
   justify-content: center;
 `;
 
-const linkStyles = (pillar: Pillar) => css`
-  ${textSans.xsmall({ fontWeight: "bold" })};
-  color: ${palette[pillar][400]};
-  text-decoration: none;
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
 const flexRowStyles = css`
   display: flex;
   flex-direction: row;
@@ -516,19 +507,21 @@ export const Comment = ({
                           Reply
                         </button>
                       ) : (
-                        <div
-                          className={cx(
-                            commentControlsButtonStyles,
-                            flexRowStyles
-                          )}
-                        >
-                          <ReplyArrow />
-                          <a
-                            className={linkStyles(pillar)}
+                        <div className={commentControlsButtonStyles}>
+                          <Link
                             href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                            subdued={true}
                           >
-                            Reply
-                          </a>
+                            <div
+                              className={cx(
+                                flexRowStyles,
+                                commentControlsButtonStyles
+                              )}
+                            >
+                              <ReplyArrow />
+                              Reply
+                            </div>
+                          </Link>
                         </div>
                       )}
                     </>
