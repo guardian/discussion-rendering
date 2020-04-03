@@ -10,7 +10,7 @@ import { Button } from "@guardian/src-button";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
-import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
+import { Form } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
 import { Avatar } from "../Avatar/Avatar";
 
@@ -175,7 +175,7 @@ const removePaddingLeft = css`
   padding-left: 0px;
 `;
 
-const muteStyles = css`
+const muteReportTextStyles = css`
   ${textSans.xsmall()};
   color: ${neutral[46]};
   margin-right: ${space[2]}px;
@@ -256,6 +256,9 @@ export const Comment = ({
     comment.isHighlighted
   );
   const [error, setError] = useState<string>();
+
+  const [showForm, setShowForm] = useState(false);
+  const toggleSetShowForm = () => setShowForm(!showForm);
 
   const pick = async () => {
     setError("");
@@ -553,13 +556,34 @@ export const Comment = ({
                           toggleMuteStatus(comment.userProfile.userId)
                         }
                       >
-                        <span className={muteStyles}>Mute</span>
+                        <span className={muteReportTextStyles}>Mute</span>
                       </Button>
                     </div>
                   ) : (
                     <></>
                   )}
-                  <AbuseReportForm commentId={comment.id} pillar={pillar} />
+                  <div className={buttonHeightOverrides}>
+                    <Button
+                      priority="tertiary"
+                      size="small"
+                      onClick={toggleSetShowForm}
+                    >
+                      <span className={muteReportTextStyles}>Report</span>
+                    </Button>
+                  </div>
+                  {showForm && (
+                    <div
+                      className={css`
+                        position: relative;
+                      `}
+                    >
+                      <Form
+                        toggleSetShowForm={toggleSetShowForm}
+                        pillar={pillar}
+                        commentId={comment.id}
+                      />
+                    </div>
+                  )}
                 </Row>
               </div>
             </>
