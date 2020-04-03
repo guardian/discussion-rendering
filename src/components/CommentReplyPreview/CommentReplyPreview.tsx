@@ -2,44 +2,56 @@ import React, { useState } from "react";
 import { css, cx } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
-import { neutral, space, palette } from "@guardian/src-foundations";
+import { neutral, space, brand } from "@guardian/src-foundations";
 
-import { Pillar, CommentType } from "../../types";
+import { CommentType } from "../../types";
 
-const commentControlsButton = (pillar: Pillar) => css`
-  font-weight: bold;
+const commentControlsButtonStyles = css`
+  ${textSans.small()};
   margin-right: ${space[2]}px;
-  color: ${palette[pillar][400]};
+  color: ${brand[500]};
   border: 0;
 `;
 
 const replyWrapperStyles = css`
+  padding-top: ${space[1]}px;
+  padding-bottom: ${space[1]}px;
   display: flex;
   flex-direction: row;
-  padding: 5px;
+  align-items: center;
 `;
 const replyArrowStyles = css`
   fill: grey;
-  padding: 5px;
+  /*
+    In order to get the arrow SVG alinged correctly with the reply text
+    we need to add 2px padding to the top
+  */
+  padding-top: 2px;
 `;
 
 const replyDisplayNameStyles = css`
-  ${textSans.small({ fontWeight: "bold" })};
-  padding: 5px;
-  margin-right: 10px;
+  ${textSans.small()};
+  padding-top: ${space[1]}px;
+  padding-bottom: ${space[1]}px;
+  padding-right: ${space[1]}px;
+  margin-right: ${space[2]}px;
 `;
 
 const replyPreviewHeaderStyle = css`
-  font-weight: bold;
-  margin: 0;
+  ${textSans.small({ fontWeight: "bold" })};
+  margin-top: 0px;
+  margin-bottom: ${space[2]}px;
 `;
 
 const arrowSize = 15;
 const bg = neutral[93];
 const previewStyle = css`
-  padding: ${space[2]}px;
+  padding-top: ${space[3]}px;
+  padding-bottom: ${space[3]}px;
+  padding-left: ${space[5]}px;
+  padding-right: ${space[5]}px;
   background-color: ${bg};
-  border-radius: 5px;
+  margin-top: ${arrowSize}px;
   margin-bottom: ${arrowSize + 5}px;
   position: relative;
   display: flex;
@@ -47,21 +59,29 @@ const previewStyle = css`
   :before {
     content: "";
     position: absolute;
-    border-right: ${arrowSize}px solid transparent;
-    border-top: ${arrowSize}px solid ${bg};
-    bottom: -${arrowSize - 1}px;
+    border-left: ${arrowSize}px solid ${bg};
+    border-top: ${arrowSize}px solid transparent;
+    top: -${arrowSize - 1}px;
+    margin-left: ${space[9]}px;
+  }
+`;
+
+const commentStyles = css`
+  p {
+    ${textSans.small()};
+    margin-top: 0px;
+    margin-bottom: ${space[3]}px;
   }
 `;
 
 const hideCommentButtonStyles = css`
-  padding: 5px;
-  ${textSans.xsmall()};
   :hover {
     cursor: pointer;
   }
 `;
 const previewHideCommentButtonStyles = css`
   background-color: inherit;
+  padding-left: 0px;
 `;
 
 const ReplyArrow = () => (
@@ -71,13 +91,10 @@ const ReplyArrow = () => (
 );
 
 export const CommentReplyPreview = ({
-  commentBeingRepliedTo,
-  pillar
+  commentBeingRepliedTo
 }: {
   commentBeingRepliedTo: CommentType;
-  pillar: Pillar;
 }) => {
-  const commentControlsButtonStyles = commentControlsButton(pillar);
   const [displayReplyComment, setDisplayReplyComment] = useState<boolean>(
     false
   );
@@ -98,30 +115,49 @@ export const CommentReplyPreview = ({
         </span>
       </div>
       {displayReplyComment && (
-        <div className={previewStyle}>
-          <p className={replyPreviewHeaderStyle}>
-            {commentBeingRepliedTo.userProfile.displayName} @{" "}
-            {commentBeingRepliedTo.date} said:
-          </p>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: commentBeingRepliedTo.body || ""
-            }}
-          />
-          <div>
-            <span
-              className={cx(
-                hideCommentButtonStyles,
-                commentControlsButtonStyles,
-                previewHideCommentButtonStyles
-              )}
-              onClick={() => setDisplayReplyComment(!displayReplyComment)}
-            >
-              {displayReplyComment ? "Hide Comment" : "Show comment"}
-            </span>
-          </div>
-        </div>
+        <Preview
+          commentBeingRepliedTo={commentBeingRepliedTo}
+          setDisplayReplyComment={setDisplayReplyComment}
+          displayReplyComment={displayReplyComment}
+        />
       )}
     </>
+  );
+};
+
+export const Preview = ({
+  commentBeingRepliedTo,
+  setDisplayReplyComment,
+  displayReplyComment
+}: {
+  commentBeingRepliedTo: CommentType;
+  setDisplayReplyComment: (displayReplyComment: boolean) => void;
+  displayReplyComment: boolean;
+}) => {
+  return (
+    <div className={previewStyle}>
+      <p className={replyPreviewHeaderStyle}>
+        {commentBeingRepliedTo.userProfile.displayName} @{" "}
+        {commentBeingRepliedTo.date} said:
+      </p>
+      <div
+        className={commentStyles}
+        dangerouslySetInnerHTML={{
+          __html: commentBeingRepliedTo.body || ""
+        }}
+      />
+      <div>
+        <button
+          className={cx(
+            hideCommentButtonStyles,
+            commentControlsButtonStyles,
+            previewHideCommentButtonStyles
+          )}
+          onClick={() => setDisplayReplyComment(!displayReplyComment)}
+        >
+          {displayReplyComment ? "Hide Comment" : "Show comment"}
+        </button>
+      </div>
+    </div>
   );
 };
