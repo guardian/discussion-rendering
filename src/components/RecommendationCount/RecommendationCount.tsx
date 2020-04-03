@@ -41,7 +41,7 @@ const buttonStyles = (recommended: boolean, isSignedIn: boolean) => css`
 `;
 
 const arrowStyles = (recommended: Boolean) => css`
-  margin-left: -5px;
+  margin-left: -4px;
   margin-bottom: -2px;
   svg {
     fill: ${recommended ? palette.neutral[100] : palette.neutral[46]};
