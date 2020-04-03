@@ -11,12 +11,16 @@ import { CommentType, Pillar } from "../../types";
 import { Avatar } from "../Avatar/Avatar";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { Timestamp } from "../Timestamp/Timestamp";
+import { Row } from "../Row/Row";
+import { Column } from "../Column/Column";
+
 import { joinUrl } from "../../lib/joinUrl";
 
 type Props = {
   baseUrl: string;
   pillar: Pillar;
   comment: CommentType;
+  isSignedIn: boolean;
 };
 
 const pickStyles = css`
@@ -122,35 +126,13 @@ const Bottom = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div>{children}</div>
 );
 
-const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-    `}
-  >
-    {children}
-  </div>
-);
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
-);
-
 const truncateText = (input: string, limit: number) => {
   // If input greater than limit trucate by limit and append an ellipsis
   if (input.length > limit) return input.substr(0, limit) + "&#8230;";
   return input;
 };
 
-export const TopPick = ({ baseUrl, pillar, comment }: Props) => (
+export const TopPick = ({ baseUrl, pillar, comment, isSignedIn }: Props) => (
   <div className={pickStyles}>
     <div className={pickComment}>
       <SpaceBetween>
@@ -226,6 +208,7 @@ export const TopPick = ({ baseUrl, pillar, comment }: Props) => (
           commentId={comment.id}
           initialCount={comment.numRecommends}
           alreadyRecommended={false}
+          isSignedIn={isSignedIn}
         />
       </div>
     </div>

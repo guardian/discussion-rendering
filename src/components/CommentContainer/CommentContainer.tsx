@@ -6,6 +6,7 @@ import { space, neutral, palette, border } from "@guardian/src-foundations";
 import { Pillar, CommentType, UserProfile, ThreadsType } from "../../types";
 import { CommentForm } from "../CommentForm/CommentForm";
 import { Comment } from "../Comment/Comment";
+import { Row } from "../Row/Row";
 import { CommentReplyPreview } from "../CommentReplyPreview/CommentReplyPreview";
 
 import { getMoreResponses } from "../../lib/api";
@@ -87,17 +88,6 @@ const Plus = () => (
   <svg width="14" height="14" viewBox="0 0 18 18">
     <path d="M8.2 0h1.6l.4 7.8 7.8.4v1.6l-7.8.4-.4 7.8H8.2l-.4-7.8L0 9.8V8.2l7.8-.4.4-7.8z"></path>
   </svg>
-);
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
 );
 
 export const CommentContainer = ({
@@ -212,7 +202,6 @@ export const CommentContainer = ({
             <div className={nestingStyles}>
               <CommentReplyPreview
                 commentBeingRepliedTo={commentBeingRepliedTo}
-                pillar={pillar}
               />
               <CommentForm
                 shortUrl={shortUrl}

@@ -4,6 +4,9 @@ import { css, keyframes } from "emotion";
 import { space } from "@guardian/src-foundations";
 import { neutral } from "@guardian/src-foundations/palette";
 
+import { Row } from "../Row/Row";
+import { Column } from "../Column/Column";
+
 const BACKGROUND_COLOUR = neutral[93];
 
 const shimmer = keyframes`
@@ -42,29 +45,6 @@ const avatarStyles = (size: number) => css`
 
   ${shimmerStyles}
 `;
-
-const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    `}
-  >
-    {children}
-  </div>
-);
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
-);
 
 const Grey = ({
   height,

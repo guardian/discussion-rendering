@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css, cx } from "emotion";
 
-import { space, palette } from "@guardian/src-foundations";
+import { space, palette, remSpace } from "@guardian/src-foundations";
 import { from, until } from "@guardian/src-foundations/mq";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -13,6 +13,8 @@ import { RecommendationCount } from "../RecommendationCount/RecommendationCount"
 import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
 import { Avatar } from "../Avatar/Avatar";
+import { Row } from "../Row/Row";
+import { Column } from "../Column/Column";
 
 import { Pillar, CommentType, UserProfile } from "../../types";
 import { pickComment, unPickComment } from "../../lib/api";
@@ -60,8 +62,8 @@ const commentCss = css`
   display: block;
   clear: left;
   ${textSans.small()}
-  margin-top: 0.375rem;
-  margin-bottom: 0.5rem;
+  margin-top: ${remSpace[2]};
+  margin-bottom: ${remSpace[3]};
 
   p {
     margin-top: 0;
@@ -112,7 +114,9 @@ const avatarMargin = css`
 `;
 
 const colourStyles = (pillar: Pillar) => css`
-  color: ${palette[pillar][400]};
+  a {
+    color: ${palette[pillar][400]};
+  }
 `;
 
 const boldFont = css`
@@ -167,7 +171,7 @@ const removePaddingLeft = css`
   padding-left: 0px;
 `;
 
-const muteStyles = css`
+const muteReportTextStyles = css`
   ${textSans.xsmall()};
   color: ${neutral[46]};
   margin-right: ${space[2]}px;
@@ -196,28 +200,6 @@ const negativeMargin = css`
   margin-top: 0px;
   margin-bottom: -6px;
 `;
-
-const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-    `}
-  >
-    {children}
-  </div>
-);
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
-);
 
 const ReplyArrow = () => (
   <svg
@@ -248,6 +230,9 @@ export const Comment = ({
     comment.isHighlighted
   );
   const [error, setError] = useState<string>();
+
+  const [showAbuseReportForm, setAbuseReportForm] = useState(false);
+  const toggleSetShowForm = () => setAbuseReportForm(!showAbuseReportForm);
 
   const pick = async () => {
     setError("");
@@ -431,6 +416,7 @@ export const Comment = ({
                 commentId={comment.id}
                 initialCount={comment.numRecommends}
                 alreadyRecommended={false}
+                isSignedIn={!!user}
               />
             )}
           </header>
@@ -550,13 +536,34 @@ export const Comment = ({
                           toggleMuteStatus(comment.userProfile.userId)
                         }
                       >
-                        <span className={muteStyles}>Mute</span>
+                        <span className={muteReportTextStyles}>Mute</span>
                       </Button>
                     </div>
                   ) : (
                     <></>
                   )}
-                  <AbuseReportForm commentId={comment.id} pillar={pillar} />
+                  <div className={buttonHeightOverrides}>
+                    <Button
+                      priority="tertiary"
+                      size="small"
+                      onClick={toggleSetShowForm}
+                    >
+                      <span className={muteReportTextStyles}>Report</span>
+                    </Button>
+                  </div>
+                  {showAbuseReportForm && (
+                    <div
+                      className={css`
+                        position: relative;
+                      `}
+                    >
+                      <AbuseReportForm
+                        toggleSetShowForm={toggleSetShowForm}
+                        pillar={pillar}
+                        commentId={comment.id}
+                      />
+                    </div>
+                  )}
                 </Row>
               </div>
             </>
