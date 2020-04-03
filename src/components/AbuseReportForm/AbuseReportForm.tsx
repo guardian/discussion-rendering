@@ -10,11 +10,6 @@ import { SvgClose } from "@guardian/src-svgs";
 import { Pillar } from "../../types";
 import { reportAbuse } from "../../lib/api";
 
-type Props = {
-  commentId: number;
-  pillar: Pillar;
-};
-
 type formData = {
   categoryId: number;
   reason?: string;
@@ -58,26 +53,11 @@ const inputWrapper = css`
   }
 `;
 
-const buttonStyles = css`
-  ${textSans.xsmall({ fontWeight: "light" })}
-  color: ${palette.neutral[46]};
-  display: block;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  width: 100%;
-  background: transparent;
-  :hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-`;
-
 const errorMessageStyles = css`
   color: red;
 `;
 
-export const Form: React.FC<{
+export const AbuseReportForm: React.FC<{
   commentId: number;
   toggleSetShowForm: () => void;
   pillar: Pillar;
@@ -272,33 +252,6 @@ export const Form: React.FC<{
           />
         </div>
       </form>
-    </div>
-  );
-};
-
-export const AbuseReportForm: React.FC<{
-  commentId: number;
-  pillar: Pillar;
-}> = ({ commentId, pillar }: Props) => {
-  const [showForm, setShowForm] = useState(false);
-  const toggleSetShowForm = () => setShowForm(!showForm);
-
-  return (
-    <div
-      className={css`
-        position: relative;
-      `}
-    >
-      <button className={buttonStyles} onClick={toggleSetShowForm}>
-        Report
-      </button>
-      {showForm && (
-        <Form
-          toggleSetShowForm={toggleSetShowForm}
-          pillar={pillar}
-          commentId={commentId}
-        />
-      )}
     </div>
   );
 };

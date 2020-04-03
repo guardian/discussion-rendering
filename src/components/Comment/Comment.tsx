@@ -10,7 +10,7 @@ import { Button } from "@guardian/src-button";
 
 import { GuardianStaff, GuardianPick } from "../Badges/Badges";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
-import { Form } from "../AbuseReportForm/AbuseReportForm";
+import { AbuseReportForm } from "../AbuseReportForm/AbuseReportForm";
 import { Timestamp } from "../Timestamp/Timestamp";
 import { Avatar } from "../Avatar/Avatar";
 import { Row } from "../Row/Row";
@@ -239,8 +239,8 @@ export const Comment = ({
   );
   const [error, setError] = useState<string>();
 
-  const [showForm, setShowForm] = useState(false);
-  const toggleSetShowForm = () => setShowForm(!showForm);
+  const [showAbuseReportForm, setAbuseReportForm] = useState(false);
+  const toggleSetShowForm = () => setAbuseReportForm(!showAbuseReportForm);
 
   const pick = async () => {
     setError("");
@@ -553,13 +553,13 @@ export const Comment = ({
                       <span className={muteReportTextStyles}>Report</span>
                     </Button>
                   </div>
-                  {showForm && (
+                  {showAbuseReportForm && (
                     <div
                       className={css`
                         position: relative;
                       `}
                     >
-                      <Form
+                      <AbuseReportForm
                         toggleSetShowForm={toggleSetShowForm}
                         pillar={pillar}
                         commentId={comment.id}
