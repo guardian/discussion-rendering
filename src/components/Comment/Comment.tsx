@@ -501,35 +501,28 @@ export const Comment = ({
                 <div className={commentControls}>
                   {/* When commenting is closed, no reply link shows at all */}
                   {!isClosedForComments && (
-                    <>
+                    <div className={commentControlsButtonStyles}>
                       {/* If user is not logged in we link to the login page */}
                       {user ? (
                         <button
                           onClick={() => setCommentBeingRepliedTo(comment)}
-                          className={cx(
-                            commentControlsButtonStyles,
-                            removePaddingLeft
-                          )}
+                          className={cx(removePaddingLeft, flexRowStyles)}
                         >
-                          <div className={flexRowStyles}>
-                            <ReplyArrow />
-                            Reply
-                          </div>
+                          <ReplyArrow />
+                          Reply
                         </button>
                       ) : (
-                        <div className={commentControlsButtonStyles}>
-                          <Row>
-                            <ReplyArrow />
-                            <a
-                              className={linkStyles(pillar)}
-                              href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                            >
-                              Reply
-                            </a>
-                          </Row>
+                        <div className={cx(flexRowStyles)}>
+                          <ReplyArrow />
+                          <a
+                            className={linkStyles(pillar)}
+                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                          >
+                            Reply
+                          </a>
                         </div>
                       )}
-                    </>
+                    </div>
                   )}
                   <button className={commentControlsButtonStyles}>Share</button>
                   {/* Only staff can pick, and they cannot pick thier own comment */}
