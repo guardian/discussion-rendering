@@ -28,7 +28,7 @@ const staffIcon = css`
 `;
 
 const staffLabel = css`
-  color: ${brand[500]};
+  color: ${brand[400]};
 `;
 const guardianPickLabel = css`
   color: ${neutral[7]};
