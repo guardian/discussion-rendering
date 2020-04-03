@@ -111,7 +111,9 @@ const avatarMargin = css`
 `;
 
 const colourStyles = (pillar: Pillar) => css`
-  color: ${palette[pillar][400]};
+  a {
+    color: ${palette[pillar][400]};
+  }
 `;
 
 const boldFont = css`
