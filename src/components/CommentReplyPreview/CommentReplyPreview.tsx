@@ -23,8 +23,8 @@ const replyWrapperStyles = css`
 const replyArrowStyles = css`
   fill: grey;
   /*
-    In order to get teh arrow SVG alinged correctly with the text reply text
-    we need to add 2px padding
+    In order to get the arrow SVG alinged correctly with the reply text
+    we need to add 2px padding to the top
   */
   padding-top: 2px;
 `;
