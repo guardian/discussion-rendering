@@ -369,66 +369,29 @@ export const App = ({
 
   return (
     <Column>
-      {user && !isClosedForComments && (
-        <CommentForm
-          shortUrl={shortUrl}
-          onAddComment={onAddComment}
-          user={user}
-        />
-      )}
-      {!!picks.length && (
-        <TopPicks
-          baseUrl={baseUrl}
-          pillar={pillar}
-          comments={picks}
-          isSignedIn={!!user}
-        />
-      )}
-      <Filters
-        filters={filters}
-        onFilterChange={onFilterChange}
-        totalPages={totalPages}
-        commentCount={commentCount}
-      />
-      {showPagination && (
-        <Pagination
-          totalPages={totalPages}
-          currentPage={page}
-          setCurrentPage={(newPage: number) => {
-            onPageChange(newPage);
-          }}
-          commentCount={commentCount}
+      <>
+        {user && !isClosedForComments && (
+          <CommentForm
+            shortUrl={shortUrl}
+            onAddComment={onAddComment}
+            user={user}
+          />
+        )}
+        {!!picks.length && (
+          <TopPicks
+            baseUrl={baseUrl}
+            pillar={pillar}
+            comments={picks}
+            isSignedIn={!!user}
+          />
+        )}
+        <Filters
           filters={filters}
+          onFilterChange={onFilterChange}
+          totalPages={totalPages}
+          commentCount={commentCount}
         />
-      )}
-      {loading ? (
-        <LoadingComments />
-      ) : !comments.length ? (
-        <p>TODO: No comment component goes here</p>
-      ) : (
-        <ul className={commentContainerStyles}>
-          {comments.map(comment => (
-            <li key={comment.id}>
-              <CommentContainer
-                baseUrl={baseUrl}
-                comment={comment}
-                pillar={pillar}
-                isClosedForComments={isClosedForComments}
-                shortUrl={shortUrl}
-                user={user}
-                threads={filters.threads}
-                commentBeingRepliedTo={commentBeingRepliedTo}
-                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-                commentToScrollTo={commentToScrollTo}
-                mutes={mutes}
-                toggleMuteStatus={toggleMuteStatus}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
-      {showPagination && (
-        <footer className={footerStyles}>
+        {showPagination && (
           <Pagination
             totalPages={totalPages}
             currentPage={page}
@@ -438,8 +401,47 @@ export const App = ({
             commentCount={commentCount}
             filters={filters}
           />
-        </footer>
-      )}
+        )}
+        {loading ? (
+          <LoadingComments />
+        ) : !comments.length ? (
+          <p>TODO: No comment component goes here</p>
+        ) : (
+          <ul className={commentContainerStyles}>
+            {comments.map(comment => (
+              <li key={comment.id}>
+                <CommentContainer
+                  baseUrl={baseUrl}
+                  comment={comment}
+                  pillar={pillar}
+                  isClosedForComments={isClosedForComments}
+                  shortUrl={shortUrl}
+                  user={user}
+                  threads={filters.threads}
+                  commentBeingRepliedTo={commentBeingRepliedTo}
+                  setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                  commentToScrollTo={commentToScrollTo}
+                  mutes={mutes}
+                  toggleMuteStatus={toggleMuteStatus}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+        {showPagination && (
+          <footer className={footerStyles}>
+            <Pagination
+              totalPages={totalPages}
+              currentPage={page}
+              setCurrentPage={(newPage: number) => {
+                onPageChange(newPage);
+              }}
+              commentCount={commentCount}
+              filters={filters}
+            />
+          </footer>
+        )}
+      </>
     </Column>
   );
 };
