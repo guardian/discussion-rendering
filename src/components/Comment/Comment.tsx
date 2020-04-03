@@ -501,18 +501,27 @@ export const Comment = ({
                 <div className={commentControls}>
                   {/* When commenting is closed, no reply link shows at all */}
                   {!isClosedForComments && (
-                    <div className={commentControlsButtonStyles}>
+                    <>
                       {/* If user is not logged in we link to the login page */}
                       {user ? (
                         <button
                           onClick={() => setCommentBeingRepliedTo(comment)}
-                          className={cx(removePaddingLeft, flexRowStyles)}
+                          className={cx(
+                            commentControlsButtonStyles,
+                            removePaddingLeft,
+                            flexRowStyles
+                          )}
                         >
                           <ReplyArrow />
                           Reply
                         </button>
                       ) : (
-                        <div className={cx(flexRowStyles)}>
+                        <div
+                          className={cx(
+                            commentControlsButtonStyles,
+                            flexRowStyles
+                          )}
+                        >
                           <ReplyArrow />
                           <a
                             className={linkStyles(pillar)}
@@ -522,7 +531,7 @@ export const Comment = ({
                           </a>
                         </div>
                       )}
-                    </div>
+                    </>
                   )}
                   <button className={commentControlsButtonStyles}>Share</button>
                   {/* Only staff can pick, and they cannot pick thier own comment */}
