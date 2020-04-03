@@ -26,7 +26,7 @@ const countStyles = css`
 `;
 
 const ArrowUp = () => (
-  <svg height="14" width="15">
+  <svg height="14" width="13">
     <path d="M.5 7l5.25-4.5V14h1.5V2.5L12.5 7l.5-1-5.75-6h-1.5L0 6l.5 1z"></path>
   </svg>
 );
