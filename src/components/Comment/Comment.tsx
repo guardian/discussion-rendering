@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css, cx } from "emotion";
 
-import { space, palette } from "@guardian/src-foundations";
+import { space, palette, remSpace } from "@guardian/src-foundations";
 import { from, until } from "@guardian/src-foundations/mq";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
