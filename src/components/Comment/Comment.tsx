@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css, cx } from "emotion";
 
-import { space, palette } from "@guardian/src-foundations";
+import { space, palette, remSpace } from "@guardian/src-foundations";
 import { from, until } from "@guardian/src-foundations/mq";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -61,8 +61,8 @@ const commentCss = css`
   display: block;
   clear: left;
   ${textSans.small()}
-  margin-top: 0.375rem;
-  margin-bottom: 0.5rem;
+  margin-top: ${remSpace[2]};
+  margin-bottom: ${remSpace[3]};
 
   p {
     margin-top: 0;
