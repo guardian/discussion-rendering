@@ -58,6 +58,7 @@ export const SingleComment = () => (
     baseUrl="https://discussion.guardianapis.com/discussion-api"
     pillar="news"
     comments={[commentWithShortBody]}
+    isSignedIn={true}
   />
 );
 SingleComment.story = { name: "Single Comment" };
@@ -72,6 +73,7 @@ export const MulitColumn = () => (
       commentWithShortBody,
       commentWithShortBody
     ]}
+    isSignedIn={true}
   />
 );
 MulitColumn.story = { name: "Mulitple Columns Comments" };
@@ -86,6 +88,7 @@ export const SingleColumn = () => (
       commentWithShortBody,
       commentWithShortBody
     ]}
+    isSignedIn={true}
   />
 );
 SingleColumn.story = {

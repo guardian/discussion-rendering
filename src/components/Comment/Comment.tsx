@@ -439,6 +439,7 @@ export const Comment = ({
                 commentId={comment.id}
                 initialCount={comment.numRecommends}
                 alreadyRecommended={false}
+                isSignedIn={!!user}
               />
             )}
           </header>

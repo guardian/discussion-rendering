@@ -58,6 +58,7 @@ export const LongPick = () => (
       baseUrl="https://discussion.guardianapis.com/discussion-api"
       pillar="news"
       comment={comment}
+      isSignedIn={false}
     />
   </div>
 );
@@ -74,6 +75,7 @@ export const ShortPick = () => (
       baseUrl="https://discussion.guardianapis.com/discussion-api"
       pillar="opinion"
       comment={commentWithShortBody}
+      isSignedIn={true}
     />
   </div>
 );

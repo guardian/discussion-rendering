@@ -6,7 +6,12 @@ import { until, from } from "@guardian/src-foundations/mq";
 import { CommentType, Pillar } from "../../types";
 import { TopPick } from "../TopPick/TopPick";
 
-type Props = { baseUrl: string; pillar: Pillar; comments: CommentType[] };
+type Props = {
+  baseUrl: string;
+  pillar: Pillar;
+  comments: CommentType[];
+  isSignedIn: boolean;
+};
 
 const columWrapperStyles = css`
   width: 50%;
@@ -41,7 +46,7 @@ const oneColCommentsStyles = css`
   }
 `;
 
-export const TopPicks = ({ baseUrl, pillar, comments }: Props) => {
+export const TopPicks = ({ baseUrl, pillar, comments, isSignedIn }: Props) => {
   const leftColComments: CommentType[] = [];
   const rightColComments: CommentType[] = [];
   comments.forEach((comment, index) =>
@@ -54,18 +59,33 @@ export const TopPicks = ({ baseUrl, pillar, comments }: Props) => {
       <div className={twoColCommentsStyles}>
         <div className={cx(columWrapperStyles, paddingRight)}>
           {leftColComments.map(comment => (
-            <TopPick baseUrl={baseUrl} pillar={pillar} comment={comment} />
+            <TopPick
+              baseUrl={baseUrl}
+              pillar={pillar}
+              comment={comment}
+              isSignedIn={isSignedIn}
+            />
           ))}
         </div>
         <div className={cx(columWrapperStyles, paddingLeft)}>
           {rightColComments.map(comment => (
-            <TopPick baseUrl={baseUrl} pillar={pillar} comment={comment} />
+            <TopPick
+              baseUrl={baseUrl}
+              pillar={pillar}
+              comment={comment}
+              isSignedIn={isSignedIn}
+            />
           ))}
         </div>
       </div>
       <div className={oneColCommentsStyles}>
         {comments.map(comment => (
-          <TopPick baseUrl={baseUrl} pillar={pillar} comment={comment} />
+          <TopPick
+            baseUrl={baseUrl}
+            pillar={pillar}
+            comment={comment}
+            isSignedIn={isSignedIn}
+          />
         ))}
       </div>
     </div>
