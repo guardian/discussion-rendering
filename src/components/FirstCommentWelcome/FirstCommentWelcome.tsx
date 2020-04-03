@@ -5,6 +5,7 @@ import { space, neutral } from "@guardian/src-foundations";
 import { TextInput } from "@guardian/src-text-input";
 import { Button } from "@guardian/src-button";
 import { Link } from "@guardian/src-link";
+import { Row } from "../Row/Row";
 
 import { preview } from "../../lib/api";
 
@@ -37,17 +38,6 @@ const Text = ({
 }: {
   children: string | JSX.Element | JSX.Element[];
 }) => <p className={textStyling}>{children}</p>;
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
-);
 
 export const FirstCommentWelcome = ({
   body,

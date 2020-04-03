@@ -4,6 +4,8 @@ import { css, keyframes } from "emotion";
 import { space } from "@guardian/src-foundations";
 import { neutral } from "@guardian/src-foundations/palette";
 
+import { Row } from "../Row/Row";
+
 const BACKGROUND_COLOUR = neutral[93];
 
 const shimmer = keyframes`
@@ -62,23 +64,16 @@ const pickBoxStyles = css`
   ${shimmerStyles}
 `;
 
-const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+const FullWidthColumn = ({
+  children
+}: {
+  children: JSX.Element | JSX.Element[];
+}) => (
   <div
     className={css`
       display: flex;
       flex-direction: column;
       width: 100%;
-    `}
-  >
-    {children}
-  </div>
-);
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
     `}
   >
     {children}
@@ -111,15 +106,15 @@ const Grey = ({
 
 export const LoadingPicks = () => (
   <div className={containerStyles}>
-    <Column>
+    <FullWidthColumn>
       <div className={pickBoxStyles} />
       <Row>
         <div className={avatarStyles(48)} />
-        <Column>
+        <FullWidthColumn>
           <Grey height={20} width={90} spaceBelow={1} />
           <Grey height={15} width={50} spaceBelow={9} />
-        </Column>
+        </FullWidthColumn>
       </Row>
-    </Column>
+    </FullWidthColumn>
   </div>
 );

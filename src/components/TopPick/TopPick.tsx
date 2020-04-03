@@ -11,6 +11,9 @@ import { CommentType, Pillar } from "../../types";
 import { Avatar } from "../Avatar/Avatar";
 import { RecommendationCount } from "../RecommendationCount/RecommendationCount";
 import { Timestamp } from "../Timestamp/Timestamp";
+import { Row } from "../Row/Row";
+import { Column } from "../Column/Column";
+
 import { joinUrl } from "../../lib/joinUrl";
 
 type Props = {
@@ -121,28 +124,6 @@ const Top = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 
 const Bottom = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
   <div>{children}</div>
-);
-
-const Column = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: column;
-    `}
-  >
-    {children}
-  </div>
-);
-
-const Row = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <div
-    className={css`
-      display: flex;
-      flex-direction: row;
-    `}
-  >
-    {children}
-  </div>
 );
 
 const truncateText = (input: string, limit: number) => {
