@@ -48,6 +48,7 @@ const commentControlsButton = (pillar: Pillar) => css`
   :hover {
     text-decoration: underline
   }
+  padding-top: 0px; /* In order to remove variations between buttons and a tags */
 `;
 
 const spaceBetween = css`
@@ -516,15 +517,17 @@ export const Comment = ({
                           </div>
                         </button>
                       ) : (
-                        <Row>
-                          <ReplyArrow />
-                          <a
-                            className={linkStyles(pillar)}
-                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                          >
-                            Reply
-                          </a>
-                        </Row>
+                        <div className={commentControlsButtonStyles}>
+                          <Row>
+                            <ReplyArrow />
+                            <a
+                              className={linkStyles(pillar)}
+                              href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                            >
+                              Reply
+                            </a>
+                          </Row>
+                        </div>
                       )}
                     </>
                   )}
