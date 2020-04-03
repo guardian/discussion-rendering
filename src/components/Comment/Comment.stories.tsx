@@ -86,7 +86,7 @@ export const Root = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
-    pillar={"sport"}
+    pillar={"news"}
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
@@ -126,7 +126,7 @@ export const ReplyComment = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={replyCommentData}
-    pillar={"sport"}
+    pillar={"lifestyle"}
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
@@ -146,7 +146,7 @@ export const MobileReply = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={replyCommentData}
-    pillar={"sport"}
+    pillar={"culture"}
     setCommentBeingRepliedTo={() => {}}
     isReply={true}
     isClosedForComments={false}
@@ -169,7 +169,7 @@ export const PickedComment = () => (
       ...commentData,
       isHighlighted: true
     }}
-    pillar={"sport"}
+    pillar={"labs"}
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
@@ -183,7 +183,7 @@ export const StaffUserComment = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentStaffData}
-    pillar={"sport"}
+    pillar={"opinion"}
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
@@ -200,7 +200,7 @@ export const PickedStaffUserComment = () => (
       ...commentStaffData,
       isHighlighted: true
     }}
-    pillar={"sport"}
+    pillar={"news"}
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
@@ -243,7 +243,7 @@ export const LoggedInAsModerator = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={commentData}
-    pillar={"sport"}
+    pillar={"lifestyle"}
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     user={staffUser}
@@ -258,7 +258,7 @@ export const BlockedComment = () => (
   <Comment
     baseUrl="https://discussion.theguardian.com/discussion-api"
     comment={blockedCommentData}
-    pillar={"sport"}
+    pillar={"culture"}
     isClosedForComments={false}
     setCommentBeingRepliedTo={() => {}}
     isReply={false}
