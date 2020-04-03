@@ -10,6 +10,7 @@ type Props = {
   commentId: number;
   initialCount: number;
   alreadyRecommended: boolean;
+  isSignedIn: boolean;
 };
 
 const flexStyles = css`
@@ -30,8 +31,8 @@ const ArrowUp = () => (
   </svg>
 );
 
-const buttonStyles = (recommended: Boolean) => css`
-  cursor: ${recommended ? "default" : "pointer"};
+const buttonStyles = (recommended: boolean, isSignedIn: boolean) => css`
+  cursor: ${recommended || !isSignedIn ? "default" : "pointer"};
   width: 1.1875rem;
   height: 1.1875rem;
   background-color: ${recommended ? "#00b2ff" : "#f6f6f6"};
@@ -50,7 +51,8 @@ const arrowStyles = (recommended: Boolean) => css`
 export const RecommendationCount = ({
   commentId,
   initialCount,
-  alreadyRecommended
+  alreadyRecommended,
+  isSignedIn
 }: Props) => {
   const [count, setCount] = useState(initialCount);
   const [recommended, setRecommended] = useState(alreadyRecommended);
@@ -73,9 +75,9 @@ export const RecommendationCount = ({
     <div className={flexStyles}>
       <div className={countStyles}>{count}</div>
       <button
-        className={buttonStyles(recommended)}
+        className={buttonStyles(recommended, isSignedIn)}
         onClick={() => tryToRecommend()}
-        disabled={recommended}
+        disabled={recommended || !isSignedIn}
       >
         <div className={arrowStyles(recommended)}>
           <ArrowUp />

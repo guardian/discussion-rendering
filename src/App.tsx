@@ -315,6 +315,7 @@ export const App = ({
                 baseUrl={baseUrl}
                 pillar={pillar}
                 comments={picks.slice(0, 2)}
+                isSignedIn={!!user}
               />
             )}
           </div>
@@ -380,7 +381,12 @@ export const App = ({
         />
       )}
       {!!picks.length && (
-        <TopPicks baseUrl={baseUrl} pillar={pillar} comments={picks} />
+        <TopPicks
+          baseUrl={baseUrl}
+          pillar={pillar}
+          comments={picks}
+          isSignedIn={!!user}
+        />
       )}
       <Filters
         filters={filters}
