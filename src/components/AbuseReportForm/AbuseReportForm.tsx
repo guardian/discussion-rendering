@@ -21,7 +21,7 @@ type formData = {
   email?: string;
 };
 
-const formWrapper = (pillar: Pillar) => css`
+const formWrapper = css`
   z-index: 1;
   border: 1px solid ${palette.neutral[86]};
   position: absolute;
@@ -178,7 +178,7 @@ export const Form: React.FC<{
   const labelStylesClass = labelStyles(pillar);
   return (
     <div aria-modal="true" ref={modalRef}>
-      <form className={formWrapper(pillar)} onSubmit={onSubmit}>
+      <form className={formWrapper} onSubmit={onSubmit}>
         {errors.response && (
           <span className={errorMessageStyles}>{errors.response}</span>
         )}
