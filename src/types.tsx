@@ -146,7 +146,7 @@ export interface DiscussionResponse {
 }
 
 export interface DiscussionOptions {
-  orderBy: OrderByType;
+  orderBy: string;
   pageSize: number;
   displayThreaded: boolean;
   maxResponses: number;
