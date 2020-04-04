@@ -99,7 +99,7 @@ export type UserNameResponse = {
   errors?: UserNameError[];
 };
 
-export type OrderByType = "newest" | "oldest" | "mostrecommended";
+export type OrderByType = "newest" | "oldest" | "recommendations";
 export type ThreadsType = "collapsed" | "expanded" | "unthreaded";
 export type PageSizeType = 25 | 50 | 100;
 export interface FilterOptions {
