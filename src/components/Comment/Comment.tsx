@@ -555,7 +555,8 @@ export const Comment = ({
                       <div
                         className={cx(
                           buttonHeightOverrides,
-                          commentControlsButtonWrapperStyles
+                          commentControlsButtonWrapperStyles,
+                          rightLeftButtonPadding
                         )}
                       >
                         <Button
