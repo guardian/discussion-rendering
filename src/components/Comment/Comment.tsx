@@ -220,7 +220,7 @@ const ReplyArrow = () => (
 const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
   <div
     className={css`
-      padding-right: ${space[amount]}px;
+      width: ${space[amount]}px;
     `}
   />
 );
