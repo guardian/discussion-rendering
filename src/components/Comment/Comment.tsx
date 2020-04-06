@@ -50,6 +50,13 @@ const commentControlsButton = (pillar: Pillar) => css`
   :hover {
     text-decoration: underline
   }
+  padding-top: 0px; /* In order to remove variations between <button> and <a> tags */
+`;
+
+const commentControlsLink = (pillar: Pillar) => css`
+  ${textSans.xsmall({ fontWeight: "bold" })}
+  margin-right: ${space[2]}px;
+  color: ${palette[pillar][400]};
 `;
 
 const spaceBetween = css`
@@ -161,15 +168,6 @@ const timestampWrapperStyles = css`
   justify-content: center;
 `;
 
-const linkStyles = (pillar: Pillar) => css`
-  ${textSans.xsmall({ fontWeight: "bold" })};
-  color: ${palette[pillar][400]};
-  text-decoration: none;
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
 const flexRowStyles = css`
   display: flex;
   flex-direction: row;
@@ -234,6 +232,7 @@ export const Comment = ({
   toggleMuteStatus
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
+  const commentControlsLinkStyles = commentControlsLink(pillar);
   const [isHighlighted, setIsHighlighted] = useState<boolean>(
     comment.isHighlighted
   );
@@ -492,25 +491,29 @@ export const Comment = ({
                         <button
                           onClick={() => setCommentBeingRepliedTo(comment)}
                           className={cx(
-                            commentControlsButtonStyles,
-                            removePaddingLeft
+                            flexRowStyles,
+                            removePaddingLeft,
+                            commentControlsButtonStyles
                           )}
                         >
-                          <div className={flexRowStyles}>
+                          <ReplyArrow />
+                          Reply
+                        </button>
+                      ) : (
+                        <Link
+                          href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                          subdued={true}
+                        >
+                          <div
+                            className={cx(
+                              flexRowStyles,
+                              commentControlsLinkStyles
+                            )}
+                          >
                             <ReplyArrow />
                             Reply
                           </div>
-                        </button>
-                      ) : (
-                        <Row>
-                          <ReplyArrow />
-                          <a
-                            className={linkStyles(pillar)}
-                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                          >
-                            Reply
-                          </a>
-                        </Row>
+                        </Link>
                       )}
                     </>
                   )}
