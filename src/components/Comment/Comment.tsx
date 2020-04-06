@@ -45,7 +45,6 @@ const buttonOverrides = (pillar: Pillar) => css`
     ${textSans.xsmall({ fontWeight: "bold" })}
     color: ${palette[pillar][400]};
     background-color: transparent;
-    border: 0;
     :hover {
       text-decoration: underline;
     }
