@@ -536,8 +536,8 @@ export const Comment = ({
                     className={cx(
                       buttonHeightOverrides,
                       commentControlsButtonWrapperStyles,
-                      // if !isClosedForComments then Share will be the first button and therefore should not apply left padding
-                      !isClosedForComments
+                      // if isClosedForComments then Share will be the first button and therefore should not apply left padding
+                      isClosedForComments
                         ? rightButtonPadding
                         : rightLeftButtonPadding
                     )}
