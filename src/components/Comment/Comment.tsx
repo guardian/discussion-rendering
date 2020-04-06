@@ -40,7 +40,7 @@ const commentControls = css`
   align-items: flex-start;
 `;
 
-const commentControlsButtonWrapper = (pillar: Pillar) => css`
+const buttonOverrides = (pillar: Pillar) => css`
   button {
     ${textSans.xsmall({ fontWeight: "bold" })}
     color: ${palette[pillar][400]};
@@ -49,10 +49,6 @@ const commentControlsButtonWrapper = (pillar: Pillar) => css`
     :hover {
       text-decoration: underline
     }
-    /* Button height overrides */
-    height: 18px;
-    min-height: 18px;
-  }
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
@@ -237,9 +233,6 @@ export const Comment = ({
   isMuted,
   toggleMuteStatus
 }: Props) => {
-  const commentControlsButtonWrapperStyles = commentControlsButtonWrapper(
-    pillar
-  );
   const commentControlsLinkStyles = commentControlsLink(pillar);
   const [isHighlighted, setIsHighlighted] = useState<boolean>(
     comment.isHighlighted
@@ -498,7 +491,8 @@ export const Comment = ({
                       {user ? (
                         <div
                           className={cx(
-                            commentControlsButtonWrapperStyles,
+                            buttonOverrides(pillar),
+                            buttonHeightOverrides,
                             svgOverrides
                           )}
                         >
@@ -531,7 +525,12 @@ export const Comment = ({
                       <Space amount={4} />
                     </>
                   )}
-                  <div className={commentControlsButtonWrapperStyles}>
+                  <div
+                    className={cx(
+                      buttonHeightOverrides,
+                      buttonOverrides(pillar)
+                    )}
+                  >
                     <Button priority="tertiary" size="small">
                       Share
                     </Button>
@@ -541,7 +540,12 @@ export const Comment = ({
                   {user &&
                     user.badge.some(e => e.name === "Staff") &&
                     user.userId !== comment.userProfile.userId && (
-                      <div className={commentControlsButtonWrapperStyles}>
+                      <div
+                        className={cx(
+                          buttonHeightOverrides,
+                          buttonOverrides(pillar)
+                        )}
+                      >
                         <Button
                           priority="tertiary"
                           size="small"
