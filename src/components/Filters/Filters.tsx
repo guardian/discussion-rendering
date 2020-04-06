@@ -74,8 +74,8 @@ export const Filters = ({
           },
           {
             title: "Recommendations",
-            value: "recommendations",
-            isActive: filters.orderBy === "recommendations"
+            value: "mostrecommended",
+            isActive: filters.orderBy === "mostrecommended"
           }
         ]}
         onSelect={value =>

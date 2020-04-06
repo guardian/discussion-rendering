@@ -49,10 +49,7 @@ export const getDiscussion = (
   }
 ): Promise<DiscussionResponse> => {
   const apiOpts: DiscussionOptions = {
-    // Frontend uses the 'recommendations' key to store this options but the api expects
-    // 'mostRecommended' so we have to map here to support both
-    orderBy:
-      opts.orderBy === "recommendations" ? "mostRecommended" : opts.orderBy,
+    orderBy: opts.orderBy,
     pageSize: opts.pageSize,
     displayThreaded: opts.threads !== "unthreaded",
     maxResponses: opts.threads === "collapsed" ? 3 : 100,

@@ -99,7 +99,7 @@ export type UserNameResponse = {
   errors?: UserNameError[];
 };
 
-export type OrderByType = "newest" | "oldest" | "recommendations";
+export type OrderByType = "newest" | "oldest" | "mostrecommended";
 export type ThreadsType = "collapsed" | "expanded" | "unthreaded";
 export type PageSizeType = 25 | 50 | 100;
 export interface FilterOptions {
@@ -146,7 +146,7 @@ export interface DiscussionResponse {
 }
 
 export interface DiscussionOptions {
-  orderBy: string;
+  orderBy: OrderByType;
   pageSize: number;
   displayThreaded: boolean;
   maxResponses: number;
