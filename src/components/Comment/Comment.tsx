@@ -44,15 +44,25 @@ const commentControlsButtonWrapper = (pillar: Pillar) => css`
   button {
     ${textSans.xsmall({ fontWeight: "bold" })}
     color: ${palette[pillar][400]};
-    padding-left: ${space[2]}px;
-    padding-right: ${space[2]}px;
     background-color: transparent;
     border: 0;
     :hover {
       text-decoration: underline
     }
   }
-  
+`;
+
+const rightButtonPadding = css`
+  button {
+    padding-right: ${space[2]}px;
+  }
+`;
+
+const rightLeftButtonPadding = css`
+  button {
+    padding-right: ${space[2]}px;
+    padding-left: ${space[2]}px;
+  }
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
@@ -173,12 +183,6 @@ const timestampWrapperStyles = css`
 const flexRowStyles = css`
   display: flex;
   flex-direction: row;
-`;
-
-const removeButtonPaddingLeft = css`
-  button {
-    padding-left: 0px;
-  }
 `;
 
 const muteReportTextStyles = css`
@@ -497,8 +501,8 @@ export const Comment = ({
                         <div
                           className={cx(
                             buttonHeightOverrides,
-                            commentControlsButtonWrapperStyles,
-                            removeButtonPaddingLeft
+                            rightButtonPadding,
+                            commentControlsButtonWrapperStyles
                           )}
                         >
                           <Button
@@ -531,7 +535,11 @@ export const Comment = ({
                   <div
                     className={cx(
                       buttonHeightOverrides,
-                      commentControlsButtonWrapperStyles
+                      commentControlsButtonWrapperStyles,
+                      // if !isClosedForComments then Share will be the first button and therefore should not apply left padding
+                      !isClosedForComments
+                        ? rightButtonPadding
+                        : rightLeftButtonPadding
                     )}
                   >
                     <Button priority="tertiary" size="small">
