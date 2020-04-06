@@ -43,13 +43,11 @@ const commentControls = css`
 const commentControlsButtonWrapper = (pillar: Pillar) => css`
   button {
     ${textSans.xsmall({ fontWeight: "bold" })}
-    margin-right: ${space[2]}px;
     color: ${palette[pillar][400]};
     padding-left: ${space[2]}px;
     padding-right: ${space[2]}px;
     background-color: transparent;
     border: 0;
-    cursor: pointer;
     :hover {
       text-decoration: underline
     }
