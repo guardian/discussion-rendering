@@ -49,19 +49,9 @@ const commentControlsButtonWrapper = (pillar: Pillar) => css`
     :hover {
       text-decoration: underline
     }
-  }
-`;
-
-const rightButtonPadding = css`
-  button {
-    padding-right: ${space[2]}px;
-  }
-`;
-
-const rightLeftButtonPadding = css`
-  button {
-    padding-right: ${space[2]}px;
-    padding-left: ${space[2]}px;
+    /* Button height overrides */
+    height: 18px;
+    min-height: 18px;
   }
 `;
 
@@ -225,6 +215,14 @@ const ReplyArrow = () => (
   >
     <path d="M10.1 5l.9-1 4 4.5v1L11 14l-.9-1 2.5-3H4L3 9V6.5h2V8h7.6l-2.5-3z"></path>
   </svg>
+);
+
+const Space = ({ amount }: { amount: number }) => (
+  <div
+    className={css`
+      padding-right: ${space[amount]}px;
+    `}
+  />
 );
 
 export const Comment = ({
@@ -500,8 +498,6 @@ export const Comment = ({
                       {user ? (
                         <div
                           className={cx(
-                            buttonHeightOverrides,
-                            rightButtonPadding,
                             commentControlsButtonWrapperStyles,
                             svgOverrides
                           )}
@@ -532,33 +528,20 @@ export const Comment = ({
                           </div>
                         </Link>
                       )}
+                      <Space amount={4} />
                     </>
                   )}
-                  <div
-                    className={cx(
-                      buttonHeightOverrides,
-                      commentControlsButtonWrapperStyles,
-                      // if isClosedForComments then Share will be the first button and therefore should not apply left padding
-                      isClosedForComments
-                        ? rightButtonPadding
-                        : rightLeftButtonPadding
-                    )}
-                  >
+                  <div className={commentControlsButtonWrapperStyles}>
                     <Button priority="tertiary" size="small">
                       Share
                     </Button>
                   </div>
+                  <Space amount={4} />
                   {/* Only staff can pick, and they cannot pick thier own comment */}
                   {user &&
                     user.badge.some(e => e.name === "Staff") &&
                     user.userId !== comment.userProfile.userId && (
-                      <div
-                        className={cx(
-                          buttonHeightOverrides,
-                          commentControlsButtonWrapperStyles,
-                          rightLeftButtonPadding
-                        )}
-                      >
+                      <div className={commentControlsButtonWrapperStyles}>
                         <Button
                           priority="tertiary"
                           size="small"
