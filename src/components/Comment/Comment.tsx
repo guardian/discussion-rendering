@@ -47,8 +47,9 @@ const buttonOverrides = (pillar: Pillar) => css`
     background-color: transparent;
     border: 0;
     :hover {
-      text-decoration: underline
+      text-decoration: underline;
     }
+  }
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
