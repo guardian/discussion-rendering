@@ -5,6 +5,8 @@ import { textSans } from "@guardian/src-foundations/typography";
 import { neutral } from "@guardian/src-foundations/palette";
 import { brand } from "@guardian/src-foundations";
 
+import { Row } from "../Row/Row";
+
 import { recommend } from "../../lib/api";
 
 type Props = {
@@ -13,11 +15,6 @@ type Props = {
   alreadyRecommended: boolean;
   isSignedIn: boolean;
 };
-
-const flexStyles = css`
-  display: flex;
-  flex-direction: row;
-`;
 
 const countStyles = css`
   ${textSans.xsmall({ fontWeight: "light" })}
@@ -53,7 +50,7 @@ export const RecommendationCount = ({
   commentId,
   initialCount,
   alreadyRecommended,
-  isSignedIn
+  isSignedIn,
 }: Props) => {
   const [count, setCount] = useState(initialCount);
   const [recommended, setRecommended] = useState(alreadyRecommended);
@@ -64,7 +61,7 @@ export const RecommendationCount = ({
     setRecommended(true);
 
     //makeApi call
-    recommend(commentId).then(accepted => {
+    recommend(commentId).then((accepted) => {
       if (!accepted) {
         setCount(newCount - 1);
         setRecommended(alreadyRecommended);
@@ -73,7 +70,7 @@ export const RecommendationCount = ({
   };
 
   return (
-    <div className={flexStyles}>
+    <Row>
       <div className={countStyles}>{count}</div>
       <button
         className={buttonStyles(recommended, isSignedIn)}
@@ -84,6 +81,6 @@ export const RecommendationCount = ({
           <ArrowUp />
         </div>
       </button>
-    </div>
+    </Row>
   );
 };
