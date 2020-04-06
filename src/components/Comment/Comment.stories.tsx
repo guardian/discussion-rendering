@@ -281,3 +281,23 @@ export const MutedComment = () => (
   />
 );
 MutedComment.story = { name: "Muted comment" };
+
+export const ClosedForComments = () => (
+  <Comment
+    baseUrl="https://discussion.theguardian.com/discussion-api"
+    comment={commentData}
+    pillar={"news"}
+    isClosedForComments={true}
+    setCommentBeingRepliedTo={() => {}}
+    isReply={false}
+    isMuted={false}
+    toggleMuteStatus={() => {}}
+  />
+);
+ClosedForComments.story = {
+  name: "A closed comment on desktop view",
+  parameters: {
+    viewport: { defaultViewport: "desktop" },
+    chromatic: { viewports: [1300] }
+  }
+};
