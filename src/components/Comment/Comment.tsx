@@ -47,14 +47,30 @@ const buttonOverrides = (pillar: Pillar) => css`
     background-color: transparent;
     :hover {
       text-decoration: underline;
+      text-decoration-color: ${palette[pillar][400]};
     }
   }
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
-  ${textSans.xsmall({ fontWeight: "bold" })}
-  margin-right: ${space[2]}px;
-  color: ${palette[pillar][400]};
+  a {
+    ${textSans.xsmall({ fontWeight: "bold" })}
+    margin-right: ${space[2]}px;
+    color: ${palette[pillar][400]};
+    /*
+      We do not want underline to be applied to SVG
+      therefore we override the styles and apply them to the nested <span>
+    */
+    :hover {
+      text-decoration: none;
+      text-decoration-color: none;
+      span {
+        color: ${palette[pillar][400]};
+        text-decoration: underline;
+        text-decoration-color: ${palette[pillar][400]};
+      }
+    }
+  }
 `;
 
 const spaceBetween = css`
@@ -120,6 +136,7 @@ const avatarMargin = css`
 const colourStyles = (pillar: Pillar) => css`
   a {
     color: ${palette[pillar][400]};
+    text-decoration-color: ${palette[pillar][400]};
   }
 `;
 
@@ -233,7 +250,6 @@ export const Comment = ({
   isMuted,
   toggleMuteStatus
 }: Props) => {
-  const commentControlsLinkStyles = commentControlsLink(pillar);
   const [isHighlighted, setIsHighlighted] = useState<boolean>(
     comment.isHighlighted
   );
@@ -507,20 +523,21 @@ export const Comment = ({
                           </Button>
                         </div>
                       ) : (
-                        <Link
-                          href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                          subdued={true}
+                        <div
+                          className={cx(
+                            svgOverrides,
+                            commentControlsLink(pillar)
+                          )}
                         >
-                          <div
-                            className={cx(
-                              flexRowStyles,
-                              commentControlsLinkStyles
-                            )}
+                          <Link
+                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                            subdued={true}
+                            icon={<ReplyArrow />}
+                            iconSide="left"
                           >
-                            <ReplyArrow />
-                            Reply
-                          </div>
-                        </Link>
+                            <span>Reply</span>
+                          </Link>
+                        </div>
                       )}
                       <Space amount={4} />
                     </>
