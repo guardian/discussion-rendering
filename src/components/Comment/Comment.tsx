@@ -502,15 +502,17 @@ export const Comment = ({
                           className={cx(
                             buttonHeightOverrides,
                             rightButtonPadding,
-                            commentControlsButtonWrapperStyles
+                            commentControlsButtonWrapperStyles,
+                            svgOverrides
                           )}
                         >
                           <Button
                             priority="tertiary"
                             size="small"
                             onClick={() => setCommentBeingRepliedTo(comment)}
+                            icon={<ReplyArrow />}
+                            iconSide="left"
                           >
-                            <ReplyArrow />
                             Reply
                           </Button>
                         </div>
