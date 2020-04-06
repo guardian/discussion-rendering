@@ -40,17 +40,21 @@ const commentControls = css`
   align-items: flex-start;
 `;
 
-const commentControlsButton = (pillar: Pillar) => css`
-  ${textSans.xsmall({ fontWeight: "bold" })}
-  margin-right: ${space[2]}px;
-  color: ${palette[pillar][400]};
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  :hover {
-    text-decoration: underline
+const commentControlsButtonWrapper = (pillar: Pillar) => css`
+  button {
+    ${textSans.xsmall({ fontWeight: "bold" })}
+    margin-right: ${space[2]}px;
+    color: ${palette[pillar][400]};
+    padding-left: ${space[2]}px;
+    padding-right: ${space[2]}px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    :hover {
+      text-decoration: underline
+    }
   }
-  padding-top: 0px; /* In order to remove variations between <button> and <a> tags */
+  
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
@@ -173,8 +177,10 @@ const flexRowStyles = css`
   flex-direction: row;
 `;
 
-const removePaddingLeft = css`
-  padding-left: 0px;
+const removeButtonPaddingLeft = css`
+  button {
+    padding-left: 0px;
+  }
 `;
 
 const muteReportTextStyles = css`
@@ -231,7 +237,9 @@ export const Comment = ({
   isMuted,
   toggleMuteStatus
 }: Props) => {
-  const commentControlsButtonStyles = commentControlsButton(pillar);
+  const commentControlsButtonWrapperStyles = commentControlsButtonWrapper(
+    pillar
+  );
   const commentControlsLinkStyles = commentControlsLink(pillar);
   const [isHighlighted, setIsHighlighted] = useState<boolean>(
     comment.isHighlighted
@@ -488,17 +496,22 @@ export const Comment = ({
                     <>
                       {/* If user is not logged in we link to the login page */}
                       {user ? (
-                        <button
-                          onClick={() => setCommentBeingRepliedTo(comment)}
+                        <div
                           className={cx(
-                            flexRowStyles,
-                            removePaddingLeft,
-                            commentControlsButtonStyles
+                            buttonHeightOverrides,
+                            commentControlsButtonWrapperStyles,
+                            removeButtonPaddingLeft
                           )}
                         >
-                          <ReplyArrow />
-                          Reply
-                        </button>
+                          <Button
+                            priority="tertiary"
+                            size="small"
+                            onClick={() => setCommentBeingRepliedTo(comment)}
+                          >
+                            <ReplyArrow />
+                            Reply
+                          </Button>
+                        </div>
                       ) : (
                         <Link
                           href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
@@ -517,17 +530,34 @@ export const Comment = ({
                       )}
                     </>
                   )}
-                  <button className={commentControlsButtonStyles}>Share</button>
+                  <div
+                    className={cx(
+                      buttonHeightOverrides,
+                      commentControlsButtonWrapperStyles
+                    )}
+                  >
+                    <Button priority="tertiary" size="small">
+                      Share
+                    </Button>
+                  </div>
                   {/* Only staff can pick, and they cannot pick thier own comment */}
                   {user &&
                     user.badge.some(e => e.name === "Staff") &&
                     user.userId !== comment.userProfile.userId && (
-                      <button
-                        onClick={isHighlighted ? unPick : pick}
-                        className={commentControlsButtonStyles}
+                      <div
+                        className={cx(
+                          buttonHeightOverrides,
+                          commentControlsButtonWrapperStyles
+                        )}
                       >
-                        {isHighlighted ? "Unpick" : "Pick"}
-                      </button>
+                        <Button
+                          priority="tertiary"
+                          size="small"
+                          onClick={isHighlighted ? unPick : pick}
+                        >
+                          {isHighlighted ? "Unpick" : "Pick"}
+                        </Button>
+                      </div>
                     )}
                 </div>
                 <Row>
