@@ -79,15 +79,15 @@ const PlusSVG = () => (
 const rememberFilters = (filtersToRemember: FilterOptions) => {
   try {
     localStorage.setItem(
-      "gu.prefs.discussioni.threading",
+      "gu.prefs.discussion.threading",
       JSON.stringify({ value: filtersToRemember.threads })
     );
     localStorage.setItem(
-      "gu.prefs.discussioni.pagesize",
+      "gu.prefs.discussion.pagesize",
       JSON.stringify({ value: filtersToRemember.pageSize })
     );
     localStorage.setItem(
-      "gu.prefs.discussioni.order",
+      "gu.prefs.discussion.order",
       JSON.stringify({ value: filtersToRemember.orderBy })
     );
   } catch (error) {
@@ -155,7 +155,7 @@ const readMutes = (): string[] => {
 const writeMutes = (mutes: string[]) => {
   try {
     localStorage.setItem(
-      "gu.prefs.discussioni.mutes",
+      "gu.prefs.discussion.mutes",
       JSON.stringify({ value: mutes })
     );
   } catch (error) {

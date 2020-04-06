@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css, cx } from "emotion";
 
-import { space, palette } from "@guardian/src-foundations";
+import { space, palette, remSpace } from "@guardian/src-foundations";
 import { from, until } from "@guardian/src-foundations/mq";
 import { neutral, border } from "@guardian/src-foundations/palette";
 import { textSans } from "@guardian/src-foundations/typography";
@@ -50,6 +50,13 @@ const commentControlsButton = (pillar: Pillar) => css`
   :hover {
     text-decoration: underline
   }
+  padding-top: 0px; /* In order to remove variations between <button> and <a> tags */
+`;
+
+const commentControlsLink = (pillar: Pillar) => css`
+  ${textSans.xsmall({ fontWeight: "bold" })}
+  margin-right: ${space[2]}px;
+  color: ${palette[pillar][400]};
 `;
 
 const spaceBetween = css`
@@ -61,8 +68,8 @@ const commentCss = css`
   display: block;
   clear: left;
   ${textSans.small()}
-  margin-top: 0.375rem;
-  margin-bottom: 0.5rem;
+  margin-top: ${remSpace[2]};
+  margin-bottom: ${remSpace[3]};
 
   p {
     margin-top: 0;
@@ -113,7 +120,9 @@ const avatarMargin = css`
 `;
 
 const colourStyles = (pillar: Pillar) => css`
-  color: ${palette[pillar][400]};
+  a {
+    color: ${palette[pillar][400]};
+  }
 `;
 
 const boldFont = css`
@@ -172,7 +181,7 @@ const removePaddingLeft = css`
   padding-left: 0px;
 `;
 
-const muteStyles = css`
+const muteReportTextStyles = css`
   ${textSans.xsmall()};
   color: ${neutral[46]};
   margin-right: ${space[2]}px;
@@ -224,13 +233,17 @@ export const Comment = ({
   isReply,
   wasScrolledTo,
   isMuted,
-  toggleMuteStatus
+  toggleMuteStatus,
 }: Props) => {
   const commentControlsButtonStyles = commentControlsButton(pillar);
+  const commentControlsLinkStyles = commentControlsLink(pillar);
   const [isHighlighted, setIsHighlighted] = useState<boolean>(
     comment.isHighlighted
   );
   const [error, setError] = useState<string>();
+
+  const [showAbuseReportForm, setAbuseReportForm] = useState(false);
+  const toggleSetShowForm = () => setAbuseReportForm(!showAbuseReportForm);
 
   const pick = async () => {
     setError("");
@@ -253,7 +266,7 @@ export const Comment = ({
   };
 
   const showStaffbadge = comment.userProfile.badge.find(
-    obj => obj["name"] === "Staff"
+    (obj) => obj["name"] === "Staff"
   );
 
   const showPickBadge = comment.status !== "blocked" && isHighlighted;
@@ -314,7 +327,7 @@ export const Comment = ({
                       <Link
                         href={joinUrl([
                           "https://profile.theguardian.com/user",
-                          comment.userProfile.userId
+                          comment.userProfile.userId,
                         ])}
                         subdued={true}
                       >
@@ -327,10 +340,10 @@ export const Comment = ({
                         // Remove the discussion-api path from the baseUrl
                         baseUrl
                           .split("/")
-                          .filter(path => path !== "discussion-api")
+                          .filter((path) => path !== "discussion-api")
                           .join("/"),
                         "comment-permalink",
-                        comment.id.toString()
+                        comment.id.toString(),
                       ])}
                     />
                   </Column>
@@ -344,7 +357,7 @@ export const Comment = ({
                     <Link
                       href={joinUrl([
                         "https://profile.theguardian.com/user",
-                        comment.userProfile.userId
+                        comment.userProfile.userId,
                       ])}
                       subdued={true}
                     >
@@ -383,10 +396,10 @@ export const Comment = ({
                         // Remove the discussion-api path from the baseUrl
                         baseUrl
                           .split("/")
-                          .filter(path => path !== "discussion-api")
+                          .filter((path) => path !== "discussion-api")
                           .join("/"),
                         "comment-permalink",
-                        comment.id.toString()
+                        comment.id.toString(),
                       ])}
                     />
                   </div>
@@ -482,8 +495,8 @@ export const Comment = ({
                         <button
                           onClick={() => setCommentBeingRepliedTo(comment)}
                           className={cx(
-                            commentControlsButtonStyles,
-                            removePaddingLeft
+                            removePaddingLeft,
+                            commentControlsButtonStyles
                           )}
                         >
                           <Row>
@@ -494,22 +507,24 @@ export const Comment = ({
                           </Row>
                         </button>
                       ) : (
-                        <Row>
-                          <ReplyArrow />
-                          <a
-                            className={linkStyles(pillar)}
-                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                          >
-                            Reply
-                          </a>
-                        </Row>
+                        <Link
+                          href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                          subdued={true}
+                        >
+                          <Row>
+                            <>
+                              <ReplyArrow />
+                              Reply
+                            </>
+                          </Row>
+                        </Link>
                       )}
                     </>
                   )}
                   <button className={commentControlsButtonStyles}>Share</button>
                   {/* Only staff can pick, and they cannot pick thier own comment */}
                   {user &&
-                    user.badge.some(e => e.name === "Staff") &&
+                    user.badge.some((e) => e.name === "Staff") &&
                     user.userId !== comment.userProfile.userId && (
                       <button
                         onClick={isHighlighted ? unPick : pick}
@@ -530,13 +545,34 @@ export const Comment = ({
                           toggleMuteStatus(comment.userProfile.userId)
                         }
                       >
-                        <span className={muteStyles}>Mute</span>
+                        <span className={muteReportTextStyles}>Mute</span>
                       </Button>
                     </div>
                   ) : (
                     <></>
                   )}
-                  <AbuseReportForm commentId={comment.id} pillar={pillar} />
+                  <div className={buttonHeightOverrides}>
+                    <Button
+                      priority="tertiary"
+                      size="small"
+                      onClick={toggleSetShowForm}
+                    >
+                      <span className={muteReportTextStyles}>Report</span>
+                    </Button>
+                  </div>
+                  {showAbuseReportForm && (
+                    <div
+                      className={css`
+                        position: relative;
+                      `}
+                    >
+                      <AbuseReportForm
+                        toggleSetShowForm={toggleSetShowForm}
+                        pillar={pillar}
+                        commentId={comment.id}
+                      />
+                    </div>
+                  )}
                 </Row>
               </div>
             </>

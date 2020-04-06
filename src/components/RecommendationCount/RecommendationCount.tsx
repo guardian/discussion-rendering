@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { css } from "emotion";
 
 import { textSans } from "@guardian/src-foundations/typography";
-import { palette } from "@guardian/src-foundations";
+import { neutral } from "@guardian/src-foundations/palette";
+import { brand } from "@guardian/src-foundations";
 
 import { Row } from "../Row/Row";
 
@@ -18,12 +19,12 @@ type Props = {
 const countStyles = css`
   ${textSans.xsmall({ fontWeight: "light" })}
   min-width: 0.75rem;
-  color: ${palette.neutral[46]};
+  color: ${neutral[46]};
   margin-right: 0.3125rem;
 `;
 
 const ArrowUp = () => (
-  <svg height="14" width="15">
+  <svg height="14" width="13">
     <path d="M.5 7l5.25-4.5V14h1.5V2.5L12.5 7l.5-1-5.75-6h-1.5L0 6l.5 1z"></path>
   </svg>
 );
@@ -32,16 +33,16 @@ const buttonStyles = (recommended: boolean, isSignedIn: boolean) => css`
   cursor: ${recommended || !isSignedIn ? "default" : "pointer"};
   width: 1.1875rem;
   height: 1.1875rem;
-  background-color: ${recommended ? "#00b2ff" : "#f6f6f6"};
+  background-color: ${recommended ? brand[400] : neutral[97]};
   border-radius: 62.5rem;
   border: none;
 `;
 
 const arrowStyles = (recommended: Boolean) => css`
-  margin-left: -5px;
+  margin-left: -4px;
   margin-bottom: -2px;
   svg {
-    fill: ${recommended ? palette.neutral[100] : palette.neutral[46]};
+    fill: ${recommended ? neutral[100] : neutral[46]};
   }
 `;
 

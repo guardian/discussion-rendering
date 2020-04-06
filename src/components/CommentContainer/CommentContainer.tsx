@@ -202,7 +202,6 @@ export const CommentContainer = ({
             <div className={nestingStyles}>
               <CommentReplyPreview
                 commentBeingRepliedTo={commentBeingRepliedTo}
-                pillar={pillar}
               />
               <CommentForm
                 shortUrl={shortUrl}

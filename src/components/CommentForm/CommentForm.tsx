@@ -121,7 +121,7 @@ const linkStyles = css`
 `;
 
 const wrapperHeaderTextStyles = css`
-  background-color: #f6f6f6;
+  background-color: ${neutral[97]};
   padding: 8px 10px 10px 8px;
   width: 100%;
   margin-top: 8px;
@@ -133,7 +133,7 @@ const commentAddOns = css`
   font-size: 13px;
   line-height: 17px;
   border: 1px solid ${palette.neutral[100]};
-  color: #767676;
+  color: ${neutral[46]};
   text-align: center;
   cursor: pointer;
   margin-left: 4px;
