@@ -137,6 +137,10 @@ const colourStyles = (pillar: Pillar) => css`
   a {
     color: ${palette[pillar][400]};
     text-decoration-color: ${palette[pillar][400]};
+    :hover {
+      color: ${palette[pillar][400]};
+      text-decoration-color: ${palette[pillar][400]};
+    }
   }
 `;
 
