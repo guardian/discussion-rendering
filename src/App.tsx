@@ -14,7 +14,7 @@ import {
   AdditionalHeadersType,
   PageSizeType,
   OrderByType,
-  Pillar
+  Pillar,
 } from "./types";
 import { getDiscussion, getPicks, initialiseApi } from "./lib/api";
 import { CommentContainer } from "./components/CommentContainer/CommentContainer";
@@ -23,6 +23,7 @@ import { CommentForm } from "./components/CommentForm/CommentForm";
 import { Filters } from "./components/Filters/Filters";
 import { Pagination } from "./components/Pagination/Pagination";
 import { LoadingComments } from "./components/LoadingComments/LoadingComments";
+import { Column } from "./components/Column/Column";
 
 type Props = {
   shortUrl: string;
@@ -37,11 +38,6 @@ type Props = {
   additionalHeaders: AdditionalHeadersType;
   expanded: boolean;
 };
-
-const containerStyles = css`
-  display: flex;
-  flex-direction: column;
-`;
 
 const footerStyles = css`
   display: flex;
@@ -71,7 +67,7 @@ const viewMoreButtonContentStyles = css`
 const DEFAULT_FILTERS: FilterOptions = {
   orderBy: "newest",
   pageSize: 25,
-  threads: "collapsed"
+  threads: "collapsed",
 };
 
 const PlusSVG = () => (
@@ -103,7 +99,7 @@ const rememberFilters = (filtersToRemember: FilterOptions) => {
 const initialiseFilters = ({
   pageSizeOverride,
   orderByOverride,
-  permalinkBeingUsed
+  permalinkBeingUsed,
 }: {
   pageSizeOverride?: PageSizeType;
   orderByOverride?: OrderByType;
@@ -118,7 +114,7 @@ const initialiseFilters = ({
     threads:
       initialisedFilters.threads === "collapsed" && permalinkBeingUsed
         ? "expanded"
-        : initialisedFilters.threads
+        : initialisedFilters.threads,
   };
 };
 
@@ -140,7 +136,7 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
   return {
     orderBy: orderBy ? JSON.parse(orderBy).value : DEFAULT_FILTERS.orderBy,
     threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
-    pageSize: pageSize ? JSON.parse(pageSize).value : DEFAULT_FILTERS.pageSize
+    pageSize: pageSize ? JSON.parse(pageSize).value : DEFAULT_FILTERS.pageSize,
   };
 };
 
@@ -179,13 +175,13 @@ export const App = ({
   orderByOverride,
   user,
   additionalHeaders,
-  expanded
+  expanded,
 }: Props) => {
   const [filters, setFilters] = useState<FilterOptions>(
     initialiseFilters({
       pageSizeOverride,
       orderByOverride,
-      permalinkBeingUsed: !!commentToScrollTo
+      permalinkBeingUsed: !!commentToScrollTo,
     })
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
@@ -202,7 +198,7 @@ export const App = ({
 
   useEffect(() => {
     setLoading(true);
-    getDiscussion(shortUrl, { ...filters, page }).then(json => {
+    getDiscussion(shortUrl, { ...filters, page }).then((json) => {
       setLoading(false);
       if (json?.status !== "error") {
         setComments(json?.discussion?.comments);
@@ -222,11 +218,11 @@ export const App = ({
 
   // If these override props are updated we want to respect them
   useEffect(() => {
-    setFilters(oldFilters => {
+    setFilters((oldFilters) => {
       return {
         ...oldFilters,
         orderBy: orderByOverride ? orderByOverride : oldFilters.orderBy,
-        pageSize: pageSizeOverride ? pageSizeOverride : oldFilters.pageSize
+        pageSize: pageSizeOverride ? pageSizeOverride : oldFilters.pageSize,
       };
     });
   }, [pageSizeOverride, orderByOverride]);
@@ -277,7 +273,7 @@ export const App = ({
     let updatedMutes;
     if (mutes.includes(userId)) {
       // Already muted, unmute them
-      updatedMutes = mutes.filter(id => id !== userId);
+      updatedMutes = mutes.filter((id) => id !== userId);
     } else {
       // Add this user to our list of mutes
       updatedMutes = [...mutes, userId];
@@ -327,7 +323,7 @@ export const App = ({
               <p>TODO: No comment component goes here</p>
             ) : (
               <ul className={commentContainerStyles}>
-                {comments.slice(0, 2).map(comment => (
+                {comments.slice(0, 2).map((comment) => (
                   <li key={comment.id}>
                     <CommentContainer
                       baseUrl={baseUrl}
@@ -372,67 +368,30 @@ export const App = ({
   }
 
   return (
-    <div className={containerStyles}>
-      {user && !isClosedForComments && (
-        <CommentForm
-          shortUrl={shortUrl}
-          onAddComment={onAddComment}
-          user={user}
-        />
-      )}
-      {!!picks.length && (
-        <TopPicks
-          baseUrl={baseUrl}
-          pillar={pillar}
-          comments={picks}
-          isSignedIn={!!user}
-        />
-      )}
-      <Filters
-        filters={filters}
-        onFilterChange={onFilterChange}
-        totalPages={totalPages}
-        commentCount={commentCount}
-      />
-      {showPagination && (
-        <Pagination
-          totalPages={totalPages}
-          currentPage={page}
-          setCurrentPage={(newPage: number) => {
-            onPageChange(newPage);
-          }}
-          commentCount={commentCount}
+    <Column>
+      <>
+        {user && !isClosedForComments && (
+          <CommentForm
+            shortUrl={shortUrl}
+            onAddComment={onAddComment}
+            user={user}
+          />
+        )}
+        {!!picks.length && (
+          <TopPicks
+            baseUrl={baseUrl}
+            pillar={pillar}
+            comments={picks}
+            isSignedIn={!!user}
+          />
+        )}
+        <Filters
           filters={filters}
+          onFilterChange={onFilterChange}
+          totalPages={totalPages}
+          commentCount={commentCount}
         />
-      )}
-      {loading ? (
-        <LoadingComments />
-      ) : !comments.length ? (
-        <p>TODO: No comment component goes here</p>
-      ) : (
-        <ul className={commentContainerStyles}>
-          {comments.map(comment => (
-            <li key={comment.id}>
-              <CommentContainer
-                baseUrl={baseUrl}
-                comment={comment}
-                pillar={pillar}
-                isClosedForComments={isClosedForComments}
-                shortUrl={shortUrl}
-                user={user}
-                threads={filters.threads}
-                commentBeingRepliedTo={commentBeingRepliedTo}
-                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-                commentToScrollTo={commentToScrollTo}
-                mutes={mutes}
-                toggleMuteStatus={toggleMuteStatus}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
-      {showPagination && (
-        <footer className={footerStyles}>
+        {showPagination && (
           <Pagination
             totalPages={totalPages}
             currentPage={page}
@@ -442,8 +401,47 @@ export const App = ({
             commentCount={commentCount}
             filters={filters}
           />
-        </footer>
-      )}
-    </div>
+        )}
+        {loading ? (
+          <LoadingComments />
+        ) : !comments.length ? (
+          <p>TODO: No comment component goes here</p>
+        ) : (
+          <ul className={commentContainerStyles}>
+            {comments.map((comment) => (
+              <li key={comment.id}>
+                <CommentContainer
+                  baseUrl={baseUrl}
+                  comment={comment}
+                  pillar={pillar}
+                  isClosedForComments={isClosedForComments}
+                  shortUrl={shortUrl}
+                  user={user}
+                  threads={filters.threads}
+                  commentBeingRepliedTo={commentBeingRepliedTo}
+                  setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+                  commentToScrollTo={commentToScrollTo}
+                  mutes={mutes}
+                  toggleMuteStatus={toggleMuteStatus}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+        {showPagination && (
+          <footer className={footerStyles}>
+            <Pagination
+              totalPages={totalPages}
+              currentPage={page}
+              setCurrentPage={(newPage: number) => {
+                onPageChange(newPage);
+              }}
+              commentCount={commentCount}
+              filters={filters}
+            />
+          </footer>
+        )}
+      </>
+    </Column>
   );
 };

@@ -11,6 +11,7 @@ import { comment, reply, preview, addUserName } from "../../lib/api";
 import { CommentResponse, UserProfile, CommentType } from "../../types";
 
 import { FirstCommentWelcome } from "../FirstCommentWelcome/FirstCommentWelcome";
+import { Row } from "../Row/Row";
 
 type Props = {
   shortUrl: string;
@@ -142,11 +143,6 @@ const commentAddOns = css`
   list-style-type: none;
 `;
 
-const addOnsContainer = css`
-  display: flex;
-  flex-direction: row;
-`;
-
 const bottomContainer = css`
   width: 100%;
   display: flex;
@@ -162,7 +158,7 @@ export const CommentForm = ({
   onAddComment,
   user,
   setCommentBeingRepliedTo,
-  commentBeingRepliedTo
+  commentBeingRepliedTo,
 }: Props) => {
   const [isActive, setIsActive] = useState<boolean>(
     commentBeingRepliedTo ? true : false
@@ -358,7 +354,7 @@ export const CommentForm = ({
     <>
       <form
         className={formWrapper}
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           submitForm();
         }}
@@ -406,7 +402,7 @@ export const CommentForm = ({
           )}
           ref={textAreaRef}
           style={{ height: isActive ? "132px" : "50px" }}
-          onChange={e => {
+          onChange={(e) => {
             setBody(e.target.value || "");
           }}
           value={body}
@@ -433,9 +429,9 @@ export const CommentForm = ({
             )}
           </div>
           {isActive && (
-            <div className={addOnsContainer}>
+            <Row>
               <button
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   transformText(boldString);
                 }}
@@ -444,7 +440,7 @@ export const CommentForm = ({
                 B
               </button>
               <button
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   transformText(italicsString);
                 }}
@@ -453,7 +449,7 @@ export const CommentForm = ({
                 i
               </button>
               <button
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   transformText(quoteString);
                 }}
@@ -462,7 +458,7 @@ export const CommentForm = ({
                 "
               </button>
               <button
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   transformLink();
                 }}
@@ -470,7 +466,7 @@ export const CommentForm = ({
               >
                 Link
               </button>
-            </div>
+            </Row>
           )}
         </div>
       </form>
