@@ -17,7 +17,7 @@ type Props = {
 
 const buttonOverrides = (pillar?: Pillar) => css`
   button {
-    ${textSans.xsmall({ fontWeight: 'bold' })}
+    ${textSans.xsmall({ fontWeight: pillar ? 'bold' : 'regular' })}
     color: ${pillar ? palette[pillar][400] : neutral[46]};
     background-color: transparent;
     height: 18px;
