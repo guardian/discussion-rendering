@@ -6,7 +6,6 @@ import { from, until } from '@guardian/src-foundations/mq';
 import { neutral, border } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
-import { Button } from '@guardian/src-button';
 
 import { GuardianStaff, GuardianPick } from '../Badges/Badges';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
@@ -15,6 +14,7 @@ import { Timestamp } from '../Timestamp/Timestamp';
 import { Avatar } from '../Avatar/Avatar';
 import { Row } from '../Row/Row';
 import { Column } from '../Column/Column';
+import { ButtonLink } from '../ButtonLink/ButtonLink';
 
 import { Pillar, CommentType, UserProfile } from '../../types';
 import { pickComment, unPickComment } from '../../lib/api';
@@ -33,23 +33,8 @@ type Props = {
     toggleMuteStatus: (userId: string) => void;
 };
 
-const commentControls = css`
-    list-style: none;
-    ${textSans.xsmall()};
-    display: flex;
-    align-items: flex-start;
-`;
-
-const buttonOverrides = (pillar: Pillar) => css`
-  button {
-    ${textSans.xsmall({ fontWeight: 'bold' })}
-    color: ${palette[pillar][400]};
-    background-color: transparent;
-    :hover {
-      text-decoration: underline;
-      text-decoration-color: ${palette[pillar][400]};
-    }
-  }
+const shiftLeft = css`
+    margin-left: -${space[2]}px;
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
@@ -92,11 +77,7 @@ const commentCss = css`
 `;
 
 const blockedCommentStyles = css`
-    color: ${neutral[60]};
-    ${textSans.xsmall()}
-`;
-
-const blockedLinkStyles = css`
+    color: ${neutral[46]};
     ${textSans.xsmall()}
 `;
 
@@ -185,24 +166,6 @@ const timestampWrapperStyles = css`
     display: flex;
     flex-direction: column;
     justify-content: center;
-`;
-
-const flexRowStyles = css`
-    display: flex;
-    flex-direction: row;
-`;
-
-const muteReportTextStyles = css`
-    ${textSans.xsmall()};
-    color: ${neutral[46]};
-    margin-right: ${space[2]}px;
-`;
-
-const buttonHeightOverrides = css`
-    button {
-        height: 18px;
-        min-height: 18px;
-    }
 `;
 
 const hideBelowMobileLandscape = css`
@@ -498,25 +461,23 @@ export const Comment = ({
 
                     {/* MUTED */}
                     {isMuted && (
-                        <p
-                            className={cx(
-                                blockedCommentStyles,
-                                commentLinkStyling,
-                            )}
-                        >
-                            All posts from this user have been muted on this
-                            device.{' '}
-                            <Button
-                                size="small"
-                                priority="tertiary"
-                                onClick={() =>
-                                    toggleMuteStatus(comment.userProfile.userId)
-                                }
-                            >
-                                <span className={blockedLinkStyles}>
+                        <p className={blockedCommentStyles}>
+                            <Row>
+                                <>
+                                    All posts from this user have been muted on
+                                    this device.
+                                </>
+                                <Space amount={1} />
+                                <ButtonLink
+                                    onClick={() =>
+                                        toggleMuteStatus(
+                                            comment.userProfile.userId,
+                                        )
+                                    }
+                                >
                                     Unmute?
-                                </span>
-                            </Button>
+                                </ButtonLink>
+                            </Row>
                         </p>
                     )}
 
@@ -541,85 +502,71 @@ export const Comment = ({
                                 }}
                             />
                             <div className={spaceBetween}>
-                                <div className={commentControls}>
-                                    {/* When commenting is closed, no reply link shows at all */}
-                                    {!isClosedForComments && (
-                                        <>
-                                            {/* If user is not logged in we link to the login page */}
-                                            {user ? (
-                                                <div
-                                                    className={cx(
-                                                        buttonOverrides(pillar),
-                                                        buttonHeightOverrides,
-                                                        svgOverrides,
-                                                    )}
-                                                >
-                                                    <Button
-                                                        priority="tertiary"
-                                                        size="small"
-                                                        onClick={() =>
-                                                            setCommentBeingRepliedTo(
-                                                                comment,
-                                                            )
-                                                        }
-                                                        icon={<ReplyArrow />}
-                                                        iconSide="left"
+                                <div className={shiftLeft}>
+                                    <Row>
+                                        {/* When commenting is closed, no reply link shows at all */}
+                                        {!isClosedForComments && (
+                                            <>
+                                                {/* If user is not logged in we link to the login page */}
+                                                {user ? (
+                                                    <div
+                                                        className={svgOverrides}
                                                     >
-                                                        Reply
-                                                    </Button>
-                                                </div>
-                                            ) : (
-                                                <div
-                                                    className={cx(
-                                                        svgOverrides,
-                                                        commentControlsLink(
-                                                            pillar,
-                                                        ),
-                                                    )}
-                                                >
-                                                    <Link
-                                                        href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                                                        subdued={true}
-                                                        icon={<ReplyArrow />}
-                                                        iconSide="left"
+                                                        <ButtonLink
+                                                            pillar={pillar}
+                                                            onClick={() =>
+                                                                setCommentBeingRepliedTo(
+                                                                    comment,
+                                                                )
+                                                            }
+                                                            icon={
+                                                                <ReplyArrow />
+                                                            }
+                                                            iconSide="left"
+                                                        >
+                                                            Reply
+                                                        </ButtonLink>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className={cx(
+                                                            svgOverrides,
+                                                            commentControlsLink(
+                                                                pillar,
+                                                            ),
+                                                        )}
                                                     >
-                                                        <span>Reply</span>
-                                                    </Link>
-                                                </div>
-                                            )}
-                                            <Space amount={4} />
-                                        </>
-                                    )}
-                                    <div
-                                        className={cx(
-                                            buttonHeightOverrides,
-                                            buttonOverrides(pillar),
+                                                        <Link
+                                                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                                                            subdued={true}
+                                                            icon={
+                                                                <ReplyArrow />
+                                                            }
+                                                            iconSide="left"
+                                                        >
+                                                            <span>Reply</span>
+                                                        </Link>
+                                                    </div>
+                                                )}
+                                                <Space amount={4} />
+                                            </>
                                         )}
-                                    >
-                                        <Button
-                                            priority="tertiary"
-                                            size="small"
+                                        <ButtonLink
+                                            pillar={pillar}
+                                            onClick={() => {}}
                                         >
                                             Share
-                                        </Button>
-                                    </div>
-                                    <Space amount={4} />
-                                    {/* Only staff can pick, and they cannot pick thier own comment */}
-                                    {user &&
-                                        user.badge.some(
-                                            e => e.name === 'Staff',
-                                        ) &&
-                                        user.userId !==
-                                            comment.userProfile.userId && (
-                                            <div
-                                                className={cx(
-                                                    buttonHeightOverrides,
-                                                    buttonOverrides(pillar),
-                                                )}
-                                            >
-                                                <Button
-                                                    priority="tertiary"
-                                                    size="small"
+                                        </ButtonLink>
+                                        <Space amount={4} />
+                                        {/* Only staff can pick, and they cannot pick thier own comment */}
+                                        {user &&
+                                            user.badge.some(
+                                                e => e.name === 'Staff',
+                                            ) &&
+                                            user.userId !==
+                                                comment.userProfile.userId && (
+                                                <ButtonLink
+                                                    pillar={pillar}
                                                     onClick={
                                                         isHighlighted
                                                             ? unPick
@@ -629,51 +576,31 @@ export const Comment = ({
                                                     {isHighlighted
                                                         ? 'Unpick'
                                                         : 'Pick'}
-                                                </Button>
-                                            </div>
-                                        )}
+                                                </ButtonLink>
+                                            )}
+                                    </Row>
                                 </div>
                                 <Row>
                                     {/* You can't mute unless logged in and you can't yourself */}
                                     {user &&
                                     comment.userProfile.userId !==
                                         user.userId ? (
-                                        <div className={buttonHeightOverrides}>
-                                            <Button
-                                                priority="tertiary"
-                                                size="small"
-                                                onClick={() =>
-                                                    toggleMuteStatus(
-                                                        comment.userProfile
-                                                            .userId,
-                                                    )
-                                                }
-                                            >
-                                                <span
-                                                    className={
-                                                        muteReportTextStyles
-                                                    }
-                                                >
-                                                    Mute
-                                                </span>
-                                            </Button>
-                                        </div>
+                                        <ButtonLink
+                                            onClick={() =>
+                                                toggleMuteStatus(
+                                                    comment.userProfile.userId,
+                                                )
+                                            }
+                                        >
+                                            Mute
+                                        </ButtonLink>
                                     ) : (
                                         <></>
                                     )}
-                                    <div className={buttonHeightOverrides}>
-                                        <Button
-                                            priority="tertiary"
-                                            size="small"
-                                            onClick={toggleSetShowForm}
-                                        >
-                                            <span
-                                                className={muteReportTextStyles}
-                                            >
-                                                Report
-                                            </span>
-                                        </Button>
-                                    </div>
+                                    <Space amount={4} />
+                                    <ButtonLink onClick={toggleSetShowForm}>
+                                        Report
+                                    </ButtonLink>
                                     {showAbuseReportForm && (
                                         <div
                                             className={css`
