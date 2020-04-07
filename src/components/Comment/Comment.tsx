@@ -187,11 +187,6 @@ const timestampWrapperStyles = css`
     justify-content: center;
 `;
 
-const flexRowStyles = css`
-    display: flex;
-    flex-direction: row;
-`;
-
 const muteReportTextStyles = css`
     ${textSans.xsmall()};
     color: ${neutral[46]};
