@@ -1,7 +1,7 @@
-import React from "react";
-import { LoadingPicks } from "./LoadingPicks";
+import React from 'react';
+import { LoadingPicks } from './LoadingPicks';
 
-export default { component: LoadingPicks, title: "LoadingPicks" };
+export default { component: LoadingPicks, title: 'LoadingPicks' };
 
 export const Default = () => <LoadingPicks />;
-Default.story = { name: "default" };
+Default.story = { name: 'default' };

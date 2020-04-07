@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import { CommentReplyPreview, Preview } from "./CommentReplyPreview";
-import { CommentType } from "../../types";
-import { css } from "emotion";
+import { CommentReplyPreview, Preview } from './CommentReplyPreview';
+import { CommentType } from '../../types';
+import { css } from 'emotion';
 
-export default { title: "CommentReplyPreview" };
+export default { title: 'CommentReplyPreview' };
 
 const singleLineParagraph =
-  "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>";
+    '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>';
 
 const singleBlockParagraph =
-  "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec ullamcorper ante. Nunc vitae quam eros. Donec velit turpis, posuere ut cursus sed, tristique non libero. Donec molestie metus nunc, dapibus ultrices est luctus id. Fusce fringilla metus posuere imperdiet lobortis. Proin ut egestas lorem. Etiam scelerisque dolor felis, ac fermentum ex accumsan id. Ut dignissim et orci vel lobortis. Phasellus feugiat dictum varius. Praesent eu dui ante. Duis in tempor libero, et consectetur lacus. Nunc venenatis libero nec aliquam vulputate. Etiam volutpat accumsan enim ut mollis.</p>";
+    '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec ullamcorper ante. Nunc vitae quam eros. Donec velit turpis, posuere ut cursus sed, tristique non libero. Donec molestie metus nunc, dapibus ultrices est luctus id. Fusce fringilla metus posuere imperdiet lobortis. Proin ut egestas lorem. Etiam scelerisque dolor felis, ac fermentum ex accumsan id. Ut dignissim et orci vel lobortis. Phasellus feugiat dictum varius. Praesent eu dui ante. Duis in tempor libero, et consectetur lacus. Nunc venenatis libero nec aliquam vulputate. Etiam volutpat accumsan enim ut mollis.</p>';
 
 const multiLBlockParagraph = `
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec ullamcorper ante. Nunc vitae quam eros. Donec velit turpis, posuere ut cursus sed, tristique non libero. Donec molestie metus nunc, dapibus ultrices est luctus id. Fusce fringilla metus posuere imperdiet lobortis. Proin ut egestas lorem. Etiam scelerisque dolor felis, ac fermentum ex accumsan id. Ut dignissim et orci vel lobortis. Phasellus feugiat dictum varius. Praesent eu dui ante. Duis in tempor libero, et consectetur lacus. Nunc venenatis libero nec aliquam vulputate. Etiam volutpat accumsan enim ut mollis.</p>
@@ -19,82 +19,83 @@ const multiLBlockParagraph = `
 `;
 
 const commentBeingRepliedTo: CommentType = {
-  id: 25487686,
-  body: multiLBlockParagraph,
-  date: "26 July 2013 4:13pm",
-  isoDateTime: "2013-07-26T15:13:20Z",
-  status: "visible",
-  webUrl: "https://discussion.theguardian.com/comment-permalink/25487686",
-  apiUrl: "https://discussion.guardianapis.com/discussion-api/comment/25487686",
-  numRecommends: 0,
-  isHighlighted: false,
-  userProfile: {
-    userId: "2762428",
-    displayName: "FrankDeFord",
-    webUrl: "https://profile.theguardian.com/user/id/2762428",
+    id: 25487686,
+    body: multiLBlockParagraph,
+    date: '26 July 2013 4:13pm',
+    isoDateTime: '2013-07-26T15:13:20Z',
+    status: 'visible',
+    webUrl: 'https://discussion.theguardian.com/comment-permalink/25487686',
     apiUrl:
-      "https://discussion.guardianapis.com/discussion-api/profile/2762428",
-    avatar: "https://avatar.guim.co.uk/user/2762428",
-    secureAvatarUrl: "https://avatar.guim.co.uk/user/2762428",
-    badge: []
-  },
-  responses: [],
-  metaData: {
-    commentCount: 2,
-    staffCommenterCount: 1,
-    editorsPickCount: 0,
-    blockedCount: 0,
-    responseCount: 1
-  }
+        'https://discussion.guardianapis.com/discussion-api/comment/25487686',
+    numRecommends: 0,
+    isHighlighted: false,
+    userProfile: {
+        userId: '2762428',
+        displayName: 'FrankDeFord',
+        webUrl: 'https://profile.theguardian.com/user/id/2762428',
+        apiUrl:
+            'https://discussion.guardianapis.com/discussion-api/profile/2762428',
+        avatar: 'https://avatar.guim.co.uk/user/2762428',
+        secureAvatarUrl: 'https://avatar.guim.co.uk/user/2762428',
+        badge: [],
+    },
+    responses: [],
+    metaData: {
+        commentCount: 2,
+        staffCommenterCount: 1,
+        editorsPickCount: 0,
+        blockedCount: 0,
+        responseCount: 1,
+    },
 };
 
 const padding = css`
-  padding: 15px;
+    padding: 15px;
 `;
 
 export const Default = () => (
-  <CommentReplyPreview commentBeingRepliedTo={commentBeingRepliedTo} />
+    <CommentReplyPreview commentBeingRepliedTo={commentBeingRepliedTo} />
 );
-Default.story = { name: "default" };
+Default.story = { name: 'default' };
 
 export const SingleLinePreview = () => (
-  <div className={padding}>
-    <Preview
-      commentBeingRepliedTo={{
-        ...commentBeingRepliedTo,
-        body: singleLineParagraph
-      }}
-      setDisplayReplyComment={() => {}}
-      displayReplyComment={true}
-    />
-  </div>
+    <div className={padding}>
+        <Preview
+            commentBeingRepliedTo={{
+                ...commentBeingRepliedTo,
+                body: singleLineParagraph,
+            }}
+            setDisplayReplyComment={() => {}}
+            displayReplyComment={true}
+        />
+    </div>
 );
-SingleLinePreview.story = { name: "Single line" };
+SingleLinePreview.story = { name: 'Single line' };
 
 export const SingleBlockPreview = () => (
-  <div className={padding}>
-    <Preview
-      commentBeingRepliedTo={{
-        ...commentBeingRepliedTo,
-        body: singleBlockParagraph
-      }}
-      setDisplayReplyComment={() => {}}
-      displayReplyComment={true}
-    />
-  </div>
+    <div className={padding}>
+        <Preview
+            commentBeingRepliedTo={{
+                ...commentBeingRepliedTo,
+                body: singleBlockParagraph,
+            }}
+            setDisplayReplyComment={() => {}}
+            displayReplyComment={true}
+        />
+    </div>
 );
-SingleBlockPreview.story = { name: "Single Block" };
+SingleBlockPreview.story = { name: 'Single Block' };
 
 export const MultiBlockPreview = () => (
-  <div className={padding}>
-    <Preview
-      commentBeingRepliedTo={{
-        ...commentBeingRepliedTo,
-        body: multiLBlockParagraph
-      }}
-      setDisplayReplyComment={() => {}}
-      displayReplyComment={true}
-    />
-  </div>
+    <div className={padding}>
+        <Preview
+            commentBeingRepliedTo={{
+                ...commentBeingRepliedTo,
+                body: multiLBlockParagraph,
+            }}
+            setDisplayReplyComment={() => {}}
+            displayReplyComment={true}
+        />
+    </div>
 );
-MultiBlockPreview.story = { name: "Multi Block" };
+MultiBlockPreview.story = { name: 'Multi Block' };
