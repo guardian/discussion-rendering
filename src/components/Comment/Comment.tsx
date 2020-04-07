@@ -34,7 +34,7 @@ type Props = {
 };
 
 const shiftLeft = css`
-    margin-left: ${space[2]}px;
+    margin-left: -${space[2]}px;
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
