@@ -33,11 +33,8 @@ type Props = {
     toggleMuteStatus: (userId: string) => void;
 };
 
-const commentControls = css`
-    list-style: none;
-    ${textSans.xsmall()};
-    display: flex;
-    align-items: flex-start;
+const shiftLeft = css`
+    margin-left: ${space[2]}px;
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
@@ -505,75 +502,83 @@ export const Comment = ({
                                 }}
                             />
                             <div className={spaceBetween}>
-                                <div className={commentControls}>
-                                    {/* When commenting is closed, no reply link shows at all */}
-                                    {!isClosedForComments && (
-                                        <>
-                                            {/* If user is not logged in we link to the login page */}
-                                            {user ? (
-                                                <div className={svgOverrides}>
-                                                    <ButtonLink
-                                                        pillar={pillar}
-                                                        onClick={() =>
-                                                            setCommentBeingRepliedTo(
-                                                                comment,
-                                                            )
-                                                        }
-                                                        icon={<ReplyArrow />}
-                                                        iconSide="left"
+                                <div className={shiftLeft}>
+                                    <Row>
+                                        {/* When commenting is closed, no reply link shows at all */}
+                                        {!isClosedForComments && (
+                                            <>
+                                                {/* If user is not logged in we link to the login page */}
+                                                {user ? (
+                                                    <div
+                                                        className={svgOverrides}
                                                     >
-                                                        Reply
-                                                    </ButtonLink>
-                                                </div>
-                                            ) : (
-                                                <div
-                                                    className={cx(
-                                                        svgOverrides,
-                                                        commentControlsLink(
-                                                            pillar,
-                                                        ),
-                                                    )}
-                                                >
-                                                    <Link
-                                                        href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                                                        subdued={true}
-                                                        icon={<ReplyArrow />}
-                                                        iconSide="left"
+                                                        <ButtonLink
+                                                            pillar={pillar}
+                                                            onClick={() =>
+                                                                setCommentBeingRepliedTo(
+                                                                    comment,
+                                                                )
+                                                            }
+                                                            icon={
+                                                                <ReplyArrow />
+                                                            }
+                                                            iconSide="left"
+                                                        >
+                                                            Reply
+                                                        </ButtonLink>
+                                                    </div>
+                                                ) : (
+                                                    <div
+                                                        className={cx(
+                                                            svgOverrides,
+                                                            commentControlsLink(
+                                                                pillar,
+                                                            ),
+                                                        )}
                                                     >
-                                                        <span>Reply</span>
-                                                    </Link>
-                                                </div>
-                                            )}
-                                            <Space amount={4} />
-                                        </>
-                                    )}
-                                    <ButtonLink
-                                        pillar={pillar}
-                                        onClick={() => {}}
-                                    >
-                                        Share
-                                    </ButtonLink>
-                                    <Space amount={4} />
-                                    {/* Only staff can pick, and they cannot pick thier own comment */}
-                                    {user &&
-                                        user.badge.some(
-                                            e => e.name === 'Staff',
-                                        ) &&
-                                        user.userId !==
-                                            comment.userProfile.userId && (
-                                            <ButtonLink
-                                                pillar={pillar}
-                                                onClick={
-                                                    isHighlighted
-                                                        ? unPick
-                                                        : pick
-                                                }
-                                            >
-                                                {isHighlighted
-                                                    ? 'Unpick'
-                                                    : 'Pick'}
-                                            </ButtonLink>
+                                                        <Link
+                                                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                                                            subdued={true}
+                                                            icon={
+                                                                <ReplyArrow />
+                                                            }
+                                                            iconSide="left"
+                                                        >
+                                                            <span>Reply</span>
+                                                        </Link>
+                                                    </div>
+                                                )}
+                                                <Space amount={4} />
+                                            </>
                                         )}
+                                        <ButtonLink
+                                            pillar={pillar}
+                                            onClick={() => {}}
+                                        >
+                                            Share
+                                        </ButtonLink>
+                                        <Space amount={4} />
+                                        {/* Only staff can pick, and they cannot pick thier own comment */}
+                                        {user &&
+                                            user.badge.some(
+                                                e => e.name === 'Staff',
+                                            ) &&
+                                            user.userId !==
+                                                comment.userProfile.userId && (
+                                                <ButtonLink
+                                                    pillar={pillar}
+                                                    onClick={
+                                                        isHighlighted
+                                                            ? unPick
+                                                            : pick
+                                                    }
+                                                >
+                                                    {isHighlighted
+                                                        ? 'Unpick'
+                                                        : 'Pick'}
+                                                </ButtonLink>
+                                            )}
+                                    </Row>
                                 </div>
                                 <Row>
                                     {/* You can't mute unless logged in and you can't yourself */}
