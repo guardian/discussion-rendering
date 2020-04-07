@@ -40,17 +40,16 @@ const commentControls = css`
   align-items: flex-start;
 `;
 
-const commentControlsButton = (pillar: Pillar) => css`
-  ${textSans.xsmall({ fontWeight: "bold" })}
-  margin-right: ${space[2]}px;
-  color: ${palette[pillar][400]};
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  :hover {
-    text-decoration: underline
+const buttonOverrides = (pillar: Pillar) => css`
+  button {
+    ${textSans.xsmall({ fontWeight: "bold" })}
+    color: ${palette[pillar][400]};
+    background-color: transparent;
+    :hover {
+      text-decoration: underline;
+      text-decoration-color: ${palette[pillar][400]};
+    }
   }
-  padding-top: 0px; /* In order to remove variations between <button> and <a> tags */
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
@@ -173,10 +172,6 @@ const flexRowStyles = css`
   flex-direction: row;
 `;
 
-const removePaddingLeft = css`
-  padding-left: 0px;
-`;
-
 const muteReportTextStyles = css`
   ${textSans.xsmall()};
   color: ${neutral[46]};
@@ -219,6 +214,14 @@ const ReplyArrow = () => (
   </svg>
 );
 
+const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
+  <div
+    className={css`
+      width: ${space[amount]}px;
+    `}
+  />
+);
+
 export const Comment = ({
   baseUrl,
   comment,
@@ -231,7 +234,6 @@ export const Comment = ({
   isMuted,
   toggleMuteStatus
 }: Props) => {
-  const commentControlsButtonStyles = commentControlsButton(pillar);
   const commentControlsLinkStyles = commentControlsLink(pillar);
   const [isHighlighted, setIsHighlighted] = useState<boolean>(
     comment.isHighlighted
@@ -488,46 +490,78 @@ export const Comment = ({
                     <>
                       {/* If user is not logged in we link to the login page */}
                       {user ? (
-                        <button
-                          onClick={() => setCommentBeingRepliedTo(comment)}
+                        <div
                           className={cx(
-                            flexRowStyles,
-                            removePaddingLeft,
-                            commentControlsButtonStyles
+                            buttonOverrides(pillar),
+                            buttonHeightOverrides,
+                            svgOverrides
                           )}
                         >
-                          <ReplyArrow />
-                          Reply
-                        </button>
-                      ) : (
-                        <Link
-                          href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
-                          subdued={true}
-                        >
-                          <div
-                            className={cx(
-                              flexRowStyles,
-                              commentControlsLinkStyles
-                            )}
+                          <Button
+                            priority="tertiary"
+                            size="small"
+                            onClick={() => setCommentBeingRepliedTo(comment)}
+                            icon={<ReplyArrow />}
+                            iconSide="left"
                           >
-                            <ReplyArrow />
                             Reply
-                          </div>
-                        </Link>
+                          </Button>
+                        </div>
+                      ) : (
+                        <div
+                          className={cx(
+                            svgOverrides,
+                            commentControlsLink(pillar)
+                          )}
+                        >
+                          <Link
+                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                            subdued={true}
+                          >
+                            <div
+                              className={cx(
+                                flexRowStyles,
+                                commentControlsLinkStyles
+                              )}
+                            >
+                              <ReplyArrow />
+                              Reply
+                            </div>
+                          </Link>
+                        </div>
                       )}
+                      <Space amount={4} />
                     </>
                   )}
-                  <button className={commentControlsButtonStyles}>Share</button>
+                  <div
+                    className={cx(
+                      buttonHeightOverrides,
+                      buttonOverrides(pillar)
+                    )}
+                  >
+                    <Button priority="tertiary" size="small">
+                      Share
+                    </Button>
+                  </div>
+                  <Space amount={4} />
                   {/* Only staff can pick, and they cannot pick thier own comment */}
                   {user &&
                     user.badge.some(e => e.name === "Staff") &&
                     user.userId !== comment.userProfile.userId && (
-                      <button
-                        onClick={isHighlighted ? unPick : pick}
-                        className={commentControlsButtonStyles}
+                      <div
+                        className={cx(
+                          buttonHeightOverrides,
+                          buttonOverrides(pillar)
+                        )}
                       >
-                        {isHighlighted ? "Unpick" : "Pick"}
-                      </button>
+                        <Button
+                          priority="tertiary"
+                          size="small"
+                          onClick={isHighlighted ? unPick : pick}
+                        >
+                          {isHighlighted ? "Unpick" : "Pick"}
+                        </Button>
+                      </div>
                     )}
                 </div>
                 <Row>
