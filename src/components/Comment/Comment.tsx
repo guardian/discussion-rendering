@@ -6,7 +6,6 @@ import { from, until } from '@guardian/src-foundations/mq';
 import { neutral, border } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
-import { Button } from '@guardian/src-button';
 
 import { GuardianStaff, GuardianPick } from '../Badges/Badges';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
@@ -15,6 +14,7 @@ import { Timestamp } from '../Timestamp/Timestamp';
 import { Avatar } from '../Avatar/Avatar';
 import { Row } from '../Row/Row';
 import { Column } from '../Column/Column';
+import { ButtonLink } from '../ButtonLink/ButtonLink';
 
 import { Pillar, CommentType, UserProfile } from '../../types';
 import { pickComment, unPickComment } from '../../lib/api';
@@ -38,18 +38,6 @@ const commentControls = css`
     ${textSans.xsmall()};
     display: flex;
     align-items: flex-start;
-`;
-
-const buttonOverrides = (pillar: Pillar) => css`
-  button {
-    ${textSans.xsmall({ fontWeight: 'bold' })}
-    color: ${palette[pillar][400]};
-    background-color: transparent;
-    :hover {
-      text-decoration: underline;
-      text-decoration-color: ${palette[pillar][400]};
-    }
-  }
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
@@ -92,11 +80,7 @@ const commentCss = css`
 `;
 
 const blockedCommentStyles = css`
-    color: ${neutral[60]};
-    ${textSans.xsmall()}
-`;
-
-const blockedLinkStyles = css`
+    color: ${neutral[46]};
     ${textSans.xsmall()}
 `;
 
@@ -185,19 +169,6 @@ const timestampWrapperStyles = css`
     display: flex;
     flex-direction: column;
     justify-content: center;
-`;
-
-const muteReportTextStyles = css`
-    ${textSans.xsmall()};
-    color: ${neutral[46]};
-    margin-right: ${space[2]}px;
-`;
-
-const buttonHeightOverrides = css`
-    button {
-        height: 18px;
-        min-height: 18px;
-    }
 `;
 
 const hideBelowMobileLandscape = css`
@@ -493,25 +464,23 @@ export const Comment = ({
 
                     {/* MUTED */}
                     {isMuted && (
-                        <p
-                            className={cx(
-                                blockedCommentStyles,
-                                commentLinkStyling,
-                            )}
-                        >
-                            All posts from this user have been muted on this
-                            device.{' '}
-                            <Button
-                                size="small"
-                                priority="tertiary"
-                                onClick={() =>
-                                    toggleMuteStatus(comment.userProfile.userId)
-                                }
-                            >
-                                <span className={blockedLinkStyles}>
+                        <p className={blockedCommentStyles}>
+                            <Row>
+                                <>
+                                    All posts from this user have been muted on
+                                    this device.
+                                </>
+                                <Space amount={1} />
+                                <ButtonLink
+                                    onClick={() =>
+                                        toggleMuteStatus(
+                                            comment.userProfile.userId,
+                                        )
+                                    }
+                                >
                                     Unmute?
-                                </span>
-                            </Button>
+                                </ButtonLink>
+                            </Row>
                         </p>
                     )}
 
@@ -542,16 +511,9 @@ export const Comment = ({
                                         <>
                                             {/* If user is not logged in we link to the login page */}
                                             {user ? (
-                                                <div
-                                                    className={cx(
-                                                        buttonOverrides(pillar),
-                                                        buttonHeightOverrides,
-                                                        svgOverrides,
-                                                    )}
-                                                >
-                                                    <Button
-                                                        priority="tertiary"
-                                                        size="small"
+                                                <div className={svgOverrides}>
+                                                    <ButtonLink
+                                                        pillar={pillar}
                                                         onClick={() =>
                                                             setCommentBeingRepliedTo(
                                                                 comment,
@@ -561,7 +523,7 @@ export const Comment = ({
                                                         iconSide="left"
                                                     >
                                                         Reply
-                                                    </Button>
+                                                    </ButtonLink>
                                                 </div>
                                             ) : (
                                                 <div
@@ -585,19 +547,12 @@ export const Comment = ({
                                             <Space amount={4} />
                                         </>
                                     )}
-                                    <div
-                                        className={cx(
-                                            buttonHeightOverrides,
-                                            buttonOverrides(pillar),
-                                        )}
+                                    <ButtonLink
+                                        pillar={pillar}
+                                        onClick={() => {}}
                                     >
-                                        <Button
-                                            priority="tertiary"
-                                            size="small"
-                                        >
-                                            Share
-                                        </Button>
-                                    </div>
+                                        Share
+                                    </ButtonLink>
                                     <Space amount={4} />
                                     {/* Only staff can pick, and they cannot pick thier own comment */}
                                     {user &&
@@ -606,26 +561,18 @@ export const Comment = ({
                                         ) &&
                                         user.userId !==
                                             comment.userProfile.userId && (
-                                            <div
-                                                className={cx(
-                                                    buttonHeightOverrides,
-                                                    buttonOverrides(pillar),
-                                                )}
+                                            <ButtonLink
+                                                pillar={pillar}
+                                                onClick={
+                                                    isHighlighted
+                                                        ? unPick
+                                                        : pick
+                                                }
                                             >
-                                                <Button
-                                                    priority="tertiary"
-                                                    size="small"
-                                                    onClick={
-                                                        isHighlighted
-                                                            ? unPick
-                                                            : pick
-                                                    }
-                                                >
-                                                    {isHighlighted
-                                                        ? 'Unpick'
-                                                        : 'Pick'}
-                                                </Button>
-                                            </div>
+                                                {isHighlighted
+                                                    ? 'Unpick'
+                                                    : 'Pick'}
+                                            </ButtonLink>
                                         )}
                                 </div>
                                 <Row>
@@ -633,42 +580,22 @@ export const Comment = ({
                                     {user &&
                                     comment.userProfile.userId !==
                                         user.userId ? (
-                                        <div className={buttonHeightOverrides}>
-                                            <Button
-                                                priority="tertiary"
-                                                size="small"
-                                                onClick={() =>
-                                                    toggleMuteStatus(
-                                                        comment.userProfile
-                                                            .userId,
-                                                    )
-                                                }
-                                            >
-                                                <span
-                                                    className={
-                                                        muteReportTextStyles
-                                                    }
-                                                >
-                                                    Mute
-                                                </span>
-                                            </Button>
-                                        </div>
+                                        <ButtonLink
+                                            onClick={() =>
+                                                toggleMuteStatus(
+                                                    comment.userProfile.userId,
+                                                )
+                                            }
+                                        >
+                                            Mute
+                                        </ButtonLink>
                                     ) : (
                                         <></>
                                     )}
-                                    <div className={buttonHeightOverrides}>
-                                        <Button
-                                            priority="tertiary"
-                                            size="small"
-                                            onClick={toggleSetShowForm}
-                                        >
-                                            <span
-                                                className={muteReportTextStyles}
-                                            >
-                                                Report
-                                            </span>
-                                        </Button>
-                                    </div>
+                                    <Space amount={4} />
+                                    <ButtonLink onClick={toggleSetShowForm}>
+                                        Report
+                                    </ButtonLink>
                                     {showAbuseReportForm && (
                                         <div
                                             className={css`
