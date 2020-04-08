@@ -296,6 +296,7 @@ export const App = ({
             <div className={commentContainerStyles}>
                 {user && !isClosedForComments && (
                     <CommentForm
+                        pillar={pillar}
                         shortUrl={shortUrl}
                         onAddComment={onAddComment}
                         user={user}
@@ -370,6 +371,7 @@ export const App = ({
             <>
                 {user && !isClosedForComments && (
                     <CommentForm
+                        pillar={pillar}
                         shortUrl={shortUrl}
                         onAddComment={onAddComment}
                         user={user}

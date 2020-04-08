@@ -3,14 +3,17 @@ import { css, cx } from 'emotion';
 import { textSans, headline } from '@guardian/src-foundations/typography';
 import { space, neutral } from '@guardian/src-foundations';
 import { TextInput } from '@guardian/src-text-input';
-import { Button } from '@guardian/src-button';
 import { Link } from '@guardian/src-link';
 import { Row } from '../Row/Row';
+import { PillarButton } from '../PillarButton/PillarButton';
 
 import { preview } from '../../lib/api';
 
+import { Pillar } from '../../types';
+
 type Props = {
     body: string;
+    pillar: Pillar;
     error?: string;
     submitForm: (userName: string) => void;
     cancelSubmit: () => void;
@@ -41,6 +44,7 @@ const Text = ({
 
 export const FirstCommentWelcome = ({
     body,
+    pillar,
     error = '',
     submitForm,
     cancelSubmit,
@@ -123,21 +127,24 @@ export const FirstCommentWelcome = ({
                     dangerouslySetInnerHTML={{ __html: previewBody || '' }}
                 />
                 <Row>
-                    <Button size="small" onClick={() => submitForm(userName)}>
+                    <PillarButton
+                        pillar={pillar}
+                        onClick={() => submitForm(userName)}
+                    >
                         Post your comment
-                    </Button>
+                    </PillarButton>
                     <div
                         className={css`
                             width: ${space[3]}px;
                         `}
                     ></div>
-                    <Button
-                        size="small"
+                    <PillarButton
+                        pillar={pillar}
                         priority="tertiary"
                         onClick={cancelSubmit}
                     >
                         Cancel
-                    </Button>
+                    </PillarButton>
                 </Row>
             </form>
         </div>

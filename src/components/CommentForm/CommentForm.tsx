@@ -1,20 +1,21 @@
 import React, { useState, useRef } from 'react';
 import { css, cx } from 'emotion';
 
-import { Button } from '@guardian/src-button';
 import { palette, space } from '@guardian/src-foundations';
 import { neutral, text } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 
 import { simulateNewComment } from '../../lib/simulateNewComment';
 import { comment, reply, preview, addUserName } from '../../lib/api';
-import { CommentResponse, UserProfile, CommentType } from '../../types';
+import { CommentResponse, UserProfile, CommentType, Pillar } from '../../types';
 
 import { FirstCommentWelcome } from '../FirstCommentWelcome/FirstCommentWelcome';
 import { Row } from '../Row/Row';
+import { PillarButton } from '../PillarButton/PillarButton';
 
 type Props = {
     shortUrl: string;
+    pillar: Pillar;
     user: UserProfile;
     onAddComment: (response: CommentType) => void;
     setCommentBeingRepliedTo?: () => void;
@@ -76,16 +77,6 @@ const previewStyle = css`
         border-top: ${arrowSize}px solid ${bg};
         bottom: -${arrowSize - 1}px;
     }
-`;
-
-const buttonContainerStyles = css`
-    button {
-        margin: 5px;
-    }
-`;
-
-const buttonTextStyles = css`
-    ${textSans.small({ fontWeight: 'bold' })}
 `;
 
 const headerTextStyles = css`
@@ -153,8 +144,17 @@ const bottomContainer = css`
     align-content: space-between;
 `;
 
+const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
+    <div
+        className={css`
+            width: ${space[amount]}px;
+        `}
+    />
+);
+
 export const CommentForm = ({
     shortUrl,
+    pillar,
     onAddComment,
     user,
     setCommentBeingRepliedTo,
@@ -349,6 +349,7 @@ export const CommentForm = ({
     if (userNameMissing && body) {
         return (
             <FirstCommentWelcome
+                pillar={pillar}
                 body={body}
                 error={error}
                 submitForm={submitUserName}
@@ -359,13 +360,7 @@ export const CommentForm = ({
 
     return (
         <>
-            <form
-                className={formWrapper}
-                onSubmit={e => {
-                    e.preventDefault();
-                    submitForm();
-                }}
-            >
+            <form className={formWrapper}>
                 {error && (
                     <div className={msgContainerStyles}>
                         <p
@@ -426,39 +421,37 @@ export const CommentForm = ({
                     onFocus={() => setIsActive(true)}
                 />
                 <div className={bottomContainer}>
-                    <div className={buttonContainerStyles}>
-                        <Button
-                            type="submit"
-                            size="small"
-                            data-testid="post-comment"
-                        >
-                            <div className={buttonTextStyles}>
+                    <Row>
+                        <>
+                            <PillarButton
+                                pillar="culture"
+                                onClick={() => submitForm()}
+                            >
                                 Post your comment
-                            </div>
-                        </Button>
-                        {(isActive || body) && (
-                            <>
-                                <Button
-                                    size="small"
-                                    onClick={fetchShowPreview}
-                                    priority="secondary"
-                                >
-                                    <div className={buttonTextStyles}>
+                            </PillarButton>
+                            {(isActive || body) && (
+                                <>
+                                    <Space amount={3} />
+                                    <PillarButton
+                                        pillar="culture"
+                                        onClick={fetchShowPreview}
+                                        priority="secondary"
+                                    >
                                         Preview
-                                    </div>
-                                </Button>
-                                <Button
-                                    size="small"
-                                    onClick={resetForm}
-                                    priority="tertiary"
-                                >
-                                    <div className={buttonTextStyles}>
+                                    </PillarButton>
+                                    <Space amount={3} />
+
+                                    <PillarButton
+                                        pillar="culture"
+                                        onClick={resetForm}
+                                        priority="tertiary"
+                                    >
                                         Cancel
-                                    </div>
-                                </Button>
-                            </>
-                        )}
-                    </div>
+                                    </PillarButton>
+                                </>
+                            )}
+                        </>
+                    </Row>
                     {isActive && (
                         <Row>
                             <button
