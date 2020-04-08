@@ -1,4 +1,3 @@
-import babel from "rollup-plugin-babel";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 
@@ -28,5 +27,4 @@ module.exports = {
     "@guardian/src-foundations/typography",
     "prop-types"
   ],
-  plugins: [babel({ extensions }), resolve({ extensions }), commonjs()]
 };
