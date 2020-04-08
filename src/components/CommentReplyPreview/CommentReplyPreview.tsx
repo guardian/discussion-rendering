@@ -4,8 +4,12 @@ import { css, cx } from 'emotion';
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, space, brand } from '@guardian/src-foundations';
 
-import { CommentType } from '../../types';
+import { ButtonLink } from '../ButtonLink/ButtonLink';
+
+import { CommentType, Pillar } from '../../types';
+
 type Props = {
+    pillar: Pillar;
     commentBeingRepliedTo: CommentType;
 };
 
@@ -94,7 +98,10 @@ const ReplyArrow = () => (
     </svg>
 );
 
-export const CommentReplyPreview = ({ commentBeingRepliedTo }: Props) => {
+export const CommentReplyPreview = ({
+    pillar,
+    commentBeingRepliedTo,
+}: Props) => {
     const [displayReplyComment, setDisplayReplyComment] = useState<boolean>(
         false,
     );
@@ -107,15 +114,12 @@ export const CommentReplyPreview = ({ commentBeingRepliedTo }: Props) => {
                 <div className={replyDisplayNameStyles}>
                     {commentBeingRepliedTo.userProfile.displayName}
                 </div>
-                <span
-                    className={cx(
-                        hideCommentButtonStyles,
-                        commentControlsButtonStyles,
-                    )}
+                <ButtonLink
+                    pillar={pillar}
                     onClick={() => setDisplayReplyComment(!displayReplyComment)}
                 >
                     {displayReplyComment ? 'Hide Comment' : 'Show comment'}
-                </span>
+                </ButtonLink>
             </div>
             {displayReplyComment && (
                 <Preview

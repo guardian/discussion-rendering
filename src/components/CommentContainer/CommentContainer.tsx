@@ -215,6 +215,7 @@ export const CommentContainer = ({
                     user && (
                         <div className={nestingStyles}>
                             <CommentReplyPreview
+                                pillar={pillar}
                                 commentBeingRepliedTo={commentBeingRepliedTo}
                             />
                             <CommentForm
