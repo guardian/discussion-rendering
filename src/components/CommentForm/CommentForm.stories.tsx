@@ -58,6 +58,7 @@ const aComment: CommentType = {
 export const Default = () => (
     <CommentForm
         shortUrl={shortUrl}
+        pillar="news"
         user={aUser}
         onAddComment={comment => {}}
     />
@@ -67,6 +68,7 @@ Default.story = { name: 'default' };
 export const Active = () => (
     <CommentForm
         shortUrl={shortUrl}
+        pillar="culture"
         user={aUser}
         onAddComment={comment => {}}
         commentBeingRepliedTo={aComment}
@@ -77,6 +79,7 @@ Active.story = { name: 'form is active' };
 export const Premoderated = () => (
     <CommentForm
         shortUrl={shortUrl}
+        pillar="opinion"
         user={{
             ...aUser,
             privateFields: {
