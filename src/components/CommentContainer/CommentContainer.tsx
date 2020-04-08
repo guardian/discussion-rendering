@@ -29,7 +29,7 @@ type Props = {
 const nestingStyles = css`
     list-style-type: none;
     padding-left: ${space[2]}px;
-    margin-left: ${space[12] + 'px'};
+    margin-left: ${space[12]}px;
 `;
 
 const buttonStyles = (pillar: Pillar) => css`
