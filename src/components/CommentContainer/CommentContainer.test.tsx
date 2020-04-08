@@ -57,7 +57,7 @@ describe('CommentContainer', () => {
             },
         );
 
-        const { getByTestId, queryByText, rerender } = render(
+        const { getByTestId, queryByText, getByText, rerender } = render(
             <CommentContainer
                 baseUrl=""
                 shortUrl=""
@@ -74,7 +74,7 @@ describe('CommentContainer', () => {
         );
 
         // expect Comment Form to be present
-        expect(getByTestId('post-comment')).toBeInTheDocument();
+        expect(getByText('Post your comment')).toBeInTheDocument();
 
         // add comment to textarea
         fireEvent.change(getByTestId('comment-input'), {
@@ -82,7 +82,7 @@ describe('CommentContainer', () => {
         });
 
         // Submit form
-        fireEvent.click(getByTestId('post-comment'));
+        fireEvent.click(getByText('Post your comment'));
 
         // make sure mock function has been called
         await waitFor(() =>
@@ -130,7 +130,7 @@ describe('CommentContainer', () => {
             },
         );
 
-        const { getByTestId, queryByText, rerender } = render(
+        const { getByTestId, queryByText, getByText, rerender } = render(
             <CommentContainer
                 baseUrl=""
                 shortUrl=""
@@ -147,7 +147,7 @@ describe('CommentContainer', () => {
         );
 
         // expect Comment Form to be present
-        expect(getByTestId('post-comment')).toBeInTheDocument();
+        expect(getByText('Post your comment')).toBeInTheDocument();
 
         // add comment to textarea
         fireEvent.change(getByTestId('comment-input'), {
@@ -155,7 +155,7 @@ describe('CommentContainer', () => {
         });
 
         // Submit form
-        fireEvent.click(getByTestId('post-comment'));
+        fireEvent.click(getByText('Post your comment'));
 
         // make sure mock function has been called
         await waitFor(() =>
