@@ -94,4 +94,113 @@ export const IconRight = () => (
         Right
     </PillarButton>
 );
-IconRight.story = { name: 'with an icon on the right' };
+
+export const Secondary = () => (
+    <Row>
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="lifestyle"
+            priority="secondary"
+        >
+            Lifestyle
+        </PillarButton>
+        <Space amount={2} />
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="sport"
+            priority="secondary"
+        >
+            Sport
+        </PillarButton>
+        <Space amount={2} />
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="news"
+            priority="secondary"
+        >
+            News
+        </PillarButton>
+        <Space amount={2} />
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="opinion"
+            priority="secondary"
+        >
+            Opinion
+        </PillarButton>
+        <Space amount={2} />
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="culture"
+            priority="secondary"
+        >
+            Culture
+        </PillarButton>
+    </Row>
+);
+Secondary.story = { name: 'with secondary priority' };
+
+export const Tertiary = () => (
+    <Row>
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="lifestyle"
+            priority="tertiary"
+        >
+            Lifestyle
+        </PillarButton>
+        <Space amount={2} />
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="sport"
+            priority="tertiary"
+        >
+            Sport
+        </PillarButton>
+        <Space amount={2} />
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="news"
+            priority="tertiary"
+        >
+            News
+        </PillarButton>
+        <Space amount={2} />
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="opinion"
+            priority="tertiary"
+        >
+            Opinion
+        </PillarButton>
+        <Space amount={2} />
+        <PillarButton
+            onClick={() => {
+                alert('Clicked!');
+            }}
+            pillar="culture"
+            priority="tertiary"
+        >
+            Culture
+        </PillarButton>
+    </Row>
+);
+Tertiary.story = { name: 'with tertiary priority' };
