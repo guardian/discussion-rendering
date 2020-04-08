@@ -424,7 +424,7 @@ export const CommentForm = ({
                     <Row>
                         <>
                             <PillarButton
-                                pillar="culture"
+                                pillar={pillar}
                                 onClick={() => submitForm()}
                             >
                                 Post your comment
@@ -433,7 +433,7 @@ export const CommentForm = ({
                                 <>
                                     <Space amount={3} />
                                     <PillarButton
-                                        pillar="culture"
+                                        pillar={pillar}
                                         onClick={fetchShowPreview}
                                         priority="secondary"
                                     >
@@ -442,7 +442,7 @@ export const CommentForm = ({
                                     <Space amount={3} />
 
                                     <PillarButton
-                                        pillar="culture"
+                                        pillar={pillar}
                                         onClick={resetForm}
                                         priority="tertiary"
                                     >
