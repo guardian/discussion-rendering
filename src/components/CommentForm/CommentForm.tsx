@@ -360,7 +360,13 @@ export const CommentForm = ({
 
     return (
         <>
-            <form className={formWrapper}>
+            <form
+                className={formWrapper}
+                onSubmit={e => {
+                    e.preventDefault();
+                    submitForm();
+                }}
+            >
                 {error && (
                     <div className={msgContainerStyles}>
                         <p
@@ -423,10 +429,7 @@ export const CommentForm = ({
                 <div className={bottomContainer}>
                     <Row>
                         <>
-                            <PillarButton
-                                pillar={pillar}
-                                onClick={() => submitForm()}
-                            >
+                            <PillarButton pillar={pillar} type="submit">
                                 Post your comment
                             </PillarButton>
                             {(isActive || body) && (

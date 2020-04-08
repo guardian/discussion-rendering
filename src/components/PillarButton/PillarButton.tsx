@@ -9,8 +9,9 @@ import { Pillar } from '../../types';
 
 type Props = {
     pillar: Pillar;
-    onClick: () => void;
+    onClick?: () => void;
     children: string;
+    type?: 'submit';
     priority?: 'primary' | 'secondary' | 'tertiary';
     icon?: JSX.Element;
     iconSide?: 'left' | 'right';
@@ -86,6 +87,7 @@ const buttonOverrides = (
 export const PillarButton = ({
     pillar,
     onClick,
+    type,
     priority = 'primary',
     children,
     icon,
@@ -96,6 +98,7 @@ export const PillarButton = ({
             priority={priority}
             size="small"
             onClick={onClick}
+            type={type}
             icon={icon}
             iconSide={iconSide}
         >
