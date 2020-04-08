@@ -13,7 +13,7 @@ type Props = {
     size?: 'small' | 'default';
     icon?: JSX.Element;
     iconSide?: 'left' | 'right';
-    children: string;
+    children: string | JSX.Element;
 };
 
 const buttonOverrides = (size: 'small' | 'default', pillar?: Pillar) => css`
