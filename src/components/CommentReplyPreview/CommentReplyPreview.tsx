@@ -20,8 +20,9 @@ const replyWrapperStyles = css`
     flex-direction: row;
     align-items: center;
 `;
+
 const replyArrowStyles = css`
-    fill: grey;
+    fill: ${neutral[46]};
     /*
     In order to get the arrow SVG alinged correctly with the reply text
     we need to add 2px padding to the top
