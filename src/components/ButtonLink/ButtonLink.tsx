@@ -10,14 +10,17 @@ import { Pillar } from '../../types';
 type Props = {
     onClick: () => void;
     pillar?: Pillar;
+    size?: 'small' | 'default';
     icon?: JSX.Element;
     iconSide?: 'left' | 'right';
     children: string;
 };
 
-const buttonOverrides = (pillar?: Pillar) => css`
+const buttonOverrides = (size: 'small' | 'default', pillar?: Pillar) => css`
   button {
-    ${textSans.xsmall({ fontWeight: pillar ? 'bold' : 'regular' })}
+    ${textSans[size === 'small' ? 'xsmall' : 'small']({
+        fontWeight: pillar ? 'bold' : 'regular',
+    })}
     color: ${pillar ? palette[pillar][400] : neutral[46]};
     background-color: transparent;
     height: 18px;
@@ -40,14 +43,15 @@ const buttonOverrides = (pillar?: Pillar) => css`
 export const ButtonLink = ({
     pillar,
     onClick,
+    size = 'default',
     icon,
     iconSide,
     children,
 }: Props) => (
-    <div className={cx(buttonOverrides(pillar))}>
+    <div className={cx(buttonOverrides(size, pillar))}>
         <Button
             priority="tertiary"
-            size="small"
+            size={size}
             onClick={onClick}
             icon={icon}
             iconSide={iconSide}

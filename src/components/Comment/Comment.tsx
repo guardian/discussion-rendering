@@ -591,6 +591,7 @@ export const Comment = ({
                                                     comment.userProfile.userId,
                                                 )
                                             }
+                                            size="small"
                                         >
                                             Mute
                                         </ButtonLink>
@@ -598,7 +599,10 @@ export const Comment = ({
                                         <></>
                                     )}
                                     <Space amount={4} />
-                                    <ButtonLink onClick={toggleSetShowForm}>
+                                    <ButtonLink
+                                        size="small"
+                                        onClick={toggleSetShowForm}
+                                    >
                                         Report
                                     </ButtonLink>
                                     {showAbuseReportForm && (
