@@ -16,6 +16,28 @@ type Props = {
     iconSide?: 'left' | 'right';
 };
 
+// Why key in Pillar? https://github.com/Microsoft/TypeScript/issues/24220#issuecomment-390063153
+const localPalette: { [key in Pillar]: any } = {
+    news: {
+        '800': '#FFF4F2',
+    },
+    sport: {
+        '800': '#F1F8FC',
+    },
+    culture: {
+        '800': '#FBF6EF',
+    },
+    opinion: {
+        '800': '#FEF9F5',
+    },
+    lifestyle: {
+        '800': '#FEEEF7',
+    },
+    labs: {
+        '800': '#F1F8FC',
+    },
+};
+
 const buttonOverrides = (
     pillar: Pillar,
     priority: 'primary' | 'secondary' | 'tertiary',
@@ -43,7 +65,7 @@ const buttonOverrides = (
                     color: ${palette[pillar][400]};
 
                     :hover {
-                        background-color: ${palette[pillar][800]};
+                        background-color: ${localPalette[pillar][800]};
                     }
                 }
             `;
