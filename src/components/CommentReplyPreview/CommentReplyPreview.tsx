@@ -5,6 +5,9 @@ import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, space, brand } from '@guardian/src-foundations';
 
 import { CommentType } from '../../types';
+type Props = {
+    commentBeingRepliedTo: CommentType;
+};
 
 const commentControlsButtonStyles = css`
     ${textSans.small()};
@@ -91,11 +94,7 @@ const ReplyArrow = () => (
     </svg>
 );
 
-export const CommentReplyPreview = ({
-    commentBeingRepliedTo,
-}: {
-    commentBeingRepliedTo: CommentType;
-}) => {
+export const CommentReplyPreview = ({ commentBeingRepliedTo }: Props) => {
     const [displayReplyComment, setDisplayReplyComment] = useState<boolean>(
         false,
     );
