@@ -17,6 +17,8 @@ type Props = {
 };
 
 // Why key in Pillar? https://github.com/Microsoft/TypeScript/issues/24220#issuecomment-390063153
+// Why this abstraction? To solve an issue where when we use the 800 key typescript throws errors. Most
+// likely caused by the fact labs only uses 300 & 400 so the union is restricted
 const localPalette: { [key in Pillar]: any } = {
     news: {
         '800': '#FFF4F2',
@@ -34,7 +36,7 @@ const localPalette: { [key in Pillar]: any } = {
         '800': '#FEEEF7',
     },
     labs: {
-        '800': '#F1F8FC',
+        '800': '#F1F8FC', // Same as sport
     },
 };
 
