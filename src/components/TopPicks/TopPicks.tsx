@@ -61,7 +61,6 @@ export const TopPicks = ({
             ? leftColComments.push(comment)
             : rightColComments.push(comment),
     );
-    console.log('user', user);
     return (
         <div className={picksWrapper}>
             <div className={twoColCommentsStyles}>
