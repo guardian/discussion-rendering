@@ -21,6 +21,7 @@ type Props = {
     pillar: Pillar;
     comment: CommentType;
     isSignedIn: boolean;
+    userMadeComment: boolean;
 };
 
 const pickStyles = css`
@@ -132,7 +133,13 @@ const truncateText = (input: string, limit: number) => {
     return input;
 };
 
-export const TopPick = ({ baseUrl, pillar, comment, isSignedIn }: Props) => (
+export const TopPick = ({
+    baseUrl,
+    pillar,
+    comment,
+    isSignedIn,
+    userMadeComment,
+}: Props) => (
     <div className={pickStyles}>
         <div className={pickComment}>
             <SpaceBetween>
@@ -209,6 +216,7 @@ export const TopPick = ({ baseUrl, pillar, comment, isSignedIn }: Props) => (
                 initialCount={comment.numRecommends}
                 alreadyRecommended={false}
                 isSignedIn={isSignedIn}
+                userMadeComment={userMadeComment}
             />
         </div>
     </div>

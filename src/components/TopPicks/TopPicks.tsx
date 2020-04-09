@@ -3,12 +3,13 @@ import { css, cx } from 'emotion';
 
 import { until, from } from '@guardian/src-foundations/mq';
 
-import { CommentType, Pillar } from '../../types';
+import { CommentType, Pillar, UserProfile } from '../../types';
 import { TopPick } from '../TopPick/TopPick';
 
 type Props = {
     baseUrl: string;
     pillar: Pillar;
+    user?: UserProfile;
     comments: CommentType[];
     isSignedIn: boolean;
 };
@@ -46,7 +47,13 @@ const oneColCommentsStyles = css`
     }
 `;
 
-export const TopPicks = ({ baseUrl, pillar, comments, isSignedIn }: Props) => {
+export const TopPicks = ({
+    baseUrl,
+    pillar,
+    user,
+    comments,
+    isSignedIn,
+}: Props) => {
     const leftColComments: CommentType[] = [];
     const rightColComments: CommentType[] = [];
     comments.forEach((comment, index) =>
@@ -54,6 +61,7 @@ export const TopPicks = ({ baseUrl, pillar, comments, isSignedIn }: Props) => {
             ? leftColComments.push(comment)
             : rightColComments.push(comment),
     );
+    console.log('user', user);
     return (
         <div className={picksWrapper}>
             <div className={twoColCommentsStyles}>
@@ -64,6 +72,10 @@ export const TopPicks = ({ baseUrl, pillar, comments, isSignedIn }: Props) => {
                             pillar={pillar}
                             comment={comment}
                             isSignedIn={isSignedIn}
+                            userMadeComment={
+                                user &&
+                                user.userId === comment.userProfile.userId
+                            }
                         />
                     ))}
                 </div>
@@ -74,6 +86,10 @@ export const TopPicks = ({ baseUrl, pillar, comments, isSignedIn }: Props) => {
                             pillar={pillar}
                             comment={comment}
                             isSignedIn={isSignedIn}
+                            userMadeComment={
+                                user &&
+                                user.userId === comment.userProfile.userId
+                            }
                         />
                     ))}
                 </div>
@@ -85,6 +101,9 @@ export const TopPicks = ({ baseUrl, pillar, comments, isSignedIn }: Props) => {
                         pillar={pillar}
                         comment={comment}
                         isSignedIn={isSignedIn}
+                        userMadeComment={
+                            user && user.userId === comment.userProfile.userId
+                        }
                     />
                 ))}
             </div>
