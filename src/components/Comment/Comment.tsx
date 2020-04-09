@@ -551,12 +551,6 @@ export const Comment = ({
                                                 <Space amount={4} />
                                             </>
                                         )}
-                                        <ButtonLink
-                                            pillar={pillar}
-                                            onClick={() => {}}
-                                        >
-                                            Share
-                                        </ButtonLink>
                                         <Space amount={4} />
                                         {/* Only staff can pick, and they cannot pick thier own comment */}
                                         {user &&
