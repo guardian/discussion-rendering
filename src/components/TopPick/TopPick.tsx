@@ -204,14 +204,12 @@ export const TopPick = ({ baseUrl, pillar, comment, isSignedIn }: Props) => (
                     )}
                 </Column>
             </Row>
-            <div>
-                <RecommendationCount
-                    commentId={comment.id}
-                    initialCount={comment.numRecommends}
-                    alreadyRecommended={false}
-                    isSignedIn={isSignedIn}
-                />
-            </div>
+            <RecommendationCount
+                commentId={comment.id}
+                initialCount={comment.numRecommends}
+                alreadyRecommended={false}
+                isSignedIn={isSignedIn}
+            />
         </div>
     </div>
 );
