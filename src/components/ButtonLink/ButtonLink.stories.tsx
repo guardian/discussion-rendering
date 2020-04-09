@@ -30,6 +30,19 @@ export const Single = () => (
 );
 Single.story = { name: 'a single button' };
 
+export const Small = () => (
+    <ButtonLink
+        onClick={() => {
+            alert('Clicked!');
+        }}
+        size="small"
+        pillar="lifestyle"
+    >
+        I'm small
+    </ButtonLink>
+);
+Small.story = { name: 'a small button' };
+
 export const Group = () => (
     <Row>
         <ButtonLink onClick={() => {}} pillar="culture">

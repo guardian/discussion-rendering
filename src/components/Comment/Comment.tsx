@@ -38,8 +38,10 @@ const shiftLeft = css`
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
+    margin-top: -2px;
+
     a {
-    ${textSans.xsmall({ fontWeight: 'bold' })}
+    ${textSans.small({ fontWeight: 'bold' })}
     margin-right: ${space[2]}px;
     color: ${palette[pillar][400]};
     /*
@@ -544,19 +546,13 @@ export const Comment = ({
                                                             }
                                                             iconSide="left"
                                                         >
-                                                            <span>Reply</span>
+                                                            Reply
                                                         </Link>
                                                     </div>
                                                 )}
                                                 <Space amount={4} />
                                             </>
                                         )}
-                                        <ButtonLink
-                                            pillar={pillar}
-                                            onClick={() => {}}
-                                        >
-                                            Share
-                                        </ButtonLink>
                                         <Space amount={4} />
                                         {/* Only staff can pick, and they cannot pick thier own comment */}
                                         {user &&
@@ -591,6 +587,7 @@ export const Comment = ({
                                                     comment.userProfile.userId,
                                                 )
                                             }
+                                            size="small"
                                         >
                                             Mute
                                         </ButtonLink>
@@ -598,7 +595,10 @@ export const Comment = ({
                                         <></>
                                     )}
                                     <Space amount={4} />
-                                    <ButtonLink onClick={toggleSetShowForm}>
+                                    <ButtonLink
+                                        size="small"
+                                        onClick={toggleSetShowForm}
+                                    >
                                         Report
                                     </ButtonLink>
                                     {showAbuseReportForm && (

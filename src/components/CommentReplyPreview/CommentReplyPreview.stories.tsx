@@ -54,7 +54,10 @@ const padding = css`
 `;
 
 export const Default = () => (
-    <CommentReplyPreview commentBeingRepliedTo={commentBeingRepliedTo} />
+    <CommentReplyPreview
+        pillar="news"
+        commentBeingRepliedTo={commentBeingRepliedTo}
+    />
 );
 Default.story = { name: 'default' };
 

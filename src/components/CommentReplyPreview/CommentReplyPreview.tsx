@@ -1,40 +1,34 @@
 import React, { useState } from 'react';
-import { css, cx } from 'emotion';
+import { css } from 'emotion';
 
 import { textSans } from '@guardian/src-foundations/typography';
-import { neutral, space, brand } from '@guardian/src-foundations';
+import { neutral, space, text } from '@guardian/src-foundations';
 
-import { CommentType } from '../../types';
+import { ButtonLink } from '../ButtonLink/ButtonLink';
+import { Row } from '../Row/Row';
 
-const commentControlsButtonStyles = css`
+import { CommentType, Pillar } from '../../types';
+
+type Props = {
+    pillar: Pillar;
+    commentBeingRepliedTo: CommentType;
+};
+
+const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
+    <div
+        className={css`
+            width: ${space[amount]}px;
+        `}
+    />
+);
+
+const fillGrey = css`
+    fill: ${neutral[46]};
+`;
+
+const smallFontStyles = css`
     ${textSans.small()};
-    margin-right: ${space[2]}px;
-    color: ${brand[500]};
-    border: 0;
-`;
-
-const replyWrapperStyles = css`
-    padding-top: ${space[1]}px;
-    padding-bottom: ${space[1]}px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`;
-const replyArrowStyles = css`
-    fill: grey;
-    /*
-    In order to get the arrow SVG alinged correctly with the reply text
-    we need to add 2px padding to the top
-  */
-    padding-top: 2px;
-`;
-
-const replyDisplayNameStyles = css`
-    ${textSans.small()};
-    padding-top: ${space[1]}px;
-    padding-bottom: ${space[1]}px;
-    padding-right: ${space[1]}px;
-    margin-right: ${space[2]}px;
+    line-height: 19px;
 `;
 
 const replyPreviewHeaderStyle = css`
@@ -74,14 +68,8 @@ const commentStyles = css`
     }
 `;
 
-const hideCommentButtonStyles = css`
-    :hover {
-        cursor: pointer;
-    }
-`;
-const previewHideCommentButtonStyles = css`
-    background-color: inherit;
-    padding-left: 0px;
+const blueLink = css`
+    color: ${text.anchorPrimary};
 `;
 
 const ReplyArrow = () => (
@@ -91,32 +79,30 @@ const ReplyArrow = () => (
 );
 
 export const CommentReplyPreview = ({
+    pillar,
     commentBeingRepliedTo,
-}: {
-    commentBeingRepliedTo: CommentType;
-}) => {
+}: Props) => {
     const [displayReplyComment, setDisplayReplyComment] = useState<boolean>(
         false,
     );
     return (
         <>
-            <div className={replyWrapperStyles}>
-                <div className={replyArrowStyles}>
+            <Row>
+                <div className={fillGrey}>
                     <ReplyArrow />
                 </div>
-                <div className={replyDisplayNameStyles}>
+                <Space amount={1} />
+                <div className={smallFontStyles}>
                     {commentBeingRepliedTo.userProfile.displayName}
                 </div>
-                <span
-                    className={cx(
-                        hideCommentButtonStyles,
-                        commentControlsButtonStyles,
-                    )}
+                <Space amount={3} />
+                <ButtonLink
+                    pillar={pillar}
                     onClick={() => setDisplayReplyComment(!displayReplyComment)}
                 >
                     {displayReplyComment ? 'Hide Comment' : 'Show comment'}
-                </span>
-            </div>
+                </ButtonLink>
+            </Row>
             {displayReplyComment && (
                 <Preview
                     commentBeingRepliedTo={commentBeingRepliedTo}
@@ -149,18 +135,12 @@ export const Preview = ({
                     __html: commentBeingRepliedTo.body || '',
                 }}
             />
-            <div>
-                <button
-                    className={cx(
-                        hideCommentButtonStyles,
-                        commentControlsButtonStyles,
-                        previewHideCommentButtonStyles,
-                    )}
-                    onClick={() => setDisplayReplyComment(!displayReplyComment)}
-                >
-                    {displayReplyComment ? 'Hide Comment' : 'Show comment'}
-                </button>
-            </div>
+
+            <ButtonLink
+                onClick={() => setDisplayReplyComment(!displayReplyComment)}
+            >
+                <span className={blueLink}>Hide Comment</span>
+            </ButtonLink>
         </div>
     );
 };
