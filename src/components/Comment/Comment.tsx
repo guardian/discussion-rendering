@@ -39,7 +39,7 @@ const shiftLeft = css`
 
 const commentControlsLink = (pillar: Pillar) => css`
     a {
-    ${textSans.xsmall({ fontWeight: 'bold' })}
+    ${textSans.small({ fontWeight: 'bold' })}
     margin-right: ${space[2]}px;
     color: ${palette[pillar][400]};
     /*
