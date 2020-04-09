@@ -546,7 +546,8 @@ export const Comment = ({
                                                             }
                                                             iconSide="left"
                                                         >
-                                                            Reply
+                                                            {/* We use this span to scope the styling */}
+                                                            <span>Reply</span>
                                                         </Link>
                                                     </div>
                                                 )}
