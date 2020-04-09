@@ -263,6 +263,7 @@ export const App = ({
     };
 
     const onPageChange = (page: number) => {
+        document.getElementById('comment-filters')?.scrollIntoView();
         setPage(page);
     };
 
