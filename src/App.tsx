@@ -386,6 +386,7 @@ export const App = ({
                     />
                 )}
                 <Filters
+                    pillar={pillar}
                     filters={filters}
                     onFilterChange={onFilterChange}
                     totalPages={totalPages}
