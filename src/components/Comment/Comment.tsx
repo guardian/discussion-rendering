@@ -38,6 +38,8 @@ const shiftLeft = css`
 `;
 
 const commentControlsLink = (pillar: Pillar) => css`
+    margin-top: -2px;
+
     a {
     ${textSans.small({ fontWeight: 'bold' })}
     margin-right: ${space[2]}px;
