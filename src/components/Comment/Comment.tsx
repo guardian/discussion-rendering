@@ -544,7 +544,7 @@ export const Comment = ({
                                                             }
                                                             iconSide="left"
                                                         >
-                                                            <span>Reply</span>
+                                                            Reply
                                                         </Link>
                                                     </div>
                                                 )}
