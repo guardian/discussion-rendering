@@ -434,7 +434,7 @@ export const Comment = ({
                                 alreadyRecommended={false}
                                 isSignedIn={!!user}
                                 userMadeComment={
-                                    user &&
+                                    !!user &&
                                     user.userId === comment.userProfile.userId
                                 }
                             />

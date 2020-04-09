@@ -73,7 +73,7 @@ export const TopPicks = ({
                             comment={comment}
                             isSignedIn={isSignedIn}
                             userMadeComment={
-                                user &&
+                                !!user &&
                                 user.userId === comment.userProfile.userId
                             }
                         />
@@ -87,7 +87,7 @@ export const TopPicks = ({
                             comment={comment}
                             isSignedIn={isSignedIn}
                             userMadeComment={
-                                user &&
+                                !!user &&
                                 user.userId === comment.userProfile.userId
                             }
                         />
@@ -102,7 +102,7 @@ export const TopPicks = ({
                         comment={comment}
                         isSignedIn={isSignedIn}
                         userMadeComment={
-                            user && user.userId === comment.userProfile.userId
+                            !!user && user.userId === comment.userProfile.userId
                         }
                     />
                 ))}
