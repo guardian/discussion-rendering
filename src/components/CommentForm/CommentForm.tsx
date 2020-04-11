@@ -25,6 +25,7 @@ type Props = {
 const boldString = (text: string) => `<b>${text}</b>`;
 const italicsString = (text: string) => `<i>${text}</i>`;
 const strikethroughString = (text: string) => `<strike>${text}</strike>`;
+const codeString = (text: string) => `<pre><code>${text}</code></pre>`;
 const quoteString = (text: string) => `<blockquote>${text}</blockquote>`;
 const linkStringFunc = (url: string, highlightedText?: string) =>
     `<a href="${url}">${highlightedText ? highlightedText : url}</a>`;
@@ -484,6 +485,15 @@ export const CommentForm = ({
                                 className={commentAddOns}
                             >
                                 {`S̶`}
+                            </button>
+                            <button
+                                onClick={e => {
+                                    e.preventDefault();
+                                    transformText(codeString);
+                                }}
+                                className={commentAddOns}
+                            >
+                                {`<>`}
                             </button>
                             <button
                                 onClick={e => {
