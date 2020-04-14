@@ -24,13 +24,13 @@
         "timeago.js": "^4.0.2"
     },
     "peerDependencies": {
-        "@emotion/core": "^10.0.27",
-        "emotion": "^10.0.27",
+        "@emotion/core": "^10.0.28",
         "@guardian/src-button": "^0.17.0",
         "@guardian/src-foundations": "^0.17.0",
         "@guardian/src-link": "^0.17.0",
         "@guardian/src-svgs": "^0.17.0",
         "@guardian/src-text-input": "^0.17.0",
+        "emotion": "^10.0.27",
         "react-dom": "^16.12.0",
         "regenerator-runtime": "^0.13.3"
     },
@@ -41,7 +41,6 @@
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.3.3",
         "@emotion/babel-preset-css-prop": "^10.0.14",
-        "@emotion/core": "^10.0.27",
         "@guardian/src-button": "^0.17.0",
         "@guardian/src-foundations": "^0.17.0",
         "@guardian/src-link": "^0.17.0",
