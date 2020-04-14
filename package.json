@@ -8,7 +8,7 @@
     "main": "build/App.js",
     "module": "build/App.esm.js",
     "publishConfig": {
-        "access": "restricted"
+        "access": "public"
     },
     "bugs": {
         "url": "https://github.com/guardian/discussion-rendering/issues"
