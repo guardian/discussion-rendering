@@ -3,6 +3,7 @@ import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import clear from 'rollup-plugin-clear';
+import visualizer from 'rollup-plugin-visualizer';
 
 const extensions = ['.ts', '.tsx'];
 
@@ -31,5 +32,6 @@ module.exports = {
         babel({ extensions }),
         resolve({ extensions }),
         commonjs(),
+        visualizer({ filename: 'build/stats.html' }),
     ],
 };
