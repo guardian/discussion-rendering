@@ -55,7 +55,7 @@ export const Filters = ({
     totalPages,
     commentCount,
 }: Props) => (
-    <div className={filterBar}>
+    <div id="comment-filters" className={filterBar}>
         <div className={filterPadding}>
             <Dropdown
                 id="order-by-dropdown"
