@@ -11,7 +11,7 @@ Once you've cloned the repo, run
 ### Publishing changes to NPM
 
 You need a @guardian scoped NPM user account to be able to publish changes. You then will need to login to this NPM account locally on your maching. Once authenticated, run:
-`yarn build && yarn publish --access public` updating the version number as required
+`yarn build && yarn publish` updating the version number as required. It will publish as `public` as The Guardian Organisation does not have private repos.
 
 ### Connection this package to DCR/Frontend to test local changes
 
