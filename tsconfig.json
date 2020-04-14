@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "esnext",
         "module": "esnext",
         "lib": ["es2017", "es7", "es6", "dom", "DOM.Iterable"],
         "outDir": "build",
