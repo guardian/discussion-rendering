@@ -14,6 +14,7 @@ type Props = {
     initialCount: number;
     alreadyRecommended: boolean;
     isSignedIn: boolean;
+    userMadeComment: boolean;
 };
 
 const countStyles = css`
@@ -51,6 +52,7 @@ export const RecommendationCount = ({
     initialCount,
     alreadyRecommended,
     isSignedIn,
+    userMadeComment,
 }: Props) => {
     const [count, setCount] = useState(initialCount);
     const [recommended, setRecommended] = useState(alreadyRecommended);
@@ -75,7 +77,7 @@ export const RecommendationCount = ({
             <button
                 className={buttonStyles(recommended, isSignedIn)}
                 onClick={() => tryToRecommend()}
-                disabled={recommended || !isSignedIn}
+                disabled={recommended || !isSignedIn || userMadeComment}
             >
                 <div className={arrowStyles(recommended)}>
                     <ArrowUp />

@@ -433,6 +433,10 @@ export const Comment = ({
                                 initialCount={comment.numRecommends}
                                 alreadyRecommended={false}
                                 isSignedIn={!!user}
+                                userMadeComment={
+                                    !!user &&
+                                    user.userId === comment.userProfile.userId
+                                }
                             />
                         )}
                     </header>

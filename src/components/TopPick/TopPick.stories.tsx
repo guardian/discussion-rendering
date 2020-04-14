@@ -61,6 +61,7 @@ export const LongPick = () => (
             pillar="news"
             comment={comment}
             isSignedIn={false}
+            userMadeComment={false}
         />
     </div>
 );
@@ -78,6 +79,7 @@ export const ShortPick = () => (
             pillar="opinion"
             comment={commentWithShortBody}
             isSignedIn={true}
+            userMadeComment={false}
         />
     </div>
 );
