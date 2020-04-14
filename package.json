@@ -26,7 +26,7 @@
         "timeago.js": "^4.0.2"
     },
     "peerDependencies": {
-        "@emotion/core": "^10.0.27",
+        "@emotion/core": "^10.0.28",
         "@guardian/src-button": "^0.17.0",
         "@guardian/src-foundations": "^0.17.0",
         "@guardian/src-link": "^0.17.0",
@@ -44,7 +44,6 @@
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.3.3",
         "@emotion/babel-preset-css-prop": "^10.0.14",
-        "@emotion/core": "^10.0.27",
         "@guardian/src-button": "^0.17.0",
         "@guardian/src-foundations": "^0.17.0",
         "@guardian/src-link": "^0.17.0",
@@ -82,12 +81,12 @@
         "start": "react-scripts start",
         "build": "rollup --config && yarn createTsDec",
         "test": "jest",
-        "tsc": "tsc --project tsconfig.project.json",
+        "tsc": "tsc",
         "eject": "react-scripts eject",
         "storybook": "start-storybook",
         "build-storybook": "node --max-old-space-size=4096 $(yarn bin)/build-storybook",
         "lint": "eslint . --ext .ts,.tsx",
-        "createTsDec": "tsc --project tsconfig.module.json --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false"
+        "createTsDec": "tsc --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false"
     },
     "eslintConfig": {
         "extends": "react-app",
