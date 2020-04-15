@@ -21,6 +21,7 @@
         "build/**/*"
     ],
     "dependencies": {
+        "react-focus-lock": "^2.2.1",
         "timeago.js": "^4.0.2"
     },
     "peerDependencies": {
@@ -32,8 +33,7 @@
         "@guardian/src-text-input": "^0.17.0",
         "emotion": "^10.0.27",
         "react": "^16.13.1",
-        "react-dom": "^16.12.0",
-        "regenerator-runtime": "^0.13.3"
+        "react-dom": "^16.12.0"
     },
     "devDependencies": {
         "@babel/core": "^7.5.5",
@@ -65,9 +65,7 @@
         "prettier": "^1.19.1",
         "pretty-quick": "^2.0.1",
         "react-dom": "^16.12.0",
-        "react-focus-lock": "^2.2.1",
         "react-scripts": "3.3.0",
-        "regenerator-runtime": "^0.13.3",
         "rollup": "^1.17.0",
         "rollup-plugin-babel": "^4.3.3",
         "rollup-plugin-clear": "^2.0.7",
