@@ -24,6 +24,10 @@ module.exports = {
         ...Object.keys(pkg.dependencies || {}),
         ...Object.keys(pkg.peerDependencies || {}),
         'prop-types',
+        // Nested src-foundations
+        '@guardian/src-foundations/mq',
+        '@guardian/src-foundations/palette',
+        '@guardian/src-foundations/typography',
     ],
     plugins: [
         clear({

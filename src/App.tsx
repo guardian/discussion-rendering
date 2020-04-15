@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { css } from 'emotion';
 
-import 'regenerator-runtime/runtime';
-
 import {
     CommentType,
     FilterOptions,
