@@ -11,10 +11,12 @@ import {
     OrderByType,
     ThreadsType,
     PageSizeType,
+    Pillar,
 } from '../../types';
 
 type Props = {
     filters: FilterOptions;
+    pillar: Pillar;
     onFilterChange: (newFilterObject: FilterOptions) => void;
     totalPages: number;
     commentCount: number;
@@ -51,6 +53,7 @@ const filterPadding = css`
 
 export const Filters = ({
     filters,
+    pillar,
     onFilterChange,
     totalPages,
     commentCount,
@@ -60,7 +63,7 @@ export const Filters = ({
             <Dropdown
                 id="order-by-dropdown"
                 label="Sort by"
-                pillar="news"
+                pillar={pillar}
                 options={[
                     {
                         title: 'Newest',
@@ -91,7 +94,7 @@ export const Filters = ({
             <Dropdown
                 id="page-size-dropdown"
                 label="Per page"
-                pillar="news"
+                pillar={pillar}
                 options={[
                     {
                         title: '25',
@@ -125,7 +128,7 @@ export const Filters = ({
             <Dropdown
                 id="threads-dropdown"
                 label="Display threads"
-                pillar="news"
+                pillar={pillar}
                 options={[
                     {
                         title: 'Collapsed',
