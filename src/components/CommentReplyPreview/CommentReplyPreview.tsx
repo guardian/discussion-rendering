@@ -3,6 +3,7 @@ import { css } from 'emotion';
 
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, space, text } from '@guardian/src-foundations';
+import { SvgIndent } from '@guardian/src-svgs';
 
 import { ButtonLink } from '../ButtonLink/ButtonLink';
 import { Row } from '../Row/Row';
@@ -23,7 +24,11 @@ const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 );
 
 const fillGrey = css`
-    fill: ${neutral[46]};
+    svg {
+        fill: ${neutral[46]} !important;
+        width: 18px !important;
+        height: 18px !important;
+    }
 `;
 
 const smallFontStyles = css`
@@ -72,12 +77,6 @@ const blueLink = css`
     color: ${text.anchorPrimary};
 `;
 
-const ReplyArrow = () => (
-    <svg width="18" height="18">
-        <path d="M10.1 5l.9-1 4 4.5v1L11 14l-.9-1 2.5-3H4L3 9V6.5h2V8h7.6l-2.5-3z"></path>
-    </svg>
-);
-
 export const CommentReplyPreview = ({
     pillar,
     commentBeingRepliedTo,
@@ -89,7 +88,7 @@ export const CommentReplyPreview = ({
         <>
             <Row>
                 <div className={fillGrey}>
-                    <ReplyArrow />
+                    <SvgIndent />
                 </div>
                 <Space amount={1} />
                 <div className={smallFontStyles}>

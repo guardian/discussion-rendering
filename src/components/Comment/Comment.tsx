@@ -6,6 +6,7 @@ import { from, until } from '@guardian/src-foundations/mq';
 import { neutral, border } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
+import { SvgIndent } from '@guardian/src-svgs';
 
 import { GuardianStaff, GuardianPick } from '../Badges/Badges';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
@@ -144,6 +145,8 @@ const svgOverrides = css`
         fill: ${neutral[46]} !important;
         left: 3px !important;
         bottom: 0 !important;
+        width: 18px !important;
+        height: 18px !important;
     }
 `;
 
@@ -186,18 +189,6 @@ const negativeMargin = css`
     margin-top: 0px;
     margin-bottom: -6px;
 `;
-
-const ReplyArrow = () => (
-    <svg
-        width="18"
-        height="18"
-        className={css`
-            fill: ${neutral[46]};
-        `}
-    >
-        <path d="M10.1 5l.9-1 4 4.5v1L11 14l-.9-1 2.5-3H4L3 9V6.5h2V8h7.6l-2.5-3z"></path>
-    </svg>
-);
 
 const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
     <div
@@ -375,7 +366,7 @@ export const Comment = ({
                                             <Link
                                                 href={`#comment-${comment.responseTo.commentId}`}
                                                 subdued={true}
-                                                icon={<ReplyArrow />}
+                                                icon={<SvgIndent />}
                                                 iconSide="left"
                                             >
                                                 {comment.responseTo.displayName}
@@ -525,9 +516,7 @@ export const Comment = ({
                                                                     comment,
                                                                 )
                                                             }
-                                                            icon={
-                                                                <ReplyArrow />
-                                                            }
+                                                            icon={<SvgIndent />}
                                                             iconSide="left"
                                                         >
                                                             Reply
@@ -545,9 +534,7 @@ export const Comment = ({
                                                         <Link
                                                             href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
                                                             subdued={true}
-                                                            icon={
-                                                                <ReplyArrow />
-                                                            }
+                                                            icon={<SvgIndent />}
                                                             iconSide="left"
                                                         >
                                                             {/* We use this span to scope the styling */}
