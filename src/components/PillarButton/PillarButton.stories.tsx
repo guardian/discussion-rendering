@@ -150,7 +150,7 @@ export const Secondary = () => (
 );
 Secondary.story = { name: 'with secondary priority' };
 
-export const subdued = () => (
+export const Subdued = () => (
     <Row>
         <PillarButton
             onClick={() => {
