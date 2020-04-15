@@ -203,4 +203,4 @@ export const Subdued = () => (
         </PillarButton>
     </Row>
 );
-subdued.story = { name: 'with subdued priority' };
+Subdued.story = { name: 'with subdued priority' };
