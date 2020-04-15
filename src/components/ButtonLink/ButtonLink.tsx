@@ -50,7 +50,7 @@ export const ButtonLink = ({
 }: Props) => (
     <div className={cx(buttonOverrides(size, pillar))}>
         <Button
-            priority="tertiary"
+            priority="subdued"
             size={size}
             onClick={onClick}
             icon={icon}

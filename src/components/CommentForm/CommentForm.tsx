@@ -447,7 +447,7 @@ export const CommentForm = ({
                                     <PillarButton
                                         pillar={pillar}
                                         onClick={resetForm}
-                                        priority="tertiary"
+                                        priority="subdued"
                                     >
                                         Cancel
                                     </PillarButton>
