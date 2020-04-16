@@ -23,7 +23,8 @@ const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
     />
 );
 
-const fillGrey = css`
+const indentStyles = css`
+    width: 18px;
     svg {
         fill: ${neutral[46]} !important;
     }
@@ -85,7 +86,7 @@ export const CommentReplyPreview = ({
     return (
         <>
             <Row>
-                <div className={fillGrey}>
+                <div className={indentStyles}>
                     <SvgIndent />
                 </div>
                 <Space amount={1} />
