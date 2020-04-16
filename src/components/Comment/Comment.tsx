@@ -602,6 +602,7 @@ export const Comment = ({
                                                 )
                                             }
                                             size="small"
+                                            linkName="mute-user"
                                         >
                                             Mute
                                         </ButtonLink>
