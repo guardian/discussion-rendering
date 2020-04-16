@@ -145,8 +145,6 @@ const svgOverrides = css`
         fill: ${neutral[46]} !important;
         left: 3px !important;
         bottom: 0 !important;
-        width: 18px !important;
-        height: 18px !important;
     }
 `;
 

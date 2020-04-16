@@ -26,8 +26,6 @@ const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 const fillGrey = css`
     svg {
         fill: ${neutral[46]} !important;
-        width: 18px !important;
-        height: 18px !important;
     }
 `;
 
