@@ -577,6 +577,11 @@ export const Comment = ({
                                                             ? unPick
                                                             : pick
                                                     }
+                                                    linkName={
+                                                        isHighlighted
+                                                            ? 'unpick-comment'
+                                                            : 'pick-comment'
+                                                    }
                                                 >
                                                     {isHighlighted
                                                         ? 'Unpick'
