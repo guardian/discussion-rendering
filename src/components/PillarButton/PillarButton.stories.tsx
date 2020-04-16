@@ -25,6 +25,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="lifestyle"
+            linkName="ophanLinkName"
         >
             Lifestyle
         </PillarButton>
@@ -34,6 +35,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="sport"
+            linkName="ophanLinkName"
         >
             Sport
         </PillarButton>
@@ -43,6 +45,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="news"
+            linkName="ophanLinkName"
         >
             News
         </PillarButton>
@@ -52,6 +55,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="opinion"
+            linkName="ophanLinkName"
         >
             Opinion
         </PillarButton>
@@ -61,6 +65,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="culture"
+            linkName="ophanLinkName"
         >
             Culture
         </PillarButton>
@@ -90,6 +95,7 @@ export const IconRight = () => (
         pillar="sport"
         icon={<SvgCheckmark />}
         iconSide="right"
+        linkName="ophanLinkName"
     >
         Right
     </PillarButton>
@@ -103,6 +109,7 @@ export const Secondary = () => (
             }}
             pillar="lifestyle"
             priority="secondary"
+            linkName="ophanLinkName"
         >
             Lifestyle
         </PillarButton>
@@ -113,6 +120,7 @@ export const Secondary = () => (
             }}
             pillar="sport"
             priority="secondary"
+            linkName="ophanLinkName"
         >
             Sport
         </PillarButton>
@@ -123,6 +131,7 @@ export const Secondary = () => (
             }}
             pillar="news"
             priority="secondary"
+            linkName="ophanLinkName"
         >
             News
         </PillarButton>
@@ -133,6 +142,7 @@ export const Secondary = () => (
             }}
             pillar="opinion"
             priority="secondary"
+            linkName="ophanLinkName"
         >
             Opinion
         </PillarButton>
@@ -143,6 +153,7 @@ export const Secondary = () => (
             }}
             pillar="culture"
             priority="secondary"
+            linkName="ophanLinkName"
         >
             Culture
         </PillarButton>
@@ -158,6 +169,7 @@ export const Subdued = () => (
             }}
             pillar="lifestyle"
             priority="subdued"
+            linkName="ophanLinkName"
         >
             Lifestyle
         </PillarButton>
@@ -168,6 +180,7 @@ export const Subdued = () => (
             }}
             pillar="sport"
             priority="subdued"
+            linkName="ophanLinkName"
         >
             Sport
         </PillarButton>
@@ -178,6 +191,7 @@ export const Subdued = () => (
             }}
             pillar="news"
             priority="subdued"
+            linkName="ophanLinkName"
         >
             News
         </PillarButton>
@@ -188,6 +202,7 @@ export const Subdued = () => (
             }}
             pillar="opinion"
             priority="subdued"
+            linkName="ophanLinkName"
         >
             Opinion
         </PillarButton>
@@ -198,6 +213,7 @@ export const Subdued = () => (
             }}
             pillar="culture"
             priority="subdued"
+            linkName="ophanLinkName"
         >
             Culture
         </PillarButton>
