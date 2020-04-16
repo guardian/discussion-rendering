@@ -530,6 +530,7 @@ export const Comment = ({
                                                                 <ReplyArrow />
                                                             }
                                                             iconSide="left"
+                                                            linkName="reply to comment"
                                                         >
                                                             Reply
                                                         </ButtonLink>
