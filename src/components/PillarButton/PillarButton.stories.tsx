@@ -150,14 +150,14 @@ export const Secondary = () => (
 );
 Secondary.story = { name: 'with secondary priority' };
 
-export const Tertiary = () => (
+export const Subdued = () => (
     <Row>
         <PillarButton
             onClick={() => {
                 alert('Clicked!');
             }}
             pillar="lifestyle"
-            priority="tertiary"
+            priority="subdued"
         >
             Lifestyle
         </PillarButton>
@@ -167,7 +167,7 @@ export const Tertiary = () => (
                 alert('Clicked!');
             }}
             pillar="sport"
-            priority="tertiary"
+            priority="subdued"
         >
             Sport
         </PillarButton>
@@ -177,7 +177,7 @@ export const Tertiary = () => (
                 alert('Clicked!');
             }}
             pillar="news"
-            priority="tertiary"
+            priority="subdued"
         >
             News
         </PillarButton>
@@ -187,7 +187,7 @@ export const Tertiary = () => (
                 alert('Clicked!');
             }}
             pillar="opinion"
-            priority="tertiary"
+            priority="subdued"
         >
             Opinion
         </PillarButton>
@@ -197,10 +197,10 @@ export const Tertiary = () => (
                 alert('Clicked!');
             }}
             pillar="culture"
-            priority="tertiary"
+            priority="subdued"
         >
             Culture
         </PillarButton>
     </Row>
 );
-Tertiary.story = { name: 'with tertiary priority' };
+Subdued.story = { name: 'with subdued priority' };

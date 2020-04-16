@@ -12,7 +12,7 @@ type Props = {
     onClick?: () => void;
     children: string;
     type?: 'submit';
-    priority?: 'primary' | 'secondary' | 'tertiary';
+    priority?: 'primary' | 'secondary' | 'subdued';
     icon?: JSX.Element;
     iconSide?: 'left' | 'right';
 };
@@ -43,7 +43,7 @@ const localPalette: { [key in Pillar]: any } = {
 
 const buttonOverrides = (
     pillar: Pillar,
-    priority: 'primary' | 'secondary' | 'tertiary',
+    priority: 'primary' | 'secondary' | 'subdued',
 ) => {
     switch (priority) {
         case 'primary':
@@ -72,7 +72,7 @@ const buttonOverrides = (
                     }
                 }
             `;
-        case 'tertiary':
+        case 'subdued':
             return css`
                 button {
                     ${textSans.small({ fontWeight: 'bold' })}

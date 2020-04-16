@@ -140,7 +140,7 @@ export const FirstCommentWelcome = ({
                     ></div>
                     <PillarButton
                         pillar={pillar}
-                        priority="tertiary"
+                        priority="subdued"
                         onClick={cancelSubmit}
                     >
                         Cancel
