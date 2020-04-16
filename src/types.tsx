@@ -161,5 +161,3 @@ export type DropdownOptionType = {
     disabled?: boolean;
     isActive?: boolean;
 };
-
-export type OphanTrackingNames = more-comments | x-navigation
