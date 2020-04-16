@@ -15,6 +15,7 @@ type Props = {
     priority?: 'primary' | 'secondary' | 'subdued';
     icon?: JSX.Element;
     iconSide?: 'left' | 'right';
+    linkName: string;
 };
 
 // Why key in Pillar? https://github.com/Microsoft/TypeScript/issues/24220#issuecomment-390063153
@@ -92,6 +93,7 @@ export const PillarButton = ({
     children,
     icon,
     iconSide,
+    linkName,
 }: Props) => (
     <div className={buttonOverrides(pillar, priority)}>
         <Button
@@ -101,6 +103,7 @@ export const PillarButton = ({
             type={type}
             icon={icon}
             iconSide={iconSide}
+            data-link-name={linkName}
         >
             {children}
         </Button>
