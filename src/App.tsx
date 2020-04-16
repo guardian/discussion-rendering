@@ -351,13 +351,13 @@ export const App = ({
                     className={css`
                         width: 250px;
                     `}
-                    data-link-name="more-comments"
                 >
                     <PillarButton
                         pillar={pillar}
                         onClick={() => setIsExpanded(true)}
                         icon={<PlusSVG />}
                         iconSide="left"
+                        linkName="more-comments"
                     >
                         View more comments
                     </PillarButton>
