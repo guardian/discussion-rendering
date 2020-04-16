@@ -143,6 +143,7 @@ export const Preview = ({
 
             <ButtonLink
                 onClick={() => setDisplayReplyComment(!displayReplyComment)}
+                linkName="hide-comment"
             >
                 <span className={blueLink}>Hide Comment</span>
             </ButtonLink>
