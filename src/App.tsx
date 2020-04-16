@@ -351,6 +351,7 @@ export const App = ({
                     className={css`
                         width: 250px;
                     `}
+                    data-link-name="more-comments"
                 >
                     <PillarButton
                         pillar={pillar}
