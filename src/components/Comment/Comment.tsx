@@ -613,6 +613,7 @@ export const Comment = ({
                                     <ButtonLink
                                         size="small"
                                         onClick={toggleSetShowForm}
+                                        linkName="Open report abuse"
                                     >
                                         Report
                                     </ButtonLink>
