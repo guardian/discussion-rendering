@@ -367,7 +367,7 @@ export const App = ({
 
     return (
         <Column>
-            <>
+            <div data-component="discussion">
                 {user && !isClosedForComments && (
                     <CommentForm
                         pillar={pillar}
@@ -445,7 +445,7 @@ export const App = ({
                         />
                     </footer>
                 )}
-            </>
+            </div>
         </Column>
     );
 };
