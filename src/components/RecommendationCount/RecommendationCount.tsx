@@ -78,6 +78,7 @@ export const RecommendationCount = ({
                 className={buttonStyles(recommended, isSignedIn)}
                 onClick={() => tryToRecommend()}
                 disabled={recommended || !isSignedIn || userMadeComment}
+                data-link-name="Recommend comment"
             >
                 <div className={arrowStyles(recommended)}>
                     <ArrowUp />
