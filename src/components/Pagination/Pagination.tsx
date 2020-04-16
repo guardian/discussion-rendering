@@ -121,6 +121,7 @@ const Forward = ({
         key={'last'}
         className={cx(chevronStyles(false), rotateSvg)}
         onClick={() => setCurrentPage(currentPage + 1)}
+        data-link-name={`Pagination view page ${currentPage + 1}`}
     >
         <ChevronBack />
     </button>
@@ -132,17 +133,20 @@ const Back = ({
 }: {
     currentPage: number;
     setCurrentPage: Function;
-}) => (
-    <button
-        key={'last'}
-        className={chevronStyles(false)}
-        onClick={() =>
-            setCurrentPage(currentPage - 1 < 0 ? 0 : currentPage - 1)
-        }
-    >
-        <ChevronBack />
-    </button>
-);
+}) => {
+    const newPage = currentPage - 1 < 0 ? 0 : currentPage - 1;
+
+    return (
+        <button
+            key={'last'}
+            className={chevronStyles(false)}
+            onClick={() => setCurrentPage(newPage)}
+            data-link-name={`Pagination view page ${newPage}`}
+        >
+            <ChevronBack />
+        </button>
+    );
+};
 
 const PageButton = ({
     currentPage,
@@ -157,6 +161,7 @@ const PageButton = ({
         key={currentPage}
         className={buttonStyles(isSelected)}
         onClick={() => setCurrentPage(currentPage)}
+        data-link-name={`Pagination view page ${currentPage}`}
     >
         {currentPage}
     </button>
