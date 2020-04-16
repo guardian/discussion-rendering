@@ -99,6 +99,7 @@ export const CommentReplyPreview = ({
                 <ButtonLink
                     pillar={pillar}
                     onClick={() => setDisplayReplyComment(!displayReplyComment)}
+                    linkName={displayReplyComment ? 'reply-comment-hide' : 'reply-comment-show'}}
                 >
                     {displayReplyComment ? 'Hide Comment' : 'Show comment'}
                 </ButtonLink>
