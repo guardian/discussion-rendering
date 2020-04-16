@@ -480,6 +480,7 @@ export const Comment = ({
                                             comment.userProfile.userId,
                                         )
                                     }
+                                    linkName="unmute-user"
                                 >
                                     Unmute?
                                 </ButtonLink>
