@@ -24,7 +24,7 @@ export const Single = () => (
             alert('Clicked!');
         }}
         pillar="lifestyle"
-        linkName="ophanLink"
+        linkName=""
     >
         I'm a button but I look like a link. Click me
     </ButtonLink>
@@ -38,7 +38,7 @@ export const Small = () => (
         }}
         size="small"
         pillar="lifestyle"
-        linkName="ophanLink"
+        linkName=""
     >
         I'm small
     </ButtonLink>
@@ -47,15 +47,15 @@ Small.story = { name: 'a small button' };
 
 export const Group = () => (
     <Row>
-        <ButtonLink onClick={() => {}} pillar="culture" linkName="ophanLink">
+        <ButtonLink onClick={() => {}} pillar="culture" linkName="">
             Culture one
         </ButtonLink>
         <Space amount={3} />
-        <ButtonLink onClick={() => {}} pillar="news" linkName="ophanLink">
+        <ButtonLink onClick={() => {}} pillar="news" linkName="">
             News two
         </ButtonLink>
         <Space amount={3} />
-        <ButtonLink onClick={() => {}} pillar="sport" linkName="ophanLink">
+        <ButtonLink onClick={() => {}} pillar="sport" linkName="">
             Sport three
         </ButtonLink>
     </Row>
@@ -68,7 +68,7 @@ export const IconLeft = () => (
         pillar="news"
         icon={<SvgCheckmark />}
         iconSide="left"
-        linkName="ophanLink"
+        linkName=""
     >
         Check to the left
     </ButtonLink>
@@ -81,7 +81,7 @@ export const IconRight = () => (
         pillar="news"
         icon={<SvgCheckmark />}
         iconSide="right"
-        linkName="ophanLink"
+        linkName=""
     >
         Check to the right
     </ButtonLink>
@@ -93,7 +93,7 @@ export const Grey = () => (
         onClick={() => {
             alert('Clicked!');
         }}
-        linkName="ophanLink"
+        linkName=""
     >
         This is how I look when no pillar is passed
     </ButtonLink>
@@ -107,7 +107,7 @@ export const Background = () => (
             padding: 20px;
         `}
     >
-        <ButtonLink onClick={() => {}} pillar="lifestyle" linkName="ophanLink">
+        <ButtonLink onClick={() => {}} pillar="lifestyle" linkName="">
             How do I look on a grey background?
         </ButtonLink>
     </div>
