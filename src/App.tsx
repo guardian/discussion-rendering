@@ -357,6 +357,7 @@ export const App = ({
                         onClick={() => setIsExpanded(true)}
                         icon={<PlusSVG />}
                         iconSide="left"
+                        linkName="more-comments"
                     >
                         View more comments
                     </PillarButton>
@@ -367,7 +368,7 @@ export const App = ({
 
     return (
         <Column>
-            <>
+            <div data-component="discussion">
                 {user && !isClosedForComments && (
                     <CommentForm
                         pillar={pillar}
@@ -445,7 +446,7 @@ export const App = ({
                         />
                     </footer>
                 )}
-            </>
+            </div>
         </Column>
     );
 };

@@ -469,6 +469,7 @@ export const Comment = ({
                                             comment.userProfile.userId,
                                         )
                                     }
+                                    linkName="unmute-user"
                                 >
                                     Unmute?
                                 </ButtonLink>
@@ -516,6 +517,7 @@ export const Comment = ({
                                                             }
                                                             icon={<SvgIndent />}
                                                             iconSide="left"
+                                                            linkName="reply to comment"
                                                         >
                                                             Reply
                                                         </ButtonLink>
@@ -536,7 +538,9 @@ export const Comment = ({
                                                             iconSide="left"
                                                         >
                                                             {/* We use this span to scope the styling */}
-                                                            <span>Reply</span>
+                                                            <span data-link-name="reply to comment">
+                                                                Reply
+                                                            </span>
                                                         </Link>
                                                     </div>
                                                 )}
@@ -558,6 +562,11 @@ export const Comment = ({
                                                             ? unPick
                                                             : pick
                                                     }
+                                                    linkName={
+                                                        isHighlighted
+                                                            ? 'unpick-comment'
+                                                            : 'pick-comment'
+                                                    }
                                                 >
                                                     {isHighlighted
                                                         ? 'Unpick'
@@ -578,6 +587,7 @@ export const Comment = ({
                                                 )
                                             }
                                             size="small"
+                                            linkName="mute-user"
                                         >
                                             Mute
                                         </ButtonLink>
@@ -588,6 +598,7 @@ export const Comment = ({
                                     <ButtonLink
                                         size="small"
                                         onClick={toggleSetShowForm}
+                                        linkName="Open report abuse"
                                     >
                                         Report
                                     </ButtonLink>
