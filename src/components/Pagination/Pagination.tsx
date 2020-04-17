@@ -134,7 +134,7 @@ const Back = ({
     currentPage: number;
     setCurrentPage: Function;
 }) => {
-    const newPage = currentPage - 1 < 0 ? 0 : currentPage - 1;
+    const newPage = Math.max(0, currentPage - 1);
 
     return (
         <button
