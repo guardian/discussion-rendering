@@ -469,6 +469,7 @@ export const CommentForm = ({
                                     transformText(boldString);
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-bold"
                             >
                                 B
                             </button>
@@ -478,6 +479,7 @@ export const CommentForm = ({
                                     transformText(italicsString);
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-italic"
                             >
                                 i
                             </button>
@@ -487,6 +489,7 @@ export const CommentForm = ({
                                     transformText(quoteString);
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-quote"
                             >
                                 "
                             </button>
@@ -496,6 +499,7 @@ export const CommentForm = ({
                                     transformLink();
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-link"
                             >
                                 Link
                             </button>
