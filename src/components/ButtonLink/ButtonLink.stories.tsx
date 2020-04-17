@@ -24,6 +24,7 @@ export const Single = () => (
             alert('Clicked!');
         }}
         pillar="lifestyle"
+        linkName="ophanLink"
     >
         I'm a button but I look like a link. Click me
     </ButtonLink>
@@ -37,6 +38,7 @@ export const Small = () => (
         }}
         size="small"
         pillar="lifestyle"
+        linkName="ophanLink"
     >
         I'm small
     </ButtonLink>
@@ -45,15 +47,15 @@ Small.story = { name: 'a small button' };
 
 export const Group = () => (
     <Row>
-        <ButtonLink onClick={() => {}} pillar="culture">
+        <ButtonLink onClick={() => {}} pillar="culture" linkName="ophanLink">
             Culture one
         </ButtonLink>
         <Space amount={3} />
-        <ButtonLink onClick={() => {}} pillar="news">
+        <ButtonLink onClick={() => {}} pillar="news" linkName="ophanLink">
             News two
         </ButtonLink>
         <Space amount={3} />
-        <ButtonLink onClick={() => {}} pillar="sport">
+        <ButtonLink onClick={() => {}} pillar="sport" linkName="ophanLink">
             Sport three
         </ButtonLink>
     </Row>
@@ -66,6 +68,7 @@ export const IconLeft = () => (
         pillar="news"
         icon={<SvgCheckmark />}
         iconSide="left"
+        linkName="ophanLink"
     >
         Check to the left
     </ButtonLink>
@@ -78,6 +81,7 @@ export const IconRight = () => (
         pillar="news"
         icon={<SvgCheckmark />}
         iconSide="right"
+        linkName="ophanLink"
     >
         Check to the right
     </ButtonLink>
@@ -89,6 +93,7 @@ export const Grey = () => (
         onClick={() => {
             alert('Clicked!');
         }}
+        linkName="ophanLink"
     >
         This is how I look when no pillar is passed
     </ButtonLink>
@@ -102,7 +107,7 @@ export const Background = () => (
             padding: 20px;
         `}
     >
-        <ButtonLink onClick={() => {}} pillar="lifestyle">
+        <ButtonLink onClick={() => {}} pillar="lifestyle" linkName="ophanLink">
             How do I look on a grey background?
         </ButtonLink>
     </div>
