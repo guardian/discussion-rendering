@@ -46,7 +46,8 @@ export const discussion: DiscussionResponse = {
             },
             {
                 id: 37678414,
-                body: '<p>This comment</p>',
+                body:
+                    '<p>This is how <code>code</code> looks. And this is how <del>strikethrough</del> looks</p>',
                 date: '02 July 2014 11:20am',
                 isoDateTime: '2014-07-02T10:20:56Z',
                 status: 'visible',
