@@ -491,6 +491,7 @@ export const CommentForm = ({
                                     transformText(strikethroughString);
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-strikethrough"
                             >
                                 {`S̶`}
                             </button>
@@ -500,6 +501,7 @@ export const CommentForm = ({
                                     transformText(codeString);
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-code"
                             >
                                 {`<>`}
                             </button>
