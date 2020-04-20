@@ -34,7 +34,11 @@ export const Timestamp = ({ isoDateTime, linkTo }: Props) => {
     }, 15000);
 
     return (
-        <a href={linkTo} className={linkStyles}>
+        <a
+            href={linkTo}
+            className={linkStyles}
+            data-link-name="jump-to-comment-timestamp"
+        >
             <time dateTime={isoDateTime.toString()} className={timeStyles}>
                 {timeAgo}
             </time>

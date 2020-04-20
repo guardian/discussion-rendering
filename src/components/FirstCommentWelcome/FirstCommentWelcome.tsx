@@ -130,6 +130,7 @@ export const FirstCommentWelcome = ({
                     <PillarButton
                         pillar={pillar}
                         onClick={() => submitForm(userName)}
+                        linkName="post comment"
                     >
                         Post your comment
                     </PillarButton>
@@ -140,8 +141,9 @@ export const FirstCommentWelcome = ({
                     ></div>
                     <PillarButton
                         pillar={pillar}
-                        priority="tertiary"
+                        priority="subdued"
                         onClick={cancelSubmit}
+                        linkName="cancel-post-comment"
                     >
                         Cancel
                     </PillarButton>

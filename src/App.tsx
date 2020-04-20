@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { css } from 'emotion';
 
-import 'regenerator-runtime/runtime';
-
 import {
     CommentType,
     FilterOptions,
@@ -263,6 +261,7 @@ export const App = ({
     };
 
     const onPageChange = (page: number) => {
+        document.getElementById('comment-filters')?.scrollIntoView();
         setPage(page);
     };
 
@@ -358,6 +357,7 @@ export const App = ({
                         onClick={() => setIsExpanded(true)}
                         icon={<PlusSVG />}
                         iconSide="left"
+                        linkName="more-comments"
                     >
                         View more comments
                     </PillarButton>
@@ -368,7 +368,7 @@ export const App = ({
 
     return (
         <Column>
-            <>
+            <div data-component="discussion">
                 {user && !isClosedForComments && (
                     <CommentForm
                         pillar={pillar}
@@ -386,6 +386,7 @@ export const App = ({
                     />
                 )}
                 <Filters
+                    pillar={pillar}
                     filters={filters}
                     onFilterChange={onFilterChange}
                     totalPages={totalPages}
@@ -445,7 +446,7 @@ export const App = ({
                         />
                     </footer>
                 )}
-            </>
+            </div>
         </Column>
     );
 };

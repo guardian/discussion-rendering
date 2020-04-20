@@ -25,6 +25,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="lifestyle"
+            linkName=""
         >
             Lifestyle
         </PillarButton>
@@ -34,6 +35,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="sport"
+            linkName=""
         >
             Sport
         </PillarButton>
@@ -43,6 +45,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="news"
+            linkName=""
         >
             News
         </PillarButton>
@@ -52,6 +55,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="opinion"
+            linkName=""
         >
             Opinion
         </PillarButton>
@@ -61,6 +65,7 @@ export const EachPillar = () => (
                 alert('Clicked!');
             }}
             pillar="culture"
+            linkName=""
         >
             Culture
         </PillarButton>
@@ -90,6 +95,7 @@ export const IconRight = () => (
         pillar="sport"
         icon={<SvgCheckmark />}
         iconSide="right"
+        linkName=""
     >
         Right
     </PillarButton>
@@ -103,6 +109,7 @@ export const Secondary = () => (
             }}
             pillar="lifestyle"
             priority="secondary"
+            linkName=""
         >
             Lifestyle
         </PillarButton>
@@ -113,6 +120,7 @@ export const Secondary = () => (
             }}
             pillar="sport"
             priority="secondary"
+            linkName=""
         >
             Sport
         </PillarButton>
@@ -123,6 +131,7 @@ export const Secondary = () => (
             }}
             pillar="news"
             priority="secondary"
+            linkName=""
         >
             News
         </PillarButton>
@@ -133,6 +142,7 @@ export const Secondary = () => (
             }}
             pillar="opinion"
             priority="secondary"
+            linkName=""
         >
             Opinion
         </PillarButton>
@@ -143,6 +153,7 @@ export const Secondary = () => (
             }}
             pillar="culture"
             priority="secondary"
+            linkName=""
         >
             Culture
         </PillarButton>
@@ -150,14 +161,15 @@ export const Secondary = () => (
 );
 Secondary.story = { name: 'with secondary priority' };
 
-export const Tertiary = () => (
+export const Subdued = () => (
     <Row>
         <PillarButton
             onClick={() => {
                 alert('Clicked!');
             }}
             pillar="lifestyle"
-            priority="tertiary"
+            priority="subdued"
+            linkName=""
         >
             Lifestyle
         </PillarButton>
@@ -167,7 +179,8 @@ export const Tertiary = () => (
                 alert('Clicked!');
             }}
             pillar="sport"
-            priority="tertiary"
+            priority="subdued"
+            linkName=""
         >
             Sport
         </PillarButton>
@@ -177,7 +190,8 @@ export const Tertiary = () => (
                 alert('Clicked!');
             }}
             pillar="news"
-            priority="tertiary"
+            priority="subdued"
+            linkName=""
         >
             News
         </PillarButton>
@@ -187,7 +201,8 @@ export const Tertiary = () => (
                 alert('Clicked!');
             }}
             pillar="opinion"
-            priority="tertiary"
+            priority="subdued"
+            linkName=""
         >
             Opinion
         </PillarButton>
@@ -197,10 +212,11 @@ export const Tertiary = () => (
                 alert('Clicked!');
             }}
             pillar="culture"
-            priority="tertiary"
+            priority="subdued"
+            linkName=""
         >
             Culture
         </PillarButton>
     </Row>
 );
-Tertiary.story = { name: 'with tertiary priority' };
+Subdued.story = { name: 'with subdued priority' };

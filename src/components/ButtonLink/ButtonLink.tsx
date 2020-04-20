@@ -14,6 +14,7 @@ type Props = {
     icon?: JSX.Element;
     iconSide?: 'left' | 'right';
     children: string | JSX.Element;
+    linkName: string;
 };
 
 const buttonOverrides = (size: 'small' | 'default', pillar?: Pillar) => css`
@@ -47,14 +48,16 @@ export const ButtonLink = ({
     icon,
     iconSide,
     children,
+    linkName,
 }: Props) => (
     <div className={cx(buttonOverrides(size, pillar))}>
         <Button
-            priority="tertiary"
+            priority="subdued"
             size={size}
             onClick={onClick}
             icon={icon}
             iconSide={iconSide}
+            data-link-name={linkName}
         >
             {children}
         </Button>

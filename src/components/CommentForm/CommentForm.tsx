@@ -431,7 +431,11 @@ export const CommentForm = ({
                 <div className={bottomContainer}>
                     <Row>
                         <>
-                            <PillarButton pillar={pillar} type="submit">
+                            <PillarButton
+                                pillar={pillar}
+                                type="submit"
+                                linkName="post comment"
+                            >
                                 Post your comment
                             </PillarButton>
                             {(isActive || body) && (
@@ -441,6 +445,7 @@ export const CommentForm = ({
                                         pillar={pillar}
                                         onClick={fetchShowPreview}
                                         priority="secondary"
+                                        linkName="preview-comment"
                                     >
                                         Preview
                                     </PillarButton>
@@ -449,7 +454,8 @@ export const CommentForm = ({
                                     <PillarButton
                                         pillar={pillar}
                                         onClick={resetForm}
-                                        priority="tertiary"
+                                        priority="subdued"
+                                        linkName="cancel-post-comment"
                                     >
                                         Cancel
                                     </PillarButton>
@@ -465,6 +471,7 @@ export const CommentForm = ({
                                     transformText(boldString);
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-bold"
                             >
                                 B
                             </button>
@@ -474,6 +481,7 @@ export const CommentForm = ({
                                     transformText(italicsString);
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-italic"
                             >
                                 i
                             </button>
@@ -501,6 +509,7 @@ export const CommentForm = ({
                                     transformText(quoteString);
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-quote"
                             >
                                 "
                             </button>
@@ -510,6 +519,7 @@ export const CommentForm = ({
                                     transformLink();
                                 }}
                                 className={commentAddOns}
+                                data-link-name="formatting-controls-link"
                             >
                                 Link
                             </button>

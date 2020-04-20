@@ -188,6 +188,7 @@ export const CommentContainer = ({
                                     <button
                                         onClick={() => expand(comment.id)}
                                         className={buttonStyles(pillar)}
+                                        data-link-name="Show more replies"
                                     >
                                         <Row>
                                             <Plus />
