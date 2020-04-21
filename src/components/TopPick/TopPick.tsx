@@ -103,6 +103,10 @@ const inheritColour = css`
     color: inherit;
 `;
 
+const wrapStyles = css`
+    word-break: break-word;
+`;
+
 const SpaceBetween = ({
     children,
 }: {
@@ -146,6 +150,7 @@ export const TopPick = ({
                 <Top>
                     <h3 className={titleStyles}>Guardian Pick</h3>
                     <p
+                        className={wrapStyles}
                         dangerouslySetInnerHTML={{
                             __html: truncateText(comment.body, 450),
                         }}

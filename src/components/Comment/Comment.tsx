@@ -72,6 +72,7 @@ const commentCss = css`
   ${textSans.small()}
   margin-top: ${remSpace[2]};
   margin-bottom: ${remSpace[3]};
+  word-break: break-word;
 
   p {
     margin-top: 0;
