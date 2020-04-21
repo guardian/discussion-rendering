@@ -240,6 +240,7 @@ export const pickComment = (commentId: number): Promise<CommentResponse> => {
     ]);
 
     return fetch(url, {
+        method: 'POST',
         headers: {
             ...options.headers,
         },
@@ -257,6 +258,7 @@ export const unPickComment = (commentId: number): Promise<CommentResponse> => {
     ]);
 
     return fetch(url, {
+        method: 'POST',
         headers: {
             ...options.headers,
         },
