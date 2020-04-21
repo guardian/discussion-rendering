@@ -292,7 +292,7 @@ export const App = ({
 
     if (!isExpanded) {
         return (
-            <div className={commentContainerStyles}>
+            <div className={commentContainerStyles} data-component="discussion">
                 {user && !isClosedForComments && (
                     <CommentForm
                         pillar={pillar}
