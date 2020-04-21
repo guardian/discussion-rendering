@@ -242,6 +242,7 @@ export const pickComment = (commentId: number): Promise<CommentResponse> => {
     return fetch(url, {
         method: 'POST',
         headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
             ...options.headers,
         },
         credentials: 'include',
@@ -261,6 +262,7 @@ export const unPickComment = (commentId: number): Promise<CommentResponse> => {
     return fetch(url, {
         method: 'POST',
         headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
             ...options.headers,
         },
         credentials: 'include',
