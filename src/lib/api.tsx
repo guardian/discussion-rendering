@@ -244,6 +244,7 @@ export const pickComment = (commentId: number): Promise<CommentResponse> => {
         headers: {
             ...options.headers,
         },
+        credentials: 'include',
     })
         .then(resp => resp.json())
         .catch(error => console.error(`Error fetching ${url}`, error));
@@ -262,6 +263,7 @@ export const unPickComment = (commentId: number): Promise<CommentResponse> => {
         headers: {
             ...options.headers,
         },
+        credentials: 'include',
     })
         .then(resp => resp.json())
         .catch(error => console.error(`Error fetching ${url}`, error));
