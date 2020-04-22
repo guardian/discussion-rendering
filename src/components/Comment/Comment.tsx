@@ -314,19 +314,8 @@ export const Comment = ({
                                         </div>
                                         <Timestamp
                                             isoDateTime={comment.isoDateTime}
-                                            linkTo={joinUrl([
-                                                // Remove the discussion-api path from the baseUrl
-                                                baseUrl
-                                                    .split('/')
-                                                    .filter(
-                                                        path =>
-                                                            path !==
-                                                            'discussion-api',
-                                                    )
-                                                    .join('/'),
-                                                'comment-permalink',
-                                                comment.id.toString(),
-                                            ])}
+                                            baseUrl={baseUrl}
+                                            commentId={comment.id}
                                         />
                                     </Column>
                                 </Row>
@@ -383,19 +372,8 @@ export const Comment = ({
                                     >
                                         <Timestamp
                                             isoDateTime={comment.isoDateTime}
-                                            linkTo={joinUrl([
-                                                // Remove the discussion-api path from the baseUrl
-                                                baseUrl
-                                                    .split('/')
-                                                    .filter(
-                                                        path =>
-                                                            path !==
-                                                            'discussion-api',
-                                                    )
-                                                    .join('/'),
-                                                'comment-permalink',
-                                                comment.id.toString(),
-                                            ])}
+                                            baseUrl={baseUrl}
+                                            commentId={comment.id}
                                         />
                                     </div>
                                 </Row>

@@ -197,15 +197,8 @@ export const TopPick = ({
                     </span>
                     <Timestamp
                         isoDateTime={comment.isoDateTime}
-                        linkTo={joinUrl([
-                            // Remove the discussion-api path from the baseUrl
-                            baseUrl
-                                .split('/')
-                                .filter(path => path !== 'discussion-api')
-                                .join('/'),
-                            'comment-permalink',
-                            comment.id.toString(),
-                        ])}
+                        baseUrl={baseUrl}
+                        commentId={comment.id}
                     />
                     {!!comment.userProfile.badge.filter(
                         obj => obj['name'] === 'Staff',

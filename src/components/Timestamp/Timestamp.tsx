@@ -6,10 +6,12 @@ import { palette } from '@guardian/src-foundations';
 
 import { dateFormatter } from '../../lib/dateFormatter';
 import { useInterval } from '../../lib/useInterval';
+import { joinUrl } from '../../lib/joinUrl';
 
 type Props = {
     isoDateTime: string;
-    linkTo: string;
+    baseUrl: string;
+    commentId: number;
 };
 
 const linkStyles = css`
@@ -26,8 +28,18 @@ const timeStyles = css`
     margin-right: 0.3125rem;
 `;
 
-export const Timestamp = ({ isoDateTime, linkTo }: Props) => {
+export const Timestamp = ({ isoDateTime, baseUrl, commentId }: Props) => {
     let [timeAgo, setTimeAgo] = useState(dateFormatter(isoDateTime));
+
+    const linkTo = joinUrl([
+        // Remove the discussion-api path from the baseUrl
+        baseUrl
+            .split('/')
+            .filter(path => path !== 'discussion-api')
+            .join('/'),
+        'comment-permalink',
+        commentId.toString(),
+    ]);
 
     useInterval(() => {
         setTimeAgo(dateFormatter(isoDateTime));
