@@ -12,6 +12,7 @@ type Props = {
     user?: UserProfile;
     comments: CommentType[];
     isSignedIn: boolean;
+    onPermalinkClick: (commentId: number) => void;
 };
 
 const columWrapperStyles = css`
@@ -53,6 +54,7 @@ export const TopPicks = ({
     user,
     comments,
     isSignedIn,
+    onPermalinkClick,
 }: Props) => {
     const leftColComments: CommentType[] = [];
     const rightColComments: CommentType[] = [];
@@ -75,6 +77,7 @@ export const TopPicks = ({
                                 !!user &&
                                 user.userId === comment.userProfile.userId
                             }
+                            onPermalinkClick={onPermalinkClick}
                         />
                     ))}
                 </div>
@@ -89,6 +92,7 @@ export const TopPicks = ({
                                 !!user &&
                                 user.userId === comment.userProfile.userId
                             }
+                            onPermalinkClick={onPermalinkClick}
                         />
                     ))}
                 </div>
@@ -103,6 +107,7 @@ export const TopPicks = ({
                         userMadeComment={
                             !!user && user.userId === comment.userProfile.userId
                         }
+                        onPermalinkClick={onPermalinkClick}
                     />
                 ))}
             </div>

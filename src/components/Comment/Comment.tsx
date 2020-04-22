@@ -32,6 +32,7 @@ type Props = {
     wasScrolledTo?: boolean;
     isMuted: boolean;
     toggleMuteStatus: (userId: string) => void;
+    onPermalinkClick: (commentId: number) => void;
 };
 
 const shiftLeft = css`
@@ -208,6 +209,7 @@ export const Comment = ({
     wasScrolledTo,
     isMuted,
     toggleMuteStatus,
+    onPermalinkClick,
 }: Props) => {
     const [isHighlighted, setIsHighlighted] = useState<boolean>(
         comment.isHighlighted,
@@ -316,6 +318,7 @@ export const Comment = ({
                                             isoDateTime={comment.isoDateTime}
                                             baseUrl={baseUrl}
                                             commentId={comment.id}
+                                            onPermalinkClick={onPermalinkClick}
                                         />
                                     </Column>
                                 </Row>
@@ -374,6 +377,7 @@ export const Comment = ({
                                             isoDateTime={comment.isoDateTime}
                                             baseUrl={baseUrl}
                                             commentId={comment.id}
+                                            onPermalinkClick={onPermalinkClick}
                                         />
                                     </div>
                                 </Row>

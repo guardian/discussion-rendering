@@ -14,6 +14,7 @@ ReactDOM.render(
             'GU-Client': 'testClientHeader',
         }}
         expanded={false}
+        onPermalinkClick={() => {}}
     />,
     document.getElementById('root'),
 );

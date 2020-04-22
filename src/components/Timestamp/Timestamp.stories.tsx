@@ -11,6 +11,7 @@ export const TwoMonths = () => (
         isoDateTime={'2020-01-26T14:22:39Z'}
         baseUrl=""
         commentId={123}
+        onPermalinkClick={() => {}}
     />
 );
 TwoMonths.story = { name: 'Two months' };
@@ -20,6 +21,7 @@ export const OneHour = () => (
         isoDateTime={'2020-03-27T11:00:00Z'}
         baseUrl=""
         commentId={123}
+        onPermalinkClick={() => {}}
     />
 );
 OneHour.story = { name: 'One Hour' };
@@ -29,6 +31,7 @@ export const TwentyThreeHours = () => (
         isoDateTime={'2020-03-26T13:00:00Z'}
         baseUrl=""
         commentId={123}
+        onPermalinkClick={() => {}}
     />
 );
 TwentyThreeHours.story = { name: 'Twenty three hours' };
@@ -38,6 +41,7 @@ export const TwentyFiveHours = () => (
         isoDateTime={'2020-03-26T11:00:00Z'}
         baseUrl=""
         commentId={123}
+        onPermalinkClick={() => {}}
     />
 );
 TwentyFiveHours.story = { name: 'Twenty five hours' };

@@ -12,6 +12,7 @@ type Props = {
     isoDateTime: string;
     baseUrl: string;
     commentId: number;
+    onPermalinkClick: (commentId: number) => void;
 };
 
 const linkStyles = css`
@@ -28,7 +29,12 @@ const timeStyles = css`
     margin-right: 0.3125rem;
 `;
 
-export const Timestamp = ({ isoDateTime, baseUrl, commentId }: Props) => {
+export const Timestamp = ({
+    isoDateTime,
+    baseUrl,
+    commentId,
+    onPermalinkClick,
+}: Props) => {
     let [timeAgo, setTimeAgo] = useState(dateFormatter(isoDateTime));
 
     const linkTo = joinUrl([
@@ -50,6 +56,10 @@ export const Timestamp = ({ isoDateTime, baseUrl, commentId }: Props) => {
             href={linkTo}
             className={linkStyles}
             data-link-name="jump-to-comment-timestamp"
+            onClick={e => {
+                onPermalinkClick(commentId);
+                e.preventDefault();
+            }}
         >
             <time dateTime={isoDateTime.toString()} className={timeStyles}>
                 {timeAgo}

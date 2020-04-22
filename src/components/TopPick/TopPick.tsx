@@ -22,6 +22,7 @@ type Props = {
     comment: CommentType;
     isSignedIn: boolean;
     userMadeComment: boolean;
+    onPermalinkClick: (commentId: number) => void;
 };
 
 const pickStyles = css`
@@ -143,6 +144,7 @@ export const TopPick = ({
     comment,
     isSignedIn,
     userMadeComment,
+    onPermalinkClick,
 }: Props) => (
     <div className={pickStyles}>
         <div className={pickComment}>
@@ -170,6 +172,10 @@ export const TopPick = ({
                                 'comment-permalink',
                                 comment.id.toString(),
                             ])}
+                            onClick={e => {
+                                onPermalinkClick(comment.id);
+                                e.preventDefault();
+                            }}
                         >
                             Jump to comment
                         </Link>
@@ -199,6 +205,7 @@ export const TopPick = ({
                         isoDateTime={comment.isoDateTime}
                         baseUrl={baseUrl}
                         commentId={comment.id}
+                        onPermalinkClick={onPermalinkClick}
                     />
                     {!!comment.userProfile.badge.filter(
                         obj => obj['name'] === 'Staff',

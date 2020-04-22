@@ -32,6 +32,7 @@ type Props = {
     user?: UserProfile;
     additionalHeaders: AdditionalHeadersType;
     expanded: boolean;
+    onPermalinkClick: (commentId: number) => void;
 };
 
 const footerStyles = css`
@@ -167,6 +168,7 @@ export const App = ({
     user,
     additionalHeaders,
     expanded,
+    onPermalinkClick,
 }: Props) => {
     const [filters, setFilters] = useState<FilterOptions>(
         initialiseFilters({
@@ -309,6 +311,7 @@ export const App = ({
                                 pillar={pillar}
                                 comments={picks.slice(0, 2)}
                                 isSignedIn={!!user}
+                                onPermalinkClick={onPermalinkClick}
                             />
                         )}
                     </div>
@@ -340,6 +343,7 @@ export const App = ({
                                             }
                                             mutes={mutes}
                                             toggleMuteStatus={toggleMuteStatus}
+                                            onPermalinkClick={onPermalinkClick}
                                         />
                                     </li>
                                 ))}
@@ -383,6 +387,7 @@ export const App = ({
                         pillar={pillar}
                         comments={picks}
                         isSignedIn={!!user}
+                        onPermalinkClick={onPermalinkClick}
                     />
                 )}
                 <Filters
@@ -428,6 +433,7 @@ export const App = ({
                                     commentToScrollTo={commentToScrollTo}
                                     mutes={mutes}
                                     toggleMuteStatus={toggleMuteStatus}
+                                    onPermalinkClick={onPermalinkClick}
                                 />
                             </li>
                         ))}
