@@ -6,10 +6,13 @@ import { palette } from '@guardian/src-foundations';
 
 import { dateFormatter } from '../../lib/dateFormatter';
 import { useInterval } from '../../lib/useInterval';
+import { joinUrl } from '../../lib/joinUrl';
 
 type Props = {
     isoDateTime: string;
-    linkTo: string;
+    baseUrl: string;
+    commentId: number;
+    onPermalinkClick: (commentId: number) => void;
 };
 
 const linkStyles = css`
@@ -26,8 +29,23 @@ const timeStyles = css`
     margin-right: 0.3125rem;
 `;
 
-export const Timestamp = ({ isoDateTime, linkTo }: Props) => {
+export const Timestamp = ({
+    isoDateTime,
+    baseUrl,
+    commentId,
+    onPermalinkClick,
+}: Props) => {
     let [timeAgo, setTimeAgo] = useState(dateFormatter(isoDateTime));
+
+    const linkTo = joinUrl([
+        // Remove the discussion-api path from the baseUrl
+        baseUrl
+            .split('/')
+            .filter(path => path !== 'discussion-api')
+            .join('/'),
+        'comment-permalink',
+        commentId.toString(),
+    ]);
 
     useInterval(() => {
         setTimeAgo(dateFormatter(isoDateTime));
@@ -38,6 +56,10 @@ export const Timestamp = ({ isoDateTime, linkTo }: Props) => {
             href={linkTo}
             className={linkStyles}
             data-link-name="jump-to-comment-timestamp"
+            onClick={e => {
+                onPermalinkClick(commentId);
+                e.preventDefault();
+            }}
         >
             <time dateTime={isoDateTime.toString()} className={timeStyles}>
                 {timeAgo}

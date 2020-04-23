@@ -24,6 +24,7 @@ type Props = {
     commentToScrollTo?: number;
     mutes: string[];
     toggleMuteStatus: (userId: string) => void;
+    onPermalinkClick: (commentId: number) => void;
 };
 
 const nestingStyles = css`
@@ -103,6 +104,7 @@ export const CommentContainer = ({
     commentToScrollTo,
     mutes,
     toggleMuteStatus,
+    onPermalinkClick,
 }: Props) => {
     // Filter logic
     const [expanded, setExpanded] = useState<boolean>(threads === 'expanded');
@@ -147,6 +149,7 @@ export const CommentContainer = ({
                 isReply={false}
                 isMuted={mutes.includes(comment.userProfile.userId)}
                 toggleMuteStatus={toggleMuteStatus}
+                onPermalinkClick={onPermalinkClick}
             />
 
             <>
@@ -177,6 +180,7 @@ export const CommentContainer = ({
                                             responseComment.userProfile.userId,
                                         )}
                                         toggleMuteStatus={toggleMuteStatus}
+                                        onPermalinkClick={onPermalinkClick}
                                     />
                                 </li>
                             ))}

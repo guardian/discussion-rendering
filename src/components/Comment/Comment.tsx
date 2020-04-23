@@ -32,6 +32,7 @@ type Props = {
     wasScrolledTo?: boolean;
     isMuted: boolean;
     toggleMuteStatus: (userId: string) => void;
+    onPermalinkClick: (commentId: number) => void;
 };
 
 const shiftLeft = css`
@@ -208,6 +209,7 @@ export const Comment = ({
     wasScrolledTo,
     isMuted,
     toggleMuteStatus,
+    onPermalinkClick,
 }: Props) => {
     const [isHighlighted, setIsHighlighted] = useState<boolean>(
         comment.isHighlighted,
@@ -314,19 +316,9 @@ export const Comment = ({
                                         </div>
                                         <Timestamp
                                             isoDateTime={comment.isoDateTime}
-                                            linkTo={joinUrl([
-                                                // Remove the discussion-api path from the baseUrl
-                                                baseUrl
-                                                    .split('/')
-                                                    .filter(
-                                                        path =>
-                                                            path !==
-                                                            'discussion-api',
-                                                    )
-                                                    .join('/'),
-                                                'comment-permalink',
-                                                comment.id.toString(),
-                                            ])}
+                                            baseUrl={baseUrl}
+                                            commentId={comment.id}
+                                            onPermalinkClick={onPermalinkClick}
                                         />
                                     </Column>
                                 </Row>
@@ -383,19 +375,9 @@ export const Comment = ({
                                     >
                                         <Timestamp
                                             isoDateTime={comment.isoDateTime}
-                                            linkTo={joinUrl([
-                                                // Remove the discussion-api path from the baseUrl
-                                                baseUrl
-                                                    .split('/')
-                                                    .filter(
-                                                        path =>
-                                                            path !==
-                                                            'discussion-api',
-                                                    )
-                                                    .join('/'),
-                                                'comment-permalink',
-                                                comment.id.toString(),
-                                            ])}
+                                            baseUrl={baseUrl}
+                                            commentId={comment.id}
+                                            onPermalinkClick={onPermalinkClick}
                                         />
                                     </div>
                                 </Row>
