@@ -493,7 +493,7 @@ export const CommentForm = ({
                                 className={commentAddOns}
                                 data-link-name="formatting-controls-strikethrough"
                             >
-                                Del
+                                {`S̶`}
                             </button>
                             <button
                                 onClick={e => {
