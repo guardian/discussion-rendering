@@ -39,6 +39,76 @@ export const NoPages = () => {
 };
 NoPages.story = { name: 'with two pages' };
 
+export const ThreePages = () => {
+    const [page, setCurrentPage] = useState(1);
+    return (
+        <Pagination
+            totalPages={3}
+            currentPage={page}
+            setCurrentPage={setCurrentPage}
+            filters={DEFAULT_FILTERS}
+            commentCount={75}
+        />
+    );
+};
+ThreePages.story = { name: 'with three pages' };
+
+export const FourPages = () => {
+    const [page, setCurrentPage] = useState(1);
+    return (
+        <Pagination
+            totalPages={4}
+            currentPage={page}
+            setCurrentPage={setCurrentPage}
+            filters={DEFAULT_FILTERS}
+            commentCount={100}
+        />
+    );
+};
+FourPages.story = { name: 'with four pages' };
+
+export const FivePages = () => {
+    const [page, setCurrentPage] = useState(1);
+    return (
+        <Pagination
+            totalPages={5}
+            currentPage={page}
+            setCurrentPage={setCurrentPage}
+            filters={DEFAULT_FILTERS}
+            commentCount={124}
+        />
+    );
+};
+FivePages.story = { name: 'with five pages' };
+
+export const SixPages = () => {
+    const [page, setCurrentPage] = useState(1);
+    return (
+        <Pagination
+            totalPages={6}
+            currentPage={page}
+            setCurrentPage={setCurrentPage}
+            filters={DEFAULT_FILTERS}
+            commentCount={149}
+        />
+    );
+};
+SixPages.story = { name: 'with six pages' };
+
+export const SevenPages = () => {
+    const [page, setCurrentPage] = useState(1);
+    return (
+        <Pagination
+            totalPages={7}
+            currentPage={page}
+            setCurrentPage={setCurrentPage}
+            filters={DEFAULT_FILTERS}
+            commentCount={159}
+        />
+    );
+};
+SevenPages.story = { name: 'with seven pages' };
+
 export const LotsOfPages = () => {
     const [page, setCurrentPage] = useState(1);
     return (

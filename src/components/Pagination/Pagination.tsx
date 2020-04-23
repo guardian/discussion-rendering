@@ -218,7 +218,7 @@ export const Pagination = ({
     const forthPage = decideForthPage({ currentPage, totalPages });
     const showThirdPage = totalPages > 2;
     const showForthPage = totalPages > 3;
-    const showLastPage = currentPage < totalPages - 1;
+    const showLastPage = totalPages > 4 && currentPage < totalPages - 1;
     const lastPage = totalPages;
     const showSecondElipsis = totalPages > 4 && currentPage < totalPages - 2;
     const showForwardButton = totalPages > 4 && currentPage !== totalPages;
