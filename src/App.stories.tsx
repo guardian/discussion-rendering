@@ -39,6 +39,7 @@ export const Default = () => (
                 'GU-Client': 'testClientHeader',
             }}
             expanded={false}
+            onPermalinkClick={() => {}}
         />
     </div>
 );
@@ -63,6 +64,7 @@ export const InitialPage = () => (
                 'GU-Client': 'testClientHeader',
             }}
             expanded={false}
+            onPermalinkClick={() => {}}
         />
     </div>
 );
@@ -89,6 +91,7 @@ export const Overrides = () => (
                 'GU-Client': 'testClientHeader',
             }}
             expanded={false}
+            onPermalinkClick={() => {}}
         />
     </div>
 );
@@ -111,6 +114,7 @@ export const NotLoggedIn = () => (
                 'GU-Client': 'testClientHeader',
             }}
             expanded={false}
+            onPermalinkClick={() => {}}
         />
     </div>
 );
@@ -135,6 +139,7 @@ export const Expanded = () => (
                 'GU-Client': 'testClientHeader',
             }}
             expanded={true}
+            onPermalinkClick={() => {}}
         />
     </div>
 );
@@ -158,6 +163,7 @@ export const Closed = () => (
                 'GU-Client': 'testClientHeader',
             }}
             expanded={true}
+            onPermalinkClick={() => {}}
         />
     </div>
 );

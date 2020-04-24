@@ -109,6 +109,7 @@ export const defaultStory = () => (
         setCommentBeingRepliedTo={comment => {}}
         mutes={[]}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 defaultStory.story = { name: 'default' };
@@ -125,6 +126,7 @@ export const threadedComment = () => (
         setCommentBeingRepliedTo={comment => {}}
         mutes={[]}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 threadedComment.story = { name: 'threaded' };
