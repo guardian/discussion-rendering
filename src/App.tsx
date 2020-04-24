@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { css } from 'emotion';
 
+import { neutral } from '@guardian/src-foundations/palette';
+import { textSans } from '@guardian/src-foundations/typography';
+import { space } from '@guardian/src-foundations';
+
 import {
     CommentType,
     FilterOptions,
@@ -64,6 +68,21 @@ const PlusSVG = () => (
     <svg width="18" height="18">
         <path d="M8.2 0h1.6l.4 7.8 7.8.4v1.6l-7.8.4-.4 7.8H8.2l-.4-7.8L0 9.8V8.2l7.8-.4.4-7.8z"></path>
     </svg>
+);
+
+const NoComments = () => (
+    <div
+        className={css`
+
+    color: ${neutral[46]};
+    ${textSans.small()}
+    padding-top: ${space[5]}px;
+    padding-left: ${space[1]}px;
+    padding-bottom: ${space[9]}px;
+  `}
+    >
+        No comments found
+    </div>
 );
 
 const rememberFilters = (filtersToRemember: FilterOptions) => {
@@ -320,7 +339,7 @@ export const App = ({
                         {loading ? (
                             <LoadingComments />
                         ) : !comments.length ? (
-                            <p>TODO: No comment component goes here</p>
+                            <NoComments />
                         ) : (
                             <ul className={commentContainerStyles}>
                                 {comments.slice(0, 2).map(comment => (
@@ -411,7 +430,7 @@ export const App = ({
                 {loading ? (
                     <LoadingComments />
                 ) : !comments.length ? (
-                    <p>TODO: No comment component goes here</p>
+                    <NoComments />
                 ) : (
                     <ul className={commentContainerStyles}>
                         {comments.map(comment => (
