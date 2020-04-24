@@ -453,6 +453,7 @@ export const Comment = ({
                                         )
                                     }
                                     linkName="unmute-user"
+                                    size="small"
                                 >
                                     Unmute?
                                 </ButtonLink>
