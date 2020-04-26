@@ -36,7 +36,6 @@ const arrowSize = 25;
 const bg = neutral[93];
 
 const pickComment = css`
-    display: flex;
     padding: ${space[3]}px;
     background-color: ${bg};
     border-radius: 15px;
