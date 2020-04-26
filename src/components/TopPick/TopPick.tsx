@@ -29,7 +29,6 @@ const pickStyles = css`
     width: 100%;
     min-width: 250px;
     margin-bottom: ${space[5]}px;
-    flex: 0 0;
     ${textSans.small()};
 `;
 
