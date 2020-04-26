@@ -26,6 +26,8 @@ type Props = {
 };
 
 const pickStyles = css`
+    display: flex;
+    flex-direction: column;
     width: 100%;
     min-width: 250px;
     margin-bottom: ${space[5]}px;
@@ -34,38 +36,6 @@ const pickStyles = css`
 
 const arrowSize = 25;
 const bg = neutral[93];
-
-const pickComment = css`
-    padding: ${space[3]}px;
-    background-color: ${bg};
-    border-radius: 15px;
-    margin-bottom: ${arrowSize + 5}px;
-    position: relative;
-
-    ${from.tablet} {
-        min-height: 150px;
-    }
-
-    :before {
-        content: '';
-        margin-left: ${space[6]}px;
-        position: absolute;
-        border-right: ${arrowSize}px solid transparent;
-        border-top: ${arrowSize}px solid ${bg};
-        bottom: -${arrowSize - 1}px;
-    }
-
-    p {
-        margin-top: 0;
-        margin-bottom: ${space[3]}px;
-    }
-`;
-
-const pickMetaWrapper = css`
-    display: flex;
-    justify-content: space-between;
-    padding-top: ${space[1]}px;
-`;
 
 const userNameStyles = (pillar: Pillar) => css`
     margin-top: 3px;
@@ -106,7 +76,7 @@ const wrapStyles = css`
     word-break: break-word;
 `;
 
-const SpaceBetween = ({
+const PickBubble = ({
     children,
 }: {
     children: JSX.Element | JSX.Element[];
@@ -116,6 +86,30 @@ const SpaceBetween = ({
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
+            padding: ${space[3]}px;
+            background-color: ${bg};
+            border-radius: 15px;
+            margin-bottom: ${arrowSize + 5}px;
+            position: relative;
+
+            ${from.tablet} {
+                min-height: 150px;
+            }
+
+            :before {
+                content: '';
+                margin-left: ${space[6]}px;
+                position: absolute;
+                border-right: ${arrowSize}px solid transparent;
+                border-top: ${arrowSize}px solid ${bg};
+                bottom: -${arrowSize - 1}px;
+            }
+
+            p {
+                margin-top: 0;
+                margin-bottom: ${space[3]}px;
+            }
         `}
     >
         {children}
@@ -128,6 +122,18 @@ const Top = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 
 const Bottom = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
     <div>{children}</div>
+);
+
+const PickMeta = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+    <div
+        className={css`
+            display: flex;
+            justify-content: space-between;
+            padding-top: ${space[1]}px;
+        `}
+    >
+        {children}
+    </div>
 );
 
 const truncateText = (input: string, limit: number) => {
@@ -145,43 +151,41 @@ export const TopPick = ({
     onPermalinkClick,
 }: Props) => (
     <div className={pickStyles}>
-        <div className={pickComment}>
-            <SpaceBetween>
-                <Top>
-                    <h3 className={titleStyles}>Guardian Pick</h3>
-                    <p
-                        className={wrapStyles}
-                        dangerouslySetInnerHTML={{
-                            __html: truncateText(comment.body, 450),
+        <PickBubble>
+            <Top>
+                <h3 className={titleStyles}>Guardian Pick</h3>
+                <p
+                    className={wrapStyles}
+                    dangerouslySetInnerHTML={{
+                        __html: truncateText(comment.body, 450),
+                    }}
+                ></p>
+            </Top>
+            <Bottom>
+                <div className={smallFontSize}>
+                    <Link
+                        priority="primary"
+                        subdued={true}
+                        href={joinUrl([
+                            // Remove the discussion-api path from the baseUrl
+                            baseUrl
+                                .split('/')
+                                .filter(path => path !== 'discussion-api')
+                                .join('/'),
+                            'comment-permalink',
+                            comment.id.toString(),
+                        ])}
+                        onClick={e => {
+                            onPermalinkClick(comment.id);
+                            e.preventDefault();
                         }}
-                    ></p>
-                </Top>
-                <Bottom>
-                    <div className={smallFontSize}>
-                        <Link
-                            priority="primary"
-                            subdued={true}
-                            href={joinUrl([
-                                // Remove the discussion-api path from the baseUrl
-                                baseUrl
-                                    .split('/')
-                                    .filter(path => path !== 'discussion-api')
-                                    .join('/'),
-                                'comment-permalink',
-                                comment.id.toString(),
-                            ])}
-                            onClick={e => {
-                                onPermalinkClick(comment.id);
-                                e.preventDefault();
-                            }}
-                        >
-                            Jump to comment
-                        </Link>
-                    </div>
-                </Bottom>
-            </SpaceBetween>
-        </div>
-        <div className={pickMetaWrapper}>
+                    >
+                        Jump to comment
+                    </Link>
+                </div>
+            </Bottom>
+        </PickBubble>
+        <PickMeta>
             <Row>
                 <div className={avatarMargin}>
                     <Avatar
@@ -221,6 +225,6 @@ export const TopPick = ({
                 isSignedIn={isSignedIn}
                 userMadeComment={userMadeComment}
             />
-        </div>
+        </PickMeta>
     </div>
 );
