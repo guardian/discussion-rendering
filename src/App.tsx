@@ -244,7 +244,10 @@ export const App = ({
     // Keep initialPage prop in sync with page
     useEffect(() => {
         if (initialPage) setPage(initialPage);
-    }, [initialPage]);
+        // We added commentToScrollTo to the deps here because the initialPage alone wasn't triggered the effect
+        // and we want to ensure the discussion rerenders with the right page when the reader clicks Jump To Comment
+        // for a comment on a different page
+    }, [initialPage, commentToScrollTo]);
 
     // Check if there is a comment to scroll to and if
     // so, scroll to the div with this id.
