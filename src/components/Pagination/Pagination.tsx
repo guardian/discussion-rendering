@@ -1,9 +1,14 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+import { css } from 'emotion';
 
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, border, space } from '@guardian/src-foundations';
 import { until } from '@guardian/src-foundations/mq';
+import { Button } from '@guardian/src-button';
+import {
+    SvgChevronLeftSingle,
+    SvgChevronRightSingle,
+} from '@guardian/src-svgs';
 
 import { FilterOptions } from '../../types';
 
@@ -15,7 +20,7 @@ type Props = {
     filters: FilterOptions;
 };
 
-const buttonStyles = (isSelected: boolean) => css`
+const pageButtonStyles = (isSelected: boolean) => css`
     cursor: pointer;
     ${textSans.small({ fontWeight: 'bold' })}
 
@@ -32,7 +37,7 @@ const buttonStyles = (isSelected: boolean) => css`
         border-color: ${neutral[46]};
     }
 
-    margin-left: 5px;
+    margin-right: 5px;
     padding: 0 0.125rem;
     min-width: 1.5rem;
     text-align: center;
@@ -43,38 +48,42 @@ const buttonStyles = (isSelected: boolean) => css`
     text-overflow: ellipsis;
 `;
 
-const chevronStyles = (isSelected: boolean) => css`
-    cursor: pointer;
+const chevronButtonStyles = ({ isSelected }: { isSelected: boolean }) => css`
+    margin-right: ${space[1]}px;
+
     border-radius: 62.5rem;
-    border-width: 0.0625rem;
+    border-width: 1px;
     border-style: solid;
-    box-sizing: border-box;
-    background-color: ${isSelected ? neutral[46] : neutral[100]};
     border-color: ${neutral[86]};
+    background-color: ${isSelected ? neutral[46] : neutral[100]};
+
+    height: 22px;
+    min-height: 22px;
+    width: 22px;
+
+    /* Override some of src's properties */
+    > button {
+        height: 22px;
+        min-height: 22px;
+        width: 22px;
+    }
+
     :hover {
         border-color: ${neutral[60]};
     }
-    height: 1.5rem;
-    padding: 0 0.5rem;
-    margin-left: 5px;
 
-    > svg {
-        fill: ${isSelected ? neutral[100] : neutral[46]};
+    /* Make the chevrons grey */
+    & svg {
+        fill: ${neutral[46]} !important;
     }
 `;
 
 const elipsisStyles = css`
     line-height: 26px;
-    margin-left: 5px;
+    margin-right: 5px;
 `;
 
-const rotateSvg = css`
-    svg {
-        transform: rotate(180deg);
-    }
-`;
-
-const paginationWrapper = css`
+const wrapperStyles = css`
     ${textSans.small()};
     color: ${neutral[46]};
 
@@ -90,7 +99,7 @@ const paginationWrapper = css`
     }
 `;
 
-const paginationSelectors = css`
+const paginationButtons = css`
     display: flex;
     flex-direction: row;
     height: 25px;
@@ -104,12 +113,6 @@ const paginationText = css`
     }
 `;
 
-const ChevronBack = () => (
-    <svg width="6" height="12" viewBox="0 0 6 12">
-        <path d="M6 11.5L1.5 6 6 .5 5.5 0 0 5.75v.5L5.5 12l.5-.5z"></path>
-    </svg>
-);
-
 const Forward = ({
     currentPage,
     setCurrentPage,
@@ -117,14 +120,16 @@ const Forward = ({
     currentPage: number;
     setCurrentPage: Function;
 }) => (
-    <button
-        key={'last'}
-        className={cx(chevronStyles(false), rotateSvg)}
-        onClick={() => setCurrentPage(currentPage + 1)}
-        data-link-name={`Pagination view page ${currentPage + 1}`}
-    >
-        <ChevronBack />
-    </button>
+    <div className={chevronButtonStyles({ isSelected: false })}>
+        <Button
+            icon={<SvgChevronRightSingle />}
+            onClick={() => setCurrentPage(currentPage + 1)}
+            aria-label="Previous discussion page"
+            data-link-name={`Pagination view page ${currentPage + 1}`}
+            size="small"
+            priority="subdued"
+        />
+    </div>
 );
 
 const Back = ({
@@ -137,14 +142,16 @@ const Back = ({
     const newPage = Math.max(0, currentPage - 1);
 
     return (
-        <button
-            key={'last'}
-            className={chevronStyles(false)}
-            onClick={() => setCurrentPage(newPage)}
-            data-link-name={`Pagination view page ${newPage}`}
-        >
-            <ChevronBack />
-        </button>
+        <div className={chevronButtonStyles({ isSelected: false })}>
+            <Button
+                icon={<SvgChevronLeftSingle />}
+                onClick={() => setCurrentPage(newPage)}
+                aria-label="Previous discussion page"
+                data-link-name={`Pagination view page ${newPage}`}
+                size="small"
+                priority="subdued"
+            />
+        </div>
     );
 };
 
@@ -159,7 +166,7 @@ const PageButton = ({
 }) => (
     <button
         key={currentPage}
-        className={buttonStyles(isSelected)}
+        className={pageButtonStyles(isSelected)}
         onClick={() => setCurrentPage(currentPage)}
         data-link-name={`Pagination view page ${currentPage}`}
     >
@@ -230,8 +237,8 @@ export const Pagination = ({
     if (endIndex > commentCount) endIndex = commentCount; // If there are less total comments than allowed on the page, endIndex is total comment count
 
     return (
-        <div className={paginationWrapper}>
-            <div className={paginationSelectors}>
+        <div className={wrapperStyles}>
+            <div className={paginationButtons}>
                 {showBackButton && (
                     <Back
                         currentPage={currentPage}
