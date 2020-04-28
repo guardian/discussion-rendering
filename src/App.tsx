@@ -141,12 +141,22 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
         return DEFAULT_FILTERS;
     }
 
+    function checkPageSize(size: any): PageSizeType {
+        // This function handles the fact that some readers have legacy values
+        // stored in the browsers
+        if (!size) return DEFAULT_FILTERS.pageSize; // Default
+        if (size === 'All') return DEFAULT_FILTERS.pageSize; // Convert 'All' to default
+        const supportedSizes: PageSizeType[] = [25, 50, 100];
+        if (!supportedSizes.includes(size)) return DEFAULT_FILTERS.pageSize; // Convert anything else to default
+        return size; // size is acceptable
+    }
+
     // If we found something in LS, use it, otherwise return defaults
     return {
         orderBy: orderBy ? JSON.parse(orderBy).value : DEFAULT_FILTERS.orderBy,
         threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
         pageSize: pageSize
-            ? JSON.parse(pageSize).value
+            ? checkPageSize(JSON.parse(pageSize).value)
             : DEFAULT_FILTERS.pageSize,
     };
 };
