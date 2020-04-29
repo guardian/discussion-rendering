@@ -32,9 +32,9 @@ export const initialiseApi = ({
     additionalHeaders: AdditionalHeadersType;
     apiKey: string;
 }) => {
-    options.baseUrl = baseUrl;
-    options.headers = additionalHeaders;
-    options.apiKey = apiKey;
+    options.baseUrl = baseUrl || options.baseUrl;
+    options.headers = additionalHeaders || options.headers;
+    options.apiKey = apiKey || options.apiKey;
 
     defaultParams['api-key'] = options.apiKey;
 };
