@@ -109,6 +109,20 @@ export const SevenPages = () => {
 };
 SevenPages.story = { name: 'with seven pages' };
 
+export const TwelvePages = () => {
+    const [page, setCurrentPage] = useState(1);
+    return (
+        <Pagination
+            totalPages={12}
+            currentPage={page}
+            setCurrentPage={setCurrentPage}
+            filters={DEFAULT_FILTERS}
+            commentCount={288}
+        />
+    );
+};
+TwelvePages.story = { name: 'with twelve pages' };
+
 export const LotsOfPages = () => {
     const [page, setCurrentPage] = useState(1);
     return (
