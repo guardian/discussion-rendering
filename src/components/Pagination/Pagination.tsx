@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, border, space } from '@guardian/src-foundations';
@@ -78,6 +78,14 @@ const chevronButtonStyles = ({ isSelected }: { isSelected: boolean }) => css`
     }
 `;
 
+const shiftRight = css`
+    /* The right chevron svg positions it's path in such a way that makes the alignment look
+    off. So here we shift it slightly to the right to fix that     */
+    & svg {
+        margin-left: 2px;
+    }
+`;
+
 const elipsisStyles = css`
     line-height: 26px;
     margin-right: 5px;
@@ -120,7 +128,7 @@ const Forward = ({
     currentPage: number;
     setCurrentPage: Function;
 }) => (
-    <div className={chevronButtonStyles({ isSelected: false })}>
+    <div className={cx(chevronButtonStyles({ isSelected: false }), shiftRight)}>
         <Button
             icon={<SvgChevronRightSingle />}
             onClick={() => setCurrentPage(currentPage + 1)}
