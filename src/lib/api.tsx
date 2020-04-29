@@ -126,7 +126,7 @@ export const comment = (
 ): Promise<CommentResponse> => {
     const url =
         joinUrl([options.baseUrl, 'discussion', shortUrl, 'comment']) +
-        `?api-key=${options.apiKey}`;
+        objAsParams(defaultParams);
     const data = new URLSearchParams();
     data.append('body', body);
 
@@ -154,7 +154,7 @@ export const reply = (
             'comment',
             parentCommentId.toString(),
             'reply',
-        ]) + `?api-key=${options.apiKey}`;
+        ]) + objAsParams(defaultParams);
     const data = new URLSearchParams();
     data.append('body', body);
 
@@ -172,7 +172,7 @@ export const reply = (
 export const getPicks = (shortUrl: string): Promise<CommentType[]> => {
     const url =
         joinUrl([options.baseUrl, 'discussion', shortUrl, 'topcomments']) +
-        `?api-key=${options.apiKey}`;
+        objAsParams(defaultParams);
 
     return fetch(url, {
         headers: {
