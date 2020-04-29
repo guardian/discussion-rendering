@@ -37,7 +37,7 @@ export const mockFetchCalls = () => {
             body: discussion,
         })
         .get(
-            /.*\/discussion\?orderBy=newest&pageSize=25&displayThreaded=true&maxResponses=3&page=1/,
+            /.*\/discussion\?api-key=discussion-rendering-test&orderBy=newest&pageSize=25&displayThreaded=true&maxResponses=3&page=1/,
             {
                 status: 200,
                 body: discussion,
