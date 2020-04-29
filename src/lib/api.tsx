@@ -19,6 +19,10 @@ let options = {
     headers: {},
 };
 
+let defaultParams = {
+    'api-key': options.apiKey,
+};
+
 export const initialiseApi = ({
     baseUrl,
     additionalHeaders,
@@ -31,6 +35,8 @@ export const initialiseApi = ({
     options.baseUrl = baseUrl;
     options.headers = additionalHeaders;
     options.apiKey = apiKey;
+
+    defaultParams['api-key'] = options.apiKey;
 };
 
 const objAsParams = (obj: any): string => {
@@ -53,17 +59,19 @@ export const getDiscussion = (
     },
 ): Promise<DiscussionResponse> => {
     const apiOpts: DiscussionOptions = {
-        // Frontend uses the 'recommendations' key to store this options but the api expects
-        // 'mostRecommended' so we have to map here to support both
-        orderBy:
-            opts.orderBy === 'recommendations'
-                ? 'mostRecommended'
-                : opts.orderBy,
-        pageSize: opts.pageSize,
-        displayThreaded: opts.threads !== 'unthreaded',
-        maxResponses: opts.threads === 'collapsed' ? 3 : 100,
-        page: opts.page,
-        'api-key': options.apiKey,
+        ...defaultParams,
+        ...{
+            // Frontend uses the 'recommendations' key to store this options but the api expects
+            // 'mostRecommended' so we have to map here to support both
+            orderBy:
+                opts.orderBy === 'recommendations'
+                    ? 'mostRecommended'
+                    : opts.orderBy,
+            pageSize: opts.pageSize,
+            displayThreaded: opts.threads !== 'unthreaded',
+            maxResponses: opts.threads === 'collapsed' ? 3 : 100,
+            page: opts.page,
+        },
     };
     const params = objAsParams(apiOpts);
 
@@ -79,7 +87,9 @@ export const getDiscussion = (
 };
 
 export const preview = (body: string): Promise<string> => {
-    const url = joinUrl([options.baseUrl, 'comment/preview']);
+    const url =
+        joinUrl([options.baseUrl, 'comment/preview']) +
+        objAsParams(defaultParams);
     const data = new URLSearchParams();
     data.append('body', body);
 
@@ -97,7 +107,8 @@ export const preview = (body: string): Promise<string> => {
 };
 
 export const getProfile = (): Promise<UserProfile> => {
-    const url = joinUrl([options.baseUrl, 'profile/me']);
+    const url =
+        joinUrl([options.baseUrl, 'profile/me']) + objAsParams(defaultParams);
 
     return fetch(url, {
         credentials: 'include',
@@ -113,7 +124,9 @@ export const comment = (
     shortUrl: string,
     body: string,
 ): Promise<CommentResponse> => {
-    const url = joinUrl([options.baseUrl, 'discussion', shortUrl, 'comment']);
+    const url =
+        joinUrl([options.baseUrl, 'discussion', shortUrl, 'comment']) +
+        `?api-key=${options.apiKey}`;
     const data = new URLSearchParams();
     data.append('body', body);
 
@@ -133,14 +146,15 @@ export const reply = (
     body: string,
     parentCommentId: number,
 ): Promise<CommentResponse> => {
-    const url = joinUrl([
-        options.baseUrl,
-        'discussion',
-        shortUrl,
-        'comment',
-        parentCommentId.toString(),
-        'reply',
-    ]);
+    const url =
+        joinUrl([
+            options.baseUrl,
+            'discussion',
+            shortUrl,
+            'comment',
+            parentCommentId.toString(),
+            'reply',
+        ]) + `?api-key=${options.apiKey}`;
     const data = new URLSearchParams();
     data.append('body', body);
 
@@ -181,7 +195,10 @@ export const reportAbuse = ({
     reason?: string;
     email?: string;
 }) => {
-    const url = options.baseUrl + `/comment/${commentId}/reportAbuse`;
+    const url =
+        options.baseUrl +
+        `/comment/${commentId}/reportAbuse` +
+        objAsParams(defaultParams);
 
     const data = new URLSearchParams();
     data.append('categoryId', categoryId.toString());
@@ -205,7 +222,7 @@ export const recommend = (commentId: number): Promise<boolean> => {
             'comment',
             commentId.toString(),
             'recommend',
-        ]) + `?api-key=${options.apiKey}`;
+        ]) + objAsParams(defaultParams);
 
     return fetch(url, {
         method: 'POST',
@@ -217,7 +234,8 @@ export const recommend = (commentId: number): Promise<boolean> => {
 };
 
 export const addUserName = (userName: string): Promise<UserNameResponse> => {
-    const url = 'https://idapi.theguardian.com/user/me';
+    const url =
+        `https://idapi.theguardian.com/user/me` + objAsParams(defaultParams);
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -235,12 +253,13 @@ export const addUserName = (userName: string): Promise<UserNameResponse> => {
 };
 
 export const pickComment = (commentId: number): Promise<CommentResponse> => {
-    const url = joinUrl([
-        options.baseUrl,
-        'comment',
-        commentId.toString(),
-        'highlight',
-    ]);
+    const url =
+        joinUrl([
+            options.baseUrl,
+            'comment',
+            commentId.toString(),
+            'highlight',
+        ]) + objAsParams(defaultParams);
 
     return fetch(url, {
         method: 'POST',
@@ -255,12 +274,13 @@ export const pickComment = (commentId: number): Promise<CommentResponse> => {
 };
 
 export const unPickComment = (commentId: number): Promise<CommentResponse> => {
-    const url = joinUrl([
-        options.baseUrl,
-        'comment',
-        commentId.toString(),
-        'unhighlight',
-    ]);
+    const url =
+        joinUrl([
+            options.baseUrl,
+            'comment',
+            commentId.toString(),
+            'unhighlight',
+        ]) + objAsParams(defaultParams);
 
     return fetch(url, {
         method: 'POST',
@@ -282,7 +302,13 @@ export const getMoreResponses = (
 }> => {
     const url =
         joinUrl([options.baseUrl, 'comment', commentId.toString()]) +
-        `?displayThreaded=true&displayResponses=true&api-key=${options.apiKey}`;
+        objAsParams({
+            ...defaultParams,
+            ...{
+                displayThreaded: true,
+                displayResponse: true,
+            },
+        });
 
     return fetch(url, {
         headers: {
