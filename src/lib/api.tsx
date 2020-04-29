@@ -15,18 +15,22 @@ import {
 let options = {
     // Defaults
     baseUrl: 'https://discussion.theguardian.com/discussion-api',
+    apiKey: 'discussion-rendering',
     headers: {},
 };
 
 export const initialiseApi = ({
     baseUrl,
     additionalHeaders,
+    apiKey,
 }: {
     baseUrl: string;
     additionalHeaders: AdditionalHeadersType;
+    apiKey: string;
 }) => {
     options.baseUrl = baseUrl;
     options.headers = additionalHeaders;
+    options.apiKey = apiKey;
 };
 
 const objAsParams = (obj: any): string => {
@@ -59,6 +63,7 @@ export const getDiscussion = (
         displayThreaded: opts.threads !== 'unthreaded',
         maxResponses: opts.threads === 'collapsed' ? 3 : 100,
         page: opts.page,
+        'api-key': options.apiKey,
     };
     const params = objAsParams(apiOpts);
 
@@ -151,12 +156,9 @@ export const reply = (
 };
 
 export const getPicks = (shortUrl: string): Promise<CommentType[]> => {
-    const url = joinUrl([
-        options.baseUrl,
-        'discussion',
-        shortUrl,
-        'topcomments',
-    ]);
+    const url =
+        joinUrl([options.baseUrl, 'discussion', shortUrl, 'topcomments']) +
+        `?api-key=${options.apiKey}`;
 
     return fetch(url, {
         headers: {
@@ -197,12 +199,13 @@ export const reportAbuse = ({
 };
 
 export const recommend = (commentId: number): Promise<boolean> => {
-    const url = joinUrl([
-        options.baseUrl,
-        'comment',
-        commentId.toString(),
-        'recommend',
-    ]);
+    const url =
+        joinUrl([
+            options.baseUrl,
+            'comment',
+            commentId.toString(),
+            'recommend',
+        ]) + `?api-key=${options.apiKey}`;
 
     return fetch(url, {
         method: 'POST',
@@ -279,7 +282,7 @@ export const getMoreResponses = (
 }> => {
     const url =
         joinUrl([options.baseUrl, 'comment', commentId.toString()]) +
-        '?displayThreaded=true&displayResponses=true';
+        `?displayThreaded=true&displayResponses=true&api-key=${options.apiKey}`;
 
     return fetch(url, {
         headers: {

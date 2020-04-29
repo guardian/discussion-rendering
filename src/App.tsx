@@ -37,6 +37,7 @@ type Props = {
     additionalHeaders: AdditionalHeadersType;
     expanded: boolean;
     onPermalinkClick: (commentId: number) => void;
+    apiKey: string;
 };
 
 const footerStyles = css`
@@ -198,6 +199,7 @@ export const App = ({
     additionalHeaders,
     expanded,
     onPermalinkClick,
+    apiKey,
 }: Props) => {
     const [filters, setFilters] = useState<FilterOptions>(
         initialiseFilters({
@@ -320,7 +322,7 @@ export const App = ({
         setComments([comment, ...comments]);
     };
 
-    initialiseApi({ additionalHeaders, baseUrl });
+    initialiseApi({ additionalHeaders, baseUrl, apiKey });
 
     const showPagination = totalPages > 1;
 
