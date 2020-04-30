@@ -15,6 +15,7 @@ ReactDOM.render(
         }}
         expanded={false}
         onPermalinkClick={() => {}}
+        apiKey="discussion-rendering"
     />,
     document.getElementById('root'),
 );

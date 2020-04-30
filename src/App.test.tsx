@@ -36,6 +36,7 @@ describe('App', () => {
                     'D2-X-UID': 'testD2Header',
                     'GU-Client': 'testClientHeader',
                 }}
+                apiKey="discussion-rendering-test"
             />,
         );
 
@@ -58,6 +59,7 @@ describe('App', () => {
                     'D2-X-UID': 'testD2Header',
                     'GU-Client': 'testClientHeader',
                 }}
+                apiKey="discussion-rendering-test"
             />,
         );
 
@@ -78,6 +80,7 @@ describe('App', () => {
                     'D2-X-UID': 'testD2Header',
                     'GU-Client': 'testClientHeader',
                 }}
+                apiKey="discussion-rendering-test"
             />,
         );
         expect(getByPlaceholderText('Join the discussion')).toBeInTheDocument();

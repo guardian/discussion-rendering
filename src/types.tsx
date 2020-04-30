@@ -151,6 +151,7 @@ export interface DiscussionOptions {
     displayThreaded: boolean;
     maxResponses: number;
     page: number;
+    'api-key': string;
 }
 
 export type AdditionalHeadersType = { [key: string]: string };
