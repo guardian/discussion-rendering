@@ -2,6 +2,8 @@ import fetchMock from 'fetch-mock';
 
 import { discussion } from '../fixtures/discussion';
 import { comment } from '../fixtures/comment';
+import { toppicks } from '../fixtures/toppicks';
+import { notoppicks } from '../fixtures/notoppicks';
 
 export const mockedMessageID = '123456';
 
@@ -31,21 +33,30 @@ export const mockFetchCalls = () => {
                 ],
             },
         })
-        // Get discussion
-        .get(/.*discussion.theguardian.com\/discussion-api\/discussion\/.*/, {
-            status: 200,
-            body: discussion,
-        })
+        // Get discussion 39f5z
         .get(
-            /.*\/discussion\?api-key=discussion-rendering-test&orderBy=newest&pageSize=25&displayThreaded=true&maxResponses=3&page=1/,
+            /.*\/discussion.theguardian.com\/discussion-api\/discussion\/p\/39f5z\?.*/,
             {
                 status: 200,
                 body: discussion,
             },
         )
-        .get(/.*\/discussion\/topcomments/, {
+        .get(/.*\/discussion\/p\/39f5z\/topcomments.*/, {
             status: 200,
-            body: discussion,
+            body: toppicks,
+        })
+
+        // Get discussion abc123
+        .get(
+            /.*\/discussion.theguardian.com\/discussion-api\/discussion\/p\/abc123\?.*/,
+            {
+                status: 200,
+                body: discussion,
+            },
+        )
+        .get(/.*\/discussion\/p\/abc123\/topcomments.*/, {
+            status: 200,
+            body: notoppicks,
         })
 
         // Get more replies
