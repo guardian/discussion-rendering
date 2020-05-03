@@ -28,7 +28,7 @@ describe('App', () => {
         const { getByText, queryByText } = render(
             <App
                 baseUrl=""
-                shortUrl=""
+                shortUrl="p/39f5z"
                 pillar="news"
                 isClosedForComments={false}
                 expanded={false}
@@ -37,6 +37,7 @@ describe('App', () => {
                     'GU-Client': 'testClientHeader',
                 }}
                 apiKey="discussion-rendering-test"
+                onPermalinkClick={() => {}}
             />,
         );
 
@@ -46,20 +47,20 @@ describe('App', () => {
         expect(getByText('Display threads')).toBeInTheDocument();
     });
 
-    it('should not render the comment form if user not logged in', () => {
+    it('should not render the comment form if user is logged out', () => {
         const { queryByText, queryByPlaceholderText } = render(
             <App
                 baseUrl=""
-                shortUrl=""
+                shortUrl="p/39f5z"
                 pillar="news"
                 isClosedForComments={false}
-                // user={undefined}
                 expanded={false}
                 additionalHeaders={{
                     'D2-X-UID': 'testD2Header',
                     'GU-Client': 'testClientHeader',
                 }}
                 apiKey="discussion-rendering-test"
+                onPermalinkClick={() => {}}
             />,
         );
 
@@ -71,7 +72,7 @@ describe('App', () => {
         const { getByPlaceholderText } = render(
             <App
                 baseUrl=""
-                shortUrl=""
+                shortUrl="p/39f5z"
                 pillar="news"
                 isClosedForComments={false}
                 user={aUser}
@@ -81,6 +82,7 @@ describe('App', () => {
                     'GU-Client': 'testClientHeader',
                 }}
                 apiKey="discussion-rendering-test"
+                onPermalinkClick={() => {}}
             />,
         );
         expect(getByPlaceholderText('Join the discussion')).toBeInTheDocument();
