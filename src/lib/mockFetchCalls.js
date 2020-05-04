@@ -2,8 +2,8 @@ import fetchMock from 'fetch-mock';
 
 import { discussion } from '../fixtures/discussion';
 import { comment } from '../fixtures/comment';
-import { topPicks } from '../fixtures/topPicks.new';
-import { noTopPicks } from '../fixtures/noTopPicks.new';
+import { topPicks } from '../fixtures/topPicks';
+import { noTopPicks } from '../fixtures/noTopPicks';
 
 export const mockedMessageID = '123456';
 
