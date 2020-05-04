@@ -293,6 +293,8 @@ export const App = ({
         if (page > maxPagePossible) setPage(maxPagePossible);
 
         rememberFilters(newFilterObject);
+        // Filters also show when the view is not expanded but we want to expand when they're changed
+        setIsExpanded(true);
         setFilters(newFilterObject);
     };
 
