@@ -2,8 +2,8 @@ import fetchMock from 'fetch-mock';
 
 import { discussion } from '../fixtures/discussion';
 import { comment } from '../fixtures/comment';
-import { toppicks } from '../fixtures/toppicks';
-import { notoppicks } from '../fixtures/notoppicks';
+import { topPicks } from '../fixtures/topPicks.new';
+import { noTopPicks } from '../fixtures/noTopPicks.new';
 
 export const mockedMessageID = '123456';
 
@@ -43,7 +43,7 @@ export const mockFetchCalls = () => {
         )
         .get(/.*\/discussion\/p\/39f5z\/topcomments.*/, {
             status: 200,
-            body: toppicks,
+            body: topPicks,
         })
 
         // Get discussion abc123
@@ -56,7 +56,7 @@ export const mockFetchCalls = () => {
         )
         .get(/.*\/discussion\/p\/abc123\/topcomments.*/, {
             status: 200,
-            body: notoppicks,
+            body: noTopPicks,
         })
 
         // Get more replies

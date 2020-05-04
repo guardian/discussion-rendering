@@ -1,6 +1,6 @@
 import { DiscussionResponse } from '../types';
 
-export const notoppicks: DiscussionResponse = {
+export const noTopPicks: DiscussionResponse = {
     status: 'ok',
     page: 1,
     pages: 1,
