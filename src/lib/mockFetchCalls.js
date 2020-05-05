@@ -98,4 +98,6 @@ export const mockFetchCalls = () => {
                 message: mockedMessageID,
             },
         });
+
+    return fetchMock;
 };

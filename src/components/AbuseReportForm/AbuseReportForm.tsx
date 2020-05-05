@@ -176,7 +176,7 @@ export const AbuseReportForm: React.FC<{
                         Category
                     </label>
                     <select
-                        name="categoryId"
+                        name="category"
                         id="category"
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                             setFormVariables({
@@ -214,6 +214,7 @@ export const AbuseReportForm: React.FC<{
                     </label>
                     <textarea
                         name="reason"
+                        id="reason"
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                             setFormVariables({
                                 ...formVariables,
@@ -236,6 +237,7 @@ export const AbuseReportForm: React.FC<{
                     <input
                         type="email"
                         name="email"
+                        id="email"
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             setFormVariables({
                                 ...formVariables,
