@@ -293,6 +293,8 @@ export const App = ({
         if (page > maxPagePossible) setPage(maxPagePossible);
 
         rememberFilters(newFilterObject);
+        // Filters also show when the view is not expanded but we want to expand when they're changed
+        setIsExpanded(true);
         setFilters(newFilterObject);
     };
 
@@ -351,6 +353,24 @@ export const App = ({
                     </div>
                 ) : (
                     <>
+                        <Filters
+                            pillar={pillar}
+                            filters={filters}
+                            onFilterChange={onFilterChange}
+                            totalPages={totalPages}
+                            commentCount={commentCount}
+                        />
+                        {showPagination && (
+                            <Pagination
+                                totalPages={totalPages}
+                                currentPage={page}
+                                setCurrentPage={(newPage: number) => {
+                                    onPageChange(newPage);
+                                }}
+                                commentCount={commentCount}
+                                filters={filters}
+                            />
+                        )}
                         {loading ? (
                             <LoadingComments />
                         ) : !comments.length ? (

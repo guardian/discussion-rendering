@@ -21,7 +21,7 @@ const aUser: UserProfile = {
     },
 };
 
-export const Default = () => (
+export const LoggedOutHiddenPicks = () => (
     <div
         className={css`
             width: 100%;
@@ -33,17 +33,19 @@ export const Default = () => (
             baseUrl="https://discussion.theguardian.com/discussion-api"
             pillar="culture"
             isClosedForComments={false}
-            user={aUser}
             additionalHeaders={{
                 'D2-X-UID': 'testD2Header',
                 'GU-Client': 'testClientHeader',
             }}
             expanded={false}
             onPermalinkClick={() => {}}
+            apiKey=""
         />
     </div>
 );
-Default.story = { name: 'default' };
+LoggedOutHiddenPicks.story = {
+    name: 'when logged out, unexpanded and with picks',
+};
 
 export const InitialPage = () => (
     <div
@@ -58,13 +60,13 @@ export const InitialPage = () => (
             baseUrl="https://discussion.theguardian.com/discussion-api"
             pillar="lifestyle"
             isClosedForComments={false}
-            user={aUser}
             additionalHeaders={{
                 'D2-X-UID': 'testD2Header',
                 'GU-Client': 'testClientHeader',
             }}
-            expanded={false}
+            expanded={true}
             onPermalinkClick={() => {}}
+            apiKey=""
         />
     </div>
 );
@@ -85,65 +87,70 @@ export const Overrides = () => (
             baseUrl="https://discussion.theguardian.com/discussion-api"
             pillar="opinion"
             isClosedForComments={false}
-            user={aUser}
-            additionalHeaders={{
-                'D2-X-UID': 'testD2Header',
-                'GU-Client': 'testClientHeader',
-            }}
-            expanded={false}
-            onPermalinkClick={() => {}}
-        />
-    </div>
-);
-Overrides.story = { name: 'with page size overridden to 50' };
-
-export const NotLoggedIn = () => (
-    <div
-        className={css`
-            width: 100%;
-            max-width: 620px;
-        `}
-    >
-        <App
-            shortUrl="p/39f5z"
-            pillar="news"
-            isClosedForComments={false}
-            baseUrl="https://discussion.theguardian.com/discussion-api"
-            additionalHeaders={{
-                'D2-X-UID': 'testD2Header',
-                'GU-Client': 'testClientHeader',
-            }}
-            expanded={false}
-            onPermalinkClick={() => {}}
-        />
-    </div>
-);
-NotLoggedIn.story = { name: 'Logged out state' };
-
-export const Expanded = () => (
-    <div
-        className={css`
-            width: 100%;
-            max-width: 620px;
-        `}
-    >
-        <App
-            shortUrl="p/39f5z"
-            initialPage={3}
-            baseUrl="https://discussion.theguardian.com/discussion-api"
-            pillar="sport"
-            isClosedForComments={false}
-            user={aUser}
             additionalHeaders={{
                 'D2-X-UID': 'testD2Header',
                 'GU-Client': 'testClientHeader',
             }}
             expanded={true}
             onPermalinkClick={() => {}}
+            apiKey=""
         />
     </div>
 );
-Expanded.story = { name: 'expanded by default and on page 3' };
+Overrides.story = { name: 'with page size overridden to 50' };
+
+export const LoggedInHiddenNoPicks = () => (
+    <div
+        className={css`
+            width: 100%;
+            max-width: 620px;
+        `}
+    >
+        <App
+            shortUrl="p/abc123"
+            pillar="news"
+            isClosedForComments={false}
+            user={aUser}
+            baseUrl="https://discussion.theguardian.com/discussion-api"
+            additionalHeaders={{
+                'D2-X-UID': 'testD2Header',
+                'GU-Client': 'testClientHeader',
+            }}
+            expanded={false}
+            onPermalinkClick={() => {}}
+            apiKey=""
+        />
+    </div>
+);
+LoggedInHiddenNoPicks.story = {
+    name: 'when logged in, with no picks and not expanded',
+};
+
+export const LoggedOutHiddenNoPicks = () => (
+    <div
+        className={css`
+            width: 100%;
+            max-width: 620px;
+        `}
+    >
+        <App
+            shortUrl="p/abc123"
+            pillar="sport"
+            isClosedForComments={false}
+            baseUrl="https://discussion.theguardian.com/discussion-api"
+            additionalHeaders={{
+                'D2-X-UID': 'testD2Header',
+                'GU-Client': 'testClientHeader',
+            }}
+            expanded={false}
+            onPermalinkClick={() => {}}
+            apiKey=""
+        />
+    </div>
+);
+LoggedOutHiddenNoPicks.story = {
+    name: 'when logged out, with no picks and not expanded',
+};
 
 export const Closed = () => (
     <div
@@ -164,7 +171,8 @@ export const Closed = () => (
             }}
             expanded={true}
             onPermalinkClick={() => {}}
+            apiKey=""
         />
     </div>
 );
-Closed.story = { name: 'closed for comments' };
+Closed.story = { name: 'Logged in but closed for comments' };
