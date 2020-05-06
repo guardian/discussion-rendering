@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 
 import { palette } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
@@ -71,7 +71,7 @@ export const AbuseReportForm: React.FC<{
         if (!modalRef.current) return;
         // eslint-disable-next-line react-hooks/exhaustive-deps
         firstElement = modalRef.current.querySelector(
-            'select[name="categoryId"]',
+            'select[name="category"]',
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
         lastElement = modalRef.current.querySelector(
@@ -135,16 +135,23 @@ export const AbuseReportForm: React.FC<{
         response: '',
     };
     const [errors, setErrors] = useState(defaultErrorTexts);
-    const onSubmit = async () => {
+    const [successMessage, setSuccessMessage] = useState();
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
         const { categoryId, reason, email } = formVariables;
+
         // Reset error messages
         setErrors(defaultErrorTexts);
+
         // Error validation
         if (!categoryId) {
             setErrors({
                 ...errors,
                 categoryId: 'You must select a category before submitting',
             });
+
+            return false;
         }
         const response = await reportAbuse({
             categoryId,
@@ -152,11 +159,11 @@ export const AbuseReportForm: React.FC<{
             email,
             commentId,
         });
-        if (!response.ok) {
+        if (response.status !== 'ok') {
+            // Fallback to errors returned from the API
             setErrors({ ...errors, response: response.message });
         } else {
-            toggleSetShowForm();
-            // TODO: display sucess?
+            setSuccessMessage('Report submitted');
         }
     };
 
@@ -164,18 +171,12 @@ export const AbuseReportForm: React.FC<{
     return (
         <div aria-modal="true" ref={modalRef}>
             <form className={formWrapper} onSubmit={onSubmit}>
-                {errors.response && (
-                    <span className={errorMessageStyles}>
-                        {errors.response}
-                    </span>
-                )}
-
                 <div className={inputWrapper}>
                     <label className={labelStylesClass} htmlFor="category">
                         Category
                     </label>
                     <select
-                        name="categoryId"
+                        name="category"
                         id="category"
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                             setFormVariables({
@@ -213,6 +214,7 @@ export const AbuseReportForm: React.FC<{
                     </label>
                     <textarea
                         name="reason"
+                        id="reason"
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                             setFormVariables({
                                 ...formVariables,
@@ -235,6 +237,7 @@ export const AbuseReportForm: React.FC<{
                     <input
                         type="email"
                         name="email"
+                        id="email"
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             setFormVariables({
                                 ...formVariables,
@@ -258,6 +261,30 @@ export const AbuseReportForm: React.FC<{
                     >
                         Report
                     </Button>
+
+                    {errors.response && (
+                        <span
+                            className={cx(
+                                errorMessageStyles,
+                                css`
+                                    margin-left: 1em;
+                                `,
+                            )}
+                        >
+                            {errors.response}
+                        </span>
+                    )}
+
+                    {successMessage && (
+                        <span
+                            className={css`
+                                color: green;
+                                margin-left: 1em;
+                            `}
+                        >
+                            {successMessage}
+                        </span>
+                    )}
                 </div>
                 <div
                     className={css`
