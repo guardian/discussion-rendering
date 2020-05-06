@@ -71,7 +71,7 @@ export const AbuseReportForm: React.FC<{
         if (!modalRef.current) return;
         // eslint-disable-next-line react-hooks/exhaustive-deps
         firstElement = modalRef.current.querySelector(
-            'select[name="categoryId"]',
+            'select[name="category"]',
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
         lastElement = modalRef.current.querySelector(
