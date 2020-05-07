@@ -19,5 +19,5 @@
     },
     "files": ["src/types.tsx"],
     "include": ["src/"],
-    "exclude": ["fixtures", "**/*.test.tsx", "**/*.stories.tsx"]
+    "exclude": ["fixtures", "build", "**/*.test.tsx", "**/*.stories.tsx"]
 }
