@@ -32,6 +32,15 @@ const pickStyles = css`
     min-width: 250px;
     margin-bottom: ${space[5]}px;
     ${textSans.small()};
+
+    blockquote {
+        margin-top: ${space[3]}px;
+        margin-bottom: ${space[3]}px;
+        margin-left: ${space[5]}px;
+        margin-right: ${space[5]}px;
+        padding-left: ${space[2]}px;
+        color: ${neutral[46]};
+    }
 `;
 
 const arrowSize = 25;
