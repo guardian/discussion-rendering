@@ -79,6 +79,15 @@ const commentCss = css`
     margin-top: 0;
     margin-bottom: ${space[3]}px;
   }
+
+  blockquote {
+    margin-top: ${space[3]}px;
+    margin-bottom: ${space[3]}px;
+    margin-left: ${space[5]}px;
+    margin-right: ${space[5]}px;
+    padding-left: ${space[2]}px;
+    color: ${neutral[46]};
+  }
 `;
 
 const blockedCommentStyles = css`
