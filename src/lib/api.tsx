@@ -306,7 +306,7 @@ export const getMoreResponses = (
             ...defaultParams,
             ...{
                 displayThreaded: true,
-                displayResponse: true,
+                displayResponses: true,
             },
         });
 
