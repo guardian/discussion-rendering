@@ -130,7 +130,7 @@ export const CommentContainer = ({
         getMoreResponses(commentId)
             .then(json => {
                 setExpanded(true);
-                setResponses(json.comment.responses || []);
+                setResponses([...responses, ...(json.comment.responses || [])]);
             })
             .finally(() => {
                 setLoading(false);
