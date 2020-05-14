@@ -218,7 +218,10 @@ export const CommentContainer = ({
                                 response.id === commentBeingRepliedTo.id,
                         )) &&
                     user && (
-                        <div className={nestingStyles}>
+                        <div
+                            id={`comment-reply-form-${commentBeingRepliedTo.id}`}
+                            className={nestingStyles}
+                        >
                             <CommentReplyPreview
                                 pillar={pillar}
                                 commentBeingRepliedTo={commentBeingRepliedTo}
