@@ -10,6 +10,7 @@ import { comment, reply, preview, addUserName } from '../../lib/api';
 import { CommentResponse, UserProfile, CommentType, Pillar } from '../../types';
 
 import { FirstCommentWelcome } from '../FirstCommentWelcome/FirstCommentWelcome';
+import { Preview } from '../Preview/Preview';
 import { Row } from '../Row/Row';
 import { PillarButton } from '../PillarButton/PillarButton';
 
@@ -60,24 +61,6 @@ const blackPlaceholder = css`
         font-weight: bold;
         opacity: 1;
         color: ${neutral[0]};
-    }
-`;
-
-const arrowSize = 15;
-const bg = neutral[93];
-const previewStyle = css`
-    padding: ${space[2]}px;
-    background-color: ${bg};
-    border-radius: 5px;
-    margin-bottom: ${arrowSize + 5}px;
-    position: relative;
-
-    :before {
-        content: '';
-        position: absolute;
-        border-right: ${arrowSize}px solid transparent;
-        border-top: ${arrowSize}px solid ${bg};
-        bottom: -${arrowSize - 1}px;
     }
 `;
 
@@ -530,12 +513,7 @@ export const CommentForm = ({
                 </div>
             </form>
 
-            {showPreview && (
-                <p
-                    className={previewStyle}
-                    dangerouslySetInnerHTML={{ __html: previewBody || '' }}
-                />
-            )}
+            {showPreview && <Preview previewHtml={previewBody} />}
         </>
     );
 };
