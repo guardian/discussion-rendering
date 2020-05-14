@@ -38,7 +38,7 @@ type Props = {
     expanded: boolean;
     onPermalinkClick: (commentId: number) => void;
     apiKey: string;
-    onHeightChange: () => void;
+    onHeightChange?: () => void;
 };
 
 const footerStyles = css`
@@ -201,7 +201,7 @@ export const App = ({
     expanded,
     onPermalinkClick,
     apiKey,
-    onHeightChange,
+    onHeightChange = () => {},
 }: Props) => {
     const [filters, setFilters] = useState<FilterOptions>(
         initialiseFilters({

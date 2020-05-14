@@ -62,7 +62,6 @@ describe('App', () => {
                 }}
                 apiKey="discussion-rendering-test"
                 onPermalinkClick={() => {}}
-                onHeightChange={() => {}}
             />,
         );
 
