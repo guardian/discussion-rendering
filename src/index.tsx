@@ -16,6 +16,7 @@ ReactDOM.render(
         expanded={false}
         onPermalinkClick={() => {}}
         apiKey="discussion-rendering"
+        onHeightChange={() => {}}
     />,
     document.getElementById('root'),
 );

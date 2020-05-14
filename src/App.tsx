@@ -38,6 +38,7 @@ type Props = {
     expanded: boolean;
     onPermalinkClick: (commentId: number) => void;
     apiKey: string;
+    onHeightChange: () => void;
 };
 
 const footerStyles = css`
@@ -200,6 +201,7 @@ export const App = ({
     expanded,
     onPermalinkClick,
     apiKey,
+    onHeightChange,
 }: Props) => {
     const [filters, setFilters] = useState<FilterOptions>(
         initialiseFilters({
@@ -295,12 +297,19 @@ export const App = ({
         rememberFilters(newFilterObject);
         // Filters also show when the view is not expanded but we want to expand when they're changed
         setIsExpanded(true);
+        onHeightChange();
         setFilters(newFilterObject);
     };
 
     const onPageChange = (page: number) => {
         document.getElementById('comment-filters')?.scrollIntoView();
         setPage(page);
+        onHeightChange();
+    };
+
+    const expandView = () => {
+        setIsExpanded(true);
+        onHeightChange();
     };
 
     const toggleMuteStatus = (userId: string) => {
@@ -412,7 +421,7 @@ export const App = ({
                 >
                     <PillarButton
                         pillar={pillar}
-                        onClick={() => setIsExpanded(true)}
+                        onClick={() => expandView()}
                         icon={<PlusSVG />}
                         iconSide="left"
                         linkName="more-comments"
