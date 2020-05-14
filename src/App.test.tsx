@@ -38,6 +38,7 @@ describe('App', () => {
                 }}
                 apiKey="discussion-rendering-test"
                 onPermalinkClick={() => {}}
+                onHeightChange={() => {}}
             />,
         );
 
@@ -61,6 +62,7 @@ describe('App', () => {
                 }}
                 apiKey="discussion-rendering-test"
                 onPermalinkClick={() => {}}
+                onHeightChange={() => {}}
             />,
         );
 
@@ -83,6 +85,7 @@ describe('App', () => {
                 }}
                 apiKey="discussion-rendering-test"
                 onPermalinkClick={() => {}}
+                onHeightChange={() => {}}
             />,
         );
         expect(getByPlaceholderText('Join the discussion')).toBeInTheDocument();

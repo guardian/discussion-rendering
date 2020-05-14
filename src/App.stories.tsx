@@ -40,6 +40,7 @@ export const LoggedOutHiddenPicks = () => (
             expanded={false}
             onPermalinkClick={() => {}}
             apiKey=""
+            onHeightChange={() => {}}
         />
     </div>
 );
@@ -67,6 +68,7 @@ export const InitialPage = () => (
             expanded={true}
             onPermalinkClick={() => {}}
             apiKey=""
+            onHeightChange={() => {}}
         />
     </div>
 );
@@ -94,6 +96,7 @@ export const Overrides = () => (
             expanded={true}
             onPermalinkClick={() => {}}
             apiKey=""
+            onHeightChange={() => {}}
         />
     </div>
 );
@@ -119,6 +122,7 @@ export const LoggedInHiddenNoPicks = () => (
             expanded={false}
             onPermalinkClick={() => {}}
             apiKey=""
+            onHeightChange={() => {}}
         />
     </div>
 );
@@ -145,6 +149,7 @@ export const LoggedOutHiddenNoPicks = () => (
             expanded={false}
             onPermalinkClick={() => {}}
             apiKey=""
+            onHeightChange={() => {}}
         />
     </div>
 );
@@ -172,6 +177,7 @@ export const Closed = () => (
             expanded={true}
             onPermalinkClick={() => {}}
             apiKey=""
+            onHeightChange={() => {}}
         />
     </div>
 );
