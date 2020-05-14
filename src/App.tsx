@@ -331,6 +331,14 @@ export const App = ({
         comments.pop(); // Remove last item from our local array
         // Replace it with this new comment at the start
         setComments([comment, ...comments]);
+
+        if (!isExpanded) {
+            // It's possible to post a comment without the view being expanded
+            expandView();
+        }
+
+        const commentElement = document.getElementById(`comment-${comment.id}`);
+        commentElement && commentElement.scrollIntoView();
     };
 
     initialiseApi({ additionalHeaders, baseUrl, apiKey });
