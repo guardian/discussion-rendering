@@ -57,6 +57,9 @@ describe('CommentContainer', () => {
             },
         );
 
+        // https://stackoverflow.com/a/52335414
+        Element.prototype.scrollIntoView = () => {};
+
         const { getByTestId, queryByText, getByText, rerender } = render(
             <CommentContainer
                 baseUrl=""
@@ -70,6 +73,7 @@ describe('CommentContainer', () => {
                 isClosedForComments={false}
                 mutes={[]}
                 toggleMuteStatus={() => {}}
+                onPermalinkClick={() => {}}
             />,
         );
 
@@ -108,6 +112,7 @@ describe('CommentContainer', () => {
                 isClosedForComments={false}
                 mutes={[]}
                 toggleMuteStatus={() => {}}
+                onPermalinkClick={() => {}}
             />,
         );
 
@@ -130,6 +135,9 @@ describe('CommentContainer', () => {
             },
         );
 
+        // https://stackoverflow.com/a/52335414
+        Element.prototype.scrollIntoView = () => {};
+
         const { getByTestId, queryByText, getByText, rerender } = render(
             <CommentContainer
                 baseUrl=""
@@ -143,6 +151,7 @@ describe('CommentContainer', () => {
                 isClosedForComments={false}
                 mutes={[]}
                 toggleMuteStatus={() => {}}
+                onPermalinkClick={() => {}}
             />,
         );
 
@@ -181,6 +190,7 @@ describe('CommentContainer', () => {
                 isClosedForComments={false}
                 mutes={[]}
                 toggleMuteStatus={() => {}}
+                onPermalinkClick={() => {}}
             />,
         );
 
