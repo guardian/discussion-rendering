@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { css, cx } from 'emotion';
 
 import { palette, space } from '@guardian/src-foundations';
@@ -155,6 +155,15 @@ export const CommentForm = ({
     const [info, setInfo] = useState<string>('');
     const [showPreview, setShowPreview] = useState<boolean>(false);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        if (commentBeingRepliedTo) {
+            const commentElement = document.getElementById(
+                `comment-reply-form-${commentBeingRepliedTo.id}`,
+            );
+            commentElement && commentElement.scrollIntoView();
+        }
+    }, [commentBeingRepliedTo]);
 
     const getHighlightedString = ():
         | {
