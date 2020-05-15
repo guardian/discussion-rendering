@@ -96,6 +96,7 @@ export const Overrides = () => (
             expanded={true}
             onPermalinkClick={() => {}}
             apiKey=""
+            onHeightChange={() => {}}
         />
     </div>
 );
@@ -176,6 +177,7 @@ export const Closed = () => (
             expanded={true}
             onPermalinkClick={() => {}}
             apiKey=""
+            onHeightChange={() => {}}
         />
     </div>
 );

@@ -229,10 +229,11 @@ export const App = ({
             if (json?.status !== 'error') {
                 setComments(json?.discussion?.comments);
                 setCommentCount(json?.discussion?.topLevelCommentCount);
+                onHeightChange();
             }
             setTotalPages(json?.pages);
         });
-    }, [filters, page, shortUrl]);
+    }, [filters, page, shortUrl, onHeightChange]);
 
     useEffect(() => {
         const fetchPicks = async () => {
@@ -297,19 +298,16 @@ export const App = ({
         rememberFilters(newFilterObject);
         // Filters also show when the view is not expanded but we want to expand when they're changed
         setIsExpanded(true);
-        onHeightChange();
         setFilters(newFilterObject);
     };
 
     const onPageChange = (page: number) => {
         document.getElementById('comment-filters')?.scrollIntoView();
         setPage(page);
-        onHeightChange();
     };
 
     const expandView = () => {
         setIsExpanded(true);
-        onHeightChange();
     };
 
     const toggleMuteStatus = (userId: string) => {
