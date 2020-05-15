@@ -277,12 +277,6 @@ export const App = ({
         }
     }, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
 
-    useEffect(() => {
-        if (expanded) {
-            onHeightChange();
-        }
-    }, [expanded, onHeightChange]);
-
     const onFilterChange = (newFilterObject: FilterOptions) => {
         // If we're reducing the pageSize then we may need to override the page we're on to prevent making
         // requests for pages that don't exist.
