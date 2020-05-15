@@ -229,11 +229,10 @@ export const App = ({
             if (json?.status !== 'error') {
                 setComments(json?.discussion?.comments);
                 setCommentCount(json?.discussion?.topLevelCommentCount);
-                onHeightChange();
             }
             setTotalPages(json?.pages);
         });
-    }, [filters, page, shortUrl, onHeightChange]);
+    }, [filters, page, shortUrl]);
 
     useEffect(() => {
         const fetchPicks = async () => {
@@ -278,6 +277,12 @@ export const App = ({
         }
     }, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
 
+    useEffect(() => {
+        if (expanded) {
+            onHeightChange();
+        }
+    }, [expanded, onHeightChange]);
+
     const onFilterChange = (newFilterObject: FilterOptions) => {
         // If we're reducing the pageSize then we may need to override the page we're on to prevent making
         // requests for pages that don't exist.
@@ -298,16 +303,19 @@ export const App = ({
         rememberFilters(newFilterObject);
         // Filters also show when the view is not expanded but we want to expand when they're changed
         setIsExpanded(true);
+        onHeightChange();
         setFilters(newFilterObject);
     };
 
     const onPageChange = (page: number) => {
         document.getElementById('comment-filters')?.scrollIntoView();
         setPage(page);
+        onHeightChange();
     };
 
     const expandView = () => {
         setIsExpanded(true);
+        onHeightChange();
     };
 
     const toggleMuteStatus = (userId: string) => {
