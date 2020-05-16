@@ -70,8 +70,8 @@ describe('App', () => {
         expect(queryByPlaceholderText('Join the discussion')).toBeNull();
     });
 
-    it('should render the comment form when user is logged in', () => {
-        const { getByPlaceholderText } = render(
+    it('should render two comment forms when user is logged in', () => {
+        const { queryAllByPlaceholderText } = render(
             <App
                 baseUrl=""
                 shortUrl="p/39f5z"
@@ -88,6 +88,6 @@ describe('App', () => {
                 onHeightChange={() => {}}
             />,
         );
-        expect(getByPlaceholderText('Join the discussion')).toBeInTheDocument();
+        expect(queryAllByPlaceholderText('Join the discussion').length).toBe(2);
     });
 });
