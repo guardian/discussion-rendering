@@ -523,6 +523,14 @@ export const App = ({
                         />
                     </footer>
                 )}
+                {user && !isClosedForComments && (
+                    <CommentForm
+                        pillar={pillar}
+                        shortUrl={shortUrl}
+                        onAddComment={onAddComment}
+                        user={user}
+                    />
+                )}
             </div>
         </Column>
     );
