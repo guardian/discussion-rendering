@@ -88,6 +88,20 @@ const commentCss = css`
     padding-left: ${space[2]}px;
     color: ${neutral[46]};
   }
+
+  i {
+      font-style: italic;
+  }
+
+  b {
+      font-weight: bold;
+  }
+
+  code {
+    font-family: monospace;
+    font-size: 1em;
+  }
+  
 `;
 
 const blockedCommentStyles = css`

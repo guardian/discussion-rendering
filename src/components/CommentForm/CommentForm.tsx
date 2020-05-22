@@ -25,7 +25,7 @@ type Props = {
 
 const boldString = (text: string) => `<b>${text}</b>`;
 const italicsString = (text: string) => `<i>${text}</i>`;
-const strikethroughString = (text: string) => `<strike>${text}</strike>`;
+const strikethroughString = (text: string) => `<del>${text}</del>`;
 const codeString = (text: string) => `<code>${text}</code>`;
 const quoteString = (text: string) => `<blockquote>${text}</blockquote>`;
 const linkStringFunc = (url: string, highlightedText?: string) =>

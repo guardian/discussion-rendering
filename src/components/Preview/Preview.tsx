@@ -15,6 +15,29 @@ const previewStyle = css`
     border-radius: 5px;
     margin-top: 0;
     margin-bottom: ${20}px;
+    word-break: break-word;
+
+    blockquote {
+        margin-top: ${space[3]}px;
+        margin-bottom: ${space[3]}px;
+        margin-left: ${space[5]}px;
+        margin-right: ${space[5]}px;
+        padding-left: ${space[2]}px;
+        color: ${neutral[46]};
+    }
+
+    i {
+        font-style: italic;
+    }
+
+    b {
+        font-weight: bold;
+    }
+
+    code {
+        font-family: monospace;
+        font-size: 1em;
+    }
 `;
 
 const spout = css`
