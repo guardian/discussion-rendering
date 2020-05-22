@@ -19,8 +19,8 @@ export const simulateNewComment = (
         date: Date(),
         isoDateTime: new Date().toISOString(),
         status: 'visible',
-        webUrl: '', //TODO:
-        apiUrl: '', //TODO:
+        webUrl: `https://discussion.theguardian.com/comment-permalink/${commentId}`,
+        apiUrl: `https://discussion.guardianapis.com/discussion-api/comment/${commentId}`,
         numRecommends: 0,
         isHighlighted: true,
         userProfile: {
@@ -37,11 +37,11 @@ export const simulateNewComment = (
                   responseTo: {
                       displayName:
                           commentBeingRepliedTo.userProfile.displayName,
-                      commentApiUrl: '', //TODO:
+                      commentApiUrl: `https://discussion.guardianapis.com/discussion-api/comment/${commentBeingRepliedTo.id}`,
                       isoDateTime: commentBeingRepliedTo.isoDateTime,
                       date: commentBeingRepliedTo.date,
                       commentId: String(commentBeingRepliedTo.id),
-                      commentWebUrl: '', //TODO:
+                      commentWebUrl: `https://discussion.theguardian.com/comment-permalink/${commentBeingRepliedTo.id}`,
                   },
               }
             : {
