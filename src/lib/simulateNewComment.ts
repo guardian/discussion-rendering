@@ -22,7 +22,7 @@ export const simulateNewComment = (
         webUrl: `https://discussion.theguardian.com/comment-permalink/${commentId}`,
         apiUrl: `https://discussion.guardianapis.com/discussion-api/comment/${commentId}`,
         numRecommends: 0,
-        isHighlighted: true,
+        isHighlighted: false,
         userProfile: {
             userId: user.userId,
             displayName: user.displayName,
