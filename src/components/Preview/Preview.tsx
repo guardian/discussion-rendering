@@ -17,11 +17,6 @@ const previewStyle = css`
     margin-bottom: ${20}px;
     word-break: break-word;
 
-    p {
-        margin-top: 0;
-        margin-bottom: ${space[3]}px;
-    }
-
     blockquote {
         margin-top: ${space[3]}px;
         margin-bottom: ${space[3]}px;
