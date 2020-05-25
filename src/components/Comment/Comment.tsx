@@ -325,10 +325,9 @@ export const Comment = ({
                                             )}
                                         >
                                             <Link
-                                                href={joinUrl([
-                                                    'https://profile.theguardian.com/user',
-                                                    comment.userProfile.userId,
-                                                ])}
+                                                href={
+                                                    comment.userProfile.webUrl
+                                                }
                                                 subdued={true}
                                             >
                                                 {
@@ -360,10 +359,7 @@ export const Comment = ({
                                         )}
                                     >
                                         <Link
-                                            href={joinUrl([
-                                                'https://profile.theguardian.com/user',
-                                                comment.userProfile.userId,
-                                            ])}
+                                            href={comment.userProfile.webUrl}
                                             subdued={true}
                                         >
                                             {comment.userProfile.displayName}

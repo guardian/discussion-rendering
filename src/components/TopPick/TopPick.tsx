@@ -206,7 +206,7 @@ export const TopPick = ({
                 <Column>
                     <span className={userNameStyles(pillar)}>
                         <a
-                            href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
+                            href={comment.userProfile.webUrl}
                             className={cx(linkStyles, inheritColour)}
                         >
                             {comment.userProfile.displayName}
