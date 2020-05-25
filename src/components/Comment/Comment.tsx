@@ -19,10 +19,8 @@ import { ButtonLink } from '../ButtonLink/ButtonLink';
 
 import { Pillar, CommentType, UserProfile } from '../../types';
 import { pickComment, unPickComment } from '../../lib/api';
-import { joinUrl } from '../../lib/joinUrl';
 
 type Props = {
-    baseUrl: string;
     user?: UserProfile;
     comment: CommentType;
     pillar: Pillar;
@@ -222,7 +220,6 @@ const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 );
 
 export const Comment = ({
-    baseUrl,
     comment,
     pillar,
     isClosedForComments,
@@ -338,7 +335,7 @@ export const Comment = ({
                                         </div>
                                         <Timestamp
                                             isoDateTime={comment.isoDateTime}
-                                            baseUrl={baseUrl}
+                                            webUrl={comment.webUrl}
                                             commentId={comment.id}
                                             onPermalinkClick={onPermalinkClick}
                                         />
@@ -394,7 +391,7 @@ export const Comment = ({
                                     >
                                         <Timestamp
                                             isoDateTime={comment.isoDateTime}
-                                            baseUrl={baseUrl}
+                                            webUrl={comment.webUrl}
                                             commentId={comment.id}
                                             onPermalinkClick={onPermalinkClick}
                                         />
@@ -535,7 +532,7 @@ export const Comment = ({
                                                         )}
                                                     >
                                                         <Link
-                                                            href={`https://profile.theguardian.com/signin?returnUrl=https://discussion.theguardian.com/comment-permalink/${comment.id}`}
+                                                            href={`https://profile.theguardian.com/signin?returnUrl=${comment.webUrl}`}
                                                             subdued={true}
                                                             icon={<SvgIndent />}
                                                             iconSide="left"

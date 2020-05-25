@@ -360,7 +360,6 @@ export const App = ({
                     <div className={picksWrapper}>
                         {!!picks.length && (
                             <TopPicks
-                                baseUrl={baseUrl}
                                 pillar={pillar}
                                 comments={picks.slice(0, 2)}
                                 isSignedIn={!!user}
@@ -397,7 +396,6 @@ export const App = ({
                                 {comments.slice(0, 2).map(comment => (
                                     <li key={comment.id}>
                                         <CommentContainer
-                                            baseUrl={baseUrl}
                                             comment={comment}
                                             pillar={pillar}
                                             isClosedForComments={
@@ -454,7 +452,6 @@ export const App = ({
                 )}
                 {!!picks.length && (
                     <TopPicks
-                        baseUrl={baseUrl}
                         pillar={pillar}
                         comments={picks}
                         isSignedIn={!!user}
@@ -488,7 +485,6 @@ export const App = ({
                         {comments.map(comment => (
                             <li key={comment.id}>
                                 <CommentContainer
-                                    baseUrl={baseUrl}
                                     comment={comment}
                                     pillar={pillar}
                                     isClosedForComments={isClosedForComments}
