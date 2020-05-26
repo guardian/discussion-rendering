@@ -62,7 +62,7 @@ const picksWrapper = css`
 
 const DEFAULT_FILTERS: FilterOptions = {
     orderBy: 'newest',
-    pageSize: 25,
+    pageSize: 100,
     threads: 'collapsed',
 };
 
