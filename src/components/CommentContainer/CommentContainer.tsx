@@ -12,7 +12,6 @@ import { CommentReplyPreview } from '../CommentReplyPreview/CommentReplyPreview'
 import { getMoreResponses } from '../../lib/api';
 
 type Props = {
-    baseUrl: string;
     comment: CommentType;
     pillar: Pillar;
     isClosedForComments: boolean;
@@ -92,7 +91,6 @@ const Plus = () => (
 );
 
 export const CommentContainer = ({
-    baseUrl,
     comment,
     pillar,
     isClosedForComments,
@@ -140,7 +138,6 @@ export const CommentContainer = ({
     return (
         <div className={cx(commentToScrollTo === comment.id && selectedStyles)}>
             <Comment
-                baseUrl={baseUrl}
                 comment={comment}
                 pillar={pillar}
                 isClosedForComments={isClosedForComments}
@@ -161,7 +158,6 @@ export const CommentContainer = ({
                             {responses.map(responseComment => (
                                 <li key={responseComment.id}>
                                     <Comment
-                                        baseUrl={baseUrl}
                                         comment={responseComment}
                                         pillar={pillar}
                                         isClosedForComments={

@@ -99,7 +99,6 @@ const commentDataThreaded: CommentType = {
 
 export const defaultStory = () => (
     <CommentContainer
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={commentData}
         pillar={'sport'}
         isClosedForComments={false}
@@ -116,7 +115,6 @@ defaultStory.story = { name: 'default' };
 
 export const threadedComment = () => (
     <CommentContainer
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={commentDataThreaded}
         pillar={'lifestyle'}
         isClosedForComments={false}

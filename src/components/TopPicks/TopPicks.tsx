@@ -7,7 +7,6 @@ import { CommentType, Pillar, UserProfile } from '../../types';
 import { TopPick } from '../TopPick/TopPick';
 
 type Props = {
-    baseUrl: string;
     pillar: Pillar;
     user?: UserProfile;
     comments: CommentType[];
@@ -49,7 +48,6 @@ const oneColCommentsStyles = css`
 `;
 
 export const TopPicks = ({
-    baseUrl,
     pillar,
     user,
     comments,
@@ -69,7 +67,6 @@ export const TopPicks = ({
                 <div className={cx(columWrapperStyles, paddingRight)}>
                     {leftColComments.map(comment => (
                         <TopPick
-                            baseUrl={baseUrl}
                             pillar={pillar}
                             comment={comment}
                             isSignedIn={isSignedIn}
@@ -84,7 +81,6 @@ export const TopPicks = ({
                 <div className={cx(columWrapperStyles, paddingLeft)}>
                     {rightColComments.map(comment => (
                         <TopPick
-                            baseUrl={baseUrl}
                             pillar={pillar}
                             comment={comment}
                             isSignedIn={isSignedIn}
@@ -100,7 +96,6 @@ export const TopPicks = ({
             <div className={oneColCommentsStyles}>
                 {comments.map(comment => (
                     <TopPick
-                        baseUrl={baseUrl}
                         pillar={pillar}
                         comment={comment}
                         isSignedIn={isSignedIn}

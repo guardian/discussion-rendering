@@ -14,10 +14,7 @@ import { Timestamp } from '../Timestamp/Timestamp';
 import { Row } from '../Row/Row';
 import { Column } from '../Column/Column';
 
-import { joinUrl } from '../../lib/joinUrl';
-
 type Props = {
-    baseUrl: string;
     pillar: Pillar;
     comment: CommentType;
     isSignedIn: boolean;
@@ -152,7 +149,6 @@ const truncateText = (input: string, limit: number) => {
 };
 
 export const TopPick = ({
-    baseUrl,
     pillar,
     comment,
     isSignedIn,
@@ -175,15 +171,7 @@ export const TopPick = ({
                     <Link
                         priority="primary"
                         subdued={true}
-                        href={joinUrl([
-                            // Remove the discussion-api path from the baseUrl
-                            baseUrl
-                                .split('/')
-                                .filter(path => path !== 'discussion-api')
-                                .join('/'),
-                            'comment-permalink',
-                            comment.id.toString(),
-                        ])}
+                        href={comment.webUrl}
                         onClick={e => {
                             onPermalinkClick(comment.id);
                             e.preventDefault();
@@ -206,7 +194,7 @@ export const TopPick = ({
                 <Column>
                     <span className={userNameStyles(pillar)}>
                         <a
-                            href={`https://profile.theguardian.com/user/${comment.userProfile.userId}`}
+                            href={comment.userProfile.webUrl}
                             className={cx(linkStyles, inheritColour)}
                         >
                             {comment.userProfile.displayName}
@@ -214,7 +202,7 @@ export const TopPick = ({
                     </span>
                     <Timestamp
                         isoDateTime={comment.isoDateTime}
-                        baseUrl={baseUrl}
+                        webUrl={comment.webUrl}
                         commentId={comment.id}
                         onPermalinkClick={onPermalinkClick}
                     />

@@ -85,7 +85,6 @@ const staffUser: UserProfile = {
 
 export const Root = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={commentData}
         pillar={'news'}
         isClosedForComments={false}
@@ -105,7 +104,6 @@ Root.story = {
 
 export const RootMobile = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={commentData}
         pillar={'sport'}
         setCommentBeingRepliedTo={() => {}}
@@ -125,7 +123,6 @@ RootMobile.story = {
 
 export const ReplyComment = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={replyCommentData}
         pillar={'lifestyle'}
         isClosedForComments={false}
@@ -145,7 +142,6 @@ ReplyComment.story = {
 
 export const MobileReply = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={replyCommentData}
         pillar={'culture'}
         setCommentBeingRepliedTo={() => {}}
@@ -165,7 +161,6 @@ MobileReply.story = {
 
 export const PickedComment = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={{
             ...commentData,
             isHighlighted: true,
@@ -182,7 +177,6 @@ PickedComment.story = { name: 'Picked Comment' };
 
 export const StaffUserComment = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={commentStaffData}
         pillar={'opinion'}
         isClosedForComments={false}
@@ -196,7 +190,6 @@ StaffUserComment.story = { name: 'Staff User Comment' };
 
 export const PickedStaffUserComment = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={{
             ...commentStaffData,
             isHighlighted: true,
@@ -219,7 +212,6 @@ PickedStaffUserComment.story = {
 
 export const PickedStaffUserCommentMobile = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={{
             ...commentStaffData,
             isHighlighted: true,
@@ -242,7 +234,6 @@ PickedStaffUserCommentMobile.story = {
 
 export const LoggedInAsModerator = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={commentData}
         pillar={'lifestyle'}
         isClosedForComments={false}
@@ -257,7 +248,6 @@ LoggedInAsModerator.story = { name: 'Logged in as moderator' };
 
 export const BlockedComment = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={blockedCommentData}
         pillar={'culture'}
         isClosedForComments={false}
@@ -271,7 +261,6 @@ BlockedComment.story = { name: 'Blocked comment' };
 
 export const MutedComment = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={blockedCommentData}
         pillar={'sport'}
         isClosedForComments={false}
@@ -285,7 +274,6 @@ MutedComment.story = { name: 'Muted comment' };
 
 export const ClosedForComments = () => (
     <Comment
-        baseUrl="https://discussion.theguardian.com/discussion-api"
         comment={commentData}
         pillar={'news'}
         isClosedForComments={true}

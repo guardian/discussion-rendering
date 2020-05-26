@@ -62,7 +62,6 @@ describe('CommentContainer', () => {
 
         const { getByTestId, queryByText, getByText, rerender } = render(
             <CommentContainer
-                baseUrl=""
                 shortUrl=""
                 comment={commentWithoutReply} //TODO: should be comments with reponses
                 pillar="news"
@@ -101,7 +100,6 @@ describe('CommentContainer', () => {
         // rerender with updated commentBeingRepliedTo
         rerender(
             <CommentContainer
-                baseUrl=""
                 shortUrl=""
                 comment={commentWithoutReply} //TODO: should be comments with reponses
                 pillar="news"
@@ -140,7 +138,6 @@ describe('CommentContainer', () => {
 
         const { getByTestId, queryByText, getByText, rerender } = render(
             <CommentContainer
-                baseUrl=""
                 shortUrl=""
                 comment={commentWithReply} //TODO: should be comments with reponses
                 pillar="news"
@@ -179,7 +176,6 @@ describe('CommentContainer', () => {
         // rerender with updated commentBeingRepliedTo
         rerender(
             <CommentContainer
-                baseUrl=""
                 shortUrl=""
                 comment={commentWithoutReply} //TODO: should be comments with reponses
                 pillar="news"

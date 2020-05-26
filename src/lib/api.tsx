@@ -196,9 +196,12 @@ export const reportAbuse = ({
     email?: string;
 }) => {
     const url =
-        options.baseUrl +
-        `/comment/${commentId}/reportAbuse` +
-        objAsParams(defaultParams);
+        joinUrl([
+            options.baseUrl,
+            'comment',
+            commentId.toString(),
+            'reportAbuse',
+        ]) + objAsParams(defaultParams);
 
     const data = new URLSearchParams();
     data.append('categoryId', categoryId.toString());
