@@ -85,7 +85,7 @@ export const Overrides = () => (
             shortUrl="p/39f5z"
             initialPage={3}
             pageSizeOverride={50}
-            orderByOverride={'oldest'}
+            orderByOverride="recommendations"
             baseUrl="https://discussion.theguardian.com/discussion-api"
             pillar="opinion"
             isClosedForComments={false}
