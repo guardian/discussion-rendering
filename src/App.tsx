@@ -111,12 +111,16 @@ const initialiseFilters = ({
     pageSizeOverride,
     orderByOverride,
     permalinkBeingUsed,
+    isClosedForComments,
 }: {
     pageSizeOverride?: PageSizeType;
     orderByOverride?: OrderByType;
     permalinkBeingUsed: boolean;
+    isClosedForComments: boolean;
 }) => {
-    const initialisedFilters = initFiltersFromLocalStorage();
+    const initialisedFilters = initFiltersFromLocalStorage({
+        isClosedForComments,
+    });
     return {
         ...initialisedFilters,
         // Override if prop given
@@ -129,7 +133,11 @@ const initialiseFilters = ({
     };
 };
 
-const initFiltersFromLocalStorage = (): FilterOptions => {
+const initFiltersFromLocalStorage = ({
+    isClosedForComments,
+}: {
+    isClosedForComments: boolean;
+}): FilterOptions => {
     let threads;
     let pageSize;
     let orderBy;
@@ -140,7 +148,10 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
         threads = localStorage.getItem('gu.prefs.discussion.threading');
         pageSize = localStorage.getItem('gu.prefs.discussion.pagesize');
     } catch (error) {
-        return DEFAULT_FILTERS;
+        return {
+            ...DEFAULT_FILTERS,
+            orderBy: decideDefaultOrderBy(isClosedForComments),
+        };
     }
 
     function checkPageSize(size: any): PageSizeType {
@@ -153,9 +164,15 @@ const initFiltersFromLocalStorage = (): FilterOptions => {
         return size; // size is acceptable
     }
 
+    function decideDefaultOrderBy(isClosedForComment: boolean): OrderByType {
+        return isClosedForComments ? 'oldest' : 'newest';
+    }
+
     // If we found something in LS, use it, otherwise return defaults
     return {
-        orderBy: orderBy ? JSON.parse(orderBy).value : DEFAULT_FILTERS.orderBy,
+        orderBy: orderBy
+            ? JSON.parse(orderBy).value
+            : decideDefaultOrderBy(isClosedForComments),
         threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
         pageSize: pageSize
             ? checkPageSize(JSON.parse(pageSize).value)
@@ -208,6 +225,7 @@ export const App = ({
             pageSizeOverride,
             orderByOverride,
             permalinkBeingUsed: !!commentToScrollTo,
+            isClosedForComments,
         }),
     );
     const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
