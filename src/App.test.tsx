@@ -114,11 +114,39 @@ describe('App', () => {
         ).toBe(2);
     });
 
-    it('should not render the view more button if there are < 2 comments', async () => {
+    it('should not render the view more button if there are zero comments', async () => {
         render(
             <App
                 baseUrl=""
                 shortUrl="p/39f5x" // A discussion with no comments
+                pillar="news"
+                isClosedForComments={false}
+                expanded={false}
+                additionalHeaders={{
+                    'D2-X-UID': 'testD2Header',
+                    'GU-Client': 'testClientHeader',
+                }}
+                apiKey="discussion-rendering-test"
+                onPermalinkClick={() => {}}
+                onHeightChange={() => {}}
+            />,
+        );
+
+        await waitForElementToBeRemoved(() =>
+            screen.getByTestId('loading-comments'),
+        );
+
+        expect(screen.getByText('Display threads')).toBeInTheDocument();
+        expect(
+            screen.queryByText('View more comments'),
+        ).not.toBeInTheDocument();
+    });
+
+    it('should not render the view more button if there are only two comments', async () => {
+        render(
+            <App
+                baseUrl=""
+                shortUrl="p/39f5a" // A discussion with only two comments
                 pillar="news"
                 isClosedForComments={false}
                 expanded={false}
