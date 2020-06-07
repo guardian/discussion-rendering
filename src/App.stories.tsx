@@ -182,3 +182,30 @@ export const Closed = () => (
     </div>
 );
 Closed.story = { name: 'Logged in but closed for comments' };
+
+export const NoComments = () => (
+    <div
+        className={css`
+            width: 100%;
+            max-width: 620px;
+        `}
+    >
+        <App
+            shortUrl="p/39f5x" // A discussion with zero comments
+            baseUrl="https://discussion.theguardian.com/discussion-api"
+            pillar="culture"
+            isClosedForComments={false}
+            additionalHeaders={{
+                'D2-X-UID': 'testD2Header',
+                'GU-Client': 'testClientHeader',
+            }}
+            expanded={false}
+            onPermalinkClick={() => {}}
+            apiKey=""
+            onHeightChange={() => {}}
+        />
+    </div>
+);
+NoComments.story = {
+    name: 'when no comments have been made',
+};
