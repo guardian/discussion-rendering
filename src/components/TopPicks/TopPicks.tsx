@@ -67,6 +67,7 @@ export const TopPicks = ({
                 <div className={cx(columWrapperStyles, paddingRight)}>
                     {leftColComments.map(comment => (
                         <TopPick
+                            key={comment.id}
                             pillar={pillar}
                             comment={comment}
                             isSignedIn={isSignedIn}
@@ -81,6 +82,7 @@ export const TopPicks = ({
                 <div className={cx(columWrapperStyles, paddingLeft)}>
                     {rightColComments.map(comment => (
                         <TopPick
+                            key={comment.id}
                             pillar={pillar}
                             comment={comment}
                             isSignedIn={isSignedIn}
@@ -96,6 +98,7 @@ export const TopPicks = ({
             <div className={oneColCommentsStyles}>
                 {comments.map(comment => (
                     <TopPick
+                        key={comment.id}
                         pillar={pillar}
                         comment={comment}
                         isSignedIn={isSignedIn}
