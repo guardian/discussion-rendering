@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import { DropdownOptionType } from '../../types';
 import { Dropdown } from './Dropdown';
@@ -30,7 +30,7 @@ const noActiveOptions: DropdownOptionType[] = threadOptions.map(option => ({
 describe('Dropdown', () => {
     it('should display the given label', () => {
         const label = 'I should show';
-        const { getByText } = render(
+        render(
             <Dropdown
                 id="abc"
                 pillar="news"
@@ -40,11 +40,11 @@ describe('Dropdown', () => {
             />,
         );
 
-        expect(getByText(label)).toBeInTheDocument();
+        expect(screen.getByText(label)).toBeInTheDocument();
     });
 
     it('should display option titles', () => {
-        const { getByText } = render(
+        render(
             <Dropdown
                 id="abc"
                 pillar="news"
@@ -54,9 +54,9 @@ describe('Dropdown', () => {
             />,
         );
 
-        expect(getByText(threadOptions[0].title)).toBeInTheDocument();
-        expect(getByText(threadOptions[1].title)).toBeInTheDocument();
-        expect(getByText(threadOptions[2].title)).toBeInTheDocument();
+        expect(screen.getByText(threadOptions[0].title)).toBeInTheDocument();
+        expect(screen.getByText(threadOptions[1].title)).toBeInTheDocument();
+        expect(screen.getByText(threadOptions[2].title)).toBeInTheDocument();
     });
 
     it('should render the correct number of options', () => {
@@ -75,7 +75,7 @@ describe('Dropdown', () => {
     });
 
     it('should expand the menu when the label is clicked', () => {
-        const { container, getByRole } = render(
+        const { container } = render(
             <Dropdown
                 id="abc"
                 pillar="news"
@@ -87,12 +87,12 @@ describe('Dropdown', () => {
 
         const ulElement = container.querySelector('ul');
         expect(ulElement).toHaveStyle('display: none');
-        fireEvent.click(getByRole('button'));
+        fireEvent.click(screen.getByRole('button'));
         expect(ulElement).toHaveStyle('display: block');
     });
 
     it('should close the expanded menu when readers click away', () => {
-        const { container, getByRole } = render(
+        const { container } = render(
             <Dropdown
                 id="abc"
                 pillar="news"
@@ -103,14 +103,14 @@ describe('Dropdown', () => {
         );
 
         const ulElement = container.querySelector('ul');
-        fireEvent.click(getByRole('button'));
+        fireEvent.click(screen.getByRole('button'));
         expect(ulElement).toHaveStyle('display: block');
-        container.click();
+        fireEvent.click(container);
         expect(ulElement).toHaveStyle('display: none');
     });
 
     it('should close the expanded menu when blurred', () => {
-        const { container, getByRole } = render(
+        const { container } = render(
             <Dropdown
                 id="abc"
                 pillar="news"
@@ -121,7 +121,7 @@ describe('Dropdown', () => {
         );
 
         const ulElement = container.querySelector('ul');
-        fireEvent.click(getByRole('button'));
+        fireEvent.click(screen.getByRole('button'));
         expect(ulElement).toHaveStyle('display: block');
         fireEvent.keyDown(container, { key: 'Escape', code: 'Escape' });
         expect(ulElement).toHaveStyle('display: none');
@@ -130,7 +130,7 @@ describe('Dropdown', () => {
 
 it('should trigger the correct onSelect callbacks when an option is clicked', () => {
     const mockCallback = jest.fn();
-    const { getByRole, getByText } = render(
+    render(
         <Dropdown
             id="abc"
             pillar="news"
@@ -140,12 +140,12 @@ it('should trigger the correct onSelect callbacks when an option is clicked', (
         />,
     );
 
-    fireEvent.click(getByRole('button'));
-    fireEvent.click(getByText(threadOptions[2].title));
+    fireEvent.click(screen.getByRole('button'));
+    fireEvent.click(screen.getByText(threadOptions[2].title));
     expect(mockCallback).toHaveBeenCalled();
     expect(mockCallback.mock.calls[0][0]).toBe('unthreaded');
-    fireEvent.click(getByRole('button'));
-    fireEvent.click(getByText(threadOptions[1].title));
+    fireEvent.click(screen.getByRole('button'));
+    fireEvent.click(screen.getByText(threadOptions[1].title));
     expect(mockCallback).toHaveBeenCalled();
     expect(mockCallback.mock.calls[1][0]).toBe('expanded');
 });

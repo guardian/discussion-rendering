@@ -71,7 +71,7 @@ const Grey = ({
 );
 
 export const LoadingComments = () => (
-    <div className={containerStyles}>
+    <div className={containerStyles} data-testid="loading-comments">
         <div className={avatarStyles(48)} />
         <Column>
             <Row>
