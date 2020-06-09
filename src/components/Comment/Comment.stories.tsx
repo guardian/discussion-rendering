@@ -92,6 +92,7 @@ export const Root = () => (
         isReply={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 Root.story = {
@@ -111,6 +112,7 @@ export const RootMobile = () => (
         isClosedForComments={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 RootMobile.story = {
@@ -130,6 +132,7 @@ export const ReplyComment = () => (
         isReply={true}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 ReplyComment.story = {
@@ -149,6 +152,7 @@ export const MobileReply = () => (
         isClosedForComments={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 MobileReply.story = {
@@ -171,6 +175,7 @@ export const PickedComment = () => (
         isReply={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 PickedComment.story = { name: 'Picked Comment' };
@@ -184,6 +189,7 @@ export const StaffUserComment = () => (
         isReply={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 StaffUserComment.story = { name: 'Staff User Comment' };
@@ -200,6 +206,7 @@ export const PickedStaffUserComment = () => (
         isReply={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 PickedStaffUserComment.story = {
@@ -222,6 +229,7 @@ export const PickedStaffUserCommentMobile = () => (
         isReply={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 PickedStaffUserCommentMobile.story = {
@@ -242,6 +250,7 @@ export const LoggedInAsModerator = () => (
         isReply={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 LoggedInAsModerator.story = { name: 'Logged in as moderator' };
@@ -255,6 +264,7 @@ export const BlockedComment = () => (
         isReply={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 BlockedComment.story = { name: 'Blocked comment' };
@@ -268,6 +278,7 @@ export const MutedComment = () => (
         isReply={false}
         isMuted={true}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 MutedComment.story = { name: 'Muted comment' };
@@ -281,6 +292,7 @@ export const ClosedForComments = () => (
         isReply={false}
         isMuted={false}
         toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
     />
 );
 ClosedForComments.story = {

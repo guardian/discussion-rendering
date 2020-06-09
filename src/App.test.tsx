@@ -1,6 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, fireEvent } from '@testing-library/react';
+import {
+    render,
+    fireEvent,
+    waitForElementToBeRemoved,
+    screen,
+} from '@testing-library/react';
 
 import { mockFetchCalls } from './lib/mockFetchCalls';
 
@@ -24,8 +29,8 @@ const aUser = {
 };
 
 describe('App', () => {
-    it('should expand when view more button is clicked', () => {
-        const { getByText, queryByText } = render(
+    it('should expand when view more button is clicked', async () => {
+        render(
             <App
                 baseUrl=""
                 shortUrl="p/39f5z"
@@ -42,36 +47,47 @@ describe('App', () => {
             />,
         );
 
-        expect(queryByText('View more comments')).toBeInTheDocument();
-        fireEvent.click(getByText('View more comments'));
-        expect(queryByText('View more comments')).not.toBeInTheDocument();
-        expect(getByText('Display threads')).toBeInTheDocument();
+        await waitForElementToBeRemoved(() =>
+            screen.getByTestId('loading-comments'),
+        );
+
+        expect(screen.queryByText('View more comments')).toBeInTheDocument();
+        fireEvent.click(screen.getByText('View more comments'));
+        expect(
+            screen.queryByText('View more comments'),
+        ).not.toBeInTheDocument();
+        expect(screen.getByText('Display threads')).toBeInTheDocument();
     });
 
-    it('should not render the comment form if user is logged out', () => {
-        const { queryByText, queryByPlaceholderText } = render(
+    it('should not render the comment form if user is logged out', async () => {
+        render(
             <App
-                baseUrl=""
                 shortUrl="p/39f5z"
-                pillar="news"
+                baseUrl="https://discussion.theguardian.com/discussion-api"
+                pillar="culture"
                 isClosedForComments={false}
-                expanded={false}
                 additionalHeaders={{
                     'D2-X-UID': 'testD2Header',
                     'GU-Client': 'testClientHeader',
                 }}
-                apiKey="discussion-rendering-test"
+                expanded={false}
                 onPermalinkClick={() => {}}
+                apiKey=""
                 onHeightChange={() => {}}
             />,
         );
 
-        expect(queryByText('View more comments')).toBeInTheDocument();
-        expect(queryByPlaceholderText('Join the discussion')).toBeNull();
+        await waitForElementToBeRemoved(() =>
+            screen.getByTestId('loading-comments'),
+        );
+
+        expect(screen.getByText('View more comments')).toBeInTheDocument();
+        expect(screen.queryAllByText('jamesgorrie').length).toBeGreaterThan(0);
+        expect(screen.queryByPlaceholderText('Join the discussion')).toBeNull();
     });
 
-    it('should render two comment forms when user is logged in', () => {
-        const { queryAllByPlaceholderText } = render(
+    it('should render two comment forms when user is logged in', async () => {
+        render(
             <App
                 baseUrl=""
                 shortUrl="p/39f5z"
@@ -88,6 +104,69 @@ describe('App', () => {
                 onHeightChange={() => {}}
             />,
         );
-        expect(queryAllByPlaceholderText('Join the discussion').length).toBe(2);
+
+        await waitForElementToBeRemoved(() =>
+            screen.getByTestId('loading-comments'),
+        );
+
+        expect(
+            screen.queryAllByPlaceholderText('Join the discussion').length,
+        ).toBe(2);
+    });
+
+    it('should not render the view more button if there are zero comments', async () => {
+        render(
+            <App
+                baseUrl=""
+                shortUrl="p/39f5x" // A discussion with no comments
+                pillar="news"
+                isClosedForComments={false}
+                expanded={false}
+                additionalHeaders={{
+                    'D2-X-UID': 'testD2Header',
+                    'GU-Client': 'testClientHeader',
+                }}
+                apiKey="discussion-rendering-test"
+                onPermalinkClick={() => {}}
+                onHeightChange={() => {}}
+            />,
+        );
+
+        await waitForElementToBeRemoved(() =>
+            screen.getByTestId('loading-comments'),
+        );
+
+        expect(screen.getByText('Display threads')).toBeInTheDocument();
+        expect(
+            screen.queryByText('View more comments'),
+        ).not.toBeInTheDocument();
+    });
+
+    it('should not render the view more button if there are only two comments', async () => {
+        render(
+            <App
+                baseUrl=""
+                shortUrl="p/39f5a" // A discussion with only two comments
+                pillar="news"
+                isClosedForComments={false}
+                expanded={false}
+                additionalHeaders={{
+                    'D2-X-UID': 'testD2Header',
+                    'GU-Client': 'testClientHeader',
+                }}
+                apiKey="discussion-rendering-test"
+                onPermalinkClick={() => {}}
+                onHeightChange={() => {}}
+            />,
+        );
+
+        await waitForElementToBeRemoved(() =>
+            screen.getByTestId('loading-comments'),
+        );
+
+        expect(screen.getByText('Display threads')).toBeInTheDocument();
+        expect(
+            screen.queryByText('View more comments'),
+        ).not.toBeInTheDocument();
     });
 });

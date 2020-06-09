@@ -438,21 +438,23 @@ export const App = ({
                         )}
                     </>
                 )}
-                <div
-                    className={css`
-                        width: 250px;
-                    `}
-                >
-                    <PillarButton
-                        pillar={pillar}
-                        onClick={() => expandView()}
-                        icon={<PlusSVG />}
-                        iconSide="left"
-                        linkName="more-comments"
+                {commentCount > 2 && (
+                    <div
+                        className={css`
+                            width: 250px;
+                        `}
                     >
-                        View more comments
-                    </PillarButton>
-                </div>
+                        <PillarButton
+                            pillar={pillar}
+                            onClick={() => expandView()}
+                            icon={<PlusSVG />}
+                            iconSide="left"
+                            linkName="more-comments"
+                        >
+                            View more comments
+                        </PillarButton>
+                    </div>
+                )}
             </div>
         );
     }

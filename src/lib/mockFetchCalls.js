@@ -4,6 +4,8 @@ import { discussion } from '../fixtures/discussion';
 import { comment } from '../fixtures/comment';
 import { topPicks } from '../fixtures/topPicks';
 import { noTopPicks } from '../fixtures/noTopPicks';
+import { discussionWithNoComments } from '../fixtures/discussionWithNoComments';
+import { discussionWithTwoComments } from '../fixtures/discussionWithTwoComments';
 
 export const mockedMessageID = '123456';
 
@@ -44,6 +46,32 @@ export const mockFetchCalls = () => {
         .get(/.*\/discussion\/p\/39f5z\/topcomments.*/, {
             status: 200,
             body: topPicks,
+        })
+
+        // Get discussion 39f5x
+        .get(
+            /.*\/discussion.theguardian.com\/discussion-api\/discussion\/p\/39f5x\?.*/,
+            {
+                status: 200,
+                body: discussionWithNoComments,
+            },
+        )
+        .get(/.*\/discussion\/p\/39f5x\/topcomments.*/, {
+            status: 200,
+            body: noTopPicks,
+        })
+
+        // Get discussion 39f5a
+        .get(
+            /.*\/discussion.theguardian.com\/discussion-api\/discussion\/p\/39f5a\?.*/,
+            {
+                status: 200,
+                body: discussionWithTwoComments,
+            },
+        )
+        .get(/.*\/discussion\/p\/39f5a\/topcomments.*/, {
+            status: 200,
+            body: noTopPicks,
         })
 
         // Get discussion abc123
