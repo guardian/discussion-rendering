@@ -196,6 +196,7 @@ export const TopPick = ({
                         <a
                             href={comment.userProfile.webUrl}
                             className={cx(linkStyles, inheritColour)}
+                            rel="nofollow"
                         >
                             {comment.userProfile.displayName}
                         </a>
