@@ -176,6 +176,7 @@ export const TopPick = ({
                             onPermalinkClick(comment.id);
                             e.preventDefault();
                         }}
+                        rel="nofollow"
                     >
                         Jump to comment
                     </Link>

@@ -108,6 +108,7 @@ export const FirstCommentWelcome = ({
                             href="/community-standards"
                             priority="primary"
                             subdued={true}
+                            rel="nofollow"
                         >
                             <span className={textStyling}>
                                 community guidelines

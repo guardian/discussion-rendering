@@ -326,6 +326,7 @@ export const Comment = ({
                                                     comment.userProfile.webUrl
                                                 }
                                                 subdued={true}
+                                                rel="nofollow"
                                             >
                                                 {
                                                     comment.userProfile
@@ -358,6 +359,7 @@ export const Comment = ({
                                         <Link
                                             href={comment.userProfile.webUrl}
                                             subdued={true}
+                                            rel="nofollow"
                                         >
                                             {comment.userProfile.displayName}
                                         </Link>
@@ -375,6 +377,7 @@ export const Comment = ({
                                                 subdued={true}
                                                 icon={<SvgIndent />}
                                                 iconSide="left"
+                                                rel="nofollow"
                                             >
                                                 {comment.responseTo.displayName}
                                             </Link>
@@ -536,6 +539,7 @@ export const Comment = ({
                                                             subdued={true}
                                                             icon={<SvgIndent />}
                                                             iconSide="left"
+                                                            rel="nofollow"
                                                         >
                                                             {/* We use this span to scope the styling */}
                                                             <span data-link-name="reply to comment">
