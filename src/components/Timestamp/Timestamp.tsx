@@ -49,6 +49,7 @@ export const Timestamp = ({
                 onPermalinkClick(commentId);
                 e.preventDefault();
             }}
+            rel="nofollow"
         >
             <time dateTime={isoDateTime.toString()} className={timeStyles}>
                 {timeAgo}

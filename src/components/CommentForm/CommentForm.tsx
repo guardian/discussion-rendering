@@ -29,7 +29,9 @@ const strikethroughString = (text: string) => `<del>${text}</del>`;
 const codeString = (text: string) => `<code>${text}</code>`;
 const quoteString = (text: string) => `<blockquote>${text}</blockquote>`;
 const linkStringFunc = (url: string, highlightedText?: string) =>
-    `<a href="${url}">${highlightedText ? highlightedText : url}</a>`;
+    `<a href="${url}" rel="nofollow">${
+        highlightedText ? highlightedText : url
+    }</a>`;
 
 const formWrapper = css`
     display: flex;
@@ -392,6 +394,7 @@ export const CommentForm = ({
                                     <a
                                         href="/community-faqs#311"
                                         target="_blank"
+                                        rel="nofollow"
                                     >
                                         why?
                                     </a>

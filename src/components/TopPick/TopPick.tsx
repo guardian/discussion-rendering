@@ -176,6 +176,7 @@ export const TopPick = ({
                             onPermalinkClick(comment.id);
                             e.preventDefault();
                         }}
+                        rel="nofollow"
                     >
                         Jump to comment
                     </Link>
@@ -196,6 +197,7 @@ export const TopPick = ({
                         <a
                             href={comment.userProfile.webUrl}
                             className={cx(linkStyles, inheritColour)}
+                            rel="nofollow"
                         >
                             {comment.userProfile.displayName}
                         </a>
