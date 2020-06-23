@@ -5,6 +5,7 @@ import { from } from '@guardian/src-foundations/mq';
 import { space, neutral, palette } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
+import { brand } from '@guardian/src-foundations/palette';
 
 import { GuardianStaff } from '../Badges/Badges';
 import { CommentType, Pillar } from '../../types';
@@ -70,7 +71,7 @@ const linkStyles = css`
 // to override a tag styles from dangerouslySetInnerHTML
 const inCommentLinkStyling = css`
     a {
-        color: ${palette.brand[500]};
+        color: ${brand[500]};
         text-decoration: none;
         :hover {
             text-decoration: underline;
