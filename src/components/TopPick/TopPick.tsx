@@ -5,6 +5,7 @@ import { from } from '@guardian/src-foundations/mq';
 import { space, neutral, palette } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
+import { brand } from '@guardian/src-foundations/palette';
 
 import { GuardianStaff } from '../Badges/Badges';
 import { CommentType, Pillar } from '../../types';
@@ -64,6 +65,17 @@ const linkStyles = css`
     text-decoration: none;
     :hover {
         text-decoration: underline;
+    }
+`;
+
+// to override a tag styles from dangerouslySetInnerHTML
+const inCommentLinkStyling = css`
+    a {
+        color: ${brand[500]};
+        text-decoration: none;
+        :hover {
+            text-decoration: underline;
+        }
     }
 `;
 
@@ -160,7 +172,7 @@ export const TopPick = ({
             <Top>
                 <h3 className={titleStyles}>Guardian Pick</h3>
                 <p
-                    className={wrapStyles}
+                    className={cx(wrapStyles, inCommentLinkStyling)}
                     dangerouslySetInnerHTML={{
                         __html: truncateText(comment.body, 450),
                     }}
