@@ -67,6 +67,17 @@ const linkStyles = css`
     }
 `;
 
+// to override a tag styles from dangerouslySetInnerHTML
+const inCommentLinkStyling = css`
+    a {
+        color: ${palette.brand[500]};
+        text-decoration: none;
+        :hover {
+            text-decoration: underline;
+        }
+    }
+`;
+
 const titleStyles = css`
     ${textSans.small()};
     font-weight: bold;
@@ -160,7 +171,7 @@ export const TopPick = ({
             <Top>
                 <h3 className={titleStyles}>Guardian Pick</h3>
                 <p
-                    className={wrapStyles}
+                    className={cx(wrapStyles, inCommentLinkStyling)}
                     dangerouslySetInnerHTML={{
                         __html: truncateText(comment.body, 450),
                     }}
