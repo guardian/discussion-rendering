@@ -33,7 +33,10 @@ const IndexPageWrapper = () => {
             <h1>Example Discussion</h1>
             <p>
                 Set a specific discussion using the id in a query param like{' '}
-                <a href="/?id=32255">?id=32255</a>.
+                <a href="?id=32255&closedForComments=true&pillar=opinion">
+                    ?id=32255&closedForComments=true&pillar=opinion
+                </a>
+                .
             </p>
             <App
                 baseUrl="https://discussion.theguardian.com/discussion-api"
