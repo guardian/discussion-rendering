@@ -209,3 +209,30 @@ export const NoComments = () => (
 NoComments.story = {
     name: 'when no comments have been made',
 };
+
+export const LegacyDiscussion = () => (
+    <div
+        className={css`
+            width: 100%;
+            max-width: 620px;
+        `}
+    >
+        <App
+            shortUrl="p/32255" // A 'legacy' discussion that doesn't allow threading
+            baseUrl="https://discussion.theguardian.com/discussion-api"
+            pillar="culture"
+            isClosedForComments={false}
+            additionalHeaders={{
+                'D2-X-UID': 'testD2Header',
+                'GU-Client': 'testClientHeader',
+            }}
+            expanded={false}
+            onPermalinkClick={() => {}}
+            apiKey=""
+            onHeightChange={() => {}}
+        />
+    </div>
+);
+LegacyDiscussion.story = {
+    name: "a legacy discussion that doesn't allow threading",
+};

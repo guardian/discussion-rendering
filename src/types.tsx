@@ -127,6 +127,7 @@ export interface UserProfile {
 
 export interface DiscussionResponse {
     status: string;
+    errorCode?: string;
     page: number;
     pages: number;
     pageSize: number;

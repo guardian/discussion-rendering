@@ -83,6 +83,20 @@ export const getDiscussion = (
         },
     })
         .then(resp => resp.json())
+        .then(json => {
+            if (
+                json.errorCode === 'DISCUSSION_ONLY_AVAILABLE_IN_LINEAR_FORMAT'
+            ) {
+                // We need force a refetch with unthreaded set, as we don't know
+                // that this discussion is only available in linear format until
+                // we get the response to tell us
+                return getDiscussion(shortUrl, {
+                    ...opts,
+                    ...{ threads: 'unthreaded' },
+                });
+            }
+            return json;
+        })
         .catch(error => console.error(`Error fetching ${url}`, error));
 };
 
