@@ -135,7 +135,7 @@ export const AbuseReportForm: React.FC<{
         response: '',
     };
     const [errors, setErrors] = useState(defaultErrorTexts);
-    const [successMessage, setSuccessMessage] = useState();
+    const [successMessage, setSuccessMessage] = useState('');
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -275,7 +275,7 @@ export const AbuseReportForm: React.FC<{
                         </span>
                     )}
 
-                    {successMessage && (
+                    {successMessage && successMessage !== '' && (
                         <span
                             className={css`
                                 color: green;

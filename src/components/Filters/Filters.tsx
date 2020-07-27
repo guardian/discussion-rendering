@@ -93,7 +93,7 @@ export const Filters = ({
         <div className={filterPadding}>
             <Dropdown
                 id="page-size-dropdown"
-                label="Per page"
+                label="Per page gjdsg kjsd "
                 pillar={pillar}
                 options={[
                     {

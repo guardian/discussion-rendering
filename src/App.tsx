@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { css } from 'emotion';
 
 import { neutral } from '@guardian/src-foundations/palette';
@@ -16,8 +16,7 @@ import {
 } from './types';
 import { getDiscussion, getPicks, initialiseApi } from './lib/api';
 import { CommentContainer } from './components/CommentContainer/CommentContainer';
-import { TopPicks } from './components/TopPicks/TopPicks';
-import { CommentForm } from './components/CommentForm/CommentForm';
+
 import { Filters } from './components/Filters/Filters';
 import { Pagination } from './components/Pagination/Pagination';
 import { LoadingComments } from './components/LoadingComments/LoadingComments';
@@ -363,6 +362,18 @@ export const App = ({
 
     const showPagination = totalPages > 1;
 
+    const CommentForm = React.lazy(() =>
+        import('./components/CommentForm/CommentForm').then(module => ({
+            default: module.CommentForm,
+        })),
+    );
+
+    const TopPicks = React.lazy(() =>
+        import('./components/TopPicks/TopPicks').then(module => ({
+            default: module.TopPicks,
+        })),
+    );
+
     if (!isExpanded) {
         return (
             <div className={commentContainerStyles} data-component="discussion">
@@ -377,12 +388,14 @@ export const App = ({
                 {picks && picks.length ? (
                     <div className={picksWrapper}>
                         {!!picks.length && (
-                            <TopPicks
-                                pillar={pillar}
-                                comments={picks.slice(0, 2)}
-                                isSignedIn={!!user}
-                                onPermalinkClick={onPermalinkClick}
-                            />
+                            <Suspense fallback={<></>}>
+                                <TopPicks
+                                    pillar={pillar}
+                                    comments={picks.slice(0, 2)}
+                                    isSignedIn={!!user}
+                                    onPermalinkClick={onPermalinkClick}
+                                />
+                            </Suspense>
                         )}
                     </div>
                 ) : (
@@ -463,12 +476,14 @@ export const App = ({
         <Column>
             <div data-component="discussion">
                 {user && !isClosedForComments && (
-                    <CommentForm
-                        pillar={pillar}
-                        shortUrl={shortUrl}
-                        onAddComment={onAddComment}
-                        user={user}
-                    />
+                    <Suspense fallback={<></>}>
+                        <CommentForm
+                            pillar={pillar}
+                            shortUrl={shortUrl}
+                            onAddComment={onAddComment}
+                            user={user}
+                        />
+                    </Suspense>
                 )}
                 {!!picks.length && (
                     <TopPicks

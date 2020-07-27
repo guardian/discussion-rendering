@@ -5,9 +5,10 @@ module.exports = {
         '@babel/preset-react',
         '@emotion/babel-preset-css-prop',
     ],
-    env: {
-        test: {
-            plugins: ['@babel/plugin-transform-runtime'],
-        },
-    },
+
+    plugins: [
+        '@babel/plugin-transform-typescript',
+        '@babel/plugin-proposal-optional-chaining',
+        '@babel/plugin-proposal-nullish-coalescing-operator',
+    ],
 };
