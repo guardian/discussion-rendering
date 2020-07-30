@@ -19,6 +19,7 @@ import { ButtonLink } from '../ButtonLink/ButtonLink';
 
 import { Pillar, CommentType, UserProfile } from '../../types';
 import { pickComment, unPickComment } from '../../lib/api';
+import { createAuthenticationEventParams } from "../../lib/identity-component-event";
 
 type Props = {
     user?: UserProfile;
@@ -535,7 +536,7 @@ export const Comment = ({
                                                         )}
                                                     >
                                                         <Link
-                                                            href={`https://profile.theguardian.com/signin?returnUrl=${comment.webUrl}`}
+                                                            href={`https://profile.theguardian.com/signin?returnUrl=${comment.webUrl}&${createAuthenticationEventParams('signin_to_reply_comment')}`}
                                                             subdued={true}
                                                             icon={<SvgIndent />}
                                                             iconSide="left"
