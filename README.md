@@ -9,6 +9,10 @@ Once you've cloned the repo, run
 `yarn storybook` to display the components
 `yarn start` will show the full discussion app with query parameter options
 
+#### A Note on `yarn start` and Create React App
+
+We override the react-scripts from CRA using config-overrides.js in the root. This allows us to add babel plugins, specifically the autoLabel option for local development, without touching the rollup build.
+
 ### Publishing changes to NPM
 
 You need a @guardian scoped NPM user account to be able to publish changes. You then will need to login to this NPM account locally on your maching. Once authenticated, run:
