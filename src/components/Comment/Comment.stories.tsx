@@ -67,6 +67,34 @@ const replyCommentData: CommentType = {
     },
 };
 
+const longReplyCommentData: CommentType = {
+    ...commentData,
+    responseTo: {
+        displayName: 'ArtVandelayWithAVeryLongUserName',
+        commentApiUrl: '',
+        isoDateTime: '',
+        date: '',
+        commentId: '123456',
+        commentWebUrl: '',
+    },
+};
+
+const longBothReplyCommentData: CommentType = {
+    ...commentData,
+    userProfile: {
+        ...commentData.userProfile,
+        displayName: 'AVeryLongUserNameForThisUserToo',
+    },
+    responseTo: {
+        displayName: 'ArtVandelayWithAVeryLongUserName',
+        commentApiUrl: '',
+        isoDateTime: '',
+        date: '',
+        commentId: '123456',
+        commentWebUrl: '',
+    },
+};
+
 const staffUser: UserProfile = {
     userId: 'abc123',
     displayName: 'Jane Smith',
@@ -156,6 +184,46 @@ export const MobileReply = () => (
 );
 MobileReply.story = {
     name: 'A reply on mobile view',
+    parameters: {
+        viewport: { defaultViewport: 'mobileMedium' },
+        chromatic: { viewports: [375] },
+    },
+};
+
+export const LongMobileReply = () => (
+    <Comment
+        comment={longReplyCommentData}
+        pillar={'culture'}
+        setCommentBeingRepliedTo={() => {}}
+        isReply={true}
+        isClosedForComments={false}
+        isMuted={false}
+        toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
+    />
+);
+LongMobileReply.story = {
+    name: 'A long username reply on mobile view',
+    parameters: {
+        viewport: { defaultViewport: 'mobileMedium' },
+        chromatic: { viewports: [375] },
+    },
+};
+
+export const LongBothMobileReply = () => (
+    <Comment
+        comment={longBothReplyCommentData}
+        pillar={'culture'}
+        setCommentBeingRepliedTo={() => {}}
+        isReply={true}
+        isClosedForComments={false}
+        isMuted={false}
+        toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
+    />
+);
+LongBothMobileReply.story = {
+    name: 'Both long usernames replying on mobile view',
     parameters: {
         viewport: { defaultViewport: 'mobileMedium' },
         chromatic: { viewports: [375] },

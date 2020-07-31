@@ -174,6 +174,7 @@ const svgOverrides = css`
 
 const commentDetails = css`
     flex-grow: 1;
+    width: 100%;
 `;
 
 const headerStyles = css`
@@ -210,6 +211,43 @@ const hideAboveMobileLandscape = css`
 const negativeMargin = css`
     margin-top: 0px;
     margin-bottom: -6px;
+`;
+
+const cssTextOverflowElip = css`
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
+
+const cssReplyToWrapper = css`
+    ${until.mobileLandscape} {
+        padding-right: 10px;
+        width: calc(100% - 35px);
+        box-sizing: border-box;
+    }
+`;
+
+// In order to show as much of the usernames as possible without fixed widths:
+// - First label should shrink to contents but be no bigger than 60%
+// - Second label should never force first label less than its contents if less than 60%
+// - Second label should fill remaining space after above
+// - Both labels should truncate with ellipsis if they fill their space
+// Test page: https://codepen.io/gtrufitt/pen/LYGKQyY
+
+const cssReplyAlphaDisplayName = css`
+    ${until.mobileLandscape} {
+        ${cssTextOverflowElip}
+        width: 100%;
+        max-width: fit-content;
+    }
+`;
+
+const cssReplyBetaDisplayName = css`
+    ${until.mobileLandscape} {
+        ${cssTextOverflowElip}
+        min-width: 40%;
+        flex-grow: 1;
+    }
 `;
 
 const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
@@ -292,34 +330,76 @@ export const Comment = ({
 
                 <div className={commentDetails}>
                     <header className={headerStyles}>
-                        <Column>
-                            <div
-                                className={cx(
-                                    comment.responseTo &&
-                                        hideBelowMobileLandscape,
-                                    hideAboveMobileLandscape,
-                                )}
-                            >
-                                <Row>
-                                    <div
-                                        className={css`
-                                            margin-right: ${space[2]}px;
-                                        `}
-                                    >
-                                        <Avatar
-                                            imageUrl={
-                                                comment.userProfile.avatar
-                                            }
-                                            displayName={''}
-                                            size="small"
-                                        />
-                                    </div>
-                                    <Column>
+                        <div className={cssReplyToWrapper}>
+                            <Column>
+                                <div
+                                    className={cx(
+                                        comment.responseTo &&
+                                            hideBelowMobileLandscape,
+                                        hideAboveMobileLandscape,
+                                    )}
+                                >
+                                    <Row>
+                                        <div
+                                            className={css`
+                                                margin-right: ${space[2]}px;
+                                            `}
+                                        >
+                                            <Avatar
+                                                imageUrl={
+                                                    comment.userProfile.avatar
+                                                }
+                                                displayName={''}
+                                                size="small"
+                                            />
+                                        </div>
+                                        <Column>
+                                            <div
+                                                className={cx(
+                                                    colourStyles(pillar),
+                                                    boldFont,
+                                                    negativeMargin,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={
+                                                        comment.userProfile
+                                                            .webUrl
+                                                    }
+                                                    subdued={true}
+                                                    rel="nofollow"
+                                                >
+                                                    {
+                                                        comment.userProfile
+                                                            .displayName
+                                                    }
+                                                </Link>
+                                            </div>
+                                            <Timestamp
+                                                isoDateTime={
+                                                    comment.isoDateTime
+                                                }
+                                                webUrl={comment.webUrl}
+                                                commentId={comment.id}
+                                                onPermalinkClick={
+                                                    onPermalinkClick
+                                                }
+                                            />
+                                        </Column>
+                                    </Row>
+                                </div>
+                                <div
+                                    className={cx(
+                                        !comment.responseTo &&
+                                            hideBelowMobileLandscape,
+                                    )}
+                                >
+                                    <Row>
                                         <div
                                             className={cx(
                                                 colourStyles(pillar),
                                                 boldFont,
-                                                negativeMargin,
+                                                cssReplyAlphaDisplayName,
                                             )}
                                         >
                                             <Link
@@ -335,90 +415,69 @@ export const Comment = ({
                                                 }
                                             </Link>
                                         </div>
-                                        <Timestamp
-                                            isoDateTime={comment.isoDateTime}
-                                            webUrl={comment.webUrl}
-                                            commentId={comment.id}
-                                            onPermalinkClick={onPermalinkClick}
-                                        />
-                                    </Column>
-                                </Row>
-                            </div>
-                            <div
-                                className={cx(
-                                    !comment.responseTo &&
-                                        hideBelowMobileLandscape,
-                                )}
-                            >
-                                <Row>
-                                    <div
-                                        className={cx(
-                                            colourStyles(pillar),
-                                            boldFont,
+                                        {comment.responseTo ? (
+                                            <div
+                                                className={cx(
+                                                    colourStyles(pillar),
+                                                    regularFont,
+                                                    svgOverrides,
+                                                    cssReplyBetaDisplayName,
+                                                )}
+                                            >
+                                                <Link
+                                                    href={`#comment-${comment.responseTo.commentId}`}
+                                                    subdued={true}
+                                                    icon={<SvgIndent />}
+                                                    iconSide="left"
+                                                    rel="nofollow"
+                                                >
+                                                    {
+                                                        comment.responseTo
+                                                            .displayName
+                                                    }
+                                                </Link>
+                                            </div>
+                                        ) : (
+                                            <></>
                                         )}
-                                    >
-                                        <Link
-                                            href={comment.userProfile.webUrl}
-                                            subdued={true}
-                                            rel="nofollow"
-                                        >
-                                            {comment.userProfile.displayName}
-                                        </Link>
-                                    </div>
-                                    {comment.responseTo ? (
                                         <div
                                             className={cx(
-                                                colourStyles(pillar),
-                                                regularFont,
-                                                svgOverrides,
+                                                timestampWrapperStyles,
+                                                comment.responseTo &&
+                                                    hideBelowMobileLandscape,
                                             )}
                                         >
-                                            <Link
-                                                href={`#comment-${comment.responseTo.commentId}`}
-                                                subdued={true}
-                                                icon={<SvgIndent />}
-                                                iconSide="left"
-                                                rel="nofollow"
-                                            >
-                                                {comment.responseTo.displayName}
-                                            </Link>
+                                            <Timestamp
+                                                isoDateTime={
+                                                    comment.isoDateTime
+                                                }
+                                                webUrl={comment.webUrl}
+                                                commentId={comment.id}
+                                                onPermalinkClick={
+                                                    onPermalinkClick
+                                                }
+                                            />
                                         </div>
-                                    ) : (
-                                        <></>
-                                    )}
-                                    <div
-                                        className={cx(
-                                            timestampWrapperStyles,
-                                            comment.responseTo &&
-                                                hideBelowMobileLandscape,
+                                    </Row>
+                                    <Row>
+                                        {showStaffbadge ? (
+                                            <div className={iconWrapper}>
+                                                <GuardianStaff />
+                                            </div>
+                                        ) : (
+                                            <></>
                                         )}
-                                    >
-                                        <Timestamp
-                                            isoDateTime={comment.isoDateTime}
-                                            webUrl={comment.webUrl}
-                                            commentId={comment.id}
-                                            onPermalinkClick={onPermalinkClick}
-                                        />
-                                    </div>
-                                </Row>
-                                <Row>
-                                    {showStaffbadge ? (
-                                        <div className={iconWrapper}>
-                                            <GuardianStaff />
-                                        </div>
-                                    ) : (
-                                        <></>
-                                    )}
-                                    {showPickBadge ? (
-                                        <div className={iconWrapper}>
-                                            <GuardianPick />
-                                        </div>
-                                    ) : (
-                                        <></>
-                                    )}
-                                </Row>
-                            </div>
-                        </Column>
+                                        {showPickBadge ? (
+                                            <div className={iconWrapper}>
+                                                <GuardianPick />
+                                            </div>
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </Row>
+                                </div>
+                            </Column>
+                        </div>
                         {comment.status !== 'blocked' && (
                             <RecommendationCount
                                 commentId={comment.id}

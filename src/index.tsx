@@ -38,6 +38,7 @@ const IndexPageWrapper = () => {
                 </a>
                 .
             </p>
+            <style>{`body { padding: 0 10px;}`}</style>
             <App
                 baseUrl="https://discussion.theguardian.com/discussion-api"
                 pillar={options.pillar}
