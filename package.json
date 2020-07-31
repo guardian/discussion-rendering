@@ -21,9 +21,6 @@
         "build/**/*"
     ],
     "dependencies": {
-        "babel-plugin-emotion": "^10.0.33",
-        "customize-cra": "^1.0.0",
-        "react-app-rewired": "^2.1.6",
         "react-focus-lock": "^2.2.1",
         "timeago.js": "^4.0.2"
     },
@@ -76,7 +73,10 @@
         "rollup-plugin-node-resolve": "^5.2.0",
         "rollup-plugin-visualizer": "^4.0.4",
         "storybook-chromatic": "^4.0.2",
-        "typescript": "^3.7.5"
+        "typescript": "^3.7.5",
+        "babel-plugin-emotion": "^10.0.33",
+        "customize-cra": "^1.0.0",
+        "react-app-rewired": "^2.1.6"
     },
     "scripts": {
         "start": "react-app-rewired start",
