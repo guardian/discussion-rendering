@@ -233,7 +233,7 @@ const cssReplyToWrapper = css`
 // - Both labels should truncate with ellipsis if they fill their space
 // Test page: https://codepen.io/gtrufitt/pen/LYGKQyY
 
-const cssReplyDisplayName = css`
+const cssReplyAlphaDisplayName = css`
     ${until.mobileLandscape} {
         ${cssTextOverflowElip}
         width: 100%;
@@ -241,7 +241,7 @@ const cssReplyDisplayName = css`
     }
 `;
 
-const cssReplyToDisplayName = css`
+const cssReplyBetaDisplayName = css`
     ${until.mobileLandscape} {
         ${cssTextOverflowElip}
         min-width: 40%;
@@ -398,7 +398,7 @@ export const Comment = ({
                                             className={cx(
                                                 colourStyles(pillar),
                                                 boldFont,
-                                                cssReplyDisplayName,
+                                                cssReplyAlphaDisplayName,
                                             )}
                                         >
                                             <Link
@@ -420,7 +420,7 @@ export const Comment = ({
                                                     colourStyles(pillar),
                                                     regularFont,
                                                     svgOverrides,
-                                                    cssReplyToDisplayName,
+                                                    cssReplyBetaDisplayName,
                                                 )}
                                             >
                                                 <Link
