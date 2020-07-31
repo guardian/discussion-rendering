@@ -26,6 +26,7 @@ const timeStyles = css`
     ${textSans.xsmall({ fontWeight: 'light' })}
     min-width: 0.75rem;
     margin-right: 0.3125rem;
+    white-space: nowrap;
 `;
 
 export const Timestamp = ({
