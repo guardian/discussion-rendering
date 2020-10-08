@@ -39,6 +39,7 @@ type Props = {
     onPermalinkClick: (commentId: number) => void;
     apiKey: string;
     onHeightChange?: () => void;
+    onRecommend?: (commentId: number) => Promise<Boolean>;
 };
 
 const footerStyles = css`
