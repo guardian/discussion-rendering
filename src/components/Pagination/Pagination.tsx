@@ -134,7 +134,7 @@ const Forward = ({
             onClick={() => setCurrentPage(currentPage + 1)}
             aria-label="Previous discussion page"
             data-link-name={`Pagination view page ${currentPage + 1}`}
-            size="small"
+            size="xsmall"
             priority="subdued"
             hideLabel={true}
         >
@@ -159,7 +159,7 @@ const Back = ({
                 onClick={() => setCurrentPage(newPage)}
                 aria-label="Previous discussion page"
                 data-link-name={`Pagination view page ${newPage}`}
-                size="small"
+                size="xsmall"
                 priority="subdued"
                 hideLabel={true}
             >
