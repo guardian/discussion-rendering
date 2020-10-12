@@ -54,7 +54,7 @@ export const RecommendationCount = ({
     alreadyRecommended,
     isSignedIn,
     userMadeComment,
-    onRecommend,
+    onRecommend = recommend,
 }: Props) => {
     const [count, setCount] = useState(initialCount);
     const [recommended, setRecommended] = useState(alreadyRecommended);
@@ -88,8 +88,4 @@ export const RecommendationCount = ({
             </button>
         </Row>
     );
-};
-
-RecommendationCount.defaultProps = {
-    onRecommend: recommend,
 };
