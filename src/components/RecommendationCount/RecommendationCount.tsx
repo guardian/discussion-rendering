@@ -15,7 +15,7 @@ type Props = {
     alreadyRecommended: boolean;
     isSignedIn: boolean;
     userMadeComment: boolean;
-    onRecommend: (commentId: number) => Promise<Boolean>;
+    onRecommend?: (commentId: number) => Promise<Boolean>;
 };
 
 const countStyles = css`
