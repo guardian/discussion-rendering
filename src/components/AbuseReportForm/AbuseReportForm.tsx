@@ -5,7 +5,7 @@ import { palette } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { space, neutral } from '@guardian/src-foundations';
 import { Button } from '@guardian/src-button';
-import { SvgClose } from '@guardian/src-svgs';
+import { SvgCross } from '@guardian/src-icons';
 
 import { Pillar } from '../../types';
 import { reportAbuse } from '../../lib/api';
@@ -299,7 +299,7 @@ export const AbuseReportForm: React.FC<{
                         custom-guardian="close-modal"
                         size="small"
                         iconSide="right"
-                        icon={<SvgClose />}
+                        icon={<SvgCross />}
                         onClick={toggleSetShowForm}
                         data-link-name="cancel-report-abuse"
                     />
