@@ -136,7 +136,9 @@ const Forward = ({
             data-link-name={`Pagination view page ${currentPage + 1}`}
             size="small"
             priority="subdued"
-        />
+        >
+            {}
+        </Button>
     </div>
 );
 
@@ -158,7 +160,9 @@ const Back = ({
                 data-link-name={`Pagination view page ${newPage}`}
                 size="small"
                 priority="subdued"
-            />
+            >
+                {}
+            </Button>
         </div>
     );
 };
