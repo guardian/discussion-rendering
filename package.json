@@ -122,7 +122,7 @@
     "jest": {
         "testEnvironment": "jest-environment-jsdom-sixteen",
         "moduleNameMapper": {
-            "^@guardian/src-foundations/(.*)$": "@guardian/src-foundations/$1/cjs"
+            "^@guardian/src-foundations/(.*)(?<!cjs)$": "@guardian/src-foundations/$1/cjs"
         }
     }
 }
