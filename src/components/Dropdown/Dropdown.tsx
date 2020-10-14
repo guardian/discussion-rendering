@@ -92,7 +92,7 @@ const activeStyles = (pillar: Pillar) => css`
 
     :after {
         content: '';
-        border: 2px solid ${palette[pillar].main};
+        border: 2px solid ${palette[pillar][400]};
         border-top: 0px;
         border-right: 0px;
         position: absolute;
