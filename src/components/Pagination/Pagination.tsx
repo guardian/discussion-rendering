@@ -8,7 +8,7 @@ import { Button } from '@guardian/src-button';
 import {
     SvgChevronLeftSingle,
     SvgChevronRightSingle,
-} from '@guardian/src-svgs';
+} from '@guardian/src-icons';
 
 import { FilterOptions } from '../../types';
 
