@@ -208,7 +208,7 @@ export const reportAbuse = ({
     categoryId: number;
     reason?: string;
     email?: string;
-}) => {
+}): Promise<CommentResponse> => {
     const url =
         joinUrl([
             options.baseUrl,
