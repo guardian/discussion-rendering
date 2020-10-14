@@ -4,6 +4,7 @@ import { css } from 'emotion';
 import { neutral } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 import { space } from '@guardian/src-foundations';
+import { SvgPlus } from '@guardian/src-icons';
 
 import {
     CommentType,
@@ -65,12 +66,6 @@ const DEFAULT_FILTERS: FilterOptions = {
     pageSize: 100,
     threads: 'collapsed',
 };
-
-const PlusSVG = () => (
-    <svg width="18" height="18">
-        <path d="M8.2 0h1.6l.4 7.8 7.8.4v1.6l-7.8.4-.4 7.8H8.2l-.4-7.8L0 9.8V8.2l7.8-.4.4-7.8z"></path>
-    </svg>
-);
 
 const NoComments = () => (
     <div
@@ -447,7 +442,7 @@ export const App = ({
                         <PillarButton
                             pillar={pillar}
                             onClick={() => expandView()}
-                            icon={<PlusSVG />}
+                            icon={<SvgPlus />}
                             iconSide="left"
                             linkName="more-comments"
                         >

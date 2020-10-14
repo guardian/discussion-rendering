@@ -81,6 +81,7 @@ export const IconLeft = () => (
         pillar="lifestyle"
         icon={<SvgCheckmark />}
         iconSide="left"
+        linkName="left"
     >
         Left
     </PillarButton>
