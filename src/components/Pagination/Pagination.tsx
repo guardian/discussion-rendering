@@ -138,7 +138,6 @@ const Forward = ({
             data-link-name={`Pagination view page ${currentPage + 1}`}
             size="xsmall"
             priority="subdued"
-            hideLabel={true}
         >
             <SvgChevronRightSingle />
         </Button>
@@ -162,7 +161,6 @@ const Back = ({
                 data-link-name={`Pagination view page ${newPage}`}
                 size="xsmall"
                 priority="subdued"
-                hideLabel={true}
             >
                 <SvgChevronLeftSingle />
             </Button>
