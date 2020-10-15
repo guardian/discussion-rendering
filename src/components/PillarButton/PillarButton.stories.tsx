@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from 'emotion';
 
 import { space } from '@guardian/src-foundations';
-import { SvgCheckmark } from '@guardian/src-svgs';
+import { SvgCheckmark } from '@guardian/src-icons';
 
 import { Row } from '../Row/Row';
 
@@ -81,6 +81,7 @@ export const IconLeft = () => (
         pillar="lifestyle"
         icon={<SvgCheckmark />}
         iconSide="left"
+        linkName="left"
     >
         Left
     </PillarButton>

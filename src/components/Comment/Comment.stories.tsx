@@ -95,6 +95,21 @@ const longBothReplyCommentData: CommentType = {
     },
 };
 
+const user: UserProfile = {
+    userId: 'abc123',
+    displayName: 'Jane Smith',
+    webUrl: '',
+    apiUrl: '',
+    avatar: '',
+    secureAvatarUrl: '',
+    badge: [],
+    privateFields: {
+        canPostComment: true,
+        isPremoderated: false,
+        hasCommented: true,
+    },
+};
+
 const staffUser: UserProfile = {
     userId: 'abc123',
     displayName: 'Jane Smith',
@@ -321,6 +336,21 @@ export const LoggedInAsModerator = () => (
     />
 );
 LoggedInAsModerator.story = { name: 'Logged in as moderator' };
+
+export const LoggedInAsUser = () => (
+    <Comment
+        comment={commentData}
+        pillar={'lifestyle'}
+        isClosedForComments={false}
+        setCommentBeingRepliedTo={() => {}}
+        user={user}
+        isReply={false}
+        isMuted={false}
+        toggleMuteStatus={() => {}}
+        onPermalinkClick={() => {}}
+    />
+);
+LoggedInAsUser.story = { name: 'Logged in as normal user' };
 
 export const BlockedComment = () => (
     <Comment

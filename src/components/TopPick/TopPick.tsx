@@ -48,7 +48,7 @@ const userNameStyles = (pillar: Pillar) => css`
     margin-top: 3px;
     margin-bottom: -6px;
     font-weight: bold;
-    color: ${palette[pillar].main};
+    color: ${palette[pillar][400]};
 `;
 
 const avatarMargin = css`

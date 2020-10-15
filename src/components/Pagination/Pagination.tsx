@@ -8,7 +8,7 @@ import { Button } from '@guardian/src-button';
 import {
     SvgChevronLeftSingle,
     SvgChevronRightSingle,
-} from '@guardian/src-svgs';
+} from '@guardian/src-icons';
 
 import { FilterOptions } from '../../types';
 
@@ -72,9 +72,12 @@ const chevronButtonStyles = ({ isSelected }: { isSelected: boolean }) => css`
         border-color: ${neutral[60]};
     }
 
-    /* Make the chevrons grey */
     & svg {
+        /* Make the chevrons grey */
         fill: ${neutral[46]} !important;
+        /* Set the dimensions */
+        width: 22px;
+        height: 22px;
     }
 `;
 
@@ -130,13 +133,14 @@ const Forward = ({
 }) => (
     <div className={cx(chevronButtonStyles({ isSelected: false }), shiftRight)}>
         <Button
-            icon={<SvgChevronRightSingle />}
             onClick={() => setCurrentPage(currentPage + 1)}
             aria-label="Previous discussion page"
             data-link-name={`Pagination view page ${currentPage + 1}`}
-            size="small"
+            size="xsmall"
             priority="subdued"
-        />
+        >
+            <SvgChevronRightSingle />
+        </Button>
     </div>
 );
 
@@ -152,13 +156,14 @@ const Back = ({
     return (
         <div className={chevronButtonStyles({ isSelected: false })}>
             <Button
-                icon={<SvgChevronLeftSingle />}
                 onClick={() => setCurrentPage(newPage)}
                 aria-label="Previous discussion page"
                 data-link-name={`Pagination view page ${newPage}`}
-                size="small"
+                size="xsmall"
                 priority="subdued"
-            />
+            >
+                <SvgChevronLeftSingle />
+            </Button>
         </div>
     );
 };

@@ -6,7 +6,7 @@ import { from, until } from '@guardian/src-foundations/mq';
 import { neutral, border } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
-import { SvgIndent } from '@guardian/src-svgs';
+import { SvgIndent } from '@guardian/src-icons';
 
 import { GuardianStaff, GuardianPick } from '../Badges/Badges';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
@@ -19,7 +19,7 @@ import { ButtonLink } from '../ButtonLink/ButtonLink';
 
 import { Pillar, CommentType, UserProfile } from '../../types';
 import { pickComment, unPickComment } from '../../lib/api';
-import { createAuthenticationEventParams } from "../../lib/identity-component-event";
+import { createAuthenticationEventParams } from '../../lib/identity-component-event';
 
 type Props = {
     user?: UserProfile;
@@ -169,6 +169,9 @@ const svgOverrides = css`
         fill: ${neutral[46]} !important;
         left: 3px !important;
         bottom: 0 !important;
+        width: 20px !important;
+        height: 20px !important;
+        margin: 0px !important;
     }
 `;
 
@@ -570,6 +573,7 @@ export const Comment = ({
                                                 {user ? (
                                                     <div
                                                         className={svgOverrides}
+                                                        id="fgsghdiusfhfdsiu"
                                                     >
                                                         <ButtonLink
                                                             pillar={pillar}
@@ -595,7 +599,11 @@ export const Comment = ({
                                                         )}
                                                     >
                                                         <Link
-                                                            href={`https://profile.theguardian.com/signin?returnUrl=${comment.webUrl}&${createAuthenticationEventParams('signin_to_reply_comment')}`}
+                                                            href={`https://profile.theguardian.com/signin?returnUrl=${
+                                                                comment.webUrl
+                                                            }&${createAuthenticationEventParams(
+                                                                'signin_to_reply_comment',
+                                                            )}`}
                                                             subdued={true}
                                                             icon={<SvgIndent />}
                                                             iconSide="left"

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { css, cx } from 'emotion';
 
 import { space, neutral, palette, border } from '@guardian/src-foundations';
+import { SvgPlus } from '@guardian/src-icons';
 
 import { Pillar, CommentType, UserProfile, ThreadsType } from '../../types';
 import { CommentForm } from '../CommentForm/CommentForm';
@@ -83,12 +84,6 @@ export const avatar = (avatarSize: number): string => css`
     width: ${avatarSize}px;
     height: ${avatarSize}px;
 `;
-
-const Plus = () => (
-    <svg width="14" height="14" viewBox="0 0 18 18">
-        <path d="M8.2 0h1.6l.4 7.8 7.8.4v1.6l-7.8.4-.4 7.8H8.2l-.4-7.8L0 9.8V8.2l7.8-.4.4-7.8z"></path>
-    </svg>
-);
 
 export const CommentContainer = ({
     comment,
@@ -191,7 +186,7 @@ export const CommentContainer = ({
                                         data-link-name="Show more replies"
                                     >
                                         <Row>
-                                            <Plus />
+                                            <SvgPlus />
                                             <span
                                                 className={css`
                                                     margin-left: 4px;
