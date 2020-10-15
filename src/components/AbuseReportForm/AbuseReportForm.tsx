@@ -302,6 +302,7 @@ export const AbuseReportForm: React.FC<{
                         icon={<SvgCross />}
                         onClick={toggleSetShowForm}
                         data-link-name="cancel-report-abuse"
+                        hideLabel={true}
                     >
                         {}
                     </Button>
