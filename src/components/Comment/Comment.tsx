@@ -169,6 +169,9 @@ const svgOverrides = css`
         fill: ${neutral[46]} !important;
         left: 3px !important;
         bottom: 0 !important;
+        width: 20px !important;
+        height: 20px !important;
+        margin: 0px !important;
     }
 `;
 
@@ -570,6 +573,7 @@ export const Comment = ({
                                                 {user ? (
                                                     <div
                                                         className={svgOverrides}
+                                                        id="fgsghdiusfhfdsiu"
                                                     >
                                                         <ButtonLink
                                                             pillar={pillar}
