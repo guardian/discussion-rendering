@@ -15,6 +15,7 @@ type Props = {
     alreadyRecommended: boolean;
     isSignedIn: boolean;
     userMadeComment: boolean;
+    onRecommend?: (commentId: number) => Promise<Boolean>;
 };
 
 const countStyles = css`
@@ -49,6 +50,7 @@ export const RecommendationCount = ({
     alreadyRecommended,
     isSignedIn,
     userMadeComment,
+    onRecommend = recommend,
 }: Props) => {
     const [count, setCount] = useState(initialCount);
     const [recommended, setRecommended] = useState(alreadyRecommended);
@@ -59,7 +61,7 @@ export const RecommendationCount = ({
         setRecommended(true);
 
         //makeApi call
-        recommend(commentId).then(accepted => {
+        onRecommend(commentId).then(accepted => {
             if (!accepted) {
                 setCount(newCount - 1);
                 setRecommended(alreadyRecommended);
