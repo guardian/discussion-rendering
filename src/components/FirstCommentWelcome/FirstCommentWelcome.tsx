@@ -7,7 +7,7 @@ import { Link } from '@guardian/src-link';
 import { Row } from '../Row/Row';
 import { PillarButton } from '../PillarButton/PillarButton';
 
-import { preview } from '../../lib/api';
+import { preview as defaultPreview } from '../../lib/api';
 
 import { Pillar } from '../../types';
 
@@ -17,6 +17,7 @@ type Props = {
     error?: string;
     submitForm: (userName: string) => void;
     cancelSubmit: () => void;
+    onPreview?: (body: string) => Promise<string>;
 };
 
 const previewStyle = css`
@@ -48,6 +49,7 @@ export const FirstCommentWelcome = ({
     error = '',
     submitForm,
     cancelSubmit,
+    onPreview
 }: Props) => {
     const [previewBody, setPreviewBody] = useState<string>('');
     const [userName, setUserName] = useState<string>('');
@@ -55,6 +57,7 @@ export const FirstCommentWelcome = ({
     useEffect(() => {
         const fetchShowPreview = async () => {
             try {
+                const preview = onPreview ?? defaultPreview;
                 const response = await preview(body);
                 setPreviewBody(response);
             } catch (e) {

@@ -28,6 +28,7 @@ type Props = {
     onRecommend?: (commentId: number) => Promise<Boolean>;
     onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
     onReply?: (shortUrl: string, body: string, parentCommentId: number) => Promise<CommentResponse>;
+    onPreview?: (body: string) => Promise<string>;
 };
 
 const nestingStyles = css`
@@ -103,7 +104,8 @@ export const CommentContainer = ({
     onPermalinkClick,
     onRecommend,
     onComment,
-    onReply
+    onReply,
+    onPreview
 }: Props) => {
     // Filter logic
     const [expanded, setExpanded] = useState<boolean>(threads === 'expanded');
@@ -237,6 +239,7 @@ export const CommentContainer = ({
                                 commentBeingRepliedTo={commentBeingRepliedTo}
                                 onComment={onComment}
                                 onReply={onReply}
+                                onPreview={onPreview}
                             />
                         </div>
                     )}

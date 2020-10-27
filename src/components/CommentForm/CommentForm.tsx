@@ -6,7 +6,7 @@ import { neutral, text } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 
 import { simulateNewComment } from '../../lib/simulateNewComment';
-import { comment as defaultComment, reply as defaultReply, preview, addUserName } from '../../lib/api';
+import { comment as defaultComment, reply as defaultReply, preview as defaultPreview, addUserName } from '../../lib/api';
 import { CommentResponse, UserProfile, CommentType, Pillar } from '../../types';
 
 import { FirstCommentWelcome } from '../FirstCommentWelcome/FirstCommentWelcome';
@@ -23,6 +23,7 @@ type Props = {
     commentBeingRepliedTo?: CommentType;
     onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
     onReply?: (shortUrl: string, body: string, parentCommentId: number) => Promise<CommentResponse>;
+    onPreview?: (body: string) => Promise<string>;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -149,7 +150,8 @@ export const CommentForm = ({
     setCommentBeingRepliedTo,
     commentBeingRepliedTo,
     onComment,
-    onReply
+    onReply,
+    onPreview
 }: Props) => {
     const [isActive, setIsActive] = useState<boolean>(
         commentBeingRepliedTo ? true : false,
@@ -218,6 +220,7 @@ export const CommentForm = ({
         if (!body) return;
 
         try {
+            const preview = onPreview ?? defaultPreview;
             const response = await preview(body);
             setPreviewBody(response);
             setShowPreview(true);
@@ -356,6 +359,7 @@ export const CommentForm = ({
                 error={error}
                 submitForm={submitUserName}
                 cancelSubmit={() => setUserNameMissing(false)}
+                onPreview={onPreview}
             />
         );
     }
