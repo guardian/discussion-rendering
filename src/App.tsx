@@ -43,6 +43,7 @@ type Props = {
     onHeightChange?: () => void;
     onRecommend?: (commentId: number) => Promise<Boolean>;
     onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
+    onReply?: (shortUrl: string, body: string, parentCommentId: number) => Promise<CommentResponse>;
 };
 
 const footerStyles = css`
@@ -218,7 +219,8 @@ export const App = ({
     apiKey,
     onHeightChange = () => {},
     onRecommend,
-    onComment
+    onComment,
+    onReply
 }: Props) => {
     const [filters, setFilters] = useState<FilterOptions>(
         initialiseFilters({
@@ -373,6 +375,7 @@ export const App = ({
                         onAddComment={onAddComment}
                         user={user}
                         onComment={onComment}
+                        onReply={onReply}
                     />
                 )}
                 {picks && picks.length ? (
@@ -472,6 +475,7 @@ export const App = ({
                         onAddComment={onAddComment}
                         user={user}
                         onComment={onComment}
+                        onReply={onReply}
                     />
                 )}
                 {!!picks.length && (
@@ -527,6 +531,7 @@ export const App = ({
                                     toggleMuteStatus={toggleMuteStatus}
                                     onPermalinkClick={onPermalinkClick}
                                     onRecommend={onRecommend}
+                                    onReply={onReply}
                                 />
                             </li>
                         ))}
@@ -552,6 +557,7 @@ export const App = ({
                         onAddComment={onAddComment}
                         user={user}
                         onComment={onComment}
+                        onReply={onReply}
                     />
                 )}
             </div>
