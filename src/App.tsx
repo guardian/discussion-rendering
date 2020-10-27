@@ -14,6 +14,7 @@ import {
     PageSizeType,
     OrderByType,
     Pillar,
+    CommentResponse,
 } from './types';
 import { getDiscussion, getPicks, initialiseApi } from './lib/api';
 import { CommentContainer } from './components/CommentContainer/CommentContainer';
@@ -41,6 +42,7 @@ type Props = {
     apiKey: string;
     onHeightChange?: () => void;
     onRecommend?: (commentId: number) => Promise<Boolean>;
+    onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
 };
 
 const footerStyles = css`
@@ -215,7 +217,8 @@ export const App = ({
     onPermalinkClick,
     apiKey,
     onHeightChange = () => {},
-    onRecommend
+    onRecommend,
+    onComment
 }: Props) => {
     const [filters, setFilters] = useState<FilterOptions>(
         initialiseFilters({
@@ -369,6 +372,7 @@ export const App = ({
                         shortUrl={shortUrl}
                         onAddComment={onAddComment}
                         user={user}
+                        onComment={onComment}
                     />
                 )}
                 {picks && picks.length ? (
@@ -467,6 +471,7 @@ export const App = ({
                         shortUrl={shortUrl}
                         onAddComment={onAddComment}
                         user={user}
+                        onComment={onComment}
                     />
                 )}
                 {!!picks.length && (
@@ -546,6 +551,7 @@ export const App = ({
                         shortUrl={shortUrl}
                         onAddComment={onAddComment}
                         user={user}
+                        onComment={onComment}
                     />
                 )}
             </div>

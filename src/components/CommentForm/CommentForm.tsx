@@ -6,7 +6,7 @@ import { neutral, text } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 
 import { simulateNewComment } from '../../lib/simulateNewComment';
-import { comment, reply, preview, addUserName } from '../../lib/api';
+import { comment as defaultComment, reply, preview, addUserName } from '../../lib/api';
 import { CommentResponse, UserProfile, CommentType, Pillar } from '../../types';
 
 import { FirstCommentWelcome } from '../FirstCommentWelcome/FirstCommentWelcome';
@@ -21,6 +21,7 @@ type Props = {
     onAddComment: (response: CommentType) => void;
     setCommentBeingRepliedTo?: () => void;
     commentBeingRepliedTo?: CommentType;
+    onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -146,6 +147,7 @@ export const CommentForm = ({
     user,
     setCommentBeingRepliedTo,
     commentBeingRepliedTo,
+    onComment
 }: Props) => {
     const [isActive, setIsActive] = useState<boolean>(
         commentBeingRepliedTo ? true : false,
@@ -238,6 +240,7 @@ export const CommentForm = ({
         setInfo('');
 
         if (body) {
+            const comment = onComment ?? defaultComment;
             const response: CommentResponse = commentBeingRepliedTo
                 ? await reply(shortUrl, body, commentBeingRepliedTo.id)
                 : await comment(shortUrl, body);

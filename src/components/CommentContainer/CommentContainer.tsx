@@ -4,7 +4,7 @@ import { css, cx } from 'emotion';
 import { space, neutral, palette, border } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
-import { Pillar, CommentType, UserProfile, ThreadsType } from '../../types';
+import { Pillar, CommentType, UserProfile, ThreadsType, CommentResponse } from '../../types';
 import { CommentForm } from '../CommentForm/CommentForm';
 import { Comment } from '../Comment/Comment';
 import { Row } from '../Row/Row';
@@ -26,6 +26,7 @@ type Props = {
     toggleMuteStatus: (userId: string) => void;
     onPermalinkClick: (commentId: number) => void;
     onRecommend?: (commentId: number) => Promise<Boolean>;
+    onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
 };
 
 const nestingStyles = css`
@@ -99,7 +100,8 @@ export const CommentContainer = ({
     mutes,
     toggleMuteStatus,
     onPermalinkClick,
-    onRecommend
+    onRecommend,
+    onComment
 }: Props) => {
     // Filter logic
     const [expanded, setExpanded] = useState<boolean>(threads === 'expanded');
@@ -231,6 +233,7 @@ export const CommentContainer = ({
                                     setCommentBeingRepliedTo
                                 }
                                 commentBeingRepliedTo={commentBeingRepliedTo}
+                                onComment={onComment}
                             />
                         </div>
                     )}
