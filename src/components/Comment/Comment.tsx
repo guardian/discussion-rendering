@@ -32,6 +32,7 @@ type Props = {
     isMuted: boolean;
     toggleMuteStatus: (userId: string) => void;
     onPermalinkClick: (commentId: number) => void;
+    onRecommend?: (commentId: number) => Promise<Boolean>;
 };
 
 const shiftLeft = css`
@@ -272,6 +273,7 @@ export const Comment = ({
     isMuted,
     toggleMuteStatus,
     onPermalinkClick,
+    onRecommend
 }: Props) => {
     const [isHighlighted, setIsHighlighted] = useState<boolean>(
         comment.isHighlighted,
@@ -487,6 +489,7 @@ export const Comment = ({
                                 initialCount={comment.numRecommends}
                                 alreadyRecommended={false}
                                 isSignedIn={!!user}
+                                onRecommend={onRecommend}
                                 userMadeComment={
                                     !!user &&
                                     user.userId === comment.userProfile.userId

@@ -25,6 +25,7 @@ type Props = {
     mutes: string[];
     toggleMuteStatus: (userId: string) => void;
     onPermalinkClick: (commentId: number) => void;
+    onRecommend?: (commentId: number) => Promise<Boolean>;
 };
 
 const nestingStyles = css`
@@ -98,6 +99,7 @@ export const CommentContainer = ({
     mutes,
     toggleMuteStatus,
     onPermalinkClick,
+    onRecommend
 }: Props) => {
     // Filter logic
     const [expanded, setExpanded] = useState<boolean>(threads === 'expanded');
@@ -142,6 +144,7 @@ export const CommentContainer = ({
                 isMuted={mutes.includes(comment.userProfile.userId)}
                 toggleMuteStatus={toggleMuteStatus}
                 onPermalinkClick={onPermalinkClick}
+                onRecommend={onRecommend}
             />
 
             <>

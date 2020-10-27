@@ -7,7 +7,7 @@ import { brand } from '@guardian/src-foundations';
 import { SvgArrowUpStraight } from '@guardian/src-icons';
 import { Row } from '../Row/Row';
 
-import { recommend } from '../../lib/api';
+import { recommend as recommendDefault } from '../../lib/api';
 
 type Props = {
     commentId: number;
@@ -50,7 +50,7 @@ export const RecommendationCount = ({
     alreadyRecommended,
     isSignedIn,
     userMadeComment,
-    onRecommend = recommend,
+    onRecommend,
 }: Props) => {
     const [count, setCount] = useState(initialCount);
     const [recommended, setRecommended] = useState(alreadyRecommended);
@@ -59,9 +59,9 @@ export const RecommendationCount = ({
         const newCount = count + 1;
         setCount(newCount);
         setRecommended(true);
+        const recommend = onRecommend ?? recommendDefault;
 
-        //makeApi call
-        onRecommend(commentId).then(accepted => {
+        recommend(commentId).then(accepted => {
             if (!accepted) {
                 setCount(newCount - 1);
                 setRecommended(alreadyRecommended);

@@ -215,6 +215,7 @@ export const App = ({
     onPermalinkClick,
     apiKey,
     onHeightChange = () => {},
+    onRecommend
 }: Props) => {
     const [filters, setFilters] = useState<FilterOptions>(
         initialiseFilters({
@@ -378,6 +379,7 @@ export const App = ({
                                 comments={picks.slice(0, 2)}
                                 isSignedIn={!!user}
                                 onPermalinkClick={onPermalinkClick}
+                                onRecommend={onRecommend}
                             />
                         )}
                     </div>
@@ -427,6 +429,7 @@ export const App = ({
                                             mutes={mutes}
                                             toggleMuteStatus={toggleMuteStatus}
                                             onPermalinkClick={onPermalinkClick}
+                                            onRecommend={onRecommend}
                                         />
                                     </li>
                                 ))}
@@ -472,6 +475,7 @@ export const App = ({
                         comments={picks}
                         isSignedIn={!!user}
                         onPermalinkClick={onPermalinkClick}
+                        onRecommend={onRecommend}
                     />
                 )}
                 <Filters
@@ -517,6 +521,7 @@ export const App = ({
                                     mutes={mutes}
                                     toggleMuteStatus={toggleMuteStatus}
                                     onPermalinkClick={onPermalinkClick}
+                                    onRecommend={onRecommend}
                                 />
                             </li>
                         ))}
