@@ -48,6 +48,8 @@ const buttonStyles = (pillar: Pillar) => css`
     border: 1px solid ${neutral[86]};
     svg {
         fill: ${neutral[60]};
+        width: 15px;
+        height: 15px;
     }
 
     :hover {
