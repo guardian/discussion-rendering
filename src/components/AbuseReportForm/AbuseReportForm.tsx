@@ -304,7 +304,7 @@ export const AbuseReportForm: React.FC<{
                         data-link-name="cancel-report-abuse"
                         hideLabel={true}
                     >
-                        {}
+                        close report abuse modal
                     </Button>
                 </div>
             </form>
