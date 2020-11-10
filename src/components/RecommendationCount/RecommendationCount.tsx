@@ -35,8 +35,9 @@ const buttonStyles = (recommended: boolean, isSignedIn: boolean) => css`
 `;
 
 const arrowStyles = (recommended: Boolean) => css`
-    margin-left: -4px;
-    margin-bottom: -2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     svg {
         fill: ${recommended ? neutral[100] : neutral[46]};
         height: 15px;
