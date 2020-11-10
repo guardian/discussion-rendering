@@ -49,7 +49,7 @@ export const FirstCommentWelcome = ({
     error = '',
     submitForm,
     cancelSubmit,
-    onPreview
+    onPreview,
 }: Props) => {
     const [previewBody, setPreviewBody] = useState<string>('');
     const [userName, setUserName] = useState<string>('');
@@ -65,7 +65,7 @@ export const FirstCommentWelcome = ({
             }
         };
         fetchShowPreview();
-    }, [body]);
+    }, [body, onPreview]);
 
     return (
         <div
