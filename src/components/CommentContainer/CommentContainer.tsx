@@ -4,7 +4,7 @@ import { css, cx } from 'emotion';
 import { space, neutral, palette, border } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
-import { Pillar, CommentType, UserProfile, ThreadsType } from '../../types';
+import { Pillar, CommentType, UserProfile, ThreadsType, CommentResponse } from '../../types';
 import { CommentForm } from '../CommentForm/CommentForm';
 import { Comment } from '../Comment/Comment';
 import { Row } from '../Row/Row';
@@ -25,6 +25,10 @@ type Props = {
     mutes: string[];
     toggleMuteStatus: (userId: string) => void;
     onPermalinkClick: (commentId: number) => void;
+    onRecommend?: (commentId: number) => Promise<Boolean>;
+    onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
+    onReply?: (shortUrl: string, body: string, parentCommentId: number) => Promise<CommentResponse>;
+    onPreview?: (body: string) => Promise<string>;
 };
 
 const nestingStyles = css`
@@ -100,6 +104,10 @@ export const CommentContainer = ({
     mutes,
     toggleMuteStatus,
     onPermalinkClick,
+    onRecommend,
+    onComment,
+    onReply,
+    onPreview
 }: Props) => {
     // Filter logic
     const [expanded, setExpanded] = useState<boolean>(threads === 'expanded');
@@ -144,6 +152,7 @@ export const CommentContainer = ({
                 isMuted={mutes.includes(comment.userProfile.userId)}
                 toggleMuteStatus={toggleMuteStatus}
                 onPermalinkClick={onPermalinkClick}
+                onRecommend={onRecommend}
             />
 
             <>
@@ -230,6 +239,9 @@ export const CommentContainer = ({
                                     setCommentBeingRepliedTo
                                 }
                                 commentBeingRepliedTo={commentBeingRepliedTo}
+                                onComment={onComment}
+                                onReply={onReply}
+                                onPreview={onPreview}
                             />
                         </div>
                     )}

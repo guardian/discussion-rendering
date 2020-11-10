@@ -6,7 +6,7 @@ import { neutral, text } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 
 import { simulateNewComment } from '../../lib/simulateNewComment';
-import { comment, reply, preview, addUserName } from '../../lib/api';
+import { comment as defaultComment, reply as defaultReply, preview as defaultPreview, addUserName } from '../../lib/api';
 import { CommentResponse, UserProfile, CommentType, Pillar } from '../../types';
 
 import { FirstCommentWelcome } from '../FirstCommentWelcome/FirstCommentWelcome';
@@ -21,6 +21,9 @@ type Props = {
     onAddComment: (response: CommentType) => void;
     setCommentBeingRepliedTo?: () => void;
     commentBeingRepliedTo?: CommentType;
+    onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
+    onReply?: (shortUrl: string, body: string, parentCommentId: number) => Promise<CommentResponse>;
+    onPreview?: (body: string) => Promise<string>;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -146,6 +149,9 @@ export const CommentForm = ({
     user,
     setCommentBeingRepliedTo,
     commentBeingRepliedTo,
+    onComment,
+    onReply,
+    onPreview
 }: Props) => {
     const [isActive, setIsActive] = useState<boolean>(
         commentBeingRepliedTo ? true : false,
@@ -214,6 +220,7 @@ export const CommentForm = ({
         if (!body) return;
 
         try {
+            const preview = onPreview ?? defaultPreview;
             const response = await preview(body);
             setPreviewBody(response);
             setShowPreview(true);
@@ -238,6 +245,8 @@ export const CommentForm = ({
         setInfo('');
 
         if (body) {
+            const comment = onComment ?? defaultComment;
+            const reply = onReply ?? defaultReply;
             const response: CommentResponse = commentBeingRepliedTo
                 ? await reply(shortUrl, body, commentBeingRepliedTo.id)
                 : await comment(shortUrl, body);
@@ -350,6 +359,7 @@ export const CommentForm = ({
                 error={error}
                 submitForm={submitUserName}
                 cancelSubmit={() => setUserNameMissing(false)}
+                onPreview={onPreview}
             />
         );
     }

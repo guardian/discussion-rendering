@@ -21,6 +21,7 @@ type Props = {
     isSignedIn: boolean;
     userMadeComment: boolean;
     onPermalinkClick: (commentId: number) => void;
+    onRecommend?: (commentId: number) => Promise<Boolean>;
 };
 
 const pickStyles = css`
@@ -166,6 +167,7 @@ export const TopPick = ({
     isSignedIn,
     userMadeComment,
     onPermalinkClick,
+    onRecommend
 }: Props) => (
     <div className={pickStyles}>
         <PickBubble>
@@ -235,6 +237,7 @@ export const TopPick = ({
                 alreadyRecommended={false}
                 isSignedIn={isSignedIn}
                 userMadeComment={userMadeComment}
+                onRecommend={onRecommend}
             />
         </PickMeta>
     </div>
