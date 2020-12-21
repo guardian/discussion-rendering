@@ -136,3 +136,45 @@ export const LotsOfPages = () => {
     );
 };
 LotsOfPages.story = { name: 'with many pages' };
+
+export const WhenExpanded = () => {
+    const [page, setCurrentPage] = useState(1);
+    return (
+        <Pagination
+            totalPages={4}
+            currentPage={page}
+            setCurrentPage={setCurrentPage}
+            filters={{ ...DEFAULT_FILTERS, threads: 'expanded' }}
+            commentCount={100}
+        />
+    );
+};
+WhenExpanded.story = { name: 'when expanded' };
+
+export const WhenCollapsed = () => {
+    const [page, setCurrentPage] = useState(1);
+    return (
+        <Pagination
+            totalPages={4}
+            currentPage={page}
+            setCurrentPage={setCurrentPage}
+            filters={{ ...DEFAULT_FILTERS, threads: 'collapsed' }}
+            commentCount={100}
+        />
+    );
+};
+WhenCollapsed.story = { name: 'when collapsed' };
+
+export const WhenUnthreaded = () => {
+    const [page, setCurrentPage] = useState(1);
+    return (
+        <Pagination
+            totalPages={4}
+            currentPage={page}
+            setCurrentPage={setCurrentPage}
+            filters={{ ...DEFAULT_FILTERS, threads: 'unthreaded' }}
+            commentCount={100}
+        />
+    );
+};
+WhenUnthreaded.story = { name: 'when unthreaded' };
