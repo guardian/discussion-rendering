@@ -304,7 +304,11 @@ export const Pagination = ({
             </div>
             {commentCount && (
                 <div className={paginationText}>
-                    {`Displaying comments ${startIndex} to ${endIndex} of ${commentCount}`}
+                    {`Displaying ${
+                        filters.threads === 'unthreaded'
+                            ? 'comments'
+                            : 'threads'
+                    } ${startIndex} to ${endIndex} of ${commentCount}`}
                 </div>
             )}
         </div>
