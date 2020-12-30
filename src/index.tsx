@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
+import { pillarToEnum } from './lib/pillarToEnum';
+import { CAPIPillar } from './types';
+
 import { App } from './App';
-import { Pillar } from './types';
 
 const IndexPageWrapper = () => {
     const [options, setOptions] = useState({
         shortUrl: '',
         closedForComments: false,
-        pillar: 'news' as Pillar,
+        pillar: 'news' as CAPIPillar,
     });
 
     const getQueryParam = (queryParam: string, defaultValue: string): string =>
@@ -19,7 +21,7 @@ const IndexPageWrapper = () => {
         setOptions({
             shortUrl: getQueryParam('id', '39f5z'),
             closedForComments: !!getQueryParam('closedForComments', 'false'),
-            pillar: getQueryParam('pillar', 'news') as Pillar,
+            pillar: getQueryParam('pillar', 'news') as CAPIPillar,
         });
     }, [options.closedForComments]);
 
@@ -41,7 +43,7 @@ const IndexPageWrapper = () => {
             <style>{`body { padding: 0 10px;}`}</style>
             <App
                 baseUrl="https://discussion.theguardian.com/discussion-api"
-                pillar={options.pillar}
+                pillar={pillarToEnum(options.pillar)}
                 isClosedForComments={options.closedForComments}
                 shortUrl={`/p/${options.shortUrl}`}
                 additionalHeaders={{

@@ -7,6 +7,8 @@ import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
 import { brand } from '@guardian/src-foundations/palette';
 
+import { pillarToString } from '../../lib/pillarToString';
+
 import { GuardianStaff } from '../Badges/Badges';
 import { CommentType, Pillar } from '../../types';
 import { Avatar } from '../Avatar/Avatar';
@@ -49,7 +51,7 @@ const userNameStyles = (pillar: Pillar) => css`
     margin-top: 3px;
     margin-bottom: -6px;
     font-weight: bold;
-    color: ${palette[pillar][400]};
+    color: ${palette[pillarToString(pillar)][400]};
 `;
 
 const avatarMargin = css`
@@ -167,7 +169,7 @@ export const TopPick = ({
     isSignedIn,
     userMadeComment,
     onPermalinkClick,
-    onRecommend
+    onRecommend,
 }: Props) => (
     <div className={pickStyles}>
         <PickBubble>

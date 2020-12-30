@@ -6,6 +6,7 @@ import { textSans } from '@guardian/src-foundations/typography';
 import { Button } from '@guardian/src-button';
 
 import { Pillar } from '../../types';
+import { pillarToString } from '../../lib/pillarToString';
 
 type Props = {
     onClick: () => void;
@@ -22,7 +23,7 @@ const buttonOverrides = (size: 'small' | 'default', pillar?: Pillar) => css`
     ${textSans[size === 'small' ? 'xsmall' : 'small']({
         fontWeight: pillar ? 'bold' : 'regular',
     })}
-    color: ${pillar ? palette[pillar][400] : neutral[46]};
+    color: ${pillar ? palette[pillarToString(pillar)][400] : neutral[46]};
     background-color: transparent;
     height: 18px;
     min-height: 18px;
@@ -36,7 +37,9 @@ const buttonOverrides = (size: 'small' | 'default', pillar?: Pillar) => css`
 
     :hover {
       text-decoration: underline;
-      text-decoration-color: ${pillar ? palette[pillar][400] : neutral[46]};
+      text-decoration-color: ${
+          pillar ? palette[pillarToString(pillar)][400] : neutral[46]
+      };
     }
   }
 `;

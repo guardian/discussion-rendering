@@ -4,13 +4,20 @@ import { css, cx } from 'emotion';
 import { space, neutral, palette, border } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
-import { Pillar, CommentType, UserProfile, ThreadsType, CommentResponse } from '../../types';
+import {
+    Pillar,
+    CommentType,
+    UserProfile,
+    ThreadsType,
+    CommentResponse,
+} from '../../types';
 import { CommentForm } from '../CommentForm/CommentForm';
 import { Comment } from '../Comment/Comment';
 import { Row } from '../Row/Row';
 import { CommentReplyPreview } from '../CommentReplyPreview/CommentReplyPreview';
 
 import { getMoreResponses } from '../../lib/api';
+import { pillarToString } from '../../lib/pillarToString';
 
 type Props = {
     comment: CommentType;
@@ -27,7 +34,11 @@ type Props = {
     onPermalinkClick: (commentId: number) => void;
     onRecommend?: (commentId: number) => Promise<Boolean>;
     onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
-    onReply?: (shortUrl: string, body: string, parentCommentId: number) => Promise<CommentResponse>;
+    onReply?: (
+        shortUrl: string,
+        body: string,
+        parentCommentId: number,
+    ) => Promise<CommentResponse>;
     onPreview?: (body: string) => Promise<string>;
 };
 
@@ -42,7 +53,7 @@ const buttonStyles = (pillar: Pillar) => css`
     margin-bottom: 12px;
     cursor: pointer;
     background: ${neutral[100]};
-    color: ${palette[pillar][400]};
+    color: ${palette[pillarToString(pillar)][400]};
     height: 24px;
     font-size: 12px;
     font-weight: bold;
@@ -107,7 +118,7 @@ export const CommentContainer = ({
     onRecommend,
     onComment,
     onReply,
-    onPreview
+    onPreview,
 }: Props) => {
     // Filter logic
     const [expanded, setExpanded] = useState<boolean>(threads === 'expanded');

@@ -9,6 +9,7 @@ import { SvgCross } from '@guardian/src-icons';
 
 import { Pillar } from '../../types';
 import { reportAbuse } from '../../lib/api';
+import { pillarToString } from '../../lib/pillarToString';
 
 type formData = {
     categoryId: number;
@@ -31,7 +32,7 @@ const formWrapper = css`
 `;
 
 const labelStyles = (pillar: Pillar) => css`
-    color: ${palette[pillar][400]};
+    color: ${palette[pillarToString(pillar)][400]};
     ${textSans.small({ fontWeight: 'bold' })}
 `;
 
