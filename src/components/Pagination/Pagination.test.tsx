@@ -1,10 +1,13 @@
 import React from 'react';
-import { Pagination } from './Pagination';
 import { render } from '@testing-library/react';
+
+import { FilterOptions } from '../../types';
+import { Pagination } from './Pagination';
 
 const DEFAULT_FILTERS: FilterOptions = {
     orderBy: 'newest',
     pageSize: 25,
+    threads: 'collapsed',
 };
 
 describe('Pagination', () => {

@@ -136,7 +136,7 @@ export const AbuseReportForm: React.FC<{
         response: '',
     };
     const [errors, setErrors] = useState(defaultErrorTexts);
-    const [successMessage, setSuccessMessage] = useState();
+    const [successMessage, setSuccessMessage] = useState<string>();
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 

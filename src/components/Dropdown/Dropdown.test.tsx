@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 import { render, fireEvent, screen } from '@testing-library/react';
 
-import { DropdownOptionType } from '../../types';
+import { DropdownOptionType, Pillar } from '../../types';
 import { Dropdown } from './Dropdown';
 
 const threadOptions: DropdownOptionType[] = [
@@ -33,7 +33,7 @@ describe('Dropdown', () => {
         render(
             <Dropdown
                 id="abc"
-                pillar="news"
+                pillar={Pillar.News}
                 label={label}
                 options={threadOptions}
                 onSelect={() => {}}
@@ -47,7 +47,7 @@ describe('Dropdown', () => {
         render(
             <Dropdown
                 id="abc"
-                pillar="news"
+                pillar={Pillar.News}
                 label={'The label'}
                 options={noActiveOptions}
                 onSelect={() => {}}
@@ -63,7 +63,7 @@ describe('Dropdown', () => {
         const { container } = render(
             <Dropdown
                 id="abc"
-                pillar="news"
+                pillar={Pillar.News}
                 label={'The label'}
                 options={threadOptions}
                 onSelect={() => {}}
@@ -78,7 +78,7 @@ describe('Dropdown', () => {
         const { container } = render(
             <Dropdown
                 id="abc"
-                pillar="news"
+                pillar={Pillar.News}
                 label={'The label'}
                 options={threadOptions}
                 onSelect={() => {}}
@@ -95,7 +95,7 @@ describe('Dropdown', () => {
         const { container } = render(
             <Dropdown
                 id="abc"
-                pillar="news"
+                pillar={Pillar.News}
                 label={'The label'}
                 options={threadOptions}
                 onSelect={() => {}}
@@ -113,7 +113,7 @@ describe('Dropdown', () => {
         const { container } = render(
             <Dropdown
                 id="abc"
-                pillar="news"
+                pillar={Pillar.News}
                 label={'The label'}
                 options={threadOptions}
                 onSelect={() => {}}
@@ -133,7 +133,7 @@ it('should trigger the correct onSelect callbacks when an option is clicked', (
     render(
         <Dropdown
             id="abc"
-            pillar="news"
+            pillar={Pillar.News}
             label={'The label'}
             options={threadOptions}
             onSelect={mockCallback}

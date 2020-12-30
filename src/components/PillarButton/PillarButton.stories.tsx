@@ -4,6 +4,7 @@ import { css } from 'emotion';
 import { space } from '@guardian/src-foundations';
 import { SvgCheckmark } from '@guardian/src-icons';
 
+import { Pillar } from '../../types';
 import { Row } from '../Row/Row';
 
 import { PillarButton } from './PillarButton';
@@ -24,7 +25,7 @@ export const EachPillar = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="lifestyle"
+            pillar={Pillar.Lifestyle}
             linkName=""
         >
             Lifestyle
@@ -34,7 +35,7 @@ export const EachPillar = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="sport"
+            pillar={Pillar.Sport}
             linkName=""
         >
             Sport
@@ -44,7 +45,7 @@ export const EachPillar = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="news"
+            pillar={Pillar.News}
             linkName=""
         >
             News
@@ -54,7 +55,7 @@ export const EachPillar = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="opinion"
+            pillar={Pillar.Opinion}
             linkName=""
         >
             Opinion
@@ -64,7 +65,7 @@ export const EachPillar = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="culture"
+            pillar={Pillar.Culture}
             linkName=""
         >
             Culture
@@ -78,7 +79,7 @@ export const IconLeft = () => (
         onClick={() => {
             alert('Clicked!');
         }}
-        pillar="lifestyle"
+        pillar={Pillar.Lifestyle}
         icon={<SvgCheckmark />}
         iconSide="left"
         linkName="left"
@@ -93,7 +94,7 @@ export const IconRight = () => (
         onClick={() => {
             alert('Clicked!');
         }}
-        pillar="sport"
+        pillar={Pillar.Sport}
         icon={<SvgCheckmark />}
         iconSide="right"
         linkName=""
@@ -108,7 +109,7 @@ export const Secondary = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="lifestyle"
+            pillar={Pillar.Lifestyle}
             priority="secondary"
             linkName=""
         >
@@ -119,7 +120,7 @@ export const Secondary = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="sport"
+            pillar={Pillar.Sport}
             priority="secondary"
             linkName=""
         >
@@ -130,7 +131,7 @@ export const Secondary = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="news"
+            pillar={Pillar.News}
             priority="secondary"
             linkName=""
         >
@@ -141,7 +142,7 @@ export const Secondary = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="opinion"
+            pillar={Pillar.Opinion}
             priority="secondary"
             linkName=""
         >
@@ -152,7 +153,7 @@ export const Secondary = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="culture"
+            pillar={Pillar.Culture}
             priority="secondary"
             linkName=""
         >
@@ -168,7 +169,7 @@ export const Subdued = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="lifestyle"
+            pillar={Pillar.Lifestyle}
             priority="subdued"
             linkName=""
         >
@@ -179,7 +180,7 @@ export const Subdued = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="sport"
+            pillar={Pillar.Sport}
             priority="subdued"
             linkName=""
         >
@@ -190,7 +191,7 @@ export const Subdued = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="news"
+            pillar={Pillar.News}
             priority="subdued"
             linkName=""
         >
@@ -201,7 +202,7 @@ export const Subdued = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="opinion"
+            pillar={Pillar.Opinion}
             priority="subdued"
             linkName=""
         >
@@ -212,7 +213,7 @@ export const Subdued = () => (
             onClick={() => {
                 alert('Clicked!');
             }}
-            pillar="culture"
+            pillar={Pillar.Culture}
             priority="subdued"
             linkName=""
         >

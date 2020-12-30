@@ -57,7 +57,7 @@ const commentWithShortBody: CommentType = {
 
 export const SingleComment = () => (
     <TopPicks
-        pillar="news"
+        pillar={Pillar.News}
         comments={[commentWithShortBody]}
         isSignedIn={true}
     />
@@ -66,7 +66,7 @@ SingleComment.story = { name: 'Single Comment' };
 
 export const MulitColumn = () => (
     <TopPicks
-        pillar="culture"
+        pillar={Pillar.Culture}
         comments={[
             commentWithLongBody,
             commentWithShortBody,
@@ -80,7 +80,7 @@ MulitColumn.story = { name: 'Mulitple Columns Comments' };
 
 export const SingleColumn = () => (
     <TopPicks
-        pillar="sport"
+        pillar={Pillar.Sport}
         comments={[
             commentWithLongBody,
             commentWithShortBody,

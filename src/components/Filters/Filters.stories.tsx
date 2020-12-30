@@ -14,7 +14,7 @@ export const Default = () => {
     });
     return (
         <Filters
-            pillar="culture"
+            pillar={Pillar.Culture}
             filters={filters}
             onFilterChange={setFilters}
             totalPages={5}

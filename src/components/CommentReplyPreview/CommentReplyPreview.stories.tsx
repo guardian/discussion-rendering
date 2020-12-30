@@ -55,7 +55,7 @@ const padding = css`
 
 export const Default = () => (
     <CommentReplyPreview
-        pillar="news"
+        pillar={Pillar.News}
         commentBeingRepliedTo={commentBeingRepliedTo}
     />
 );

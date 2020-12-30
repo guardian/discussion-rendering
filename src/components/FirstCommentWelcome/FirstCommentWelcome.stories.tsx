@@ -7,7 +7,7 @@ export default { title: 'FirstCommentWelcome' };
 export const defaultStory = () => (
     <FirstCommentWelcome
         body="My first message ever!!"
-        pillar="lifestyle"
+        pillar={Pillar.Lifestyle}
         submitForm={() => {}}
         cancelSubmit={() => {}}
     />
@@ -17,7 +17,7 @@ defaultStory.story = { name: 'Welcome message' };
 export const CommentWithError = () => (
     <FirstCommentWelcome
         body="My first message ever!!"
-        pillar="news"
+        pillar={Pillar.News}
         error="This is a custom user name error message"
         submitForm={() => {}}
         cancelSubmit={() => {}}

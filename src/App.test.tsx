@@ -8,6 +8,7 @@ import {
 } from '@testing-library/react';
 
 import { mockFetchCalls } from './lib/mockFetchCalls';
+import { Pillar } from './types';
 
 import { App } from './App';
 
@@ -34,7 +35,7 @@ describe('App', () => {
             <App
                 baseUrl=""
                 shortUrl="p/39f5z"
-                pillar="news"
+                pillar={Pillar.News}
                 isClosedForComments={false}
                 expanded={false}
                 additionalHeaders={{
@@ -64,7 +65,7 @@ describe('App', () => {
             <App
                 shortUrl="p/39f5z"
                 baseUrl="https://discussion.theguardian.com/discussion-api"
-                pillar="culture"
+                pillar={Pillar.Culture}
                 isClosedForComments={false}
                 additionalHeaders={{
                     'D2-X-UID': 'testD2Header',
@@ -91,7 +92,7 @@ describe('App', () => {
             <App
                 baseUrl=""
                 shortUrl="p/39f5z"
-                pillar="news"
+                pillar={Pillar.News}
                 isClosedForComments={false}
                 user={aUser}
                 expanded={true}
@@ -119,7 +120,7 @@ describe('App', () => {
             <App
                 baseUrl=""
                 shortUrl="p/39f5x" // A discussion with no comments
-                pillar="news"
+                pillar={Pillar.News}
                 isClosedForComments={false}
                 expanded={false}
                 additionalHeaders={{
@@ -147,7 +148,7 @@ describe('App', () => {
             <App
                 baseUrl=""
                 shortUrl="p/39f5a" // A discussion with only two comments
-                pillar="news"
+                pillar={Pillar.News}
                 isClosedForComments={false}
                 expanded={false}
                 additionalHeaders={{

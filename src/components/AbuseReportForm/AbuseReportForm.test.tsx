@@ -11,6 +11,7 @@ import {
 import { AbuseReportForm } from './AbuseReportForm';
 
 import { mockFetchCalls } from '../../lib/mockFetchCalls';
+import { Pillar } from '../../types';
 
 const fetchMock = mockFetchCalls();
 
@@ -19,7 +20,7 @@ describe('Dropdown', () => {
         const { getByText } = render(
             <AbuseReportForm
                 toggleSetShowForm={() => {}}
-                pillar={'sport'}
+                pillar={Pillar.Sport}
                 commentId={123}
             />,
         );
@@ -33,7 +34,7 @@ describe('Dropdown', () => {
         const { getByText } = render(
             <AbuseReportForm
                 toggleSetShowForm={() => {}}
-                pillar={'sport'}
+                pillar={Pillar.Sport}
                 commentId={123}
             />,
         );
@@ -48,7 +49,7 @@ describe('Dropdown', () => {
         const { getByText, getByLabelText, queryByText } = render(
             <AbuseReportForm
                 toggleSetShowForm={() => {}}
-                pillar={'sport'}
+                pillar={Pillar.Sport}
                 commentId={123}
             />,
         );
