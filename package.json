@@ -14,8 +14,8 @@
     "url": "https://github.com/guardian/discussion-rendering/issues"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/guardian/discussion-rendering.git"
+    "type": "ssh",
+    "url": "https://github.com/guardian/discussion-rendering"
   },
   "files": [
     "build/**/*"
@@ -87,11 +87,16 @@
     "build": "rollup --config && yarn createTsDec",
     "test": "jest",
     "tsc": "tsc",
+    "validate": "yarn tsc && yarn test && yarn lint",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "lint": "eslint . --ext .ts,.tsx",
-    "createTsDec": "tsc --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false"
+    "createTsDec": "tsc --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false",
+    "release": "yarn build && yarn version",
+    "preversion": "yarn validate",
+    "postversion": "HUSKY_SKIP_HOOKS=1 git push --tags && HUSKY_SKIP_HOOKS=1 git push && yarn publish --new-version $npm_package_version && echo \"Successfully released version $npm_package_version!\" && echo \"$npm_package_repository_url/releases\" && yarn open-releases",
+    "open-releases": "open \"$(node -e 'console.log(`${require(\"./package.json\").repository.url}/releases`)')\""
   },
   "eslintConfig": {
     "extends": "react-app",
