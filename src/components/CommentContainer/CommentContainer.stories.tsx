@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CommentContainer } from './CommentContainer';
-import { CommentType } from '../../types';
+import { CommentType, Pillar } from '../../types';
 
 export default { title: 'CommentContainer' };
 
@@ -139,7 +139,7 @@ const commentDataThreadedWithLongThread: CommentType = {
 export const defaultStory = () => (
     <CommentContainer
         comment={commentData}
-        pillar={'sport'}
+        pillar={Pillar.Sport}
         isClosedForComments={false}
         shortUrl="randomShortURL"
         user={aUser}
@@ -155,7 +155,7 @@ defaultStory.story = { name: 'default' };
 export const threadedComment = () => (
     <CommentContainer
         comment={commentDataThreaded}
-        pillar={'lifestyle'}
+        pillar={Pillar.Lifestyle}
         isClosedForComments={false}
         shortUrl="randomShortURL"
         user={aUser}
@@ -171,7 +171,7 @@ threadedComment.story = { name: 'threaded' };
 export const threadedCommentWithShowMore = () => (
     <CommentContainer
         comment={commentDataThreadedWithLongThread}
-        pillar={'lifestyle'}
+        pillar={Pillar.Lifestyle}
         isClosedForComments={false}
         shortUrl="randomShortURL"
         user={aUser}

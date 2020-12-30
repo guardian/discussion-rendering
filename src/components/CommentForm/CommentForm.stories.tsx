@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CommentType } from '../../types';
+import { CommentType, Pillar } from '../../types';
 
 import { CommentForm } from './CommentForm';
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Pillar } from '../../types';
+
 import { FirstCommentWelcome } from './FirstCommentWelcome';
 
 export default { title: 'FirstCommentWelcome' };

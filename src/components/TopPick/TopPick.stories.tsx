@@ -61,6 +61,7 @@ export const LongPick = () => (
             comment={comment}
             isSignedIn={false}
             userMadeComment={false}
+            onPermalinkClick={() => {}}
         />
     </div>
 );
@@ -78,6 +79,7 @@ export const ShortPick = () => (
             comment={commentWithShortBody}
             isSignedIn={true}
             userMadeComment={false}
+            onPermalinkClick={() => {}}
         />
     </div>
 );

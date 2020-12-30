@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { css } from 'emotion';
 
-import { DropdownOptionType } from '../../types';
+import { DropdownOptionType, Pillar } from '../../types';
 import { Dropdown } from './Dropdown';
 
 const Container = ({ children }: { children: JSX.Element | JSX.Element[] }) => (

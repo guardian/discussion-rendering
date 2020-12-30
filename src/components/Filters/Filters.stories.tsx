@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { FilterOptions } from '../../types';
+import { FilterOptions, Pillar } from '../../types';
 
 import { Filters } from './Filters';
 
