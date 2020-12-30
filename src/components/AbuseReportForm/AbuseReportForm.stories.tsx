@@ -1,6 +1,8 @@
 import React from 'react';
 import { css } from 'emotion';
 
+import { Pillar } from '../../types';
+
 import { AbuseReportForm } from './AbuseReportForm';
 
 export default { title: 'Abuse Report Form' };
@@ -17,7 +19,7 @@ export const Dialog = () => (
     <div className={wrapperStyles}>
         <AbuseReportForm
             toggleSetShowForm={() => {}}
-            pillar={'sport'}
+            pillar={Pillar.Sport}
             commentId={123}
         />
     </div>

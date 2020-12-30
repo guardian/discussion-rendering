@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { FilterOptions } from '../../types';
+import { FilterOptions, Pillar } from '../../types';
 
 import { Filters } from './Filters';
 
@@ -14,7 +14,7 @@ export const Default = () => {
     });
     return (
         <Filters
-            pillar="culture"
+            pillar={Pillar.Culture}
             filters={filters}
             onFilterChange={setFilters}
             totalPages={5}

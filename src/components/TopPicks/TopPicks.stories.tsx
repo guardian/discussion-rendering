@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { TopPicks } from './TopPicks';
-import { CommentType } from '../../types';
+import { CommentType, Pillar } from '../../types';
 
 export default { component: TopPicks, title: 'TopPicks' };
 
@@ -57,16 +57,17 @@ const commentWithShortBody: CommentType = {
 
 export const SingleComment = () => (
     <TopPicks
-        pillar="news"
+        pillar={Pillar.News}
         comments={[commentWithShortBody]}
         isSignedIn={true}
+        onPermalinkClick={() => {}}
     />
 );
 SingleComment.story = { name: 'Single Comment' };
 
 export const MulitColumn = () => (
     <TopPicks
-        pillar="culture"
+        pillar={Pillar.Culture}
         comments={[
             commentWithLongBody,
             commentWithShortBody,
@@ -74,13 +75,14 @@ export const MulitColumn = () => (
             commentWithShortBody,
         ]}
         isSignedIn={true}
+        onPermalinkClick={() => {}}
     />
 );
 MulitColumn.story = { name: 'Mulitple Columns Comments' };
 
 export const SingleColumn = () => (
     <TopPicks
-        pillar="sport"
+        pillar={Pillar.Sport}
         comments={[
             commentWithLongBody,
             commentWithShortBody,
@@ -88,6 +90,7 @@ export const SingleColumn = () => (
             commentWithShortBody,
         ]}
         isSignedIn={true}
+        onPermalinkClick={() => {}}
     />
 );
 SingleColumn.story = {

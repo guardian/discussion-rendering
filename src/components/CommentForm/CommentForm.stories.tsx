@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CommentType } from '../../types';
+import { CommentType, Pillar } from '../../types';
 
 import { CommentForm } from './CommentForm';
 
@@ -58,7 +58,7 @@ const aComment: CommentType = {
 export const Default = () => (
     <CommentForm
         shortUrl={shortUrl}
-        pillar="news"
+        pillar={Pillar.News}
         user={aUser}
         onAddComment={comment => {}}
     />
@@ -68,7 +68,7 @@ Default.story = { name: 'default' };
 export const Active = () => (
     <CommentForm
         shortUrl={shortUrl}
-        pillar="culture"
+        pillar={Pillar.Culture}
         user={aUser}
         onAddComment={comment => {}}
         commentBeingRepliedTo={aComment}
@@ -79,7 +79,7 @@ Active.story = { name: 'form is active' };
 export const Premoderated = () => (
     <CommentForm
         shortUrl={shortUrl}
-        pillar="opinion"
+        pillar={Pillar.Opinion}
         user={{
             ...aUser,
             privateFields: {

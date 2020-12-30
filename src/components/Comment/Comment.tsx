@@ -20,6 +20,7 @@ import { ButtonLink } from '../ButtonLink/ButtonLink';
 import { Pillar, CommentType, UserProfile } from '../../types';
 import { pickComment, unPickComment } from '../../lib/api';
 import { createAuthenticationEventParams } from '../../lib/identity-component-event';
+import { pillarToString } from '../../lib/pillarToString';
 
 type Props = {
     user?: UserProfile;
@@ -45,7 +46,7 @@ const commentControlsLink = (pillar: Pillar) => css`
     a {
     ${textSans.small({ fontWeight: 'bold' })}
     margin-right: ${space[2]}px;
-    color: ${palette[pillar][400]};
+    color: ${palette[pillarToString(pillar)][400]};
     /*
       We do not want underline to be applied to SVG
       therefore we override the styles and apply them to the nested <span>
@@ -54,9 +55,9 @@ const commentControlsLink = (pillar: Pillar) => css`
       text-decoration: none;
       text-decoration-color: none;
       span {
-        color: ${palette[pillar][400]};
+        color: ${palette[pillarToString(pillar)][400]};
         text-decoration: underline;
-        text-decoration-color: ${palette[pillar][400]};
+        text-decoration-color: ${palette[pillarToString(pillar)][400]};
       }
     }
   }
@@ -144,11 +145,11 @@ const avatarMargin = css`
 
 const colourStyles = (pillar: Pillar) => css`
     a {
-        color: ${palette[pillar][400]};
-        text-decoration-color: ${palette[pillar][400]};
+        color: ${palette[pillarToString(pillar)][400]};
+        text-decoration-color: ${palette[pillarToString(pillar)][400]};
         :hover {
-            color: ${palette[pillar][400]};
-            text-decoration-color: ${palette[pillar][400]};
+            color: ${palette[pillarToString(pillar)][400]};
+            text-decoration-color: ${palette[pillarToString(pillar)][400]};
         }
     }
 `;
@@ -273,7 +274,7 @@ export const Comment = ({
     isMuted,
     toggleMuteStatus,
     onPermalinkClick,
-    onRecommend
+    onRecommend,
 }: Props) => {
     const [isHighlighted, setIsHighlighted] = useState<boolean>(
         comment.isHighlighted,

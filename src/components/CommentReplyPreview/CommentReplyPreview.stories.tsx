@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CommentReplyPreview, Preview } from './CommentReplyPreview';
-import { CommentType } from '../../types';
+import { CommentType, Pillar } from '../../types';
 import { css } from 'emotion';
 
 export default { title: 'CommentReplyPreview' };
@@ -55,7 +55,7 @@ const padding = css`
 
 export const Default = () => (
     <CommentReplyPreview
-        pillar="news"
+        pillar={Pillar.News}
         commentBeingRepliedTo={commentBeingRepliedTo}
     />
 );

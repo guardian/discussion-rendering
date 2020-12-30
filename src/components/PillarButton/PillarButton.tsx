@@ -7,6 +7,8 @@ import { Button } from '@guardian/src-button';
 
 import { Pillar } from '../../types';
 
+import { pillarToString } from '../../lib/pillarToString';
+
 type Props = {
     pillar: Pillar;
     onClick?: () => void;
@@ -22,22 +24,22 @@ type Props = {
 // Why this abstraction? To solve an issue where when we use the 800 key typescript throws errors. Most
 // likely caused by the fact labs only uses 300 & 400 so the union is restricted
 const localPalette: { [key in Pillar]: any } = {
-    news: {
+    [Pillar.News]: {
         '800': '#FFF4F2',
     },
-    sport: {
+    [Pillar.Sport]: {
         '800': '#F1F8FC',
     },
-    culture: {
+    [Pillar.Culture]: {
         '800': '#FBF6EF',
     },
-    opinion: {
+    [Pillar.Opinion]: {
         '800': '#FEF9F5',
     },
-    lifestyle: {
+    [Pillar.Lifestyle]: {
         '800': '#FEEEF7',
     },
-    labs: {
+    [Pillar.Labs]: {
         '800': '#F1F8FC', // Same as sport
     },
 };
@@ -51,11 +53,11 @@ const buttonOverrides = (
             return css`
                 button {
                   ${textSans.small({ fontWeight: 'bold' })}
-                  background-color: ${palette[pillar][300]};
+                  background-color: ${palette[pillarToString(pillar)][300]};
                   color: ${neutral[100]};
 
                   :hover {
-                    background-color: ${palette[pillar][400]};
+                    background-color: ${palette[pillarToString(pillar)][400]};
                   }
                 }
               `;
@@ -65,8 +67,8 @@ const buttonOverrides = (
                 button {
                     ${textSans.small({ fontWeight: 'bold' })}
                     background-color: transparent;
-                    border: 1px solid ${palette[pillar][400]};
-                    color: ${palette[pillar][400]};
+                    border: 1px solid ${palette[pillarToString(pillar)][400]};
+                    color: ${palette[pillarToString(pillar)][400]};
 
                     :hover {
                         background-color: ${localPalette[pillar][800]};
@@ -78,7 +80,7 @@ const buttonOverrides = (
                 button {
                     ${textSans.small({ fontWeight: 'bold' })}
                     background-color: transparent;
-                    color: ${palette[pillar][400]};
+                    color: ${palette[pillarToString(pillar)][400]};
                     border-radius: 0;
                 }
             `;

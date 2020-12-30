@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import { TopPick } from '../TopPick/TopPick';
-import { CommentType } from '../../types';
+import { CommentType, Pillar } from '../../types';
 
 export default { component: TopPick, title: 'TopPick' };
 
@@ -57,10 +57,11 @@ export const LongPick = () => (
         `}
     >
         <TopPick
-            pillar="news"
+            pillar={Pillar.News}
             comment={comment}
             isSignedIn={false}
             userMadeComment={false}
+            onPermalinkClick={() => {}}
         />
     </div>
 );
@@ -74,10 +75,11 @@ export const ShortPick = () => (
         `}
     >
         <TopPick
-            pillar="opinion"
+            pillar={Pillar.Opinion}
             comment={commentWithShortBody}
             isSignedIn={true}
             userMadeComment={false}
+            onPermalinkClick={() => {}}
         />
     </div>
 );

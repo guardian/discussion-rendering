@@ -15,6 +15,8 @@ import { from, until } from '@guardian/src-foundations/mq';
 
 import { DropdownOptionType, Pillar } from '../../types';
 
+import { pillarToString } from '../../lib/pillarToString';
+
 type Props = {
     id: string;
     label: string;
@@ -92,7 +94,7 @@ const activeStyles = (pillar: Pillar) => css`
 
     :after {
         content: '';
-        border: 2px solid ${palette[pillar][400]};
+        border: 2px solid ${palette[pillarToString(pillar)][400]};
         border-top: 0px;
         border-right: 0px;
         position: absolute;

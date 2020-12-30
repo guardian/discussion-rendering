@@ -7,7 +7,7 @@ import {
     waitFor,
 } from '@testing-library/react';
 
-import { CommentType } from '../../types';
+import { CommentType, Pillar } from '../../types';
 import { comment } from '../../fixtures/comment';
 import { mockFetchCalls, mockedMessageID } from '../../lib/mockFetchCalls';
 
@@ -64,7 +64,7 @@ describe('CommentContainer', () => {
             <CommentContainer
                 shortUrl=""
                 comment={commentWithoutReply} //TODO: should be comments with reponses
-                pillar="news"
+                pillar={Pillar.News}
                 user={aUser}
                 threads="collapsed"
                 commentBeingRepliedTo={commentBeingRepliedTo}
@@ -102,7 +102,7 @@ describe('CommentContainer', () => {
             <CommentContainer
                 shortUrl=""
                 comment={commentWithoutReply} //TODO: should be comments with reponses
-                pillar="news"
+                pillar={Pillar.News}
                 user={aUser}
                 threads="collapsed"
                 commentBeingRepliedTo={commentBeingRepliedTo}
@@ -140,7 +140,7 @@ describe('CommentContainer', () => {
             <CommentContainer
                 shortUrl=""
                 comment={commentWithReply} //TODO: should be comments with reponses
-                pillar="news"
+                pillar={Pillar.News}
                 user={aUser}
                 threads="collapsed"
                 commentBeingRepliedTo={commentBeingRepliedTo}
@@ -178,7 +178,7 @@ describe('CommentContainer', () => {
             <CommentContainer
                 shortUrl=""
                 comment={commentWithoutReply} //TODO: should be comments with reponses
-                pillar="news"
+                pillar={Pillar.News}
                 user={aUser}
                 threads="collapsed"
                 commentBeingRepliedTo={commentBeingRepliedTo}

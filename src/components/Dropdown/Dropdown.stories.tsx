@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { css } from 'emotion';
 
-import { DropdownOptionType } from '../../types';
+import { DropdownOptionType, Pillar } from '../../types';
 import { Dropdown } from './Dropdown';
 
 const Container = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
@@ -38,7 +38,7 @@ const DropdownParent = () => {
         <Dropdown
             id="d3"
             label="Page Size"
-            pillar="culture"
+            pillar={Pillar.Culture}
             options={pageSizeOptions}
             onSelect={(value: string) => {
                 setSelected(value);
@@ -83,7 +83,7 @@ export const DropdownActive = () => (
     <Container>
         <Dropdown
             id="d1"
-            pillar="lifestyle"
+            pillar={Pillar.Lifestyle}
             label="Threads"
             options={threadOptions}
             onSelect={(value: string) => {
@@ -100,7 +100,7 @@ export const DropdownNoActive = () => (
         <Dropdown
             id="d2"
             label="Threads"
-            pillar="news"
+            pillar={Pillar.News}
             options={optionsWithNoneActive}
             onSelect={(value: string) => {
                 console.log('clicked: ', value);
