@@ -236,6 +236,7 @@ export const App = ({
 		}),
 	);
 	const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
+	const [rendering, setRendering] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [totalPages, setTotalPages] = useState<number>(0);
 	const [page, setPage] = useState<number>(initialPage || 1);
@@ -330,8 +331,17 @@ export const App = ({
 	};
 
 	const expandView = () => {
-		setIsExpanded(true);
+		setRendering(true);
 		onHeightChange();
+		// We use setTimeout here to push the isExpanded state change to the end of the
+		// stack. This has the effect of allowing the page to render with the new `rendering`
+		// state so that the button text updates. Only after that render is complete do we
+		// set isExpanded and display the remaining comments.
+		// Note. While its technically true that this slows down new comments appearing, the
+		// difference is negligable and worth it for the improved reader experience
+		setTimeout(() => {
+			setIsExpanded(true);
+		});
 	};
 
 	const toggleMuteStatus = (userId: string) => {
@@ -455,7 +465,7 @@ export const App = ({
 							linkName="more-comments"
 							size="small"
 						>
-							View more comments
+							{rendering ? 'Loading...' : 'View more comments'}
 						</PillarButton>
 					</div>
 				)}
