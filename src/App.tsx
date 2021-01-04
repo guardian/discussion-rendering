@@ -40,10 +40,13 @@ type Props = {
     expanded: boolean;
     onPermalinkClick: (commentId: number) => void;
     apiKey: string;
-    onHeightChange?: () => void;
     onRecommend?: (commentId: number) => Promise<Boolean>;
     onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
-    onReply?: (shortUrl: string, body: string, parentCommentId: number) => Promise<CommentResponse>;
+    onReply?: (
+        shortUrl: string,
+        body: string,
+        parentCommentId: number,
+    ) => Promise<CommentResponse>;
     onPreview?: (body: string) => Promise<string>;
 };
 
@@ -75,13 +78,12 @@ const DEFAULT_FILTERS: FilterOptions = {
 const NoComments = () => (
     <div
         className={css`
-
-    color: ${neutral[46]};
-    ${textSans.small()}
-    padding-top: ${space[5]}px;
-    padding-left: ${space[1]}px;
-    padding-bottom: ${space[9]}px;
-  `}
+            color: ${neutral[46]};
+            ${textSans.small()}
+            padding-top: ${space[5]}px;
+            padding-left: ${space[1]}px;
+            padding-bottom: ${space[9]}px;
+        `}
     >
         No comments found
     </div>
@@ -218,11 +220,10 @@ export const App = ({
     expanded,
     onPermalinkClick,
     apiKey,
-    onHeightChange = () => {},
     onRecommend,
     onComment,
     onReply,
-    onPreview
+    onPreview,
 }: Props) => {
     const [filters, setFilters] = useState<FilterOptions>(
         initialiseFilters({
@@ -237,16 +238,17 @@ export const App = ({
     const [totalPages, setTotalPages] = useState<number>(0);
     const [page, setPage] = useState<number>(initialPage || 1);
     const [picks, setPicks] = useState<CommentType[]>([]);
-    const [commentBeingRepliedTo, setCommentBeingRepliedTo] = useState<
-        CommentType
-    >();
+    const [
+        commentBeingRepliedTo,
+        setCommentBeingRepliedTo,
+    ] = useState<CommentType>();
     const [comments, setComments] = useState<CommentType[]>([]);
     const [commentCount, setCommentCount] = useState<number>(0);
     const [mutes, setMutes] = useState<string[]>(readMutes());
 
     useEffect(() => {
         setLoading(true);
-        getDiscussion(shortUrl, { ...filters, page }).then(json => {
+        getDiscussion(shortUrl, { ...filters, page }).then((json) => {
             setLoading(false);
             if (json?.status !== 'error') {
                 setComments(json?.discussion?.comments);
@@ -266,7 +268,7 @@ export const App = ({
 
     // If these override props are updated we want to respect them
     useEffect(() => {
-        setFilters(oldFilters => {
+        setFilters((oldFilters) => {
             return {
                 ...oldFilters,
                 orderBy: orderByOverride ? orderByOverride : oldFilters.orderBy,
@@ -319,26 +321,23 @@ export const App = ({
         rememberFilters(newFilterObject);
         // Filters also show when the view is not expanded but we want to expand when they're changed
         setIsExpanded(true);
-        onHeightChange();
         setFilters(newFilterObject);
     };
 
     const onPageChange = (page: number) => {
         document.getElementById('comment-filters')?.scrollIntoView();
         setPage(page);
-        onHeightChange();
     };
 
     const expandView = () => {
         setIsExpanded(true);
-        onHeightChange();
     };
 
     const toggleMuteStatus = (userId: string) => {
         let updatedMutes;
         if (mutes.includes(userId)) {
             // Already muted, unmute them
-            updatedMutes = mutes.filter(id => id !== userId);
+            updatedMutes = mutes.filter((id) => id !== userId);
         } else {
             // Add this user to our list of mutes
             updatedMutes = [...mutes, userId];
@@ -419,7 +418,7 @@ export const App = ({
                             <NoComments />
                         ) : (
                             <ul className={commentContainerStyles}>
-                                {comments.slice(0, 2).map(comment => (
+                                {comments.slice(0, 2).map((comment) => (
                                     <li key={comment.id}>
                                         <CommentContainer
                                             comment={comment}
@@ -515,7 +514,7 @@ export const App = ({
                     <NoComments />
                 ) : (
                     <ul className={commentContainerStyles}>
-                        {comments.map(comment => (
+                        {comments.map((comment) => (
                             <li key={comment.id}>
                                 <CommentContainer
                                     comment={comment}

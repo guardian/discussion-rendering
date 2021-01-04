@@ -44,7 +44,6 @@ describe('App', () => {
                 }}
                 apiKey="discussion-rendering-test"
                 onPermalinkClick={() => {}}
-                onHeightChange={() => {}}
             />,
         );
 
@@ -74,7 +73,6 @@ describe('App', () => {
                 expanded={false}
                 onPermalinkClick={() => {}}
                 apiKey=""
-                onHeightChange={() => {}}
             />,
         );
 
@@ -102,7 +100,6 @@ describe('App', () => {
                 }}
                 apiKey="discussion-rendering-test"
                 onPermalinkClick={() => {}}
-                onHeightChange={() => {}}
             />,
         );
 
@@ -129,7 +126,6 @@ describe('App', () => {
                 }}
                 apiKey="discussion-rendering-test"
                 onPermalinkClick={() => {}}
-                onHeightChange={() => {}}
             />,
         );
 
@@ -157,7 +153,6 @@ describe('App', () => {
                 }}
                 apiKey="discussion-rendering-test"
                 onPermalinkClick={() => {}}
-                onHeightChange={() => {}}
             />,
         );
 
