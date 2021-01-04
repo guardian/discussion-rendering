@@ -463,6 +463,7 @@ export const App = ({
 							icon={<SvgPlus />}
 							iconSide="left"
 							linkName="more-comments"
+							size="small"
 						>
 							{rendering ? 'Loading...' : 'View more comments'}
 						</PillarButton>
