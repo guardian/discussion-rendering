@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { css, cx } from 'emotion';
 
-import { space, neutral, palette, border } from '@guardian/src-foundations';
+import { space, neutral, border } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
 import {
@@ -13,11 +13,10 @@ import {
 } from '../../types';
 import { CommentForm } from '../CommentForm/CommentForm';
 import { Comment } from '../Comment/Comment';
-import { Row } from '../Row/Row';
+import { PillarButton } from '../PillarButton/PillarButton';
 import { CommentReplyPreview } from '../CommentReplyPreview/CommentReplyPreview';
 
 import { getMoreResponses } from '../../lib/api';
-import { pillarToString } from '../../lib/pillarToString';
 
 type Props = {
     comment: CommentType;
@@ -46,33 +45,6 @@ const nestingStyles = css`
     list-style-type: none;
     padding-left: ${space[2]}px;
     margin-left: ${space[12]}px;
-`;
-
-const buttonStyles = (pillar: Pillar) => css`
-    margin-top: 12px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    background: ${neutral[100]};
-    color: ${palette[pillarToString(pillar)][400]};
-    height: 24px;
-    font-size: 12px;
-    font-weight: bold;
-    text-overflow: ellipsis;
-    border-radius: 12px;
-
-    border: 1px solid ${neutral[86]};
-    svg {
-        fill: ${neutral[60]};
-        width: 15px;
-        height: 15px;
-    }
-
-    :hover {
-        border: 1px solid ${neutral[60]};
-        svg {
-            fill: ${neutral[46]};
-        }
-    }
 `;
 
 const topBorder = css`
@@ -201,25 +173,28 @@ export const CommentContainer = ({
                         {!expanded &&
                             comment.metaData?.responseCount &&
                             comment.metaData?.responseCount > 3 && (
-                                <div className={topBorder}>
-                                    <button
+                                <div
+                                    className={cx(
+                                        topBorder,
+                                        css`
+                                            padding-top: ${space[3]}px;
+                                            padding-bottom: ${space[3]}px;
+                                        `,
+                                    )}
+                                >
+                                    <PillarButton
+                                        priority="secondary"
+                                        icon={<SvgPlus />}
+                                        iconSide="left"
+                                        linkName="Show more replies"
                                         onClick={() => expand(comment.id)}
-                                        className={buttonStyles(pillar)}
-                                        data-link-name="Show more replies"
+                                        pillar={pillar}
+                                        size="xsmall"
                                     >
-                                        <Row>
-                                            <SvgPlus />
-                                            <span
-                                                className={css`
-                                                    margin-left: 4px;
-                                                `}
-                                            >
-                                                {loading
-                                                    ? 'loading...'
-                                                    : decideShowMoreText()}
-                                            </span>
-                                        </Row>
-                                    </button>
+                                        {loading
+                                            ? 'loading...'
+                                            : decideShowMoreText()}
+                                    </PillarButton>
                                 </div>
                             )}
                     </div>
