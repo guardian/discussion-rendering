@@ -18,6 +18,7 @@ type Props = {
     icon?: JSX.Element;
     iconSide?: 'left' | 'right';
     linkName: string;
+    size?: 'xsmall' | 'small' | 'default';
 };
 
 // Why key in Pillar? https://github.com/Microsoft/TypeScript/issues/24220#issuecomment-390063153
@@ -96,11 +97,12 @@ export const PillarButton = ({
     icon,
     iconSide,
     linkName,
+    size = 'default',
 }: Props) => (
     <div className={buttonOverrides(pillar, priority)}>
         <Button
             priority={priority}
-            size="small"
+            size={size}
             onClick={onClick}
             type={type}
             icon={icon}
