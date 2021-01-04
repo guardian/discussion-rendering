@@ -431,6 +431,7 @@ export const CommentForm = ({
 								pillar={pillar}
 								type="submit"
 								linkName="post comment"
+								size="small"
 							>
 								Post your comment
 							</PillarButton>
@@ -442,6 +443,7 @@ export const CommentForm = ({
 										onClick={fetchShowPreview}
 										priority="secondary"
 										linkName="preview-comment"
+										size="small"
 									>
 										Preview
 									</PillarButton>
@@ -452,6 +454,7 @@ export const CommentForm = ({
 										onClick={resetForm}
 										priority="subdued"
 										linkName="cancel-post-comment"
+										size="small"
 									>
 										Cancel
 									</PillarButton>

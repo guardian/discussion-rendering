@@ -131,6 +131,7 @@ export const FirstCommentWelcome = ({
 						pillar={pillar}
 						onClick={() => submitForm(userName)}
 						linkName="post comment"
+						size="small"
 					>
 						Post your comment
 					</PillarButton>
@@ -144,6 +145,7 @@ export const FirstCommentWelcome = ({
 						priority="subdued"
 						onClick={cancelSubmit}
 						linkName="cancel-post-comment"
+						size="small"
 					>
 						Cancel
 					</PillarButton>
