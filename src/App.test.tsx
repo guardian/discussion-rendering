@@ -44,7 +44,6 @@ describe('App', () => {
 				}}
 				apiKey="discussion-rendering-test"
 				onPermalinkClick={() => {}}
-				onHeightChange={() => {}}
 			/>,
 		);
 
@@ -55,7 +54,7 @@ describe('App', () => {
 		expect(screen.queryByText('View more comments')).toBeInTheDocument();
 		fireEvent.click(screen.getByText('View more comments'));
 		expect(screen.queryByText('View more comments')).not.toBeInTheDocument();
-		expect(screen.getByText('Loading...')).toBeInTheDocument();
+		expect(screen.getByText('Display threads')).toBeInTheDocument();
 	});
 
 	it('should not render the comment form if user is logged out', async () => {
@@ -72,7 +71,6 @@ describe('App', () => {
 				expanded={false}
 				onPermalinkClick={() => {}}
 				apiKey=""
-				onHeightChange={() => {}}
 			/>,
 		);
 
@@ -100,7 +98,6 @@ describe('App', () => {
 				}}
 				apiKey="discussion-rendering-test"
 				onPermalinkClick={() => {}}
-				onHeightChange={() => {}}
 			/>,
 		);
 
@@ -127,7 +124,6 @@ describe('App', () => {
 				}}
 				apiKey="discussion-rendering-test"
 				onPermalinkClick={() => {}}
-				onHeightChange={() => {}}
 			/>,
 		);
 
@@ -153,7 +149,6 @@ describe('App', () => {
 				}}
 				apiKey="discussion-rendering-test"
 				onPermalinkClick={() => {}}
-				onHeightChange={() => {}}
 			/>,
 		);
 
