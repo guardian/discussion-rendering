@@ -40,30 +40,30 @@ const dark = (pillar: Pillar): string => {
 };
 
 const buttonOverrides = (
-    pillar: Pillar,
-    priority: 'primary' | 'secondary' | 'subdued',
+	pillar: Pillar,
+	priority: 'primary' | 'secondary' | 'subdued',
 ) => {
-    switch (priority) {
-        case 'primary':
-            return css`
-                button {
-                  ${textSans.small({ fontWeight: 'bold' })}
-                  background-color: ${palette[pillarToString(pillar)][300]};
-                  color: ${neutral[100]};
+	switch (priority) {
+		case 'primary':
+			return css`
+				button {
+					${textSans.small({ fontWeight: 'bold' })}
+					background-color: ${palette[pillarToString(pillar)][300]};
+					color: ${neutral[100]};
 
-                  :hover {
-                    background-color: ${palette[pillarToString(pillar)][400]};
-                  }
-                }
-              `;
+					:hover {
+						background-color: ${palette[pillarToString(pillar)][400]};
+					}
+				}
+			`;
 
-        case 'secondary':
-            return css`
-                button {
-                    ${textSans.small({ fontWeight: 'bold' })}
-                    background-color: transparent;
-                    border: 1px solid ${palette[pillarToString(pillar)][400]};
-                    color: ${palette[pillarToString(pillar)][400]};
+		case 'secondary':
+			return css`
+				button {
+					${textSans.small({ fontWeight: 'bold' })}
+					background-color: transparent;
+					border: 1px solid ${palette[pillarToString(pillar)][400]};
+					color: ${palette[pillarToString(pillar)][400]};
 
                     :hover {
                         background-color: ${dark(pillar)};

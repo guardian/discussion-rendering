@@ -7,14 +7,14 @@ import { space } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
 import {
-    CommentType,
-    FilterOptions,
-    UserProfile,
-    AdditionalHeadersType,
-    PageSizeType,
-    OrderByType,
-    Pillar,
-    CommentResponse,
+	CommentType,
+	FilterOptions,
+	UserProfile,
+	AdditionalHeadersType,
+	PageSizeType,
+	OrderByType,
+	Pillar,
+	CommentResponse,
 } from './types';
 import { getDiscussion, getPicks, initialiseApi } from './lib/api';
 import { CommentContainer } from './components/CommentContainer/CommentContainer';
@@ -27,202 +27,205 @@ import { Column } from './components/Column/Column';
 import { PillarButton } from './components/PillarButton/PillarButton';
 
 type Props = {
-    shortUrl: string;
-    baseUrl: string;
-    pillar: Pillar;
-    isClosedForComments: boolean;
-    commentToScrollTo?: number;
-    initialPage?: number;
-    pageSizeOverride?: PageSizeType;
-    orderByOverride?: OrderByType;
-    user?: UserProfile;
-    additionalHeaders: AdditionalHeadersType;
-    expanded: boolean;
-    onPermalinkClick: (commentId: number) => void;
-    apiKey: string;
-    onHeightChange?: () => void;
-    onRecommend?: (commentId: number) => Promise<Boolean>;
-    onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
-    onReply?: (shortUrl: string, body: string, parentCommentId: number) => Promise<CommentResponse>;
-    onPreview?: (body: string) => Promise<string>;
+	shortUrl: string;
+	baseUrl: string;
+	pillar: Pillar;
+	isClosedForComments: boolean;
+	commentToScrollTo?: number;
+	initialPage?: number;
+	pageSizeOverride?: PageSizeType;
+	orderByOverride?: OrderByType;
+	user?: UserProfile;
+	additionalHeaders: AdditionalHeadersType;
+	expanded: boolean;
+	onPermalinkClick: (commentId: number) => void;
+	apiKey: string;
+	onHeightChange?: () => void;
+	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
+	onReply?: (
+		shortUrl: string,
+		body: string,
+		parentCommentId: number,
+	) => Promise<CommentResponse>;
+	onPreview?: (body: string) => Promise<string>;
 };
 
 const footerStyles = css`
-    display: flex;
-    justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 `;
 
 const commentContainerStyles = css`
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
+	display: flex;
+	flex-direction: column;
+	list-style-type: none;
+	padding-left: 0;
+	margin: 0;
 `;
 
 const picksWrapper = css`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 `;
 
 const DEFAULT_FILTERS: FilterOptions = {
-    orderBy: 'newest',
-    pageSize: 100,
-    threads: 'collapsed',
+	orderBy: 'newest',
+	pageSize: 100,
+	threads: 'collapsed',
 };
 
 const NoComments = () => (
-    <div
-        className={css`
-
-    color: ${neutral[46]};
-    ${textSans.small()}
-    padding-top: ${space[5]}px;
-    padding-left: ${space[1]}px;
-    padding-bottom: ${space[9]}px;
-  `}
-    >
-        No comments found
-    </div>
+	<div
+		className={css`
+			color: ${neutral[46]};
+			${textSans.small()}
+			padding-top: ${space[5]}px;
+			padding-left: ${space[1]}px;
+			padding-bottom: ${space[9]}px;
+		`}
+	>
+		No comments found
+	</div>
 );
 
 const rememberFilters = (filtersToRemember: FilterOptions) => {
-    try {
-        localStorage.setItem(
-            'gu.prefs.discussion.threading',
-            JSON.stringify({ value: filtersToRemember.threads }),
-        );
-        localStorage.setItem(
-            'gu.prefs.discussion.pagesize',
-            JSON.stringify({ value: filtersToRemember.pageSize }),
-        );
-        localStorage.setItem(
-            'gu.prefs.discussion.order',
-            JSON.stringify({ value: filtersToRemember.orderBy }),
-        );
-    } catch (error) {
-        // Sometimes it's not possible to access localStorage, we accept this and don't want to
-        // capture these errors
-    }
+	try {
+		localStorage.setItem(
+			'gu.prefs.discussion.threading',
+			JSON.stringify({ value: filtersToRemember.threads }),
+		);
+		localStorage.setItem(
+			'gu.prefs.discussion.pagesize',
+			JSON.stringify({ value: filtersToRemember.pageSize }),
+		);
+		localStorage.setItem(
+			'gu.prefs.discussion.order',
+			JSON.stringify({ value: filtersToRemember.orderBy }),
+		);
+	} catch (error) {
+		// Sometimes it's not possible to access localStorage, we accept this and don't want to
+		// capture these errors
+	}
 };
 
 const initialiseFilters = ({
-    pageSizeOverride,
-    orderByOverride,
-    permalinkBeingUsed,
-    isClosedForComments,
+	pageSizeOverride,
+	orderByOverride,
+	permalinkBeingUsed,
+	isClosedForComments,
 }: {
-    pageSizeOverride?: PageSizeType;
-    orderByOverride?: OrderByType;
-    permalinkBeingUsed: boolean;
-    isClosedForComments: boolean;
+	pageSizeOverride?: PageSizeType;
+	orderByOverride?: OrderByType;
+	permalinkBeingUsed: boolean;
+	isClosedForComments: boolean;
 }) => {
-    const initialisedFilters = initFiltersFromLocalStorage({
-        isClosedForComments,
-    });
-    return {
-        ...initialisedFilters,
-        // Override if prop given
-        pageSize: pageSizeOverride || initialisedFilters.pageSize,
-        orderBy: orderByOverride || initialisedFilters.orderBy,
-        threads:
-            initialisedFilters.threads === 'collapsed' && permalinkBeingUsed
-                ? 'expanded'
-                : initialisedFilters.threads,
-    };
+	const initialisedFilters = initFiltersFromLocalStorage({
+		isClosedForComments,
+	});
+	return {
+		...initialisedFilters,
+		// Override if prop given
+		pageSize: pageSizeOverride || initialisedFilters.pageSize,
+		orderBy: orderByOverride || initialisedFilters.orderBy,
+		threads:
+			initialisedFilters.threads === 'collapsed' && permalinkBeingUsed
+				? 'expanded'
+				: initialisedFilters.threads,
+	};
 };
 
 const initFiltersFromLocalStorage = ({
-    isClosedForComments,
+	isClosedForComments,
 }: {
-    isClosedForComments: boolean;
+	isClosedForComments: boolean;
 }): FilterOptions => {
-    let threads;
-    let pageSize;
-    let orderBy;
+	let threads;
+	let pageSize;
+	let orderBy;
 
-    try {
-        // Try to read from local storage
-        orderBy = localStorage.getItem('gu.prefs.discussion.order');
-        threads = localStorage.getItem('gu.prefs.discussion.threading');
-        pageSize = localStorage.getItem('gu.prefs.discussion.pagesize');
-    } catch (error) {
-        return {
-            ...DEFAULT_FILTERS,
-            orderBy: decideDefaultOrderBy(isClosedForComments),
-        };
-    }
+	try {
+		// Try to read from local storage
+		orderBy = localStorage.getItem('gu.prefs.discussion.order');
+		threads = localStorage.getItem('gu.prefs.discussion.threading');
+		pageSize = localStorage.getItem('gu.prefs.discussion.pagesize');
+	} catch (error) {
+		return {
+			...DEFAULT_FILTERS,
+			orderBy: decideDefaultOrderBy(isClosedForComments),
+		};
+	}
 
-    function checkPageSize(size: any): PageSizeType {
-        // This function handles the fact that some readers have legacy values
-        // stored in the browsers
-        if (!size) return DEFAULT_FILTERS.pageSize; // Default
-        if (size === 'All') return DEFAULT_FILTERS.pageSize; // Convert 'All' to default
-        const supportedSizes: PageSizeType[] = [25, 50, 100];
-        if (!supportedSizes.includes(size)) return DEFAULT_FILTERS.pageSize; // Convert anything else to default
-        return size; // size is acceptable
-    }
+	function checkPageSize(size: any): PageSizeType {
+		// This function handles the fact that some readers have legacy values
+		// stored in the browsers
+		if (!size) return DEFAULT_FILTERS.pageSize; // Default
+		if (size === 'All') return DEFAULT_FILTERS.pageSize; // Convert 'All' to default
+		const supportedSizes: PageSizeType[] = [25, 50, 100];
+		if (!supportedSizes.includes(size)) return DEFAULT_FILTERS.pageSize; // Convert anything else to default
+		return size; // size is acceptable
+	}
 
-    function decideDefaultOrderBy(isClosedForComment: boolean): OrderByType {
-        return isClosedForComments ? 'oldest' : 'newest';
-    }
+	function decideDefaultOrderBy(isClosedForComment: boolean): OrderByType {
+		return isClosedForComments ? 'oldest' : 'newest';
+	}
 
-    // If we found something in LS, use it, otherwise return defaults
-    return {
-        orderBy: orderBy
-            ? JSON.parse(orderBy).value
-            : decideDefaultOrderBy(isClosedForComments),
-        threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
-        pageSize: pageSize
-            ? checkPageSize(JSON.parse(pageSize).value)
-            : DEFAULT_FILTERS.pageSize,
-    };
+	// If we found something in LS, use it, otherwise return defaults
+	return {
+		orderBy: orderBy
+			? JSON.parse(orderBy).value
+			: decideDefaultOrderBy(isClosedForComments),
+		threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
+		pageSize: pageSize
+			? checkPageSize(JSON.parse(pageSize).value)
+			: DEFAULT_FILTERS.pageSize,
+	};
 };
 
 const readMutes = (): string[] => {
-    let mutes;
-    try {
-        // Try to read from local storage
-        mutes = localStorage.getItem('gu.prefs.discussion.mutes');
-    } catch (error) {
-        return [];
-    }
+	let mutes;
+	try {
+		// Try to read from local storage
+		mutes = localStorage.getItem('gu.prefs.discussion.mutes');
+	} catch (error) {
+		return [];
+	}
 
-    return mutes ? JSON.parse(mutes).value : [];
+	return mutes ? JSON.parse(mutes).value : [];
 };
 
 const writeMutes = (mutes: string[]) => {
-    try {
-        localStorage.setItem(
-            'gu.prefs.discussion.mutes',
-            JSON.stringify({ value: mutes }),
-        );
-    } catch (error) {
-        // Sometimes it's not possible to access localStorage, we accept this and don't want to
-        // capture these errors
-    }
+	try {
+		localStorage.setItem(
+			'gu.prefs.discussion.mutes',
+			JSON.stringify({ value: mutes }),
+		);
+	} catch (error) {
+		// Sometimes it's not possible to access localStorage, we accept this and don't want to
+		// capture these errors
+	}
 };
 
 export const App = ({
-    baseUrl,
-    shortUrl,
-    pillar,
-    isClosedForComments,
-    initialPage,
-    commentToScrollTo,
-    pageSizeOverride,
-    orderByOverride,
-    user,
-    additionalHeaders,
-    expanded,
-    onPermalinkClick,
-    apiKey,
-    onHeightChange = () => {},
-    onRecommend,
-    onComment,
-    onReply,
-    onPreview
+	baseUrl,
+	shortUrl,
+	pillar,
+	isClosedForComments,
+	initialPage,
+	commentToScrollTo,
+	pageSizeOverride,
+	orderByOverride,
+	user,
+	additionalHeaders,
+	expanded,
+	onPermalinkClick,
+	apiKey,
+	onHeightChange = () => {},
+	onRecommend,
+	onComment,
+	onReply,
+	onPreview,
 }: Props) => {
     const [filters, setFilters] = useState<FilterOptions>(
         initialiseFilters({

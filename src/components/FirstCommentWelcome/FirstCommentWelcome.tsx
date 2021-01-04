@@ -12,60 +12,60 @@ import { preview as defaultPreview } from '../../lib/api';
 import { Pillar } from '../../types';
 
 type Props = {
-    body: string;
-    pillar: Pillar;
-    error?: string;
-    submitForm: (userName: string) => void;
-    cancelSubmit: () => void;
-    onPreview?: (body: string) => Promise<string>;
+	body: string;
+	pillar: Pillar;
+	error?: string;
+	submitForm: (userName: string) => void;
+	cancelSubmit: () => void;
+	onPreview?: (body: string) => Promise<string>;
 };
 
 const previewStyle = css`
-    padding: ${space[2]}px;
-    background-color: ${neutral[93]};
-    margin-bottom: ${space[5]}px;
-    position: relative;
-    min-height: ${space[9]}px;
+	padding: ${space[2]}px;
+	background-color: ${neutral[93]};
+	margin-bottom: ${space[5]}px;
+	position: relative;
+	min-height: ${space[9]}px;
 
-    /* p is returned by API and this is the only way to apply styles */
-    p {
-        padding-left: ${space[2]}px;
-    }
+	/* p is returned by API and this is the only way to apply styles */
+	p {
+		padding-left: ${space[2]}px;
+	}
 `;
 
 const textStyling = css`
-    ${textSans.small()};
+	${textSans.small()};
 `;
 
 const Text = ({
-    children,
+	children,
 }: {
-    children: string | JSX.Element | JSX.Element[];
+	children: string | JSX.Element | JSX.Element[];
 }) => <p className={textStyling}>{children}</p>;
 
 export const FirstCommentWelcome = ({
-    body,
-    pillar,
-    error = '',
-    submitForm,
-    cancelSubmit,
-    onPreview,
+	body,
+	pillar,
+	error = '',
+	submitForm,
+	cancelSubmit,
+	onPreview,
 }: Props) => {
-    const [previewBody, setPreviewBody] = useState<string>('');
-    const [userName, setUserName] = useState<string>('');
+	const [previewBody, setPreviewBody] = useState<string>('');
+	const [userName, setUserName] = useState<string>('');
 
-    useEffect(() => {
-        const fetchShowPreview = async () => {
-            try {
-                const preview = onPreview ?? defaultPreview;
-                const response = await preview(body);
-                setPreviewBody(response);
-            } catch (e) {
-                setPreviewBody('');
-            }
-        };
-        fetchShowPreview();
-    }, [body, onPreview]);
+	useEffect(() => {
+		const fetchShowPreview = async () => {
+			try {
+				const preview = onPreview ?? defaultPreview;
+				const response = await preview(body);
+				setPreviewBody(response);
+			} catch (e) {
+				setPreviewBody('');
+			}
+		};
+		fetchShowPreview();
+	}, [body, onPreview]);
 
     return (
         <div

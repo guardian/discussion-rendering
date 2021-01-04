@@ -5,11 +5,11 @@ import { space, neutral, border } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
 import {
-    Pillar,
-    CommentType,
-    UserProfile,
-    ThreadsType,
-    CommentResponse,
+	Pillar,
+	CommentType,
+	UserProfile,
+	ThreadsType,
+	CommentResponse,
 } from '../../types';
 import { CommentForm } from '../CommentForm/CommentForm';
 import { Comment } from '../Comment/Comment';
@@ -19,78 +19,78 @@ import { CommentReplyPreview } from '../CommentReplyPreview/CommentReplyPreview'
 import { getMoreResponses } from '../../lib/api';
 
 type Props = {
-    comment: CommentType;
-    pillar: Pillar;
-    isClosedForComments: boolean;
-    shortUrl: string;
-    user?: UserProfile;
-    threads: ThreadsType;
-    commentBeingRepliedTo?: CommentType;
-    setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
-    commentToScrollTo?: number;
-    mutes: string[];
-    toggleMuteStatus: (userId: string) => void;
-    onPermalinkClick: (commentId: number) => void;
-    onRecommend?: (commentId: number) => Promise<Boolean>;
-    onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
-    onReply?: (
-        shortUrl: string,
-        body: string,
-        parentCommentId: number,
-    ) => Promise<CommentResponse>;
-    onPreview?: (body: string) => Promise<string>;
+	comment: CommentType;
+	pillar: Pillar;
+	isClosedForComments: boolean;
+	shortUrl: string;
+	user?: UserProfile;
+	threads: ThreadsType;
+	commentBeingRepliedTo?: CommentType;
+	setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
+	commentToScrollTo?: number;
+	mutes: string[];
+	toggleMuteStatus: (userId: string) => void;
+	onPermalinkClick: (commentId: number) => void;
+	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
+	onReply?: (
+		shortUrl: string,
+		body: string,
+		parentCommentId: number,
+	) => Promise<CommentResponse>;
+	onPreview?: (body: string) => Promise<string>;
 };
 
 const nestingStyles = css`
-    list-style-type: none;
-    padding-left: ${space[2]}px;
-    margin-left: ${space[12]}px;
+	list-style-type: none;
+	padding-left: ${space[2]}px;
+	margin-left: ${space[12]}px;
 `;
 
 const topBorder = css`
-    border-top: 1px solid ${border.secondary};
+	border-top: 1px solid ${border.secondary};
 `;
 
 const commentContainerStyles = css`
-    list-style-type: none;
-    padding-left: 0;
+	list-style-type: none;
+	padding-left: 0;
 `;
 
 const selectedStyles = css`
-    background-color: ${neutral[97]};
-    margin-left: -${space[2]}px;
-    padding-left: ${space[2]}px;
-    margin-right: -${space[2]}px;
-    padding-right: ${space[2]}px;
+	background-color: ${neutral[97]};
+	margin-left: -${space[2]}px;
+	padding-left: ${space[2]}px;
+	margin-right: -${space[2]}px;
+	padding-right: ${space[2]}px;
 `;
 
 const removeMargin = css`
-    margin: 0px;
+	margin: 0px;
 `;
 
 export const avatar = (avatarSize: number): string => css`
-    border-radius: ${avatarSize + 10}px;
-    width: ${avatarSize}px;
-    height: ${avatarSize}px;
+	border-radius: ${avatarSize + 10}px;
+	width: ${avatarSize}px;
+	height: ${avatarSize}px;
 `;
 
 export const CommentContainer = ({
-    comment,
-    pillar,
-    isClosedForComments,
-    user,
-    shortUrl,
-    threads,
-    commentBeingRepliedTo,
-    setCommentBeingRepliedTo,
-    commentToScrollTo,
-    mutes,
-    toggleMuteStatus,
-    onPermalinkClick,
-    onRecommend,
-    onComment,
-    onReply,
-    onPreview,
+	comment,
+	pillar,
+	isClosedForComments,
+	user,
+	shortUrl,
+	threads,
+	commentBeingRepliedTo,
+	setCommentBeingRepliedTo,
+	commentToScrollTo,
+	mutes,
+	toggleMuteStatus,
+	onPermalinkClick,
+	onRecommend,
+	onComment,
+	onReply,
+	onPreview,
 }: Props) => {
     // Filter logic
     const [expanded, setExpanded] = useState<boolean>(threads === 'expanded');
