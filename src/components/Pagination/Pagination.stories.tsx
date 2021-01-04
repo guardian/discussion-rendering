@@ -25,7 +25,7 @@ export const Default = () => {
 };
 Default.story = { name: 'default' };
 
-export const NoPages = () => {
+export const TwoPages = () => {
 	const [page, setCurrentPage] = useState(1);
 	return (
 		<Pagination
@@ -37,7 +37,7 @@ export const NoPages = () => {
 		/>
 	);
 };
-NoPages.story = { name: 'with two pages' };
+TwoPages.story = { name: 'with two pages' };
 
 export const ThreePages = () => {
 	const [page, setCurrentPage] = useState(1);
