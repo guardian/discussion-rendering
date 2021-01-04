@@ -75,40 +75,40 @@ export const EachPillar = () => (
 EachPillar.story = { name: 'with each pillar' };
 
 export const EachSize = () => (
-    <Row>
-        <PillarButton
-            onClick={() => {
-                alert('Clicked!');
-            }}
-            pillar={Pillar.News}
-            linkName=""
-            size="xsmall"
-        >
-            X Small
-        </PillarButton>
-        <Space amount={2} />
-        <PillarButton
-            onClick={() => {
-                alert('Clicked!');
-            }}
-            pillar={Pillar.News}
-            linkName=""
-            size="small"
-        >
-            Small
-        </PillarButton>
-        <Space amount={2} />
-        <PillarButton
-            onClick={() => {
-                alert('Clicked!');
-            }}
-            pillar={Pillar.News}
-            linkName=""
-            size="default"
-        >
-            Default
-        </PillarButton>
-    </Row>
+	<Row>
+		<PillarButton
+			onClick={() => {
+				alert('Clicked!');
+			}}
+			pillar={Pillar.News}
+			linkName=""
+			size="xsmall"
+		>
+			X Small
+		</PillarButton>
+		<Space amount={2} />
+		<PillarButton
+			onClick={() => {
+				alert('Clicked!');
+			}}
+			pillar={Pillar.News}
+			linkName=""
+			size="small"
+		>
+			Small
+		</PillarButton>
+		<Space amount={2} />
+		<PillarButton
+			onClick={() => {
+				alert('Clicked!');
+			}}
+			pillar={Pillar.News}
+			linkName=""
+			size="default"
+		>
+			Default
+		</PillarButton>
+	</Row>
 );
 EachSize.story = { name: 'with each size' };
 

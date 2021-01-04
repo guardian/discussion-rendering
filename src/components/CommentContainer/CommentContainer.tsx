@@ -92,146 +92,130 @@ export const CommentContainer = ({
 	onReply,
 	onPreview,
 }: Props) => {
-    // Filter logic
-    const [expanded, setExpanded] = useState<boolean>(threads === 'expanded');
-    const [responses, setResponses] = useState(comment.responses || []);
-    const [loading, setLoading] = useState<boolean>(false);
+	// Filter logic
+	const [expanded, setExpanded] = useState<boolean>(threads === 'expanded');
+	const [responses, setResponses] = useState(comment.responses || []);
+	const [loading, setLoading] = useState<boolean>(false);
 
-    const showResponses = threads !== 'unthreaded';
+	const showResponses = threads !== 'unthreaded';
 
-    const decideShowMoreText = () => {
-        const remainingResponses =
-            comment.metaData?.responseCount &&
-            comment.metaData?.responseCount - 3;
-        if (remainingResponses === 1) return `Show 1 more reply`;
-        return `Show ${remainingResponses} more replies`;
-    };
+	const decideShowMoreText = () => {
+		const remainingResponses =
+			comment.metaData?.responseCount && comment.metaData?.responseCount - 3;
+		if (remainingResponses === 1) return `Show 1 more reply`;
+		return `Show ${remainingResponses} more replies`;
+	};
 
-    useEffect(() => {
-        setResponses(comment.responses || []);
-    }, [comment]);
+	useEffect(() => {
+		setResponses(comment.responses || []);
+	}, [comment]);
 
-    const expand = (commentId: number) => {
-        setLoading(true);
-        getMoreResponses(commentId)
-            .then(json => {
-                setExpanded(true);
-                setResponses(json.comment.responses || []);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    };
+	const expand = (commentId: number) => {
+		setLoading(true);
+		getMoreResponses(commentId)
+			.then((json) => {
+				setExpanded(true);
+				setResponses(json.comment.responses || []);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
+	};
 
-    return (
-        <div className={cx(commentToScrollTo === comment.id && selectedStyles)}>
-            <Comment
-                comment={comment}
-                pillar={pillar}
-                isClosedForComments={isClosedForComments}
-                setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-                user={user}
-                isReply={false}
-                isMuted={mutes.includes(comment.userProfile.userId)}
-                toggleMuteStatus={toggleMuteStatus}
-                onPermalinkClick={onPermalinkClick}
-                onRecommend={onRecommend}
-            />
+	return (
+		<div className={cx(commentToScrollTo === comment.id && selectedStyles)}>
+			<Comment
+				comment={comment}
+				pillar={pillar}
+				isClosedForComments={isClosedForComments}
+				setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+				user={user}
+				isReply={false}
+				isMuted={mutes.includes(comment.userProfile.userId)}
+				toggleMuteStatus={toggleMuteStatus}
+				onPermalinkClick={onPermalinkClick}
+				onRecommend={onRecommend}
+			/>
 
-            <>
-                {showResponses && responses && (
-                    <div className={nestingStyles}>
-                        <ul
-                            className={cx(commentContainerStyles, removeMargin)}
-                        >
-                            {responses.map(responseComment => (
-                                <li key={responseComment.id}>
-                                    <Comment
-                                        comment={responseComment}
-                                        pillar={pillar}
-                                        isClosedForComments={
-                                            isClosedForComments
-                                        }
-                                        setCommentBeingRepliedTo={
-                                            setCommentBeingRepliedTo
-                                        }
-                                        user={user}
-                                        isReply={true}
-                                        wasScrolledTo={
-                                            commentToScrollTo ===
-                                            responseComment.id
-                                        }
-                                        isMuted={mutes.includes(
-                                            responseComment.userProfile.userId,
-                                        )}
-                                        toggleMuteStatus={toggleMuteStatus}
-                                        onPermalinkClick={onPermalinkClick}
-                                    />
-                                </li>
-                            ))}
-                        </ul>
-                        {!expanded &&
-                            comment.metaData?.responseCount &&
-                            comment.metaData?.responseCount > 3 && (
-                                <div
-                                    className={cx(
-                                        topBorder,
-                                        css`
-                                            padding-top: ${space[3]}px;
-                                            padding-bottom: ${space[3]}px;
-                                        `,
-                                    )}
-                                >
-                                    <PillarButton
-                                        priority="secondary"
-                                        icon={<SvgPlus />}
-                                        iconSide="left"
-                                        linkName="Show more replies"
-                                        onClick={() => expand(comment.id)}
-                                        pillar={pillar}
-                                        size="xsmall"
-                                    >
-                                        {loading
-                                            ? 'loading...'
-                                            : decideShowMoreText()}
-                                    </PillarButton>
-                                </div>
-                            )}
-                    </div>
-                )}
-                {commentBeingRepliedTo &&
-                    (commentBeingRepliedTo.id === comment.id ||
-                        responses.find(
-                            (response: CommentType) =>
-                                response.id === commentBeingRepliedTo.id,
-                        )) &&
-                    user && (
-                        <div
-                            id={`comment-reply-form-${commentBeingRepliedTo.id}`}
-                            className={nestingStyles}
-                        >
-                            <CommentReplyPreview
-                                pillar={pillar}
-                                commentBeingRepliedTo={commentBeingRepliedTo}
-                            />
-                            <CommentForm
-                                shortUrl={shortUrl}
-                                pillar={pillar}
-                                onAddComment={response =>
-                                    setResponses([...responses, response])
-                                }
-                                user={user}
-                                setCommentBeingRepliedTo={
-                                    setCommentBeingRepliedTo
-                                }
-                                commentBeingRepliedTo={commentBeingRepliedTo}
-                                onComment={onComment}
-                                onReply={onReply}
-                                onPreview={onPreview}
-                            />
-                        </div>
-                    )}
-            </>
-        </div>
-    );
+			<>
+				{showResponses && responses && (
+					<div className={nestingStyles}>
+						<ul className={cx(commentContainerStyles, removeMargin)}>
+							{responses.map((responseComment) => (
+								<li key={responseComment.id}>
+									<Comment
+										comment={responseComment}
+										pillar={pillar}
+										isClosedForComments={isClosedForComments}
+										setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+										user={user}
+										isReply={true}
+										wasScrolledTo={commentToScrollTo === responseComment.id}
+										isMuted={mutes.includes(responseComment.userProfile.userId)}
+										toggleMuteStatus={toggleMuteStatus}
+										onPermalinkClick={onPermalinkClick}
+									/>
+								</li>
+							))}
+						</ul>
+						{!expanded &&
+							comment.metaData?.responseCount &&
+							comment.metaData?.responseCount > 3 && (
+								<div
+									className={cx(
+										topBorder,
+										css`
+											padding-top: ${space[3]}px;
+											padding-bottom: ${space[3]}px;
+										`,
+									)}
+								>
+									<PillarButton
+										priority="secondary"
+										icon={<SvgPlus />}
+										iconSide="left"
+										linkName="Show more replies"
+										onClick={() => expand(comment.id)}
+										pillar={pillar}
+										size="xsmall"
+									>
+										{loading ? 'loading...' : decideShowMoreText()}
+									</PillarButton>
+								</div>
+							)}
+					</div>
+				)}
+				{commentBeingRepliedTo &&
+					(commentBeingRepliedTo.id === comment.id ||
+						responses.find(
+							(response: CommentType) =>
+								response.id === commentBeingRepliedTo.id,
+						)) &&
+					user && (
+						<div
+							id={`comment-reply-form-${commentBeingRepliedTo.id}`}
+							className={nestingStyles}
+						>
+							<CommentReplyPreview
+								pillar={pillar}
+								commentBeingRepliedTo={commentBeingRepliedTo}
+							/>
+							<CommentForm
+								shortUrl={shortUrl}
+								pillar={pillar}
+								onAddComment={(response) =>
+									setResponses([...responses, response])
+								}
+								user={user}
+								setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+								commentBeingRepliedTo={commentBeingRepliedTo}
+								onComment={onComment}
+								onReply={onReply}
+								onPreview={onPreview}
+							/>
+						</div>
+					)}
+			</>
+		</div>
+	);
 };

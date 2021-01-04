@@ -67,94 +67,90 @@ export const FirstCommentWelcome = ({
 		fetchShowPreview();
 	}, [body, onPreview]);
 
-    return (
-        <div
-            className={css`
-                padding: ${space[2]}px;
-            `}
-        >
-            <form
-                onSubmit={e => {
-                    e.preventDefault();
-                    submitForm(userName);
-                }}
-            >
-                <h3
-                    className={css`
-                        ${headline.xxsmall({ fontWeight: 'bold' })};
-                    `}
-                >
-                    Welcome, you’re about to make your first comment!
-                </h3>
-                <Text>
-                    Before you post, we’d like to thank you for joining the
-                    debate - we’re glad you’ve chosen to participate and we
-                    value your opinions and experiences.
-                </Text>
-                <Text>
-                    Please choose your username under which you would like all
-                    your comments to show up. You can only set your username
-                    once.
-                </Text>
-                <TextInput
-                    label="Username:"
-                    supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
-                    value={userName}
-                    onChange={e => setUserName(e.target.value)}
-                    width={30}
-                    error={error}
-                />
-                <Text>
-                    <>
-                        Please keep your posts respectful and abide by the{' '}
-                        <Link
-                            href="/community-standards"
-                            priority="primary"
-                            subdued={true}
-                            rel="nofollow"
-                        >
-                            <span className={textStyling}>
-                                community guidelines
-                            </span>
-                        </Link>
-                        {` -`} and if you spot a comment you think doesn’t
-                        adhere to the guidelines, please use the ‘Report’ link
-                        next to it to let us know.
-                    </>
-                </Text>
-                <Text>
-                    Please preview your comment below and click ‘post’ when
-                    you’re happy with it.
-                </Text>
-                <div
-                    className={cx(previewStyle, textStyling)}
-                    dangerouslySetInnerHTML={{ __html: previewBody || '' }}
-                />
-                <Row>
-                    <PillarButton
-                        pillar={pillar}
-                        onClick={() => submitForm(userName)}
-                        linkName="post comment"
-                        size="small"
-                    >
-                        Post your comment
-                    </PillarButton>
-                    <div
-                        className={css`
-                            width: ${space[3]}px;
-                        `}
-                    ></div>
-                    <PillarButton
-                        pillar={pillar}
-                        priority="subdued"
-                        onClick={cancelSubmit}
-                        linkName="cancel-post-comment"
-                        size="small"
-                    >
-                        Cancel
-                    </PillarButton>
-                </Row>
-            </form>
-        </div>
-    );
+	return (
+		<div
+			className={css`
+				padding: ${space[2]}px;
+			`}
+		>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					submitForm(userName);
+				}}
+			>
+				<h3
+					className={css`
+						${headline.xxsmall({ fontWeight: 'bold' })};
+					`}
+				>
+					Welcome, you’re about to make your first comment!
+				</h3>
+				<Text>
+					Before you post, we’d like to thank you for joining the debate - we’re
+					glad you’ve chosen to participate and we value your opinions and
+					experiences.
+				</Text>
+				<Text>
+					Please choose your username under which you would like all your
+					comments to show up. You can only set your username once.
+				</Text>
+				<TextInput
+					label="Username:"
+					supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
+					value={userName}
+					onChange={(e) => setUserName(e.target.value)}
+					width={30}
+					error={error}
+				/>
+				<Text>
+					<>
+						Please keep your posts respectful and abide by the{' '}
+						<Link
+							href="/community-standards"
+							priority="primary"
+							subdued={true}
+							rel="nofollow"
+						>
+							<span className={textStyling}>community guidelines</span>
+						</Link>
+						{` -`} and if you spot a comment you think doesn’t adhere to the
+						guidelines, please use the ‘Report’ link next to it to let us know.
+					</>
+				</Text>
+				<Text>
+					Please preview your comment below and click ‘post’ when you’re happy
+					with it.
+				</Text>
+				<div
+					className={cx(previewStyle, textStyling)}
+					dangerouslySetInnerHTML={{ __html: previewBody || '' }}
+				/>
+				<Row>
+					<PillarButton
+						pillar={pillar}
+						onClick={() => submitForm(userName)}
+						linkName="post comment"
+						size="small"
+					>
+						Post your comment
+					</PillarButton>
+					<div
+						className={css`
+							width: ${space[3]}px;
+						`}
+					></div>
+					<PillarButton
+						pillar={pillar}
+						priority="subdued"
+						onClick={cancelSubmit}
+						linkName="cancel-post-comment"
+						size="small"
+					>
+						Cancel
+					</PillarButton>
+				</Row>
+			</form>
+		</div>
+	);
 };

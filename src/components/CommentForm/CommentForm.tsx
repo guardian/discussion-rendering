@@ -318,229 +318,218 @@ export const CommentForm = ({
             <a href="#">
             <strong>resend the verification email</strong></a> to your email
             address.`);
-            } else if (response.status === 'ok') {
-                onAddComment(
-                    simulateNewComment(
-                        // response.message is the id of the comment that was created on the server
-                        // it is returned as a string, so we need to cast to an number to be compatable
-                        parseInt(response.message),
-                        body,
-                        user,
-                        commentBeingRepliedTo,
-                    ),
-                );
-                resetForm();
-            } else {
-                setError('Sorry, there was a problem posting your comment.');
-            }
-        }
-    };
+			} else if (response.status === 'ok') {
+				onAddComment(
+					simulateNewComment(
+						// response.message is the id of the comment that was created on the server
+						// it is returned as a string, so we need to cast to an number to be compatable
+						parseInt(response.message),
+						body,
+						user,
+						commentBeingRepliedTo,
+					),
+				);
+				resetForm();
+			} else {
+				setError('Sorry, there was a problem posting your comment.');
+			}
+		}
+	};
 
-    const submitUserName = async (userName: string) => {
-        setError('');
-        if (!userName) {
-            setError('Username field cannot be empty');
-            return;
-        }
+	const submitUserName = async (userName: string) => {
+		setError('');
+		if (!userName) {
+			setError('Username field cannot be empty');
+			return;
+		}
 
-        const response = await addUserName(userName);
-        if (response.status === 'ok') {
-            // If we are able to submit userName we should continue with submitting comment
-            submitForm();
-            setUserNameMissing(false);
-        } else {
-            response.errors && setError(response.errors[0].message);
-        }
-    };
+		const response = await addUserName(userName);
+		if (response.status === 'ok') {
+			// If we are able to submit userName we should continue with submitting comment
+			submitForm();
+			setUserNameMissing(false);
+		} else {
+			response.errors && setError(response.errors[0].message);
+		}
+	};
 
-    if (userNameMissing && body) {
-        return (
-            <FirstCommentWelcome
-                pillar={pillar}
-                body={body}
-                error={error}
-                submitForm={submitUserName}
-                cancelSubmit={() => setUserNameMissing(false)}
-                onPreview={onPreview}
-            />
-        );
-    }
+	if (userNameMissing && body) {
+		return (
+			<FirstCommentWelcome
+				pillar={pillar}
+				body={body}
+				error={error}
+				submitForm={submitUserName}
+				cancelSubmit={() => setUserNameMissing(false)}
+				onPreview={onPreview}
+			/>
+		);
+	}
 
-    return (
-        <>
-            <form
-                className={formWrapper}
-                onSubmit={e => {
-                    e.preventDefault();
-                    submitForm();
-                }}
-            >
-                {error && (
-                    <div className={msgContainerStyles}>
-                        <p
-                            className={cx(errorTextStyles, linkStyles)}
-                            dangerouslySetInnerHTML={{ __html: error }}
-                        />
-                    </div>
-                )}
-                {info && (
-                    <div className={msgContainerStyles}>
-                        <p className={cx(infoTextStyles, linkStyles)}>{info}</p>
-                    </div>
-                )}
-                {isActive && (
-                    <div className={wrapperHeaderTextStyles}>
-                        <p className={cx(headerTextStyles, linkStyles)}>
-                            Please keep comments respectful and abide by the{' '}
-                            <a href="/community-standards">
-                                community guidelines
-                            </a>
-                            .
-                        </p>
+	return (
+		<>
+			<form
+				className={formWrapper}
+				onSubmit={(e) => {
+					e.preventDefault();
+					submitForm();
+				}}
+			>
+				{error && (
+					<div className={msgContainerStyles}>
+						<p
+							className={cx(errorTextStyles, linkStyles)}
+							dangerouslySetInnerHTML={{ __html: error }}
+						/>
+					</div>
+				)}
+				{info && (
+					<div className={msgContainerStyles}>
+						<p className={cx(infoTextStyles, linkStyles)}>{info}</p>
+					</div>
+				)}
+				{isActive && (
+					<div className={wrapperHeaderTextStyles}>
+						<p className={cx(headerTextStyles, linkStyles)}>
+							Please keep comments respectful and abide by the{' '}
+							<a href="/community-standards">community guidelines</a>.
+						</p>
 
-                        {user.privateFields &&
-                            user.privateFields.isPremoderated && (
-                                <p className={cx(errorTextStyles, linkStyles)}>
-                                    Your comments are currently being
-                                    pre-moderated (
-                                    <a
-                                        href="/community-faqs#311"
-                                        target="_blank"
-                                        rel="nofollow"
-                                    >
-                                        why?
-                                    </a>
-                                    )
-                                </p>
-                            )}
-                    </div>
-                )}
-                <textarea
-                    data-testid="comment-input"
-                    placeholder={
-                        commentBeingRepliedTo || !isActive
-                            ? 'Join the discussion'
-                            : ''
-                    }
-                    className={cx(
-                        commentTextArea,
-                        commentBeingRepliedTo && isActive && greyPlaceholder,
-                        !commentBeingRepliedTo && !isActive && blackPlaceholder,
-                    )}
-                    ref={textAreaRef}
-                    style={{ height: isActive ? '132px' : '50px' }}
-                    onChange={e => {
-                        setBody(e.target.value || '');
-                    }}
-                    value={body}
-                    onFocus={() => setIsActive(true)}
-                />
-                <div className={bottomContainer}>
-                    <Row>
-                        <>
-                            <PillarButton
-                                pillar={pillar}
-                                type="submit"
-                                linkName="post comment"
-                                size="small"
-                            >
-                                Post your comment
-                            </PillarButton>
-                            {(isActive || body) && (
-                                <>
-                                    <Space amount={3} />
-                                    <PillarButton
-                                        pillar={pillar}
-                                        onClick={fetchShowPreview}
-                                        priority="secondary"
-                                        linkName="preview-comment"
-                                        size="small"
-                                    >
-                                        Preview
-                                    </PillarButton>
-                                    <Space amount={3} />
+						{user.privateFields && user.privateFields.isPremoderated && (
+							<p className={cx(errorTextStyles, linkStyles)}>
+								Your comments are currently being pre-moderated (
+								<a href="/community-faqs#311" target="_blank" rel="nofollow">
+									why?
+								</a>
+								)
+							</p>
+						)}
+					</div>
+				)}
+				<textarea
+					data-testid="comment-input"
+					placeholder={
+						commentBeingRepliedTo || !isActive ? 'Join the discussion' : ''
+					}
+					className={cx(
+						commentTextArea,
+						commentBeingRepliedTo && isActive && greyPlaceholder,
+						!commentBeingRepliedTo && !isActive && blackPlaceholder,
+					)}
+					ref={textAreaRef}
+					style={{ height: isActive ? '132px' : '50px' }}
+					onChange={(e) => {
+						setBody(e.target.value || '');
+					}}
+					value={body}
+					onFocus={() => setIsActive(true)}
+				/>
+				<div className={bottomContainer}>
+					<Row>
+						<>
+							<PillarButton
+								pillar={pillar}
+								type="submit"
+								linkName="post comment"
+								size="small"
+							>
+								Post your comment
+							</PillarButton>
+							{(isActive || body) && (
+								<>
+									<Space amount={3} />
+									<PillarButton
+										pillar={pillar}
+										onClick={fetchShowPreview}
+										priority="secondary"
+										linkName="preview-comment"
+										size="small"
+									>
+										Preview
+									</PillarButton>
+									<Space amount={3} />
 
-                                    <PillarButton
-                                        pillar={pillar}
-                                        onClick={resetForm}
-                                        priority="subdued"
-                                        linkName="cancel-post-comment"
-                                        size="small"
-                                    >
-                                        Cancel
-                                    </PillarButton>
-                                </>
-                            )}
-                        </>
-                    </Row>
-                    {isActive && (
-                        <Row>
-                            <button
-                                onClick={e => {
-                                    e.preventDefault();
-                                    transformText(boldString);
-                                }}
-                                className={commentAddOns}
-                                data-link-name="formatting-controls-bold"
-                            >
-                                B
-                            </button>
-                            <button
-                                onClick={e => {
-                                    e.preventDefault();
-                                    transformText(italicsString);
-                                }}
-                                className={commentAddOns}
-                                data-link-name="formatting-controls-italic"
-                            >
-                                i
-                            </button>
-                            <button
-                                onClick={e => {
-                                    e.preventDefault();
-                                    transformText(strikethroughString);
-                                }}
-                                className={commentAddOns}
-                                data-link-name="formatting-controls-strikethrough"
-                            >
-                                {`S̶`}
-                            </button>
-                            <button
-                                onClick={e => {
-                                    e.preventDefault();
-                                    transformText(codeString);
-                                }}
-                                className={commentAddOns}
-                                data-link-name="formatting-controls-code"
-                            >
-                                {`<>`}
-                            </button>
-                            <button
-                                onClick={e => {
-                                    e.preventDefault();
-                                    transformText(quoteString);
-                                }}
-                                className={commentAddOns}
-                                data-link-name="formatting-controls-quote"
-                            >
-                                "
-                            </button>
-                            <button
-                                onClick={e => {
-                                    e.preventDefault();
-                                    transformLink();
-                                }}
-                                className={commentAddOns}
-                                data-link-name="formatting-controls-link"
-                            >
-                                Link
-                            </button>
-                        </Row>
-                    )}
-                </div>
-            </form>
+									<PillarButton
+										pillar={pillar}
+										onClick={resetForm}
+										priority="subdued"
+										linkName="cancel-post-comment"
+										size="small"
+									>
+										Cancel
+									</PillarButton>
+								</>
+							)}
+						</>
+					</Row>
+					{isActive && (
+						<Row>
+							<button
+								onClick={(e) => {
+									e.preventDefault();
+									transformText(boldString);
+								}}
+								className={commentAddOns}
+								data-link-name="formatting-controls-bold"
+							>
+								B
+							</button>
+							<button
+								onClick={(e) => {
+									e.preventDefault();
+									transformText(italicsString);
+								}}
+								className={commentAddOns}
+								data-link-name="formatting-controls-italic"
+							>
+								i
+							</button>
+							<button
+								onClick={(e) => {
+									e.preventDefault();
+									transformText(strikethroughString);
+								}}
+								className={commentAddOns}
+								data-link-name="formatting-controls-strikethrough"
+							>
+								{`S̶`}
+							</button>
+							<button
+								onClick={(e) => {
+									e.preventDefault();
+									transformText(codeString);
+								}}
+								className={commentAddOns}
+								data-link-name="formatting-controls-code"
+							>
+								{`<>`}
+							</button>
+							<button
+								onClick={(e) => {
+									e.preventDefault();
+									transformText(quoteString);
+								}}
+								className={commentAddOns}
+								data-link-name="formatting-controls-quote"
+							>
+								"
+							</button>
+							<button
+								onClick={(e) => {
+									e.preventDefault();
+									transformLink();
+								}}
+								className={commentAddOns}
+								data-link-name="formatting-controls-link"
+							>
+								Link
+							</button>
+						</Row>
+					)}
+				</div>
+			</form>
 
-            {showPreview && <Preview previewHtml={previewBody} />}
-        </>
-    );
+			{showPreview && <Preview previewHtml={previewBody} />}
+		</>
+	);
 };
