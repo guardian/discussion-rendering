@@ -21,28 +21,22 @@ type Props = {
     size?: 'xsmall' | 'small' | 'default';
 };
 
-// Why key in Pillar? https://github.com/Microsoft/TypeScript/issues/24220#issuecomment-390063153
-// Why this abstraction? To solve an issue where when we use the 800 key typescript throws errors. Most
+// Why this abstraction? To solve an issue where when we use the 800 key in `palette typescript throws errors. Most
 // likely caused by the fact labs only uses 300 & 400 so the union is restricted
-const localPalette: { [key in Pillar]: any } = {
-    [Pillar.News]: {
-        '800': '#FFF4F2',
-    },
-    [Pillar.Sport]: {
-        '800': '#F1F8FC',
-    },
-    [Pillar.Culture]: {
-        '800': '#FBF6EF',
-    },
-    [Pillar.Opinion]: {
-        '800': '#FEF9F5',
-    },
-    [Pillar.Lifestyle]: {
-        '800': '#FEEEF7',
-    },
-    [Pillar.Labs]: {
-        '800': '#F1F8FC', // Same as sport
-    },
+const dark = (pillar: Pillar): string => {
+    switch (pillar) {
+        case Pillar.News:
+            return '#FFF4F2';
+        case Pillar.Culture:
+            return '#FBF6EF';
+        case Pillar.Opinion:
+            return '#FEF9F5';
+        case Pillar.Lifestyle:
+            return '#FEEEF7';
+        case Pillar.Labs:
+        case Pillar.Sport:
+            return '#F1F8FC';
+    }
 };
 
 const buttonOverrides = (
@@ -72,7 +66,7 @@ const buttonOverrides = (
                     color: ${palette[pillarToString(pillar)][400]};
 
                     :hover {
-                        background-color: ${localPalette[pillar][800]};
+                        background-color: ${dark(pillar)};
                     }
                 }
             `;
