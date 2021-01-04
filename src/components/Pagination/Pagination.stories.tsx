@@ -39,6 +39,23 @@ export const TwoPages = () => {
 };
 TwoPages.story = { name: 'with two pages' };
 
+export const WithBackground = () => {
+	const [page, setCurrentPage] = useState(1);
+	return (
+		<Pagination
+			totalPages={2}
+			currentPage={page}
+			setCurrentPage={setCurrentPage}
+			filters={DEFAULT_FILTERS}
+			commentCount={56}
+		/>
+	);
+};
+WithBackground.story = {
+	name: 'with a dark background',
+	parameters: { backgrounds: { default: 'dark' } },
+};
+
 export const ThreePages = () => {
 	const [page, setCurrentPage] = useState(1);
 	return (

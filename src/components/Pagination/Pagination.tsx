@@ -29,7 +29,7 @@ const pageButtonStyles = (isSelected: boolean) => css`
 	box-sizing: border-box;
 
 	color: ${isSelected ? neutral[100] : neutral[46]};
-	background-color: ${isSelected ? neutral[46] : neutral[100]};
+	background-color: ${isSelected ? neutral[46] : 'transparent'};
 	border: none;
 	:hover {
 		border-width: 0.0625rem;
