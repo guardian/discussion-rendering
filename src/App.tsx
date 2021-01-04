@@ -7,14 +7,14 @@ import { space } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
 import {
-    CommentType,
-    FilterOptions,
-    UserProfile,
-    AdditionalHeadersType,
-    PageSizeType,
-    OrderByType,
-    Pillar,
-    CommentResponse,
+	CommentType,
+	FilterOptions,
+	UserProfile,
+	AdditionalHeadersType,
+	PageSizeType,
+	OrderByType,
+	Pillar,
+	CommentResponse,
 } from './types';
 import { getDiscussion, getPicks, initialiseApi } from './lib/api';
 import { CommentContainer } from './components/CommentContainer/CommentContainer';
@@ -27,545 +27,535 @@ import { Column } from './components/Column/Column';
 import { PillarButton } from './components/PillarButton/PillarButton';
 
 type Props = {
-    shortUrl: string;
-    baseUrl: string;
-    pillar: Pillar;
-    isClosedForComments: boolean;
-    commentToScrollTo?: number;
-    initialPage?: number;
-    pageSizeOverride?: PageSizeType;
-    orderByOverride?: OrderByType;
-    user?: UserProfile;
-    additionalHeaders: AdditionalHeadersType;
-    expanded: boolean;
-    onPermalinkClick: (commentId: number) => void;
-    apiKey: string;
-    onHeightChange?: () => void;
-    onRecommend?: (commentId: number) => Promise<Boolean>;
-    onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
-    onReply?: (shortUrl: string, body: string, parentCommentId: number) => Promise<CommentResponse>;
-    onPreview?: (body: string) => Promise<string>;
+	shortUrl: string;
+	baseUrl: string;
+	pillar: Pillar;
+	isClosedForComments: boolean;
+	commentToScrollTo?: number;
+	initialPage?: number;
+	pageSizeOverride?: PageSizeType;
+	orderByOverride?: OrderByType;
+	user?: UserProfile;
+	additionalHeaders: AdditionalHeadersType;
+	expanded: boolean;
+	onPermalinkClick: (commentId: number) => void;
+	apiKey: string;
+	onHeightChange?: () => void;
+	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
+	onReply?: (
+		shortUrl: string,
+		body: string,
+		parentCommentId: number,
+	) => Promise<CommentResponse>;
+	onPreview?: (body: string) => Promise<string>;
 };
 
 const footerStyles = css`
-    display: flex;
-    justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 `;
 
 const commentContainerStyles = css`
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
+	display: flex;
+	flex-direction: column;
+	list-style-type: none;
+	padding-left: 0;
+	margin: 0;
 `;
 
 const picksWrapper = css`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 `;
 
 const DEFAULT_FILTERS: FilterOptions = {
-    orderBy: 'newest',
-    pageSize: 100,
-    threads: 'collapsed',
+	orderBy: 'newest',
+	pageSize: 100,
+	threads: 'collapsed',
 };
 
 const NoComments = () => (
-    <div
-        className={css`
-
-    color: ${neutral[46]};
-    ${textSans.small()}
-    padding-top: ${space[5]}px;
-    padding-left: ${space[1]}px;
-    padding-bottom: ${space[9]}px;
-  `}
-    >
-        No comments found
-    </div>
+	<div
+		className={css`
+			color: ${neutral[46]};
+			${textSans.small()}
+			padding-top: ${space[5]}px;
+			padding-left: ${space[1]}px;
+			padding-bottom: ${space[9]}px;
+		`}
+	>
+		No comments found
+	</div>
 );
 
 const rememberFilters = (filtersToRemember: FilterOptions) => {
-    try {
-        localStorage.setItem(
-            'gu.prefs.discussion.threading',
-            JSON.stringify({ value: filtersToRemember.threads }),
-        );
-        localStorage.setItem(
-            'gu.prefs.discussion.pagesize',
-            JSON.stringify({ value: filtersToRemember.pageSize }),
-        );
-        localStorage.setItem(
-            'gu.prefs.discussion.order',
-            JSON.stringify({ value: filtersToRemember.orderBy }),
-        );
-    } catch (error) {
-        // Sometimes it's not possible to access localStorage, we accept this and don't want to
-        // capture these errors
-    }
+	try {
+		localStorage.setItem(
+			'gu.prefs.discussion.threading',
+			JSON.stringify({ value: filtersToRemember.threads }),
+		);
+		localStorage.setItem(
+			'gu.prefs.discussion.pagesize',
+			JSON.stringify({ value: filtersToRemember.pageSize }),
+		);
+		localStorage.setItem(
+			'gu.prefs.discussion.order',
+			JSON.stringify({ value: filtersToRemember.orderBy }),
+		);
+	} catch (error) {
+		// Sometimes it's not possible to access localStorage, we accept this and don't want to
+		// capture these errors
+	}
 };
 
 const initialiseFilters = ({
-    pageSizeOverride,
-    orderByOverride,
-    permalinkBeingUsed,
-    isClosedForComments,
+	pageSizeOverride,
+	orderByOverride,
+	permalinkBeingUsed,
+	isClosedForComments,
 }: {
-    pageSizeOverride?: PageSizeType;
-    orderByOverride?: OrderByType;
-    permalinkBeingUsed: boolean;
-    isClosedForComments: boolean;
+	pageSizeOverride?: PageSizeType;
+	orderByOverride?: OrderByType;
+	permalinkBeingUsed: boolean;
+	isClosedForComments: boolean;
 }) => {
-    const initialisedFilters = initFiltersFromLocalStorage({
-        isClosedForComments,
-    });
-    return {
-        ...initialisedFilters,
-        // Override if prop given
-        pageSize: pageSizeOverride || initialisedFilters.pageSize,
-        orderBy: orderByOverride || initialisedFilters.orderBy,
-        threads:
-            initialisedFilters.threads === 'collapsed' && permalinkBeingUsed
-                ? 'expanded'
-                : initialisedFilters.threads,
-    };
+	const initialisedFilters = initFiltersFromLocalStorage({
+		isClosedForComments,
+	});
+	return {
+		...initialisedFilters,
+		// Override if prop given
+		pageSize: pageSizeOverride || initialisedFilters.pageSize,
+		orderBy: orderByOverride || initialisedFilters.orderBy,
+		threads:
+			initialisedFilters.threads === 'collapsed' && permalinkBeingUsed
+				? 'expanded'
+				: initialisedFilters.threads,
+	};
 };
 
 const initFiltersFromLocalStorage = ({
-    isClosedForComments,
+	isClosedForComments,
 }: {
-    isClosedForComments: boolean;
+	isClosedForComments: boolean;
 }): FilterOptions => {
-    let threads;
-    let pageSize;
-    let orderBy;
+	let threads;
+	let pageSize;
+	let orderBy;
 
-    try {
-        // Try to read from local storage
-        orderBy = localStorage.getItem('gu.prefs.discussion.order');
-        threads = localStorage.getItem('gu.prefs.discussion.threading');
-        pageSize = localStorage.getItem('gu.prefs.discussion.pagesize');
-    } catch (error) {
-        return {
-            ...DEFAULT_FILTERS,
-            orderBy: decideDefaultOrderBy(isClosedForComments),
-        };
-    }
+	try {
+		// Try to read from local storage
+		orderBy = localStorage.getItem('gu.prefs.discussion.order');
+		threads = localStorage.getItem('gu.prefs.discussion.threading');
+		pageSize = localStorage.getItem('gu.prefs.discussion.pagesize');
+	} catch (error) {
+		return {
+			...DEFAULT_FILTERS,
+			orderBy: decideDefaultOrderBy(isClosedForComments),
+		};
+	}
 
-    function checkPageSize(size: any): PageSizeType {
-        // This function handles the fact that some readers have legacy values
-        // stored in the browsers
-        if (!size) return DEFAULT_FILTERS.pageSize; // Default
-        if (size === 'All') return DEFAULT_FILTERS.pageSize; // Convert 'All' to default
-        const supportedSizes: PageSizeType[] = [25, 50, 100];
-        if (!supportedSizes.includes(size)) return DEFAULT_FILTERS.pageSize; // Convert anything else to default
-        return size; // size is acceptable
-    }
+	function checkPageSize(size: any): PageSizeType {
+		// This function handles the fact that some readers have legacy values
+		// stored in the browsers
+		if (!size) return DEFAULT_FILTERS.pageSize; // Default
+		if (size === 'All') return DEFAULT_FILTERS.pageSize; // Convert 'All' to default
+		const supportedSizes: PageSizeType[] = [25, 50, 100];
+		if (!supportedSizes.includes(size)) return DEFAULT_FILTERS.pageSize; // Convert anything else to default
+		return size; // size is acceptable
+	}
 
-    function decideDefaultOrderBy(isClosedForComment: boolean): OrderByType {
-        return isClosedForComments ? 'oldest' : 'newest';
-    }
+	function decideDefaultOrderBy(isClosedForComment: boolean): OrderByType {
+		return isClosedForComments ? 'oldest' : 'newest';
+	}
 
-    // If we found something in LS, use it, otherwise return defaults
-    return {
-        orderBy: orderBy
-            ? JSON.parse(orderBy).value
-            : decideDefaultOrderBy(isClosedForComments),
-        threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
-        pageSize: pageSize
-            ? checkPageSize(JSON.parse(pageSize).value)
-            : DEFAULT_FILTERS.pageSize,
-    };
+	// If we found something in LS, use it, otherwise return defaults
+	return {
+		orderBy: orderBy
+			? JSON.parse(orderBy).value
+			: decideDefaultOrderBy(isClosedForComments),
+		threads: threads ? JSON.parse(threads).value : DEFAULT_FILTERS.threads,
+		pageSize: pageSize
+			? checkPageSize(JSON.parse(pageSize).value)
+			: DEFAULT_FILTERS.pageSize,
+	};
 };
 
 const readMutes = (): string[] => {
-    let mutes;
-    try {
-        // Try to read from local storage
-        mutes = localStorage.getItem('gu.prefs.discussion.mutes');
-    } catch (error) {
-        return [];
-    }
+	let mutes;
+	try {
+		// Try to read from local storage
+		mutes = localStorage.getItem('gu.prefs.discussion.mutes');
+	} catch (error) {
+		return [];
+	}
 
-    return mutes ? JSON.parse(mutes).value : [];
+	return mutes ? JSON.parse(mutes).value : [];
 };
 
 const writeMutes = (mutes: string[]) => {
-    try {
-        localStorage.setItem(
-            'gu.prefs.discussion.mutes',
-            JSON.stringify({ value: mutes }),
-        );
-    } catch (error) {
-        // Sometimes it's not possible to access localStorage, we accept this and don't want to
-        // capture these errors
-    }
+	try {
+		localStorage.setItem(
+			'gu.prefs.discussion.mutes',
+			JSON.stringify({ value: mutes }),
+		);
+	} catch (error) {
+		// Sometimes it's not possible to access localStorage, we accept this and don't want to
+		// capture these errors
+	}
 };
 
 export const App = ({
-    baseUrl,
-    shortUrl,
-    pillar,
-    isClosedForComments,
-    initialPage,
-    commentToScrollTo,
-    pageSizeOverride,
-    orderByOverride,
-    user,
-    additionalHeaders,
-    expanded,
-    onPermalinkClick,
-    apiKey,
-    onHeightChange = () => {},
-    onRecommend,
-    onComment,
-    onReply,
-    onPreview
+	baseUrl,
+	shortUrl,
+	pillar,
+	isClosedForComments,
+	initialPage,
+	commentToScrollTo,
+	pageSizeOverride,
+	orderByOverride,
+	user,
+	additionalHeaders,
+	expanded,
+	onPermalinkClick,
+	apiKey,
+	onHeightChange = () => {},
+	onRecommend,
+	onComment,
+	onReply,
+	onPreview,
 }: Props) => {
-    const [filters, setFilters] = useState<FilterOptions>(
-        initialiseFilters({
-            pageSizeOverride,
-            orderByOverride,
-            permalinkBeingUsed: !!commentToScrollTo,
-            isClosedForComments,
-        }),
-    );
-    const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [totalPages, setTotalPages] = useState<number>(0);
-    const [page, setPage] = useState<number>(initialPage || 1);
-    const [picks, setPicks] = useState<CommentType[]>([]);
-    const [commentBeingRepliedTo, setCommentBeingRepliedTo] = useState<
-        CommentType
-    >();
-    const [comments, setComments] = useState<CommentType[]>([]);
-    const [commentCount, setCommentCount] = useState<number>(0);
-    const [mutes, setMutes] = useState<string[]>(readMutes());
+	const [filters, setFilters] = useState<FilterOptions>(
+		initialiseFilters({
+			pageSizeOverride,
+			orderByOverride,
+			permalinkBeingUsed: !!commentToScrollTo,
+			isClosedForComments,
+		}),
+	);
+	const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [totalPages, setTotalPages] = useState<number>(0);
+	const [page, setPage] = useState<number>(initialPage || 1);
+	const [picks, setPicks] = useState<CommentType[]>([]);
+	const [
+		commentBeingRepliedTo,
+		setCommentBeingRepliedTo,
+	] = useState<CommentType>();
+	const [comments, setComments] = useState<CommentType[]>([]);
+	const [commentCount, setCommentCount] = useState<number>(0);
+	const [mutes, setMutes] = useState<string[]>(readMutes());
 
-    useEffect(() => {
-        setLoading(true);
-        getDiscussion(shortUrl, { ...filters, page }).then(json => {
-            setLoading(false);
-            if (json?.status !== 'error') {
-                setComments(json?.discussion?.comments);
-                setCommentCount(json?.discussion?.topLevelCommentCount);
-            }
-            setTotalPages(json?.pages);
-        });
-    }, [filters, page, shortUrl]);
+	useEffect(() => {
+		setLoading(true);
+		getDiscussion(shortUrl, { ...filters, page }).then((json) => {
+			setLoading(false);
+			if (json?.status !== 'error') {
+				setComments(json?.discussion?.comments);
+				setCommentCount(json?.discussion?.topLevelCommentCount);
+			}
+			setTotalPages(json?.pages);
+		});
+	}, [filters, page, shortUrl]);
 
-    useEffect(() => {
-        const fetchPicks = async () => {
-            const json = await getPicks(shortUrl);
-            setPicks(json);
-        };
-        fetchPicks();
-    }, [shortUrl]);
+	useEffect(() => {
+		const fetchPicks = async () => {
+			const json = await getPicks(shortUrl);
+			setPicks(json);
+		};
+		fetchPicks();
+	}, [shortUrl]);
 
-    // If these override props are updated we want to respect them
-    useEffect(() => {
-        setFilters(oldFilters => {
-            return {
-                ...oldFilters,
-                orderBy: orderByOverride ? orderByOverride : oldFilters.orderBy,
-                pageSize: pageSizeOverride
-                    ? pageSizeOverride
-                    : oldFilters.pageSize,
-            };
-        });
-    }, [pageSizeOverride, orderByOverride]);
+	// If these override props are updated we want to respect them
+	useEffect(() => {
+		setFilters((oldFilters) => {
+			return {
+				...oldFilters,
+				orderBy: orderByOverride ? orderByOverride : oldFilters.orderBy,
+				pageSize: pageSizeOverride ? pageSizeOverride : oldFilters.pageSize,
+			};
+		});
+	}, [pageSizeOverride, orderByOverride]);
 
-    // Keep initialPage prop in sync with page
-    useEffect(() => {
-        if (initialPage) setPage(initialPage);
-        // We added commentToScrollTo to the deps here because the initialPage alone wasn't triggered the effect
-        // and we want to ensure the discussion rerenders with the right page when the reader clicks Jump To Comment
-        // for a comment on a different page
-    }, [initialPage, commentToScrollTo]);
+	// Keep initialPage prop in sync with page
+	useEffect(() => {
+		if (initialPage) setPage(initialPage);
+		// We added commentToScrollTo to the deps here because the initialPage alone wasn't triggered the effect
+		// and we want to ensure the discussion rerenders with the right page when the reader clicks Jump To Comment
+		// for a comment on a different page
+	}, [initialPage, commentToScrollTo]);
 
-    // Check if there is a comment to scroll to and if
-    // so, scroll to the div with this id.
-    // We need to do this in javascript like this because the comments list isn't
-    // loaded on the inital page load and only gets added to the dom later, after
-    // an api call is made.
-    useEffect(() => {
-        if (commentToScrollTo) {
-            const commentElement = document.getElementById(
-                `comment-${commentToScrollTo}`,
-            );
-            commentElement && commentElement.scrollIntoView();
-        }
-    }, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
+	// Check if there is a comment to scroll to and if
+	// so, scroll to the div with this id.
+	// We need to do this in javascript like this because the comments list isn't
+	// loaded on the inital page load and only gets added to the dom later, after
+	// an api call is made.
+	useEffect(() => {
+		if (commentToScrollTo) {
+			const commentElement = document.getElementById(
+				`comment-${commentToScrollTo}`,
+			);
+			commentElement && commentElement.scrollIntoView();
+		}
+	}, [comments, commentToScrollTo]); // Add comments to deps so we rerun this effect when comments are loaded
 
-    const onFilterChange = (newFilterObject: FilterOptions) => {
-        // If we're reducing the pageSize then we may need to override the page we're on to prevent making
-        // requests for pages that don't exist.
-        // E.g. If we used to have 102 comments and a pageSize of 25 then the current page could be 5 (showing 2
-        // comments). If we then change pageSize to be 50 then there is no longer a page 5 and trying to ask for it
-        // from the api would return an error so, in order to respect the readers desire to be on the last page, we
-        // need to work out the maximum page possible and use that instead.
-        let maxPagePossible = Math.floor(
-            commentCount / newFilterObject.pageSize,
-        );
-        // Add 1 if there is a remainder
-        if (commentCount % newFilterObject.pageSize) {
-            maxPagePossible = maxPagePossible + 1;
-        }
-        // Check
-        if (page > maxPagePossible) setPage(maxPagePossible);
+	const onFilterChange = (newFilterObject: FilterOptions) => {
+		// If we're reducing the pageSize then we may need to override the page we're on to prevent making
+		// requests for pages that don't exist.
+		// E.g. If we used to have 102 comments and a pageSize of 25 then the current page could be 5 (showing 2
+		// comments). If we then change pageSize to be 50 then there is no longer a page 5 and trying to ask for it
+		// from the api would return an error so, in order to respect the readers desire to be on the last page, we
+		// need to work out the maximum page possible and use that instead.
+		let maxPagePossible = Math.floor(commentCount / newFilterObject.pageSize);
+		// Add 1 if there is a remainder
+		if (commentCount % newFilterObject.pageSize) {
+			maxPagePossible = maxPagePossible + 1;
+		}
+		// Check
+		if (page > maxPagePossible) setPage(maxPagePossible);
 
-        rememberFilters(newFilterObject);
-        // Filters also show when the view is not expanded but we want to expand when they're changed
-        setIsExpanded(true);
-        onHeightChange();
-        setFilters(newFilterObject);
-    };
+		rememberFilters(newFilterObject);
+		// Filters also show when the view is not expanded but we want to expand when they're changed
+		setIsExpanded(true);
+		onHeightChange();
+		setFilters(newFilterObject);
+	};
 
-    const onPageChange = (page: number) => {
-        document.getElementById('comment-filters')?.scrollIntoView();
-        setPage(page);
-        onHeightChange();
-    };
+	const onPageChange = (page: number) => {
+		document.getElementById('comment-filters')?.scrollIntoView();
+		setPage(page);
+		onHeightChange();
+	};
 
-    const expandView = () => {
-        setIsExpanded(true);
-        onHeightChange();
-    };
+	const expandView = () => {
+		setIsExpanded(true);
+		onHeightChange();
+	};
 
-    const toggleMuteStatus = (userId: string) => {
-        let updatedMutes;
-        if (mutes.includes(userId)) {
-            // Already muted, unmute them
-            updatedMutes = mutes.filter(id => id !== userId);
-        } else {
-            // Add this user to our list of mutes
-            updatedMutes = [...mutes, userId];
-        }
-        // Update local state
-        setMutes(updatedMutes);
-        // Remember these new values
-        writeMutes(updatedMutes);
-    };
+	const toggleMuteStatus = (userId: string) => {
+		let updatedMutes;
+		if (mutes.includes(userId)) {
+			// Already muted, unmute them
+			updatedMutes = mutes.filter((id) => id !== userId);
+		} else {
+			// Add this user to our list of mutes
+			updatedMutes = [...mutes, userId];
+		}
+		// Update local state
+		setMutes(updatedMutes);
+		// Remember these new values
+		writeMutes(updatedMutes);
+	};
 
-    const onAddComment = (comment: CommentType) => {
-        comments.pop(); // Remove last item from our local array
-        // Replace it with this new comment at the start
-        setComments([comment, ...comments]);
+	const onAddComment = (comment: CommentType) => {
+		comments.pop(); // Remove last item from our local array
+		// Replace it with this new comment at the start
+		setComments([comment, ...comments]);
 
-        if (!isExpanded) {
-            // It's possible to post a comment without the view being expanded
-            expandView();
-        }
+		if (!isExpanded) {
+			// It's possible to post a comment without the view being expanded
+			expandView();
+		}
 
-        const commentElement = document.getElementById(`comment-${comment.id}`);
-        commentElement && commentElement.scrollIntoView();
-    };
+		const commentElement = document.getElementById(`comment-${comment.id}`);
+		commentElement && commentElement.scrollIntoView();
+	};
 
-    initialiseApi({ additionalHeaders, baseUrl, apiKey });
+	initialiseApi({ additionalHeaders, baseUrl, apiKey });
 
-    const showPagination = totalPages > 1;
+	const showPagination = totalPages > 1;
 
-    if (!isExpanded) {
-        return (
-            <div className={commentContainerStyles} data-component="discussion">
-                {user && !isClosedForComments && (
-                    <CommentForm
-                        pillar={pillar}
-                        shortUrl={shortUrl}
-                        onAddComment={onAddComment}
-                        user={user}
-                        onComment={onComment}
-                        onReply={onReply}
-                        onPreview={onPreview}
-                    />
-                )}
-                {picks && picks.length ? (
-                    <div className={picksWrapper}>
-                        {!!picks.length && (
-                            <TopPicks
-                                pillar={pillar}
-                                comments={picks.slice(0, 2)}
-                                isSignedIn={!!user}
-                                onPermalinkClick={onPermalinkClick}
-                                onRecommend={onRecommend}
-                            />
-                        )}
-                    </div>
-                ) : (
-                    <>
-                        <Filters
-                            pillar={pillar}
-                            filters={filters}
-                            onFilterChange={onFilterChange}
-                            totalPages={totalPages}
-                            commentCount={commentCount}
-                        />
-                        {showPagination && (
-                            <Pagination
-                                totalPages={totalPages}
-                                currentPage={page}
-                                setCurrentPage={(newPage: number) => {
-                                    onPageChange(newPage);
-                                }}
-                                commentCount={commentCount}
-                                filters={filters}
-                            />
-                        )}
-                        {loading ? (
-                            <LoadingComments />
-                        ) : !comments.length ? (
-                            <NoComments />
-                        ) : (
-                            <ul className={commentContainerStyles}>
-                                {comments.slice(0, 2).map(comment => (
-                                    <li key={comment.id}>
-                                        <CommentContainer
-                                            comment={comment}
-                                            pillar={pillar}
-                                            isClosedForComments={
-                                                isClosedForComments
-                                            }
-                                            shortUrl={shortUrl}
-                                            user={user}
-                                            threads={filters.threads}
-                                            commentBeingRepliedTo={
-                                                commentBeingRepliedTo
-                                            }
-                                            setCommentBeingRepliedTo={
-                                                setCommentBeingRepliedTo
-                                            }
-                                            mutes={mutes}
-                                            toggleMuteStatus={toggleMuteStatus}
-                                            onPermalinkClick={onPermalinkClick}
-                                            onRecommend={onRecommend}
-                                        />
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </>
-                )}
-                {commentCount > 2 && (
-                    <div
-                        className={css`
-                            width: 250px;
-                        `}
-                    >
-                        <PillarButton
-                            pillar={pillar}
-                            onClick={() => expandView()}
-                            icon={<SvgPlus />}
-                            iconSide="left"
-                            linkName="more-comments"
-                        >
-                            View more comments
-                        </PillarButton>
-                    </div>
-                )}
-            </div>
-        );
-    }
+	if (!isExpanded) {
+		return (
+			<div className={commentContainerStyles} data-component="discussion">
+				{user && !isClosedForComments && (
+					<CommentForm
+						pillar={pillar}
+						shortUrl={shortUrl}
+						onAddComment={onAddComment}
+						user={user}
+						onComment={onComment}
+						onReply={onReply}
+						onPreview={onPreview}
+					/>
+				)}
+				{picks && picks.length ? (
+					<div className={picksWrapper}>
+						{!!picks.length && (
+							<TopPicks
+								pillar={pillar}
+								comments={picks.slice(0, 2)}
+								isSignedIn={!!user}
+								onPermalinkClick={onPermalinkClick}
+								onRecommend={onRecommend}
+							/>
+						)}
+					</div>
+				) : (
+					<>
+						<Filters
+							pillar={pillar}
+							filters={filters}
+							onFilterChange={onFilterChange}
+							totalPages={totalPages}
+							commentCount={commentCount}
+						/>
+						{showPagination && (
+							<Pagination
+								totalPages={totalPages}
+								currentPage={page}
+								setCurrentPage={(newPage: number) => {
+									onPageChange(newPage);
+								}}
+								commentCount={commentCount}
+								filters={filters}
+							/>
+						)}
+						{loading ? (
+							<LoadingComments />
+						) : !comments.length ? (
+							<NoComments />
+						) : (
+							<ul className={commentContainerStyles}>
+								{comments.slice(0, 2).map((comment) => (
+									<li key={comment.id}>
+										<CommentContainer
+											comment={comment}
+											pillar={pillar}
+											isClosedForComments={isClosedForComments}
+											shortUrl={shortUrl}
+											user={user}
+											threads={filters.threads}
+											commentBeingRepliedTo={commentBeingRepliedTo}
+											setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+											mutes={mutes}
+											toggleMuteStatus={toggleMuteStatus}
+											onPermalinkClick={onPermalinkClick}
+											onRecommend={onRecommend}
+										/>
+									</li>
+								))}
+							</ul>
+						)}
+					</>
+				)}
+				{commentCount > 2 && (
+					<div
+						className={css`
+							width: 250px;
+						`}
+					>
+						<PillarButton
+							pillar={pillar}
+							onClick={() => expandView()}
+							icon={<SvgPlus />}
+							iconSide="left"
+							linkName="more-comments"
+						>
+							View more comments
+						</PillarButton>
+					</div>
+				)}
+			</div>
+		);
+	}
 
-    return (
-        <Column>
-            <div data-component="discussion">
-                {user && !isClosedForComments && (
-                    <CommentForm
-                        pillar={pillar}
-                        shortUrl={shortUrl}
-                        onAddComment={onAddComment}
-                        user={user}
-                        onComment={onComment}
-                        onReply={onReply}
-                        onPreview={onPreview}
-                    />
-                )}
-                {!!picks.length && (
-                    <TopPicks
-                        pillar={pillar}
-                        comments={picks}
-                        isSignedIn={!!user}
-                        onPermalinkClick={onPermalinkClick}
-                        onRecommend={onRecommend}
-                    />
-                )}
-                <Filters
-                    pillar={pillar}
-                    filters={filters}
-                    onFilterChange={onFilterChange}
-                    totalPages={totalPages}
-                    commentCount={commentCount}
-                />
-                {showPagination && (
-                    <Pagination
-                        totalPages={totalPages}
-                        currentPage={page}
-                        setCurrentPage={(newPage: number) => {
-                            onPageChange(newPage);
-                        }}
-                        commentCount={commentCount}
-                        filters={filters}
-                    />
-                )}
-                {loading ? (
-                    <LoadingComments />
-                ) : !comments.length ? (
-                    <NoComments />
-                ) : (
-                    <ul className={commentContainerStyles}>
-                        {comments.map(comment => (
-                            <li key={comment.id}>
-                                <CommentContainer
-                                    comment={comment}
-                                    pillar={pillar}
-                                    isClosedForComments={isClosedForComments}
-                                    shortUrl={shortUrl}
-                                    user={user}
-                                    threads={filters.threads}
-                                    commentBeingRepliedTo={
-                                        commentBeingRepliedTo
-                                    }
-                                    setCommentBeingRepliedTo={
-                                        setCommentBeingRepliedTo
-                                    }
-                                    commentToScrollTo={commentToScrollTo}
-                                    mutes={mutes}
-                                    toggleMuteStatus={toggleMuteStatus}
-                                    onPermalinkClick={onPermalinkClick}
-                                    onRecommend={onRecommend}
-                                    onReply={onReply}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                )}
-                {showPagination && (
-                    <footer className={footerStyles}>
-                        <Pagination
-                            totalPages={totalPages}
-                            currentPage={page}
-                            setCurrentPage={(newPage: number) => {
-                                onPageChange(newPage);
-                            }}
-                            commentCount={commentCount}
-                            filters={filters}
-                        />
-                    </footer>
-                )}
-                {user && !isClosedForComments && (
-                    <CommentForm
-                        pillar={pillar}
-                        shortUrl={shortUrl}
-                        onAddComment={onAddComment}
-                        user={user}
-                        onComment={onComment}
-                        onReply={onReply}
-                        onPreview={onPreview}
-                    />
-                )}
-            </div>
-        </Column>
-    );
+	return (
+		<Column>
+			<div data-component="discussion">
+				{user && !isClosedForComments && (
+					<CommentForm
+						pillar={pillar}
+						shortUrl={shortUrl}
+						onAddComment={onAddComment}
+						user={user}
+						onComment={onComment}
+						onReply={onReply}
+						onPreview={onPreview}
+					/>
+				)}
+				{!!picks.length && (
+					<TopPicks
+						pillar={pillar}
+						comments={picks}
+						isSignedIn={!!user}
+						onPermalinkClick={onPermalinkClick}
+						onRecommend={onRecommend}
+					/>
+				)}
+				<Filters
+					pillar={pillar}
+					filters={filters}
+					onFilterChange={onFilterChange}
+					totalPages={totalPages}
+					commentCount={commentCount}
+				/>
+				{showPagination && (
+					<Pagination
+						totalPages={totalPages}
+						currentPage={page}
+						setCurrentPage={(newPage: number) => {
+							onPageChange(newPage);
+						}}
+						commentCount={commentCount}
+						filters={filters}
+					/>
+				)}
+				{loading ? (
+					<LoadingComments />
+				) : !comments.length ? (
+					<NoComments />
+				) : (
+					<ul className={commentContainerStyles}>
+						{comments.map((comment) => (
+							<li key={comment.id}>
+								<CommentContainer
+									comment={comment}
+									pillar={pillar}
+									isClosedForComments={isClosedForComments}
+									shortUrl={shortUrl}
+									user={user}
+									threads={filters.threads}
+									commentBeingRepliedTo={commentBeingRepliedTo}
+									setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+									commentToScrollTo={commentToScrollTo}
+									mutes={mutes}
+									toggleMuteStatus={toggleMuteStatus}
+									onPermalinkClick={onPermalinkClick}
+									onRecommend={onRecommend}
+									onReply={onReply}
+								/>
+							</li>
+						))}
+					</ul>
+				)}
+				{showPagination && (
+					<footer className={footerStyles}>
+						<Pagination
+							totalPages={totalPages}
+							currentPage={page}
+							setCurrentPage={(newPage: number) => {
+								onPageChange(newPage);
+							}}
+							commentCount={commentCount}
+							filters={filters}
+						/>
+					</footer>
+				)}
+				{user && !isClosedForComments && (
+					<CommentForm
+						pillar={pillar}
+						shortUrl={shortUrl}
+						onAddComment={onAddComment}
+						user={user}
+						onComment={onComment}
+						onReply={onReply}
+						onPreview={onPreview}
+					/>
+				)}
+			</div>
+		</Column>
+	);
 };
