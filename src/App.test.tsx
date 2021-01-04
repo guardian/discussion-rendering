@@ -55,7 +55,7 @@ describe('App', () => {
 		expect(screen.queryByText('View more comments')).toBeInTheDocument();
 		fireEvent.click(screen.getByText('View more comments'));
 		expect(screen.queryByText('View more comments')).not.toBeInTheDocument();
-		expect(screen.getByText('Display threads')).toBeInTheDocument();
+		expect(screen.getByText('Loading...')).toBeInTheDocument();
 	});
 
 	it('should not render the comment form if user is logged out', async () => {
