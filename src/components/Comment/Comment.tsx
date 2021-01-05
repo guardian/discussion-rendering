@@ -175,13 +175,13 @@ const linkOverrides = css`
 		flex-direction: row;
 		align-items: inherit;
 	}
-`
+`;
 
 const buttonOverrides = css`
 	.src-button-space {
 		width: 0px !important;
 	}
-`
+`;
 
 const commentDetails = css`
 	flex-grow: 1;
@@ -537,68 +537,66 @@ export const Comment = ({
 								}}
 							/>
 							<div className={spaceBetween}>
-									<Row>
-										{/* When commenting is closed, no reply link shows at all */}
-										{!isClosedForComments && (
-											<>
-												{/* If user is not logged in we link to the login page */}
-												{user ? (
-													<div className={cx(svgOverrides, buttonOverrides)}>
-														<ButtonLink
-															pillar={pillar}
-															onClick={() => setCommentBeingRepliedTo(comment)}
-															icon={<SvgIndent />}
-															iconSide="left"
-															linkName="reply-to-comment"
-														>
-															Reply
-														</ButtonLink>
-													</div>
-												) : (
-													<div
-														className={cx(
-															svgOverrides,
-															linkOverrides,
-															commentControlsLink(pillar),
-														)}
+								<Row>
+									{/* When commenting is closed, no reply link shows at all */}
+									{!isClosedForComments && (
+										<>
+											{/* If user is not logged in we link to the login page */}
+											{user ? (
+												<div className={cx(svgOverrides, buttonOverrides)}>
+													<ButtonLink
+														pillar={pillar}
+														onClick={() => setCommentBeingRepliedTo(comment)}
+														icon={<SvgIndent />}
+														iconSide="left"
+														linkName="reply-to-comment"
 													>
-														<Link
-															href={`https://profile.theguardian.com/signin?returnUrl=${
-																comment.webUrl
-															}&${createAuthenticationEventParams(
-																'signin_to_reply_comment',
-															)}`}
-															subdued={true}
-															icon={<SvgIndent />}
-															iconSide="left"
-															rel="nofollow"
-														>
-															{/* We use this span to scope the styling */}
-															<span data-link-name="reply-to-comment">
-																Reply
-															</span>
-														</Link>
-													</div>
-												)}
-												<Space amount={4} />
-											</>
-										)}
-										<Space amount={4} />
-										{/* Only staff can pick, and they cannot pick thier own comment */}
-										{user &&
-											user.badge.some((e) => e.name === 'Staff') &&
-											user.userId !== comment.userProfile.userId && (
-												<ButtonLink
-													pillar={pillar}
-													onClick={isHighlighted ? unPick : pick}
-													linkName={
-														isHighlighted ? 'unpick-comment' : 'pick-comment'
-													}
+														Reply
+													</ButtonLink>
+												</div>
+											) : (
+												<div
+													className={cx(
+														svgOverrides,
+														linkOverrides,
+														commentControlsLink(pillar),
+													)}
 												>
-													{isHighlighted ? 'Unpick' : 'Pick'}
-												</ButtonLink>
+													<Link
+														href={`https://profile.theguardian.com/signin?returnUrl=${
+															comment.webUrl
+														}&${createAuthenticationEventParams(
+															'signin_to_reply_comment',
+														)}`}
+														subdued={true}
+														icon={<SvgIndent />}
+														iconSide="left"
+														rel="nofollow"
+													>
+														{/* We use this span to scope the styling */}
+														<span data-link-name="reply-to-comment">Reply</span>
+													</Link>
+												</div>
 											)}
-									</Row>
+											<Space amount={4} />
+										</>
+									)}
+									<Space amount={4} />
+									{/* Only staff can pick, and they cannot pick thier own comment */}
+									{user &&
+										user.badge.some((e) => e.name === 'Staff') &&
+										user.userId !== comment.userProfile.userId && (
+											<ButtonLink
+												pillar={pillar}
+												onClick={isHighlighted ? unPick : pick}
+												linkName={
+													isHighlighted ? 'unpick-comment' : 'pick-comment'
+												}
+											>
+												{isHighlighted ? 'Unpick' : 'Pick'}
+											</ButtonLink>
+										)}
+								</Row>
 								<Row>
 									{/* You can't mute unless logged in and you can't yourself */}
 									{user && comment.userProfile.userId !== user.userId ? (
