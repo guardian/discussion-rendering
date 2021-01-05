@@ -38,10 +38,6 @@ type Props = {
 	onRecommend?: (commentId: number) => Promise<Boolean>;
 };
 
-const shiftLeft = css`
-	margin-left: -${space[2]}px;
-`;
-
 const commentControlsLink = (pillar: Pillar) => css`
 	margin-top: -2px;
 
@@ -170,13 +166,22 @@ const regularFont = css`
 const svgOverrides = css`
 	svg {
 		fill: ${neutral[46]} !important;
-		left: 3px !important;
-		bottom: 0 !important;
-		width: 20px !important;
-		height: 20px !important;
-		margin: 0px !important;
 	}
 `;
+
+const linkOverrides = css`
+	a {
+		display: flex;
+		flex-direction: row;
+		align-items: inherit;
+	}
+`
+
+const buttonOverrides = css`
+	.src-button-space {
+		width: 0px !important;
+	}
+`
 
 const commentDetails = css`
 	flex-grow: 1;
@@ -410,6 +415,7 @@ export const Comment = ({
 													regularFont,
 													svgOverrides,
 													cssReplyBetaDisplayName,
+													linkOverrides,
 												)}
 											>
 												<Link
@@ -531,20 +537,19 @@ export const Comment = ({
 								}}
 							/>
 							<div className={spaceBetween}>
-								<div className={shiftLeft}>
 									<Row>
 										{/* When commenting is closed, no reply link shows at all */}
 										{!isClosedForComments && (
 											<>
 												{/* If user is not logged in we link to the login page */}
 												{user ? (
-													<div className={svgOverrides} id="fgsghdiusfhfdsiu">
+													<div className={cx(svgOverrides, buttonOverrides)}>
 														<ButtonLink
 															pillar={pillar}
 															onClick={() => setCommentBeingRepliedTo(comment)}
 															icon={<SvgIndent />}
 															iconSide="left"
-															linkName="reply to comment"
+															linkName="reply-to-comment"
 														>
 															Reply
 														</ButtonLink>
@@ -553,6 +558,7 @@ export const Comment = ({
 													<div
 														className={cx(
 															svgOverrides,
+															linkOverrides,
 															commentControlsLink(pillar),
 														)}
 													>
@@ -568,7 +574,7 @@ export const Comment = ({
 															rel="nofollow"
 														>
 															{/* We use this span to scope the styling */}
-															<span data-link-name="reply to comment">
+															<span data-link-name="reply-to-comment">
 																Reply
 															</span>
 														</Link>
@@ -593,7 +599,6 @@ export const Comment = ({
 												</ButtonLink>
 											)}
 									</Row>
-								</div>
 								<Row>
 									{/* You can't mute unless logged in and you can't yourself */}
 									{user && comment.userProfile.userId !== user.userId ? (
