@@ -17,7 +17,7 @@
         "isolatedModules": true,
         "noEmit": true
     },
-    "files": ["src/types.tsx"],
+    "files": ["src/types.ts"],
     "include": ["src/"],
     "exclude": ["fixtures", "build", "**/*.test.tsx"]
 }
