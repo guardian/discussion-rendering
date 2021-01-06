@@ -4,8 +4,7 @@ import { css } from 'emotion';
 import { palette, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Button } from '@guardian/src-button';
-
-import { Pillar } from '../../types';
+import { Pillar } from '@guardian/types/Format';
 
 import { pillarToString } from '../../lib/pillarToString';
 
@@ -33,7 +32,6 @@ const dark = (pillar: Pillar): string => {
 			return '#FEF9F5';
 		case Pillar.Lifestyle:
 			return '#FEEEF7';
-		case Pillar.Labs:
 		case Pillar.Sport:
 			return '#F1F8FC';
 	}

@@ -3,7 +3,9 @@ import '@testing-library/jest-dom/extend-expect';
 
 import { render, fireEvent, screen } from '@testing-library/react';
 
-import { DropdownOptionType, Pillar } from '../../types';
+import { Pillar } from '@guardian/types/Format';
+
+import { DropdownOptionType } from '../../types';
 import { Dropdown } from './Dropdown';
 
 const threadOptions: DropdownOptionType[] = [

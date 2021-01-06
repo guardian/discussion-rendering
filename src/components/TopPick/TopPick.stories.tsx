@@ -1,7 +1,10 @@
 import React from 'react';
 import { css } from 'emotion';
+
+import { Pillar } from '@guardian/types/Format';
+
 import { TopPick } from '../TopPick/TopPick';
-import { CommentType, Pillar } from '../../types';
+import { CommentType } from '../../types';
 
 export default { component: TopPick, title: 'TopPick' };
 

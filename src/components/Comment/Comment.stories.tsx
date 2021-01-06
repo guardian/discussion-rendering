@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { Pillar } from '@guardian/types/Format';
+
 import { Comment } from './Comment';
-import { CommentType, UserProfile, Pillar } from '../../types';
+import { CommentType, UserProfile } from '../../types';
 
 export default { title: 'Comment' };
 
@@ -250,7 +252,7 @@ export const PickedComment = () => (
 			...commentData,
 			isHighlighted: true,
 		}}
-		pillar={Pillar.Labs}
+		pillar={Pillar.News}
 		isClosedForComments={false}
 		setCommentBeingRepliedTo={() => {}}
 		isReply={false}

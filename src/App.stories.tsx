@@ -2,7 +2,9 @@ import React from 'react';
 import { App } from './App';
 import { css } from 'emotion';
 
-import { UserProfile, Pillar } from './types';
+import { Pillar } from '@guardian/types/Format';
+
+import { UserProfile } from './types';
 
 export default { component: App, title: 'App' };
 

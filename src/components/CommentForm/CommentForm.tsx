@@ -5,6 +5,8 @@ import { palette, space } from '@guardian/src-foundations';
 import { neutral, text } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 
+import { Pillar } from '@guardian/types/Format';
+
 import { simulateNewComment } from '../../lib/simulateNewComment';
 import {
 	comment as defaultComment,
@@ -12,7 +14,7 @@ import {
 	preview as defaultPreview,
 	addUserName,
 } from '../../lib/api';
-import { CommentResponse, UserProfile, CommentType, Pillar } from '../../types';
+import { CommentResponse, UserProfile, CommentType } from '../../types';
 
 import { FirstCommentWelcome } from '../FirstCommentWelcome/FirstCommentWelcome';
 import { Preview } from '../Preview/Preview';

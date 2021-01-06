@@ -1,4 +1,6 @@
-import { Pillar, CAPIPillar } from '../types';
+import { Pillar } from '@guardian/types/Format';
+
+import { CAPIPillar } from '../types';
 
 export const pillarToString = (pillar: Pillar): CAPIPillar => {
 	switch (pillar) {
@@ -12,7 +14,5 @@ export const pillarToString = (pillar: Pillar): CAPIPillar => {
 			return 'sport';
 		case Pillar.Lifestyle:
 			return 'lifestyle';
-		case Pillar.Labs:
-			return 'labs';
 	}
 };

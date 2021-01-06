@@ -52,6 +52,7 @@
     "@guardian/src-icons": "^2.4.0",
     "@guardian/src-link": "^2.4.0",
     "@guardian/src-text-input": "^2.4.0",
+    "@guardian/types": "^0.5.2",
     "@storybook/addon-actions": "^6.1.11",
     "@storybook/addon-essentials": "^6.1.11",
     "@storybook/addon-links": "^6.1.11",
@@ -137,6 +138,9 @@
     "testEnvironment": "jest-environment-jsdom-sixteen",
     "moduleNameMapper": {
       "^@guardian/src-foundations/(.*)(?<!cjs)$": "@guardian/src-foundations/$1/cjs"
-    }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@guardian/src-foundations|@guardian/types|@guardian/libs)/)"
+    ]
   }
 }

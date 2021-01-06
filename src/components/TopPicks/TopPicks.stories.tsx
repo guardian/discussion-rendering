@@ -1,7 +1,10 @@
 import React from 'react';
 
+import { Pillar } from '@guardian/types/Format';
+
+import { CommentType } from '../../types';
+
 import { TopPicks } from './TopPicks';
-import { CommentType, Pillar } from '../../types';
 
 export default { component: TopPicks, title: 'TopPicks' };
 
