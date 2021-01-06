@@ -138,6 +138,9 @@
     "testEnvironment": "jest-environment-jsdom-sixteen",
     "moduleNameMapper": {
       "^@guardian/src-foundations/(.*)(?<!cjs)$": "@guardian/src-foundations/$1/cjs"
-    }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@guardian/src-foundations|@guardian/types|@guardian/libs)/)"
+    ]
   }
 }
