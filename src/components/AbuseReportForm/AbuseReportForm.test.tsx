@@ -58,7 +58,7 @@ describe('Dropdown', () => {
 
 		fireEvent.click(getByText('Report'));
 
-		let options = getByLabelText('Category');
+		let options: any = getByLabelText('Category');
 		expect(options[1].selected).toBeFalsy();
 		expect(options[3].selected).toBeTruthy();
 

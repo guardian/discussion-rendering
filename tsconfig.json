@@ -14,10 +14,10 @@
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
-        "isolatedModules": true,
+        "isolatedModules": false,
         "noEmit": true
     },
-    "files": ["src/types.tsx"],
+    "files": ["src/types.ts"],
     "include": ["src/"],
-    "exclude": ["fixtures", "build", "**/*.test.tsx"]
+    "exclude": []
 }
