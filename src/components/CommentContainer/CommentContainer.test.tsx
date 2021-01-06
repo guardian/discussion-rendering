@@ -7,7 +7,9 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
-import { CommentType, Pillar } from '../../types';
+import { Pillar } from '@guardian/types/Format';
+
+import { CommentType } from '../../types';
 import { comment } from '../../fixtures/comment';
 import { mockFetchCalls, mockedMessageID } from '../../lib/mockFetchCalls';
 

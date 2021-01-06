@@ -6,6 +6,8 @@ import { textSans } from '@guardian/src-foundations/typography';
 import { space } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
+import { Pillar } from '@guardian/types/Format';
+
 import {
 	CommentType,
 	FilterOptions,
@@ -13,7 +15,6 @@ import {
 	AdditionalHeadersType,
 	PageSizeType,
 	OrderByType,
-	Pillar,
 	CommentResponse,
 } from './types';
 import { getDiscussion, getPicks, initialiseApi } from './lib/api';

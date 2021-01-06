@@ -8,6 +8,8 @@ import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
 import { SvgIndent } from '@guardian/src-icons';
 
+import { Pillar } from '@guardian/types/Format';
+
 import { GuardianStaff, GuardianPick } from '../Badges/Badges';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
 import { AbuseReportForm } from '../AbuseReportForm/AbuseReportForm';
@@ -17,7 +19,7 @@ import { Row } from '../Row/Row';
 import { Column } from '../Column/Column';
 import { ButtonLink } from '../ButtonLink/ButtonLink';
 
-import { Pillar, CommentType, UserProfile } from '../../types';
+import { CommentType, UserProfile } from '../../types';
 import { pickComment, unPickComment } from '../../lib/api';
 import { createAuthenticationEventParams } from '../../lib/identity-component-event';
 import { pillarToString } from '../../lib/pillarToString';

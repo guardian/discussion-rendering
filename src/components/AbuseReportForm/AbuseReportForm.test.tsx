@@ -8,10 +8,11 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
+import { Pillar } from '@guardian/types/Format';
+
 import { AbuseReportForm } from './AbuseReportForm';
 
 import { mockFetchCalls } from '../../lib/mockFetchCalls';
-import { Pillar } from '../../types';
 
 const fetchMock = mockFetchCalls();
 

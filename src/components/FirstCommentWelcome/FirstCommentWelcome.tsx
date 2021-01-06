@@ -4,12 +4,12 @@ import { textSans, headline } from '@guardian/src-foundations/typography';
 import { space, neutral } from '@guardian/src-foundations';
 import { TextInput } from '@guardian/src-text-input';
 import { Link } from '@guardian/src-link';
+import { Pillar } from '@guardian/types/Format';
+
 import { Row } from '../Row/Row';
 import { PillarButton } from '../PillarButton/PillarButton';
 
 import { preview as defaultPreview } from '../../lib/api';
-
-import { Pillar } from '../../types';
 
 type Props = {
 	body: string;

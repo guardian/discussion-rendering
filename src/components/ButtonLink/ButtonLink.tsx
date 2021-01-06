@@ -5,7 +5,8 @@ import { palette, space, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Button } from '@guardian/src-button';
 
-import { Pillar } from '../../types';
+import { Pillar } from '@guardian/types/Format';
+
 import { pillarToString } from '../../lib/pillarToString';
 
 type Props = {

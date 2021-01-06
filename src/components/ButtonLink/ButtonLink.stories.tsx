@@ -4,7 +4,8 @@ import { css } from 'emotion';
 import { space } from '@guardian/src-foundations';
 import { SvgCheckmark } from '@guardian/src-icons';
 
-import { Pillar } from '../../types';
+import { Pillar } from '@guardian/types/Format';
+
 import { Row } from '../Row/Row';
 
 import { ButtonLink } from './ButtonLink';

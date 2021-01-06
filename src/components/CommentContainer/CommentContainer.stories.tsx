@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { Pillar } from '@guardian/types/Format';
+
 import { CommentContainer } from './CommentContainer';
-import { CommentType, Pillar } from '../../types';
+import { CommentType } from '../../types';
 
 export default { title: 'CommentContainer' };
 

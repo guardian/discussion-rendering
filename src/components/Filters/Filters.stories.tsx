@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import { FilterOptions, Pillar } from '../../types';
+import { Pillar } from '@guardian/types/Format';
+
+import { FilterOptions } from '../../types';
 
 import { Filters } from './Filters';
 

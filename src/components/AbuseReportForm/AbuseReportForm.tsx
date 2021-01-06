@@ -7,7 +7,8 @@ import { space, neutral } from '@guardian/src-foundations';
 import { Button } from '@guardian/src-button';
 import { SvgCross } from '@guardian/src-icons';
 
-import { Pillar } from '../../types';
+import { Pillar } from '@guardian/types/Format';
+
 import { reportAbuse } from '../../lib/api';
 import { pillarToString } from '../../lib/pillarToString';
 

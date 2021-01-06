@@ -2,8 +2,9 @@ import React from 'react';
 import { css, cx } from 'emotion';
 
 import { until, from } from '@guardian/src-foundations/mq';
+import { Pillar } from '@guardian/types/Format';
 
-import { CommentType, Pillar, UserProfile } from '../../types';
+import { CommentType, UserProfile } from '../../types';
 import { TopPick } from '../TopPick/TopPick';
 
 type Props = {

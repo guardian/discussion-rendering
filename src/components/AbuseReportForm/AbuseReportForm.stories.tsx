@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 
-import { Pillar } from '../../types';
+import { Pillar } from '@guardian/types/Format';
 
 import { AbuseReportForm } from './AbuseReportForm';
 

@@ -4,11 +4,12 @@ import { css } from 'emotion';
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, space, text } from '@guardian/src-foundations';
 import { SvgIndent } from '@guardian/src-icons';
+import { Pillar } from '@guardian/types/Format';
 
 import { ButtonLink } from '../ButtonLink/ButtonLink';
 import { Row } from '../Row/Row';
 
-import { CommentType, Pillar } from '../../types';
+import { CommentType } from '../../types';
 
 type Props = {
 	pillar: Pillar;

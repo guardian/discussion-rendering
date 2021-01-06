@@ -6,11 +6,12 @@ import { space, neutral, palette } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
 import { brand } from '@guardian/src-foundations/palette';
+import { Pillar } from '@guardian/types/Format';
 
 import { pillarToString } from '../../lib/pillarToString';
 
 import { GuardianStaff } from '../Badges/Badges';
-import { CommentType, Pillar } from '../../types';
+import { CommentType } from '../../types';
 import { Avatar } from '../Avatar/Avatar';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
 import { Timestamp } from '../Timestamp/Timestamp';
