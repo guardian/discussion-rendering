@@ -15,8 +15,7 @@
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "noEmit": true,
-        "types": ["@guardian/src-foundations/types/themes", "@emotion/react/types/css-prop", "jest"]
+        "noEmit": true
     },
     "files": ["src/types.tsx"],
     "include": ["src/"],
