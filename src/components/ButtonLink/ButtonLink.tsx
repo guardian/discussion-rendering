@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 
-import { palette, space, neutral } from '@guardian/src-foundations';
+import { palette, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Button } from '@guardian/src-button';
 
