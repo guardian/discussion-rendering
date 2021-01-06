@@ -23,7 +23,7 @@ const linkStyles = css`
 	}
 `;
 const timeStyles = css`
-	${textSans.xsmall({ fontWeight: 'light' })}
+	${textSans.xxsmall({ fontWeight: 'light' })}
 	min-width: 0.75rem;
 	margin-right: 0.3125rem;
 	white-space: nowrap;
