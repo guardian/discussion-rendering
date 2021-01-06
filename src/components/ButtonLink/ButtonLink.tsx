@@ -22,7 +22,7 @@ const buttonOverrides = (size: 'small' | 'default', pillar?: Pillar) => {
 	const pillarString = pillar || pillar === 0 ? pillarToString(pillar) : null;
 	return css`
 		button {
-			${textSans[size === 'small' ? 'xsmall' : 'small']({
+			${textSans[size === 'small' ? 'xxsmall' : 'small']({
 				fontWeight: pillarString ? 'bold' : 'regular',
 			})}
 			color: ${pillarString ? palette[pillarString][400] : neutral[46]};
