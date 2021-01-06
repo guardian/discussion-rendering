@@ -163,23 +163,9 @@ const regularFont = css`
 	}
 `;
 
-const svgOverrides = css`
+const svgReplyArrow = css`
 	svg {
-		fill: ${neutral[46]} !important;
-	}
-`;
-
-const linkOverrides = css`
-	a {
-		display: flex;
-		flex-direction: row;
-		align-items: inherit;
-	}
-`;
-
-const buttonOverrides = css`
-	.src-button-space {
-		width: 0px !important;
+		fill: ${neutral[46]};
 	}
 `;
 
@@ -413,9 +399,8 @@ export const Comment = ({
 												className={cx(
 													colourStyles(pillar),
 													regularFont,
-													svgOverrides,
+													svgReplyArrow,
 													cssReplyBetaDisplayName,
-													linkOverrides,
 												)}
 											>
 												<Link
@@ -543,7 +528,7 @@ export const Comment = ({
 										<>
 											{/* If user is not logged in we link to the login page */}
 											{user ? (
-												<div className={cx(svgOverrides, buttonOverrides)}>
+												<div className={svgReplyArrow}>
 													<ButtonLink
 														pillar={pillar}
 														onClick={() => setCommentBeingRepliedTo(comment)}
@@ -557,8 +542,7 @@ export const Comment = ({
 											) : (
 												<div
 													className={cx(
-														svgOverrides,
-														linkOverrides,
+														svgReplyArrow,
 														commentControlsLink(pillar),
 													)}
 												>
