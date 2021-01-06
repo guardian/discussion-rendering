@@ -172,7 +172,6 @@ const svgOverrides = css`
 		bottom: 0 !important;
 		width: 20px !important;
 		height: 20px !important;
-		margin: 0px !important;
 	}
 `;
 
