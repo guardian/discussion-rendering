@@ -165,7 +165,7 @@ const regularFont = css`
 
 const svgReplyArrow = css`
 	svg {
-		fill: ${neutral[46]};
+		fill: ${neutral[46]} !important;
 	}
 `;
 
