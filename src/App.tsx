@@ -56,6 +56,12 @@ const footerStyles = css`
 	justify-content: flex-end;
 `;
 
+const commentColumnWrapperStyles = css`
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+`;
+
 const commentContainerStyles = css`
 	display: flex;
 	flex-direction: column;
@@ -460,7 +466,7 @@ export const App = ({
 	}
 
 	return (
-		<Column>
+		<div className={commentColumnWrapperStyles}>
 			<div data-component="discussion">
 				{user && !isClosedForComments && (
 					<CommentForm
@@ -553,6 +559,6 @@ export const App = ({
 					/>
 				)}
 			</div>
-		</Column>
+		</div>
 	);
 };
