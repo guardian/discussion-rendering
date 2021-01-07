@@ -1,3 +1,7 @@
+import React from "react"
+import { addDecorator } from "@storybook/react"
+import { useEffect } from "@storybook/addons"
+import { FocusStyleManager } from "@guardian/src-foundations/utils"
 import MockDate from 'mockdate';
 import { mockFetchCalls } from '../src/lib/mockFetchCalls';
 
@@ -65,3 +69,13 @@ export const parameters = {
   },
   actions: { argTypesRegex: "^on[A-Z].*" },
 }
+
+const FocusManagerDecorator = storyFn => {
+	useEffect(() => {
+		FocusStyleManager.onlyShowFocusOnTabs()
+	})
+
+	return <div>{storyFn()}</div>
+}
+
+addDecorator(FocusManagerDecorator)
