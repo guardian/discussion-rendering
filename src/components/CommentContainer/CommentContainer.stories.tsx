@@ -74,6 +74,42 @@ const threadComment: CommentType = {
 	},
 };
 
+const threadCommentWithLongUsernames: CommentType = {
+	id: 25488498,
+	body: "<p>It's still there FrankDeFord - and thanks, I will pass that on</p>",
+	date: '26 July 2013 4:35pm',
+	isoDateTime: '2013-07-26T15:13:20Z',
+	status: 'visible',
+	webUrl: 'https://discussion.theguardian.com/comment-permalink/25488498',
+	apiUrl: 'https://discussion.guardianapis.com/discussion-api/comment/25488498',
+	numRecommends: 0,
+	isHighlighted: false,
+	responseTo: {
+		displayName: 'FrankDeFord',
+		commentApiUrl:
+			'https://discussion.guardianapis.com/discussion-api/comment/25487686',
+		isoDateTime: '2013-07-26T15:13:20Z',
+		date: '26 July 2013 4:13pm',
+		commentId: '25487686',
+		commentWebUrl:
+			'https://discussion.theguardian.com/comment-permalink/25487686',
+	},
+	userProfile: {
+		userId: '3150446',
+		displayName: 'ThisIsAVeryLongUserNameTooLongInFact',
+		webUrl: 'https://profile.theguardian.com/user/id/3150446',
+		apiUrl:
+			'https://discussion.guardianapis.com/discussion-api/profile/3150446',
+		avatar: 'https://avatar.guim.co.uk/user/3150446',
+		secureAvatarUrl: 'https://avatar.guim.co.uk/user/3150446',
+		badge: [
+			{
+				name: 'Staff',
+			},
+		],
+	},
+};
+
 const commentDataWithLongThread: CommentType = {
 	id: 25487686,
 	body:
@@ -134,6 +170,13 @@ const commentDataThreadedWithLongThread: CommentType = {
 	},
 };
 
+const commentDataThreadedWithLongUserNames: CommentType = {
+	...commentData,
+	...{
+		responses: [threadCommentWithLongUsernames],
+	},
+};
+
 export const defaultStory = () => (
 	<CommentContainer
 		comment={commentData}
@@ -181,3 +224,43 @@ export const threadedCommentWithShowMore = () => (
 	/>
 );
 threadedCommentWithShowMore.story = { name: 'threaded with show more button' };
+
+export const threadedCommentWithLongUsernames = () => (
+	<CommentContainer
+		comment={commentDataThreadedWithLongUserNames}
+		pillar={Pillar.Lifestyle}
+		isClosedForComments={false}
+		shortUrl="randomShortURL"
+		user={aUser}
+		threads="collapsed"
+		setCommentBeingRepliedTo={(comment) => {}}
+		mutes={[]}
+		toggleMuteStatus={() => {}}
+		onPermalinkClick={() => {}}
+	/>
+);
+threadedCommentWithLongUsernames.story = {
+	name: 'threaded with long usernames',
+};
+
+export const threadedCommentWithLongUsernamesMobile = () => (
+	<CommentContainer
+		comment={commentDataThreadedWithLongUserNames}
+		pillar={Pillar.Lifestyle}
+		isClosedForComments={false}
+		shortUrl="randomShortURL"
+		user={aUser}
+		threads="collapsed"
+		setCommentBeingRepliedTo={(comment) => {}}
+		mutes={[]}
+		toggleMuteStatus={() => {}}
+		onPermalinkClick={() => {}}
+	/>
+);
+threadedCommentWithLongUsernamesMobile.story = {
+	name: 'threaded with long usernames on mobile display',
+	parameters: {
+		viewport: { defaultViewport: 'mobileMedium' },
+		chromatic: { viewports: [375] },
+	},
+};

@@ -24,7 +24,6 @@ import { CommentForm } from './components/CommentForm/CommentForm';
 import { Filters } from './components/Filters/Filters';
 import { Pagination } from './components/Pagination/Pagination';
 import { LoadingComments } from './components/LoadingComments/LoadingComments';
-import { Column } from './components/Column/Column';
 import { PillarButton } from './components/PillarButton/PillarButton';
 
 type Props = {
@@ -54,6 +53,12 @@ type Props = {
 const footerStyles = css`
 	display: flex;
 	justify-content: flex-end;
+`;
+
+const commentColumnWrapperStyles = css`
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
 `;
 
 const commentContainerStyles = css`
@@ -460,36 +465,75 @@ export const App = ({
 	}
 
 	return (
-		<Column>
-			<div data-component="discussion">
-				{user && !isClosedForComments && (
-					<CommentForm
-						pillar={pillar}
-						shortUrl={shortUrl}
-						onAddComment={onAddComment}
-						user={user}
-						onComment={onComment}
-						onReply={onReply}
-						onPreview={onPreview}
-					/>
-				)}
-				{!!picks.length && (
-					<TopPicks
-						pillar={pillar}
-						comments={picks}
-						isSignedIn={!!user}
-						onPermalinkClick={onPermalinkClick}
-						onRecommend={onRecommend}
-					/>
-				)}
-				<Filters
+		<div data-component="discussion" className={commentColumnWrapperStyles}>
+			{user && !isClosedForComments && (
+				<CommentForm
 					pillar={pillar}
-					filters={filters}
-					onFilterChange={onFilterChange}
-					totalPages={totalPages}
-					commentCount={commentCount}
+					shortUrl={shortUrl}
+					onAddComment={onAddComment}
+					user={user}
+					onComment={onComment}
+					onReply={onReply}
+					onPreview={onPreview}
 				/>
-				{showPagination && (
+			)}
+			{!!picks.length && (
+				<TopPicks
+					pillar={pillar}
+					comments={picks}
+					isSignedIn={!!user}
+					onPermalinkClick={onPermalinkClick}
+					onRecommend={onRecommend}
+				/>
+			)}
+			<Filters
+				pillar={pillar}
+				filters={filters}
+				onFilterChange={onFilterChange}
+				totalPages={totalPages}
+				commentCount={commentCount}
+			/>
+			{showPagination && (
+				<Pagination
+					totalPages={totalPages}
+					currentPage={page}
+					setCurrentPage={(newPage: number) => {
+						onPageChange(newPage);
+					}}
+					commentCount={commentCount}
+					filters={filters}
+				/>
+			)}
+			{loading ? (
+				<LoadingComments />
+			) : !comments.length ? (
+				<NoComments />
+			) : (
+				<ul className={commentContainerStyles}>
+					{comments.map((comment) => (
+						<li key={comment.id}>
+							<CommentContainer
+								comment={comment}
+								pillar={pillar}
+								isClosedForComments={isClosedForComments}
+								shortUrl={shortUrl}
+								user={user}
+								threads={filters.threads}
+								commentBeingRepliedTo={commentBeingRepliedTo}
+								setCommentBeingRepliedTo={setCommentBeingRepliedTo}
+								commentToScrollTo={commentToScrollTo}
+								mutes={mutes}
+								toggleMuteStatus={toggleMuteStatus}
+								onPermalinkClick={onPermalinkClick}
+								onRecommend={onRecommend}
+								onReply={onReply}
+							/>
+						</li>
+					))}
+				</ul>
+			)}
+			{showPagination && (
+				<footer className={footerStyles}>
 					<Pagination
 						totalPages={totalPages}
 						currentPage={page}
@@ -499,60 +543,19 @@ export const App = ({
 						commentCount={commentCount}
 						filters={filters}
 					/>
-				)}
-				{loading ? (
-					<LoadingComments />
-				) : !comments.length ? (
-					<NoComments />
-				) : (
-					<ul className={commentContainerStyles}>
-						{comments.map((comment) => (
-							<li key={comment.id}>
-								<CommentContainer
-									comment={comment}
-									pillar={pillar}
-									isClosedForComments={isClosedForComments}
-									shortUrl={shortUrl}
-									user={user}
-									threads={filters.threads}
-									commentBeingRepliedTo={commentBeingRepliedTo}
-									setCommentBeingRepliedTo={setCommentBeingRepliedTo}
-									commentToScrollTo={commentToScrollTo}
-									mutes={mutes}
-									toggleMuteStatus={toggleMuteStatus}
-									onPermalinkClick={onPermalinkClick}
-									onRecommend={onRecommend}
-									onReply={onReply}
-								/>
-							</li>
-						))}
-					</ul>
-				)}
-				{showPagination && (
-					<footer className={footerStyles}>
-						<Pagination
-							totalPages={totalPages}
-							currentPage={page}
-							setCurrentPage={(newPage: number) => {
-								onPageChange(newPage);
-							}}
-							commentCount={commentCount}
-							filters={filters}
-						/>
-					</footer>
-				)}
-				{user && !isClosedForComments && (
-					<CommentForm
-						pillar={pillar}
-						shortUrl={shortUrl}
-						onAddComment={onAddComment}
-						user={user}
-						onComment={onComment}
-						onReply={onReply}
-						onPreview={onPreview}
-					/>
-				)}
-			</div>
-		</Column>
+				</footer>
+			)}
+			{user && !isClosedForComments && (
+				<CommentForm
+					pillar={pillar}
+					shortUrl={shortUrl}
+					onAddComment={onAddComment}
+					user={user}
+					onComment={onComment}
+					onReply={onReply}
+					onPreview={onPreview}
+				/>
+			)}
+		</div>
 	);
 };
