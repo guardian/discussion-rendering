@@ -1,6 +1,4 @@
-import React from "react"
-import { addDecorator } from "@storybook/react"
-import { useEffect } from "@storybook/addons"
+import React, { useEffect } from "react"
 import { FocusStyleManager } from "@guardian/src-foundations/utils"
 import MockDate from 'mockdate';
 import { mockFetchCalls } from '../src/lib/mockFetchCalls';
@@ -78,4 +76,4 @@ const FocusManagerDecorator = storyFn => {
 	return <div>{storyFn()}</div>
 }
 
-addDecorator(FocusManagerDecorator)
+export const decorators = [FocusManagerDecorator];
