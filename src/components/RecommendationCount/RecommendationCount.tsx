@@ -60,7 +60,7 @@ export const RecommendationCount = ({
 		const newCount = count + 1;
 		setCount(newCount);
 		setRecommended(true);
-		const recommend = onRecommend ?? recommendDefault;
+		const recommend = onRecommend || recommendDefault;
 
 		recommend(commentId).then((accepted) => {
 			if (!accepted) {

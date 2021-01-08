@@ -251,11 +251,13 @@ export const App = ({
 		setLoading(true);
 		getDiscussion(shortUrl, { ...filters, page }).then((json) => {
 			setLoading(false);
-			if (json?.status !== 'error') {
-				setComments(json?.discussion?.comments);
-				setCommentCount(json?.discussion?.topLevelCommentCount);
+			if (json && json.status !== 'error') {
+				setComments(json && json.discussion && json.discussion.comments);
+				setCommentCount(
+					json && json.discussion && json.discussion.topLevelCommentCount,
+				);
 			}
-			setTotalPages(json?.pages);
+			setTotalPages(json && json.pages);
 		});
 	}, [filters, page, shortUrl]);
 
@@ -322,7 +324,8 @@ export const App = ({
 	};
 
 	const onPageChange = (page: number) => {
-		document.getElementById('comment-filters')?.scrollIntoView();
+		const element = document.getElementById('comment-filters');
+		element && element.scrollIntoView();
 		setPage(page);
 	};
 

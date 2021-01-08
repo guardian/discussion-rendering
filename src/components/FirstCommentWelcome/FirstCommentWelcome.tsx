@@ -57,7 +57,7 @@ export const FirstCommentWelcome = ({
 	useEffect(() => {
 		const fetchShowPreview = async () => {
 			try {
-				const preview = onPreview ?? defaultPreview;
+				const preview = onPreview || defaultPreview;
 				const response = await preview(body);
 				setPreviewBody(response);
 			} catch (e) {
