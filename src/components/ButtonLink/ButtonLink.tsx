@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 
-import { palette, space, neutral } from '@guardian/src-foundations';
+import { palette, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Button } from '@guardian/src-button';
 
@@ -32,11 +32,6 @@ const buttonOverrides = (size: 'small' | 'default', pillar?: Pillar) => {
 			min-height: 18px;
 			/* Radius 0 is used to style focus halo */
 			border-radius: 0;
-			/* Reduce the space inbetween the svg icon and text */
-			svg {
-				margin-left: ${space[1]}px;
-				margin-right: ${space[1]}px;
-			}
 
 			:hover {
 				text-decoration: underline;
