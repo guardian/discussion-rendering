@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { palette, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Button } from '@guardian/src-button';
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { pillarToString } from '../../lib/pillarToString';
 

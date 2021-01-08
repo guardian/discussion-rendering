@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { CommentType } from '../../types';
 

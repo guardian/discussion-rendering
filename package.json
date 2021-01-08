@@ -21,6 +21,7 @@
     "build/**/*"
   ],
   "dependencies": {
+    "@guardian/types": "^1.1.0",
     "babel-plugin-emotion": "^10.0.33",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.1.6",
@@ -52,7 +53,6 @@
     "@guardian/src-icons": "2.7.1",
     "@guardian/src-link": "2.7.1",
     "@guardian/src-text-input": "2.7.1",
-    "@guardian/types": "^0.5.2",
     "@storybook/addon-actions": "^6.1.11",
     "@storybook/addon-essentials": "^6.1.11",
     "@storybook/addon-links": "^6.1.11",

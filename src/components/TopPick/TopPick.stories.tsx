@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { TopPick } from '../TopPick/TopPick';
 import { CommentType } from '../../types';

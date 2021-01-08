@@ -7,7 +7,7 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { CommentType } from '../../types';
 import { comment } from '../../fixtures/comment';

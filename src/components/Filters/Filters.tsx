@@ -3,7 +3,7 @@ import { css } from 'emotion';
 
 import { space } from '@guardian/src-foundations';
 import { border } from '@guardian/src-foundations/palette';
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { Dropdown } from '../Dropdown/Dropdown';
 

@@ -5,7 +5,7 @@ import { palette, space } from '@guardian/src-foundations';
 import { neutral, text } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { simulateNewComment } from '../../lib/simulateNewComment';
 import {

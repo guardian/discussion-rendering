@@ -4,7 +4,7 @@ import { css, cx } from 'emotion';
 import { space, neutral, border } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import {
 	CommentType,
