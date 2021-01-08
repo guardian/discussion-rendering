@@ -16,10 +16,10 @@ const monthConverter: { [key: number]: string } = {
 	11: 'Dec',
 };
 
-const isLast24Hrs = (date: any) => {
+const isLast24Hrs = (date: Date) => {
 	const timeStamp = Math.round(new Date().getTime() / 1000);
 	const timeStampYesterday = timeStamp - 24 * 3600;
-	return date >= new Date(timeStampYesterday * 1000).getTime();
+	return date.getTime() >= new Date(timeStampYesterday * 1000).getTime();
 };
 
 export const dateFormatter = (dateString: string) => {
