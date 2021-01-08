@@ -534,7 +534,7 @@ export const Comment = ({
 														onClick={() => setCommentBeingRepliedTo(comment)}
 														icon={<SvgIndent />}
 														iconSide="left"
-														linkName="reply-to-comment"
+														linkName="reply to comment"
 													>
 														Reply
 													</ButtonLink>
@@ -558,7 +558,7 @@ export const Comment = ({
 														rel="nofollow"
 													>
 														{/* We use this span to scope the styling */}
-														<span data-link-name="reply-to-comment">Reply</span>
+														<span data-link-name="reply to comment">Reply</span>
 													</Link>
 												</div>
 											)}
