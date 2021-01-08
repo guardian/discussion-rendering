@@ -239,4 +239,28 @@ export const threadedCommentWithLongUsernames = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-threadedComment.story = { name: 'threaded' };
+threadedCommentWithLongUsernames.story = {
+	name: 'threaded with long usernames',
+};
+
+export const threadedCommentWithLongUsernamesMobile = () => (
+	<CommentContainer
+		comment={commentDataThreadedWithLongUserNames}
+		pillar={Pillar.Lifestyle}
+		isClosedForComments={false}
+		shortUrl="randomShortURL"
+		user={aUser}
+		threads="collapsed"
+		setCommentBeingRepliedTo={(comment) => {}}
+		mutes={[]}
+		toggleMuteStatus={() => {}}
+		onPermalinkClick={() => {}}
+	/>
+);
+threadedCommentWithLongUsernamesMobile.story = {
+	name: 'threaded with long usernames on mobile display',
+	parameters: {
+		viewport: { defaultViewport: 'mobileMedium' },
+		chromatic: { viewports: [375] },
+	},
+};
