@@ -160,6 +160,8 @@ const boldFont = css`
 const regularFont = css`
 	a {
 		${textSans.small()}
+		display: flex;
+		align-items: start;
 	}
 `;
 
