@@ -189,7 +189,7 @@ export const TopPick = ({
 						priority="primary"
 						subdued={true}
 						href={comment.webUrl}
-						onClick={(e) => {
+						onClick={(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 							onPermalinkClick(comment.id);
 							e.preventDefault();
 						}}

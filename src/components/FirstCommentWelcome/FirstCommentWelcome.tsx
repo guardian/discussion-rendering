@@ -99,7 +99,7 @@ export const FirstCommentWelcome = ({
 					label="Username:"
 					supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
 					value={userName}
-					onChange={(e) => setUserName(e.target.value)}
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
 					width={30}
 					error={error}
 				/>
