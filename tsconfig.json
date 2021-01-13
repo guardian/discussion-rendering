@@ -9,7 +9,6 @@
         "jsx": "react",
         "moduleResolution": "node",
         "allowJs": true,
-        "rootDir": ".",
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
