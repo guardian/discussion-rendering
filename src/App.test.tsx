@@ -7,7 +7,7 @@ import {
 	screen,
 } from '@testing-library/react';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { mockFetchCalls } from './lib/mockFetchCalls';
 

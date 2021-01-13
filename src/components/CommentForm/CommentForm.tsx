@@ -5,7 +5,7 @@ import { palette, space } from '@guardian/src-foundations';
 import { neutral, text } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { simulateNewComment } from '../../lib/simulateNewComment';
 import {
@@ -226,7 +226,7 @@ export const CommentForm = ({
 		if (!body) return;
 
 		try {
-			const preview = onPreview ?? defaultPreview;
+			const preview = onPreview || defaultPreview;
 			const response = await preview(body);
 			setPreviewBody(response);
 			setShowPreview(true);
@@ -251,8 +251,8 @@ export const CommentForm = ({
 		setInfo('');
 
 		if (body) {
-			const comment = onComment ?? defaultComment;
-			const reply = onReply ?? defaultReply;
+			const comment = onComment || defaultComment;
+			const reply = onReply || defaultReply;
 			const response: CommentResponse = commentBeingRepliedTo
 				? await reply(shortUrl, body, commentBeingRepliedTo.id)
 				: await comment(shortUrl, body);

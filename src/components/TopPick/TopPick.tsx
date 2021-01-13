@@ -6,7 +6,7 @@ import { space, neutral, palette } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
 import { brand } from '@guardian/src-foundations/palette';
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { pillarToString } from '../../lib/pillarToString';
 
@@ -189,7 +189,7 @@ export const TopPick = ({
 						priority="primary"
 						subdued={true}
 						href={comment.webUrl}
-						onClick={(e) => {
+						onClick={(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 							onPermalinkClick(comment.id);
 							e.preventDefault();
 						}}

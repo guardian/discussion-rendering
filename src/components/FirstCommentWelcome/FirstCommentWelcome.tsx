@@ -4,7 +4,7 @@ import { textSans, headline } from '@guardian/src-foundations/typography';
 import { space, neutral } from '@guardian/src-foundations';
 import { TextInput } from '@guardian/src-text-input';
 import { Link } from '@guardian/src-link';
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { Row } from '../Row/Row';
 import { PillarButton } from '../PillarButton/PillarButton';
@@ -57,7 +57,7 @@ export const FirstCommentWelcome = ({
 	useEffect(() => {
 		const fetchShowPreview = async () => {
 			try {
-				const preview = onPreview ?? defaultPreview;
+				const preview = onPreview || defaultPreview;
 				const response = await preview(body);
 				setPreviewBody(response);
 			} catch (e) {
@@ -99,7 +99,9 @@ export const FirstCommentWelcome = ({
 					label="Username:"
 					supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
 					value={userName}
-					onChange={(e) => setUserName(e.target.value)}
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+						setUserName(e.target.value)
+					}
 					width={30}
 					error={error}
 				/>

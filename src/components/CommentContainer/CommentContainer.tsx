@@ -4,7 +4,7 @@ import { css, cx } from 'emotion';
 import { space, neutral, border } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import {
 	CommentType,
@@ -102,7 +102,9 @@ export const CommentContainer = ({
 
 	const decideShowMoreText = () => {
 		const remainingResponses =
-			comment.metaData?.responseCount && comment.metaData?.responseCount - 3;
+			comment.metaData &&
+			comment.metaData.responseCount &&
+			comment.metaData.responseCount - 3;
 		if (remainingResponses === 1) return `Show 1 more reply`;
 		return `Show ${remainingResponses} more replies`;
 	};
@@ -160,8 +162,9 @@ export const CommentContainer = ({
 							))}
 						</ul>
 						{!expanded &&
-							comment.metaData?.responseCount &&
-							comment.metaData?.responseCount > 3 && (
+							comment.metaData &&
+							comment.metaData.responseCount &&
+							comment.metaData.responseCount > 3 && (
 								<div
 									className={cx(
 										topBorder,

@@ -34,6 +34,7 @@
     "@guardian/src-icons": "2.7.1",
     "@guardian/src-link": "2.7.1",
     "@guardian/src-text-input": "2.7.1",
+    "@guardian/types": "^1.1.0",
     "emotion": "^10.0.27",
     "react": "^16.13.1",
     "react-dom": "^16.12.0",
@@ -52,7 +53,7 @@
     "@guardian/src-icons": "2.7.1",
     "@guardian/src-link": "2.7.1",
     "@guardian/src-text-input": "2.7.1",
-    "@guardian/types": "^0.5.2",
+    "@guardian/types": "^1.1.0",
     "@storybook/addon-actions": "^6.1.11",
     "@storybook/addon-essentials": "^6.1.11",
     "@storybook/addon-links": "^6.1.11",
@@ -84,6 +85,8 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-visualizer": "^4.0.4",
     "storybook-chromatic": "^4.0.2",
+    "ts-jest": "^26.4.4",
+    "ts-loader": "^8.0.14",
     "typescript": "^4.1.3"
   },
   "scripts": {
@@ -136,11 +139,32 @@
   },
   "jest": {
     "testEnvironment": "jest-environment-jsdom-sixteen",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@guardian/src-foundations|@guardian/types|@guardian/libs)/)"
+    ],
+    "preset": "ts-jest/presets/js-with-babel",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false,
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/*.test.+(ts|tsx|js)"
+    ],
     "moduleNameMapper": {
       "^@guardian/src-foundations/(.*)(?<!cjs)$": "@guardian/src-foundations/$1/cjs"
     },
-    "transformIgnorePatterns": [
-      "node_modules/(?!(@guardian/src-foundations|@guardian/types|@guardian/libs)/)"
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
     ]
   }
 }

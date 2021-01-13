@@ -3,7 +3,7 @@ import { css } from 'emotion';
 
 import { space } from '@guardian/src-foundations';
 import { SvgCheckmark } from '@guardian/src-icons';
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { Row } from '../Row/Row';
 

@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, space, text } from '@guardian/src-foundations';
 import { SvgIndent } from '@guardian/src-icons';
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { ButtonLink } from '../ButtonLink/ButtonLink';
 import { Row } from '../Row/Row';

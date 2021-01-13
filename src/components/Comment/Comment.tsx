@@ -8,7 +8,7 @@ import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
 import { SvgIndent } from '@guardian/src-icons';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { GuardianStaff, GuardianPick } from '../Badges/Badges';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';

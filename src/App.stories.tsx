@@ -2,7 +2,7 @@ import React from 'react';
 import { App } from './App';
 import { css } from 'emotion';
 
-import { Pillar } from '@guardian/types/Format';
+import { Pillar } from '@guardian/types';
 
 import { UserProfile } from './types';
 
