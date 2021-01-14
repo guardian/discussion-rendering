@@ -81,7 +81,6 @@ type UserNameUser = {
 	};
 	statusFields: {
 		userEmailValidated: boolean;
-		allowThirdPartyProfiling: boolean;
 	};
 	privateFields: {
 		brazeUuid: string;
