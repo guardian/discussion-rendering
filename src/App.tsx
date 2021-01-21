@@ -6,7 +6,7 @@ import { textSans } from '@guardian/src-foundations/typography';
 import { space } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
-import { Pillar } from '@guardian/types';
+import { Theme } from '@guardian/types';
 
 import {
 	CommentType,
@@ -29,7 +29,7 @@ import { PillarButton } from './components/PillarButton/PillarButton';
 type Props = {
 	shortUrl: string;
 	baseUrl: string;
-	pillar: Pillar;
+	pillar: Theme;
 	isClosedForComments: boolean;
 	commentToScrollTo?: number;
 	initialPage?: number;

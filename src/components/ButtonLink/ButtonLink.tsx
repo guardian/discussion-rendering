@@ -5,13 +5,13 @@ import { palette, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Button } from '@guardian/src-button';
 
-import { Pillar } from '@guardian/types';
+import { Theme } from '@guardian/types';
 
 import { pillarToString } from '../../lib/pillarToString';
 
 type Props = {
 	onClick: () => void;
-	pillar?: Pillar;
+	pillar?: Theme;
 	size?: 'small' | 'default';
 	icon?: JSX.Element;
 	iconSide?: 'left' | 'right';
@@ -19,7 +19,7 @@ type Props = {
 	linkName: string;
 };
 
-const buttonOverrides = (size: 'small' | 'default', pillar?: Pillar) => {
+const buttonOverrides = (size: 'small' | 'default', pillar?: Theme) => {
 	const pillarString = pillar || pillar === 0 ? pillarToString(pillar) : null;
 	return css`
 		button {

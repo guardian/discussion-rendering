@@ -5,7 +5,7 @@ import { palette, space } from '@guardian/src-foundations';
 import { neutral, text } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 
-import { Pillar } from '@guardian/types';
+import { Theme } from '@guardian/types';
 
 import { simulateNewComment } from '../../lib/simulateNewComment';
 import {
@@ -23,7 +23,7 @@ import { PillarButton } from '../PillarButton/PillarButton';
 
 type Props = {
 	shortUrl: string;
-	pillar: Pillar;
+	pillar: Theme;
 	user: UserProfile;
 	onAddComment: (response: CommentType) => void;
 	setCommentBeingRepliedTo?: () => void;

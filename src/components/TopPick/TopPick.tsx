@@ -6,7 +6,7 @@ import { space, neutral, palette } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
 import { brand } from '@guardian/src-foundations/palette';
-import { Pillar } from '@guardian/types';
+import { Theme } from '@guardian/types';
 
 import { pillarToString } from '../../lib/pillarToString';
 
@@ -19,7 +19,7 @@ import { Row } from '../Row/Row';
 import { Column } from '../Column/Column';
 
 type Props = {
-	pillar: Pillar;
+	pillar: Theme;
 	comment: CommentType;
 	isSignedIn: boolean;
 	userMadeComment: boolean;
@@ -48,7 +48,7 @@ const pickStyles = css`
 const arrowSize = 25;
 const bg = neutral[93];
 
-const userNameStyles = (pillar: Pillar) => css`
+const userNameStyles = (pillar: Theme) => css`
 	margin-top: 3px;
 	margin-bottom: -6px;
 	font-weight: bold;

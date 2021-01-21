@@ -4,7 +4,7 @@ import { css, cx } from 'emotion';
 import { space, neutral, border } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
 
-import { Pillar } from '@guardian/types';
+import { Theme } from '@guardian/types';
 
 import {
 	CommentType,
@@ -21,7 +21,7 @@ import { getMoreResponses } from '../../lib/api';
 
 type Props = {
 	comment: CommentType;
-	pillar: Pillar;
+	pillar: Theme;
 	isClosedForComments: boolean;
 	shortUrl: string;
 	user?: UserProfile;

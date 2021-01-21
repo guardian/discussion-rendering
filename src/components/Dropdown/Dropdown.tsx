@@ -12,7 +12,7 @@ import {
 } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 import { from, until } from '@guardian/src-foundations/mq';
-import { Pillar } from '@guardian/types';
+import { Theme } from '@guardian/types';
 
 import { DropdownOptionType } from '../../types';
 
@@ -22,7 +22,7 @@ type Props = {
 	id: string;
 	label: string;
 	options: DropdownOptionType[];
-	pillar: Pillar;
+	pillar: Theme;
 	onSelect: (value: string) => void;
 };
 
@@ -90,7 +90,7 @@ const firstStyles = css`
 	margin-top: 0;
 `;
 
-const activeStyles = (pillar: Pillar) => css`
+const activeStyles = (pillar: Theme) => css`
 	font-weight: bold;
 
 	:after {

@@ -1,8 +1,8 @@
-import { Pillar } from '@guardian/types';
+import { Pillar, Special, Theme } from '@guardian/types';
 
 import { CAPIPillar } from '../types';
 
-export const pillarToString = (pillar: Pillar): CAPIPillar => {
+export const pillarToString = (pillar: Theme): CAPIPillar => {
 	switch (pillar) {
 		case Pillar.News:
 			return 'news';
@@ -14,5 +14,9 @@ export const pillarToString = (pillar: Pillar): CAPIPillar => {
 			return 'sport';
 		case Pillar.Lifestyle:
 			return 'lifestyle';
+		case Special.Labs:
+			return 'labs';
+		default:
+			return 'news';
 	}
 };

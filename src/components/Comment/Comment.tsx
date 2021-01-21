@@ -8,7 +8,7 @@ import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
 import { SvgIndent } from '@guardian/src-icons';
 
-import { Pillar } from '@guardian/types';
+import { Theme } from '@guardian/types';
 
 import { GuardianStaff, GuardianPick } from '../Badges/Badges';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
@@ -27,7 +27,7 @@ import { pillarToString } from '../../lib/pillarToString';
 type Props = {
 	user?: UserProfile;
 	comment: CommentType;
-	pillar: Pillar;
+	pillar: Theme;
 	isClosedForComments: boolean;
 	setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
 	isReply: boolean;
@@ -38,7 +38,7 @@ type Props = {
 	onRecommend?: (commentId: number) => Promise<Boolean>;
 };
 
-const commentControlsLink = (pillar: Pillar) => css`
+const commentControlsLink = (pillar: Theme) => css`
 	margin-top: -2px;
 
 	a {
@@ -140,7 +140,7 @@ const avatarMargin = css`
 	}
 `;
 
-const colourStyles = (pillar: Pillar) => css`
+const colourStyles = (pillar: Theme) => css`
 	a {
 		color: ${palette[pillarToString(pillar)][400]};
 		text-decoration-color: ${palette[pillarToString(pillar)][400]};
