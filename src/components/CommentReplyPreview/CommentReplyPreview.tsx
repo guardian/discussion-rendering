@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, space, text } from '@guardian/src-foundations';
 import { SvgIndent } from '@guardian/src-icons';
-import { Pillar } from '@guardian/types';
+import { Theme } from '@guardian/types';
 
 import { ButtonLink } from '../ButtonLink/ButtonLink';
 import { Row } from '../Row/Row';
@@ -12,7 +12,7 @@ import { Row } from '../Row/Row';
 import { CommentType } from '../../types';
 
 type Props = {
-	pillar: Pillar;
+	pillar: Theme;
 	commentBeingRepliedTo: CommentType;
 };
 

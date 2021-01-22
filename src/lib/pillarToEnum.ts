@@ -1,11 +1,9 @@
-import { Pillar } from '@guardian/types';
+import { Pillar, Theme, Special } from '@guardian/types';
 
 import { CAPIPillar } from '../types';
 
-export const pillarToEnum = (pillar: CAPIPillar): Pillar => {
+export const pillarToEnum = (pillar: CAPIPillar): Theme => {
 	switch (pillar) {
-		case 'news':
-			return Pillar.News;
 		case 'opinion':
 			return Pillar.Opinion;
 		case 'culture':
@@ -15,6 +13,9 @@ export const pillarToEnum = (pillar: CAPIPillar): Pillar => {
 		case 'lifestyle':
 			return Pillar.Lifestyle;
 		case 'labs':
+			return Special.Labs;
+		case 'news':
+		default:
 			return Pillar.News;
 	}
 };
