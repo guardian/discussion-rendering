@@ -256,7 +256,6 @@ export const CommentForm = ({
 			const response: CommentResponse = commentBeingRepliedTo
 				? await reply(shortUrl, body, commentBeingRepliedTo.id)
 				: await comment(shortUrl, body);
-			console.log(response);
 			// Check response message for error states
 			if (response.errorCode === 'USERNAME_MISSING') {
 				// Reader has never posted before and needs to choose a username
