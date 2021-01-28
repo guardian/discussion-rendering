@@ -74,7 +74,7 @@ export const Error = () => (
 		onAddComment={(comment) => {}}
 	/>
 );
-Error.story = { name: 'Error' };
+Error.story = { name: 'form with errors' };
 
 export const Active = () => (
 	<CommentForm
