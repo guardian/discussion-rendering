@@ -66,6 +66,7 @@ export const Default = () => (
 );
 Default.story = { name: 'default' };
 
+// This story has a mocked post endpoint that returns an error, see 97d6eab4a98917f63bc96a7ac64f7ca7
 export const Error = () => (
 	<CommentForm
 		shortUrl={'/p/g8g7v'}
@@ -74,7 +75,7 @@ export const Error = () => (
 		onAddComment={(comment) => {}}
 	/>
 );
-Error.story = { name: 'Error' };
+Error.story = { name: 'form with errors' };
 
 export const Active = () => (
 	<CommentForm
