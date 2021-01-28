@@ -144,14 +144,17 @@ export const mockFetchCalls = () => {
 		})
 
 		//https://discussion.theguardian.com/discussion-api/discussion/p/g8g7v/comment?api-key=dotcom-rendering
-		.post(/.*discussion.theguardian.com\/discussion-api\/discussion\/p\/g8g7v\/.*/, {
-			status: 400,
-			body: {
-				status: 'error',
-				message: "API: Username Missing",
-				errorCode:"USERNAME_MISSING"
+		.post(
+			/.*discussion.theguardian.com\/discussion-api\/discussion\/p\/g8g7v\/.*/,
+			{
+				status: 400,
+				body: {
+					status: 'error',
+					message: 'API: Username Missing',
+					errorCode: 'USERNAME_MISSING',
+				},
 			},
-		})
+		)
 
 		// Post comment
 		.post(/.*discussion.theguardian.com\/discussion-api\/discussion\/.*/, {
