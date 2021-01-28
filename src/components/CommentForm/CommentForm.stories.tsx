@@ -66,6 +66,16 @@ export const Default = () => (
 );
 Default.story = { name: 'default' };
 
+export const Error = () => (
+	<CommentForm
+		shortUrl={'/p/g8g7v'}
+		pillar={Pillar.News}
+		user={aUser}
+		onAddComment={(comment) => {}}
+	/>
+);
+Error.story = { name: 'Error' };
+
 export const Active = () => (
 	<CommentForm
 		shortUrl={shortUrl}
