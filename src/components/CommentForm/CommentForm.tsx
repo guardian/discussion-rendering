@@ -256,64 +256,63 @@ export const CommentForm = ({
 			const response: CommentResponse = commentBeingRepliedTo
 				? await reply(shortUrl, body, commentBeingRepliedTo.id)
 				: await comment(shortUrl, body);
-
 			// Check response message for error states
-			if (response.message === 'USERNAME_MISSING') {
+			if (response.errorCode === 'USERNAME_MISSING') {
 				// Reader has never posted before and needs to choose a username
 				setUserNameMissing(true);
-			} else if (response.message === 'EMPTY_COMMENT_BODY') {
+			} else if (response.errorCode === 'EMPTY_COMMENT_BODY') {
 				setError('Please write a comment.');
-			} else if (response.message === 'COMMENT_TOO_LONG') {
+			} else if (response.errorCode === 'COMMENT_TOO_LONG') {
 				setError('Your comment must be fewer than 5000 characters long.');
-			} else if (response.message === 'USER_BANNED') {
+			} else if (response.errorCode === 'USER_BANNED') {
 				setError(
 					'Commenting has been disabled for this account (<a href="/community-faqs#321a">why?</a>).',
 				);
-			} else if (response.message === 'IP_THROTTLED') {
+			} else if (response.errorCode === 'IP_THROTTLED') {
 				setError(
 					'Commenting has been temporarily blocked for this IP address (<a href="/community-faqs">why?</a>).',
 				);
-			} else if (response.message === 'DISCUSSION_CLOSED') {
+			} else if (response.errorCode === 'DISCUSSION_CLOSED') {
 				setError(
 					'Sorry your comment can not be published as the discussion is now closed for comments.',
 				);
-			} else if (response.message === 'PARENT_COMMENT_MODERATED') {
+			} else if (response.errorCode === 'PARENT_COMMENT_MODERATED') {
 				setError(
 					'Sorry the comment can not be published as the comment you replied to has been moderated since.',
 				);
-			} else if (response.message === 'COMMENT_RATE_LIMIT_EXCEEDED') {
+			} else if (response.errorCode === 'COMMENT_RATE_LIMIT_EXCEEDED') {
 				setError(
 					'You can only post one comment every minute. Please try again in a moment.',
 				);
-			} else if (response.message === 'INVALID_PROTOCOL') {
+			} else if (response.errorCode === 'INVALID_PROTOCOL') {
 				setError(`Sorry your comment can not be published as it was not sent over
                   a secure channel. Please report us this issue using the technical issue link
                   in the page footer.`);
-			} else if (response.message === 'AUTH_COOKIE_INVALID') {
+			} else if (response.errorCode === 'AUTH_COOKIE_INVALID') {
 				setError(
 					'Sorry, your comment was not published as you are no longer signed in. Please sign in and try again.',
 				);
-			} else if (response.message === 'READ-ONLY-MODE') {
+			} else if (response.errorCode === 'READ-ONLY-MODE') {
 				setError(`Sorry your comment can not currently be published as
                   commenting is undergoing maintenance but will be back shortly. Please try
                   again in a moment.`);
-			} else if (response.message === 'API_CORS_BLOCKED') {
+			} else if (response.errorCode === 'API_CORS_BLOCKED') {
 				setError(`Could not post due to your internet settings, which might be
                  controlled by your provider. Please contact your administrator
                  or disable any proxy servers or VPNs and try again.`);
-			} else if (response.message === 'API_ERROR') {
+			} else if (response.errorCode === 'API_ERROR') {
 				setError(`Sorry, there was a problem posting your comment. Please try
                   another browser or network connection.  Reference code `);
-			} else if (response.message === 'EMAIL_VERIFIED') {
+			} else if (response.errorCode === 'EMAIL_VERIFIED') {
 				setInfo(
 					'Sent. Please check your email to verify your email address. Once verified post your comment.',
 				);
-			} else if (response.message === 'EMAIL_VERIFIED_FAIL') {
+			} else if (response.errorCode === 'EMAIL_VERIFIED_FAIL') {
 				// TODO: Support resending verification email
 				setError(`We are having technical difficulties. Please try again later or
             <a href="#">
             <strong>resend the verification</strong></a>.`);
-			} else if (response.message === 'EMAIL_NOT_VALIDATED') {
+			} else if (response.errorCode === 'EMAIL_NOT_VALIDATED') {
 				// TODO: Support resending verification email
 				setError(`Please confirm your email address to comment.<br />
             If you can't find the email, we can
@@ -323,7 +322,7 @@ export const CommentForm = ({
 			} else if (response.status === 'ok') {
 				onAddComment(
 					simulateNewComment(
-						// response.message is the id of the comment that was created on the server
+						// response.errorCode is the id of the comment that was created on the server
 						// it is returned as a string, so we need to cast to an number to be compatable
 						parseInt(response.message),
 						body,
