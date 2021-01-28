@@ -144,6 +144,7 @@ export const mockFetchCalls = () => {
 		})
 
 		//https://discussion.theguardian.com/discussion-api/discussion/p/g8g7v/comment?api-key=dotcom-rendering
+		// This returns a mocked error for a story 97d6eab4a98917f63bc96a7ac64f7ca7
 		.post(
 			/.*discussion.theguardian.com\/discussion-api\/discussion\/p\/g8g7v\/.*/,
 			{
