@@ -76,7 +76,7 @@ describe('Dropdown', () => {
 		expect(listItems.length).toEqual(threadOptions.length);
 	});
 
-	it('should expand the menu when the label is clicked', () => {
+	it.only('should expand the menu when the label is clicked', () => {
 		const { queryByTestId } = render(
 			<Dropdown
 				id="abc"
@@ -88,11 +88,12 @@ describe('Dropdown', () => {
 		);
 
 		const ulElement = queryByTestId('drop-down-list-abc') as HTMLElement;
-		expect(ulElement).toHaveStyle('display: none');
-		expect(ulElement).toHaveStyle('display: block');
+		expect(ulElement).not.toBeVisible();
+		// expect(ulElement).toHaveStyle('display: block');
 		const button = queryByTestId('drop-down-button-abc') as HTMLElement;
 		fireEvent.click(button);
-		expect(ulElement).toHaveStyle('display: block');
+		expect(ulElement).toBeVisible();
+		// expect(ulElement).toHaveStyle('display: block');
 	});
 
 	it('should close the expanded menu when readers click away', () => {
