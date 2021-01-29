@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/core';
 
 import { textSans } from '@guardian/src-foundations/typography';
 import { palette } from '@guardian/src-foundations';
@@ -44,7 +44,7 @@ export const Timestamp = ({
 	return (
 		<a
 			href={webUrl}
-			className={linkStyles}
+			css={linkStyles}
 			data-link-name="jump-to-comment-timestamp"
 			onClick={(e) => {
 				onPermalinkClick(commentId);
@@ -52,7 +52,7 @@ export const Timestamp = ({
 			}}
 			rel="nofollow"
 		>
-			<time dateTime={isoDateTime.toString()} className={timeStyles}>
+			<time dateTime={isoDateTime.toString()} css={timeStyles}>
 				{timeAgo}
 			</time>
 		</a>

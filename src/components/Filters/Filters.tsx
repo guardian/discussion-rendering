@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/core';
 
 import { space } from '@guardian/src-foundations';
 import { border } from '@guardian/src-foundations/palette';
@@ -58,8 +58,8 @@ export const Filters = ({
 	totalPages,
 	commentCount,
 }: Props) => (
-	<div id="comment-filters" className={filterBar}>
-		<div className={filterPadding}>
+	<div id="comment-filters" css={filterBar}>
+		<div css={filterPadding}>
 			<Dropdown
 				id="order-by-dropdown"
 				label="Sort by"
@@ -89,8 +89,8 @@ export const Filters = ({
 				}
 			/>
 		</div>
-		<div className={dividerStyles} />
-		<div className={filterPadding}>
+		<div css={dividerStyles} />
+		<div css={filterPadding}>
 			<Dropdown
 				id="page-size-dropdown"
 				label="Per page"
@@ -123,8 +123,8 @@ export const Filters = ({
 				}
 			/>
 		</div>
-		<div className={dividerStyles} />
-		<div className={filterPadding}>
+		<div css={dividerStyles} />
+		<div css={filterPadding}>
 			<Dropdown
 				id="threads-dropdown"
 				label="Display threads"

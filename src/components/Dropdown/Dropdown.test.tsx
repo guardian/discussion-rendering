@@ -77,7 +77,7 @@ describe('Dropdown', () => {
 	});
 
 	it('should expand the menu when the label is clicked', () => {
-		const { container } = render(
+		const { queryByTestId } = render(
 			<Dropdown
 				id="abc"
 				pillar={Pillar.News}
@@ -87,14 +87,16 @@ describe('Dropdown', () => {
 			/>,
 		);
 
-		const ulElement = container.querySelector('ul');
+		const ulElement = queryByTestId('drop-down-list-abc') as HTMLElement;
 		expect(ulElement).toHaveStyle('display: none');
-		fireEvent.click(screen.getByRole('button'));
+		expect(ulElement).toHaveStyle('display: block');
+		const button = queryByTestId('drop-down-button-abc') as HTMLElement;
+		fireEvent.click(button);
 		expect(ulElement).toHaveStyle('display: block');
 	});
 
 	it('should close the expanded menu when readers click away', () => {
-		const { container } = render(
+		const { container, queryByTestId } = render(
 			<Dropdown
 				id="abc"
 				pillar={Pillar.News}
@@ -105,14 +107,15 @@ describe('Dropdown', () => {
 		);
 
 		const ulElement = container.querySelector('ul');
-		fireEvent.click(screen.getByRole('button'));
+		const button = queryByTestId('drop-down-button-abc') as HTMLElement;
+		fireEvent.click(button);
 		expect(ulElement).toHaveStyle('display: block');
 		fireEvent.click(container);
 		expect(ulElement).toHaveStyle('display: none');
 	});
 
 	it('should close the expanded menu when blurred', () => {
-		const { container } = render(
+		const { container, queryByTestId } = render(
 			<Dropdown
 				id="abc"
 				pillar={Pillar.News}
@@ -123,7 +126,8 @@ describe('Dropdown', () => {
 		);
 
 		const ulElement = container.querySelector('ul');
-		fireEvent.click(screen.getByRole('button'));
+		const button = queryByTestId('drop-down-button-abc') as HTMLElement;
+		fireEvent.click(button);
 		expect(ulElement).toHaveStyle('display: block');
 		fireEvent.keyDown(container, { key: 'Escape', code: 'Escape' });
 		expect(ulElement).toHaveStyle('display: none');
@@ -132,7 +136,7 @@ describe('Dropdown', () => {
 
 it('should trigger the correct onSelect callbacks when an option is clicked', () => {
 	const mockCallback = jest.fn();
-	render(
+	const { queryByTestId } = render(
 		<Dropdown
 			id="abc"
 			pillar={Pillar.News}
@@ -142,11 +146,12 @@ it('should trigger the correct onSelect callbacks when an option is clicked', (
 		/>,
 	);
 
-	fireEvent.click(screen.getByRole('button'));
+	const button = queryByTestId('drop-down-button-abc') as HTMLElement;
+	fireEvent.click(button);
 	fireEvent.click(screen.getByText(threadOptions[2].title));
 	expect(mockCallback).toHaveBeenCalled();
 	expect(mockCallback.mock.calls[0][0]).toBe('unthreaded');
-	fireEvent.click(screen.getByRole('button'));
+	fireEvent.click(button);
 	fireEvent.click(screen.getByText(threadOptions[1].title));
 	expect(mockCallback).toHaveBeenCalled();
 	expect(mockCallback.mock.calls[1][0]).toBe('expanded');

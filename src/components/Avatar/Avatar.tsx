@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/core';
 
 type Props = {
 	imageUrl?: string;
@@ -20,17 +20,11 @@ export const Avatar = ({
 }: Props) => {
 	switch (size) {
 		case 'small':
-			return (
-				<img src={imageUrl} alt={displayName} className={imageStyles(36)} />
-			);
+			return <img src={imageUrl} alt={displayName} css={imageStyles(36)} />;
 		case 'large':
-			return (
-				<img src={imageUrl} alt={displayName} className={imageStyles(60)} />
-			);
+			return <img src={imageUrl} alt={displayName} css={imageStyles(60)} />;
 		case 'medium':
 		default:
-			return (
-				<img src={imageUrl} alt={displayName} className={imageStyles(48)} />
-			);
+			return <img src={imageUrl} alt={displayName} css={imageStyles(48)} />;
 	}
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { css, cx } from 'emotion';
+import { css } from '@emotion/core';
 
 import { palette } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
@@ -167,9 +167,9 @@ export const AbuseReportForm: React.FC<{
 	const labelStylesClass = labelStyles(pillar);
 	return (
 		<div aria-modal="true" ref={modalRef}>
-			<form className={formWrapper} onSubmit={onSubmit}>
-				<div className={inputWrapper}>
-					<label className={labelStylesClass} htmlFor="category">
+			<form css={formWrapper} onSubmit={onSubmit}>
+				<div css={inputWrapper}>
+					<label css={labelStylesClass} htmlFor="category">
 						Category
 					</label>
 					<select
@@ -197,12 +197,12 @@ export const AbuseReportForm: React.FC<{
 						<option value="9">Other</option>
 					</select>
 					{errors.categoryId && (
-						<span className={errorMessageStyles}>{errors.categoryId}</span>
+						<span css={errorMessageStyles}>{errors.categoryId}</span>
 					)}
 				</div>
 
-				<div className={inputWrapper}>
-					<label className={labelStylesClass} htmlFor="reason">
+				<div css={inputWrapper}>
+					<label css={labelStylesClass} htmlFor="reason">
 						Reason (optional)
 					</label>
 					<textarea
@@ -217,12 +217,12 @@ export const AbuseReportForm: React.FC<{
 						value={formVariables.reason}
 					></textarea>
 					{errors.reason && (
-						<span className={errorMessageStyles}>{errors.reason}</span>
+						<span css={errorMessageStyles}>{errors.reason}</span>
 					)}
 				</div>
 
-				<div className={inputWrapper}>
-					<label className={labelStylesClass} htmlFor="email">
+				<div css={inputWrapper}>
+					<label css={labelStylesClass} htmlFor="email">
 						Email (optional)
 					</label>
 					<input
@@ -237,9 +237,7 @@ export const AbuseReportForm: React.FC<{
 						}
 						value={formVariables.email}
 					></input>
-					{errors.email && (
-						<span className={errorMessageStyles}>{errors.email}</span>
-					)}
+					{errors.email && <span css={errorMessageStyles}>{errors.email}</span>}
 				</div>
 
 				<div>
@@ -249,12 +247,12 @@ export const AbuseReportForm: React.FC<{
 
 					{errors.response && (
 						<span
-							className={cx(
+							css={[
 								errorMessageStyles,
 								css`
 									margin-left: 1em;
 								`,
-							)}
+							]}
 						>
 							{errors.response}
 						</span>
@@ -262,7 +260,7 @@ export const AbuseReportForm: React.FC<{
 
 					{successMessage && (
 						<span
-							className={css`
+							css={css`
 								color: green;
 								margin-left: 1em;
 							`}
@@ -272,7 +270,7 @@ export const AbuseReportForm: React.FC<{
 					)}
 				</div>
 				<div
-					className={css`
+					css={css`
 						position: absolute;
 						right: ${space[3]}px;
 						top: ${space[3]}px;

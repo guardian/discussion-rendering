@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/core';
 
 import { space } from '@guardian/src-foundations';
 import { SvgCheckmark } from '@guardian/src-icons';
