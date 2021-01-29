@@ -52,7 +52,7 @@ const commentWithShortBody: CommentType = {
 
 export const LongPick = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 300px;
 		`}
@@ -70,7 +70,7 @@ LongPick.story = { name: 'Long' };
 
 export const ShortPick = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 300px;
 		`}

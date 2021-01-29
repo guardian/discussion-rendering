@@ -16,7 +16,7 @@ const wrapperStyles = css`
 `;
 
 export const Dialog = () => (
-	<div className={wrapperStyles}>
+	<div css={wrapperStyles}>
 		<AbuseReportForm
 			toggleSetShowForm={() => {}}
 			pillar={Pillar.Sport}
