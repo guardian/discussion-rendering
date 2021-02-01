@@ -1,6 +1,7 @@
-import React from 'react';
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import { App } from './App';
-import { css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 
 import { Pillar } from '@guardian/types';
 
