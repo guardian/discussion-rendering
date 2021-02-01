@@ -1,5 +1,6 @@
-import React from 'react';
-import { css, cx } from 'emotion';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 
 import { palette, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
@@ -52,7 +53,7 @@ export const ButtonLink = ({
 	children,
 	linkName,
 }: Props) => (
-	<div className={cx(buttonOverrides(size, pillar))}>
+	<div css={[buttonOverrides(size, pillar)]}>
 		<Button
 			priority="subdued"
 			size={size}

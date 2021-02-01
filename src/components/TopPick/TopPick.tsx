@@ -1,5 +1,7 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import React from 'react';
-import { css, cx } from 'emotion';
+import { css, jsx } from '@emotion/core';
 
 import { from } from '@guardian/src-foundations/mq';
 import { space, neutral, palette } from '@guardian/src-foundations';
@@ -104,7 +106,7 @@ const PickBubble = ({
 	children: JSX.Element | JSX.Element[];
 }) => (
 	<div
-		className={css`
+		css={css`
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
@@ -148,7 +150,7 @@ const Bottom = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 
 const PickMeta = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 	<div
-		className={css`
+		css={css`
 			display: flex;
 			justify-content: space-between;
 			padding-top: ${space[1]}px;
@@ -172,19 +174,19 @@ export const TopPick = ({
 	onPermalinkClick,
 	onRecommend,
 }: Props) => (
-	<div className={pickStyles}>
+	<div css={pickStyles}>
 		<PickBubble>
 			<Top>
-				<h3 className={titleStyles}>Guardian Pick</h3>
+				<h3 css={titleStyles}>Guardian Pick</h3>
 				<p
-					className={cx(wrapStyles, inCommentLinkStyling)}
+					css={[wrapStyles, inCommentLinkStyling]}
 					dangerouslySetInnerHTML={{
 						__html: truncateText(comment.body, 450),
 					}}
 				></p>
 			</Top>
 			<Bottom>
-				<div className={smallFontSize}>
+				<div css={smallFontSize}>
 					<Link
 						priority="primary"
 						subdued={true}
@@ -202,7 +204,7 @@ export const TopPick = ({
 		</PickBubble>
 		<PickMeta>
 			<Row>
-				<div className={avatarMargin}>
+				<div css={avatarMargin}>
 					<Avatar
 						imageUrl={comment.userProfile.avatar}
 						displayName={''}
@@ -210,10 +212,10 @@ export const TopPick = ({
 					/>
 				</div>
 				<Column>
-					<span className={userNameStyles(pillar)}>
+					<span css={userNameStyles(pillar)}>
 						<a
 							href={comment.userProfile.webUrl}
-							className={cx(linkStyles, inheritColour)}
+							css={[linkStyles, inheritColour]}
 							rel="nofollow"
 						>
 							{comment.userProfile.displayName}
@@ -229,7 +231,7 @@ export const TopPick = ({
 						.length ? (
 						<GuardianStaff />
 					) : (
-						<></>
+						<React.Fragment></React.Fragment>
 					)}
 				</Column>
 			</Row>

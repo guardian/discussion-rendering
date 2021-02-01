@@ -1,5 +1,8 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import React, { useState, useEffect } from 'react';
-import { css, cx } from 'emotion';
+import { css, jsx } from '@emotion/core';
+
 import { textSans, headline } from '@guardian/src-foundations/typography';
 import { space, neutral } from '@guardian/src-foundations';
 import { TextInput } from '@guardian/src-text-input';
@@ -41,7 +44,7 @@ const Text = ({
 	children,
 }: {
 	children: string | JSX.Element | JSX.Element[];
-}) => <p className={textStyling}>{children}</p>;
+}) => <p css={textStyling}>{children}</p>;
 
 export const FirstCommentWelcome = ({
 	body,
@@ -69,7 +72,7 @@ export const FirstCommentWelcome = ({
 
 	return (
 		<div
-			className={css`
+			css={css`
 				padding: ${space[2]}px;
 			`}
 		>
@@ -80,7 +83,7 @@ export const FirstCommentWelcome = ({
 				}}
 			>
 				<h3
-					className={css`
+					css={css`
 						${headline.xxsmall({ fontWeight: 'bold' })};
 					`}
 				>
@@ -106,7 +109,7 @@ export const FirstCommentWelcome = ({
 					error={error}
 				/>
 				<Text>
-					<>
+					<React.Fragment>
 						Please keep your posts respectful and abide by the{' '}
 						<Link
 							href="/community-standards"
@@ -114,18 +117,18 @@ export const FirstCommentWelcome = ({
 							subdued={true}
 							rel="nofollow"
 						>
-							<span className={textStyling}>community guidelines</span>
+							<span css={textStyling}>community guidelines</span>
 						</Link>
 						{` -`} and if you spot a comment you think doesn’t adhere to the
 						guidelines, please use the ‘Report’ link next to it to let us know.
-					</>
+					</React.Fragment>
 				</Text>
 				<Text>
 					Please preview your comment below and click ‘post’ when you’re happy
 					with it.
 				</Text>
 				<div
-					className={cx(previewStyle, textStyling)}
+					css={[previewStyle, textStyling]}
 					dangerouslySetInnerHTML={{ __html: previewBody || '' }}
 				/>
 				<Row>
@@ -138,7 +141,7 @@ export const FirstCommentWelcome = ({
 						Post your comment
 					</PillarButton>
 					<div
-						className={css`
+						css={css`
 							width: ${space[3]}px;
 						`}
 					></div>

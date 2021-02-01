@@ -1,5 +1,7 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import React, { useState, useEffect } from 'react';
-import { css, cx } from 'emotion';
+import { css, jsx } from '@emotion/core';
 
 import { space, neutral, border } from '@guardian/src-foundations';
 import { SvgPlus } from '@guardian/src-icons';
@@ -69,7 +71,7 @@ const removeMargin = css`
 	margin: 0px;
 `;
 
-export const avatar = (avatarSize: number): string => css`
+export const avatar = (avatarSize: number) => css`
 	border-radius: ${avatarSize + 10}px;
 	width: ${avatarSize}px;
 	height: ${avatarSize}px;
@@ -126,7 +128,7 @@ export const CommentContainer = ({
 	};
 
 	return (
-		<div className={cx(commentToScrollTo === comment.id && selectedStyles)}>
+		<div css={[commentToScrollTo === comment.id && selectedStyles]}>
 			<Comment
 				comment={comment}
 				pillar={pillar}
@@ -140,10 +142,10 @@ export const CommentContainer = ({
 				onRecommend={onRecommend}
 			/>
 
-			<>
+			<React.Fragment>
 				{showResponses && responses && (
-					<div className={nestingStyles}>
-						<ul className={cx(commentContainerStyles, removeMargin)}>
+					<div css={nestingStyles}>
+						<ul css={[commentContainerStyles, removeMargin]}>
 							{responses.map((responseComment) => (
 								<li key={responseComment.id}>
 									<Comment
@@ -166,13 +168,13 @@ export const CommentContainer = ({
 							comment.metaData.responseCount &&
 							comment.metaData.responseCount > 3 && (
 								<div
-									className={cx(
+									css={[
 										topBorder,
 										css`
 											padding-top: ${space[3]}px;
 											padding-bottom: ${space[3]}px;
 										`,
-									)}
+									]}
 								>
 									<PillarButton
 										priority="secondary"
@@ -198,7 +200,7 @@ export const CommentContainer = ({
 					user && (
 						<div
 							id={`comment-reply-form-${commentBeingRepliedTo.id}`}
-							className={nestingStyles}
+							css={nestingStyles}
 						>
 							<CommentReplyPreview
 								pillar={pillar}
@@ -219,7 +221,7 @@ export const CommentContainer = ({
 							/>
 						</div>
 					)}
-			</>
+			</React.Fragment>
 		</div>
 	);
 };

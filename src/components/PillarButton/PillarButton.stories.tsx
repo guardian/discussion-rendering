@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/core';
 
 import { space } from '@guardian/src-foundations';
 import { SvgCheckmark } from '@guardian/src-icons';
@@ -11,7 +11,7 @@ import { PillarButton } from './PillarButton';
 
 const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 	<div
-		className={css`
+		css={css`
 			width: ${space[amount]}px;
 		`}
 	/>

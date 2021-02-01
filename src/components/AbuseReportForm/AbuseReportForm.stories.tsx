@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/core';
 
 import { Pillar } from '@guardian/types';
 
@@ -16,7 +16,7 @@ const wrapperStyles = css`
 `;
 
 export const Dialog = () => (
-	<div className={wrapperStyles}>
+	<div css={wrapperStyles}>
 		<AbuseReportForm
 			toggleSetShowForm={() => {}}
 			pillar={Pillar.Sport}

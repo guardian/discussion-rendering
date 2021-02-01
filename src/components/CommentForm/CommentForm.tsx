@@ -1,5 +1,7 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import React, { useState, useRef, useEffect } from 'react';
-import { css, cx } from 'emotion';
+import { css, jsx } from '@emotion/core';
 
 import { palette, space } from '@guardian/src-foundations';
 import { neutral, text } from '@guardian/src-foundations/palette';
@@ -147,7 +149,7 @@ const bottomContainer = css`
 
 const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 	<div
-		className={css`
+		css={css`
 			width: ${space[amount]}px;
 		`}
 	/>
@@ -368,36 +370,36 @@ export const CommentForm = ({
 	}
 
 	return (
-		<>
+		<React.Fragment>
 			<form
-				className={formWrapper}
+				css={formWrapper}
 				onSubmit={(e) => {
 					e.preventDefault();
 					submitForm();
 				}}
 			>
 				{error && (
-					<div className={msgContainerStyles}>
+					<div css={msgContainerStyles}>
 						<p
-							className={cx(errorTextStyles, linkStyles)}
+							css={[errorTextStyles, linkStyles]}
 							dangerouslySetInnerHTML={{ __html: error }}
 						/>
 					</div>
 				)}
 				{info && (
-					<div className={msgContainerStyles}>
-						<p className={cx(infoTextStyles, linkStyles)}>{info}</p>
+					<div css={msgContainerStyles}>
+						<p css={[infoTextStyles, linkStyles]}>{info}</p>
 					</div>
 				)}
 				{isActive && (
-					<div className={wrapperHeaderTextStyles}>
-						<p className={cx(headerTextStyles, linkStyles)}>
+					<div css={wrapperHeaderTextStyles}>
+						<p css={[headerTextStyles, linkStyles]}>
 							Please keep comments respectful and abide by the{' '}
 							<a href="/community-standards">community guidelines</a>.
 						</p>
 
 						{user.privateFields && user.privateFields.isPremoderated && (
-							<p className={cx(errorTextStyles, linkStyles)}>
+							<p css={[errorTextStyles, linkStyles]}>
 								Your comments are currently being pre-moderated (
 								<a href="/community-faqs#311" target="_blank" rel="nofollow">
 									why?
@@ -412,11 +414,11 @@ export const CommentForm = ({
 					placeholder={
 						commentBeingRepliedTo || !isActive ? 'Join the discussion' : ''
 					}
-					className={cx(
+					css={[
 						commentTextArea,
 						commentBeingRepliedTo && isActive && greyPlaceholder,
 						!commentBeingRepliedTo && !isActive && blackPlaceholder,
-					)}
+					]}
 					ref={textAreaRef}
 					style={{ height: isActive ? '132px' : '50px' }}
 					onChange={(e) => {
@@ -425,9 +427,9 @@ export const CommentForm = ({
 					value={body}
 					onFocus={() => setIsActive(true)}
 				/>
-				<div className={bottomContainer}>
+				<div css={bottomContainer}>
 					<Row>
-						<>
+						<React.Fragment>
 							<PillarButton
 								pillar={pillar}
 								type="submit"
@@ -437,7 +439,7 @@ export const CommentForm = ({
 								Post your comment
 							</PillarButton>
 							{(isActive || body) && (
-								<>
+								<React.Fragment>
 									<Space amount={3} />
 									<PillarButton
 										pillar={pillar}
@@ -459,9 +461,9 @@ export const CommentForm = ({
 									>
 										Cancel
 									</PillarButton>
-								</>
+								</React.Fragment>
 							)}
-						</>
+						</React.Fragment>
 					</Row>
 					{isActive && (
 						<Row>
@@ -470,7 +472,7 @@ export const CommentForm = ({
 									e.preventDefault();
 									transformText(boldString);
 								}}
-								className={commentAddOns}
+								css={commentAddOns}
 								data-link-name="formatting-controls-bold"
 							>
 								B
@@ -480,7 +482,7 @@ export const CommentForm = ({
 									e.preventDefault();
 									transformText(italicsString);
 								}}
-								className={commentAddOns}
+								css={commentAddOns}
 								data-link-name="formatting-controls-italic"
 							>
 								i
@@ -490,7 +492,7 @@ export const CommentForm = ({
 									e.preventDefault();
 									transformText(strikethroughString);
 								}}
-								className={commentAddOns}
+								css={commentAddOns}
 								data-link-name="formatting-controls-strikethrough"
 							>
 								{`S̶`}
@@ -500,17 +502,17 @@ export const CommentForm = ({
 									e.preventDefault();
 									transformText(codeString);
 								}}
-								className={commentAddOns}
+								css={commentAddOns}
 								data-link-name="formatting-controls-code"
 							>
-								{`<>`}
+								{`<React.Fragment>`}
 							</button>
 							<button
 								onClick={(e) => {
 									e.preventDefault();
 									transformText(quoteString);
 								}}
-								className={commentAddOns}
+								css={commentAddOns}
 								data-link-name="formatting-controls-quote"
 							>
 								"
@@ -520,7 +522,7 @@ export const CommentForm = ({
 									e.preventDefault();
 									transformLink();
 								}}
-								className={commentAddOns}
+								css={commentAddOns}
 								data-link-name="formatting-controls-link"
 							>
 								Link
@@ -531,6 +533,6 @@ export const CommentForm = ({
 			</form>
 
 			{showPreview && <Preview previewHtml={previewBody} />}
-		</>
+		</React.Fragment>
 	);
 };
