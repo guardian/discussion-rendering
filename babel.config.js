@@ -16,8 +16,8 @@ module.exports = {
         '@emotion/babel-preset-css-prop'
     ],
     env: {
-        test: {	
-            plugins: ['@babel/plugin-transform-runtime'],	
-        },	
+        test: {
+            plugins: ['@babel/plugin-transform-runtime'],
+        },
     },
 };
