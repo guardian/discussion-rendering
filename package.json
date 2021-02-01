@@ -28,7 +28,7 @@
     "timeago.js": "^4.0.2"
   },
   "peerDependencies": {
-    "@emotion/core": "^10.0.28",
+    "@emotion/core": "10.0.35",
     "@guardian/src-button": "2.7.1",
     "@guardian/src-foundations": "2.7.1",
     "@guardian/src-icons": "2.7.1",
@@ -46,7 +46,9 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.12.7",
-    "@emotion/babel-preset-css-prop": "^10.0.14",
+    "@emotion/babel-preset-css-prop": "10.0.23",
+    "@emotion/core": "10.0.35",
+    "@emotion/eslint-plugin": "^11.0.0",
     "@guardian/prettier": "^0.4.2",
     "@guardian/src-button": "2.7.1",
     "@guardian/src-foundations": "2.7.1",
@@ -108,9 +110,13 @@
   "eslintConfig": {
     "extends": "react-app",
     "plugins": [
+      "@emotion",
       "react-hooks"
     ],
     "rules": {
+      "@emotion/no-vanilla": "error",
+      "@emotion/import-from-emotion": "error",
+      "@emotion/styled-import": "error",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn"
     },
