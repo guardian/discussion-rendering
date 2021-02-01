@@ -25,7 +25,7 @@ const guardianViewports = {
   phablet: {
       name: 'phablet',
       styles: {
-          width: '660px',
+          width: '660px', 
           height: '800px',
       },
   },
