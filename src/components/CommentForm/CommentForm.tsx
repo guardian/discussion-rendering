@@ -505,7 +505,7 @@ export const CommentForm = ({
 								css={commentAddOns}
 								data-link-name="formatting-controls-code"
 							>
-								{`<React.Fragment>`}
+								{`<>`}
 							</button>
 							<button
 								onClick={(e) => {
