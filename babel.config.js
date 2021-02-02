@@ -1,5 +1,5 @@
 module.exports = {
-    plugins: ['const-enum', '@babel/transform-typescript', 'babel-plugin-emotion'],
+    plugins: ['const-enum', '@babel/transform-typescript'],
     presets: [
         '@babel/preset-env',
         '@babel/preset-typescript',
@@ -13,7 +13,7 @@ module.exports = {
     ],
     env: {
         test: {
-            plugins: ['@babel/plugin-transform-runtime', 'babel-plugin-emotion'],
+            plugins: ['@babel/plugin-transform-runtime'],
         },
     },
 };
