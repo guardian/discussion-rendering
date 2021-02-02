@@ -10,7 +10,6 @@ module.exports = {
                 'importSource': '@emotion/core'
             }
         ],
-        '@emotion/babel-preset-css-prop',
     ],
     env: {
         test: {

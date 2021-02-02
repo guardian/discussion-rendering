@@ -10,14 +10,7 @@ module.exports = {
         options: {
             presets: [
                 '@babel/preset-typescript',
-                [
-                    '@babel/preset-env',
-                    {
-                        targets: {
-                            esmodules: true,
-                        },
-                    },
-                ],
+                '@babel/preset-env',
                 [
                   '@babel/preset-react',
                   {
@@ -25,7 +18,6 @@ module.exports = {
                       'importSource': '@emotion/core'
                   }
                 ],
-                '@emotion/babel-preset-css-prop',
             ],
         },
     });
