@@ -28,7 +28,7 @@
     "timeago.js": "^4.0.2"
   },
   "peerDependencies": {
-    "@emotion/core": "^10.0.28",
+    "@emotion/core": "10.0.35",
     "@guardian/src-button": "2.7.1",
     "@guardian/src-foundations": "2.7.1",
     "@guardian/src-icons": "2.7.1",
