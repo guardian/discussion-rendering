@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { css, cx } from 'emotion';
 
 import { space, palette, remSpace } from '@guardian/src-foundations';
@@ -303,7 +303,7 @@ export const Comment = ({
 	const showPickBadge = comment.status !== 'blocked' && isHighlighted;
 
 	return (
-		<>
+		<React.Fragment>
 			{error && (
 				<span
 					className={css`
@@ -414,7 +414,7 @@ export const Comment = ({
 												</Link>
 											</div>
 										) : (
-											<></>
+											<React.Fragment></React.Fragment>
 										)}
 										<div
 											className={cx(
@@ -436,14 +436,14 @@ export const Comment = ({
 												<GuardianStaff />
 											</div>
 										) : (
-											<></>
+											<React.Fragment></React.Fragment>
 										)}
 										{showPickBadge ? (
 											<div className={iconWrapper}>
 												<GuardianPick />
 											</div>
 										) : (
-											<></>
+											<React.Fragment></React.Fragment>
 										)}
 									</Row>
 								</div>
@@ -475,14 +475,14 @@ export const Comment = ({
 									<GuardianStaff />
 								</div>
 							) : (
-								<></>
+								<React.Fragment></React.Fragment>
 							)}
 							{showPickBadge ? (
 								<div className={iconWrapper}>
 									<GuardianPick />
 								</div>
 							) : (
-								<></>
+								<React.Fragment></React.Fragment>
 							)}
 						</Row>
 					</div>
@@ -491,7 +491,9 @@ export const Comment = ({
 					{isMuted && (
 						<p className={blockedCommentStyles}>
 							<Row>
-								<>All posts from this user have been muted on this device.</>
+								<React.Fragment>
+									All posts from this user have been muted on this device.
+								</React.Fragment>
 								<Space amount={1} />
 								<ButtonLink
 									onClick={() => toggleMuteStatus(comment.userProfile.userId)}
@@ -514,7 +516,7 @@ export const Comment = ({
 
 					{/* NORMAL */}
 					{!isMuted && comment.status !== 'blocked' && (
-						<>
+						<React.Fragment>
 							<div
 								className={cx(commentCss, commentLinkStyling)}
 								dangerouslySetInnerHTML={{
@@ -525,7 +527,7 @@ export const Comment = ({
 								<Row>
 									{/* When commenting is closed, no reply link shows at all */}
 									{!isClosedForComments && (
-										<>
+										<React.Fragment>
 											{/* If user is not logged in we link to the login page */}
 											{user ? (
 												<div className={svgReplyArrow}>
@@ -563,7 +565,7 @@ export const Comment = ({
 												</div>
 											)}
 											<Space amount={4} />
-										</>
+										</React.Fragment>
 									)}
 									<Space amount={4} />
 									{/* Only staff can pick, and they cannot pick thier own comment */}
@@ -594,7 +596,7 @@ export const Comment = ({
 											Mute
 										</ButtonLink>
 									) : (
-										<></>
+										<React.Fragment></React.Fragment>
 									)}
 									<Space amount={4} />
 									<ButtonLink
@@ -619,10 +621,10 @@ export const Comment = ({
 									)}
 								</Row>
 							</div>
-						</>
+						</React.Fragment>
 					)}
 				</div>
 			</div>
-		</>
+		</React.Fragment>
 	);
 };

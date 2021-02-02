@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { css, cx } from 'emotion';
 
 import { space, neutral, border } from '@guardian/src-foundations';
@@ -140,7 +140,7 @@ export const CommentContainer = ({
 				onRecommend={onRecommend}
 			/>
 
-			<>
+			<React.Fragment>
 				{showResponses && responses && (
 					<div className={nestingStyles}>
 						<ul className={cx(commentContainerStyles, removeMargin)}>
@@ -219,7 +219,7 @@ export const CommentContainer = ({
 							/>
 						</div>
 					)}
-			</>
+			</React.Fragment>
 		</div>
 	);
 };

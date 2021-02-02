@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { css } from 'emotion';
 
 import { textSans } from '@guardian/src-foundations/typography';
@@ -85,7 +85,7 @@ export const CommentReplyPreview = ({
 		false,
 	);
 	return (
-		<>
+		<React.Fragment>
 			<Row>
 				<div className={indentStyles}>
 					<SvgIndent />
@@ -112,7 +112,7 @@ export const CommentReplyPreview = ({
 					displayReplyComment={displayReplyComment}
 				/>
 			)}
-		</>
+		</React.Fragment>
 	);
 };
 

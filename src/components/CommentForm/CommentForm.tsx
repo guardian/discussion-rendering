@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { css, cx } from 'emotion';
 
 import { palette, space } from '@guardian/src-foundations';
@@ -368,7 +368,7 @@ export const CommentForm = ({
 	}
 
 	return (
-		<>
+		<React.Fragment>
 			<form
 				className={formWrapper}
 				onSubmit={(e) => {
@@ -427,7 +427,7 @@ export const CommentForm = ({
 				/>
 				<div className={bottomContainer}>
 					<Row>
-						<>
+						<React.Fragment>
 							<PillarButton
 								pillar={pillar}
 								type="submit"
@@ -437,7 +437,7 @@ export const CommentForm = ({
 								Post your comment
 							</PillarButton>
 							{(isActive || body) && (
-								<>
+								<React.Fragment>
 									<Space amount={3} />
 									<PillarButton
 										pillar={pillar}
@@ -459,9 +459,9 @@ export const CommentForm = ({
 									>
 										Cancel
 									</PillarButton>
-								</>
+								</React.Fragment>
 							)}
-						</>
+						</React.Fragment>
 					</Row>
 					{isActive && (
 						<Row>
@@ -503,7 +503,7 @@ export const CommentForm = ({
 								className={commentAddOns}
 								data-link-name="formatting-controls-code"
 							>
-								{`<>`}
+								{`<React.Fragment>`}
 							</button>
 							<button
 								onClick={(e) => {
@@ -531,6 +531,6 @@ export const CommentForm = ({
 			</form>
 
 			{showPreview && <Preview previewHtml={previewBody} />}
-		</>
+		</React.Fragment>
 	);
 };
