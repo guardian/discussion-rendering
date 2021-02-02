@@ -1,18 +1,18 @@
 module.exports = {
     plugins: [
-        "const-enum",
-        "@babel/transform-typescript",
+        'const-enum',
+        '@babel/transform-typescript',
         [
-            "babel-plugin-emotion",
+            'babel-plugin-emotion',
             {
-                "cssPropOptimization": true
+                'cssPropOptimization': true
             }
         ]
     ],
     presets: [
         '@babel/preset-env',
         '@babel/preset-typescript',
-        "@babel/preset-react",
+        '@babel/preset-react',
         '@emotion/babel-preset-css-prop'
     ],
     env: {
