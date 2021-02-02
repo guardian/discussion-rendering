@@ -6,7 +6,7 @@
         "outDir": "build",
         "strict": true,
         "esModuleInterop": true,
-        "jsx": "react",
+        "jsx": "react-jsx",
         "moduleResolution": "node",
         "allowJs": true,
         "skipLibCheck": true,

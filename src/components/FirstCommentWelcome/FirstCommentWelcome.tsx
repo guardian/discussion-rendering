@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { css, cx } from 'emotion';
 import { textSans, headline } from '@guardian/src-foundations/typography';
 import { space, neutral } from '@guardian/src-foundations';

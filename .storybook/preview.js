@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { FocusStyleManager } from "@guardian/src-foundations/utils"
 import MockDate from 'mockdate';
 import { mockFetchCalls } from '../src/lib/mockFetchCalls';

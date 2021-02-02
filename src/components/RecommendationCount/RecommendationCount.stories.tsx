@@ -1,4 +1,3 @@
-import React from 'react';
 import { RecommendationCount } from './RecommendationCount';
 
 export default { title: 'RecommendationCount' };

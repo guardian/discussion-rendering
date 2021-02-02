@@ -5,13 +5,30 @@ module.exports = {
   ],
   webpackFinal: async config => {
       config.module.rules.push({
-          test: /\.(ts|tsx)$/,
-          use: [
-              {
-                  loader: require.resolve('ts-loader'),
-              },
-          ],
-      });
+        test: /\.(ts|tsx)$/,
+        loader: require.resolve('babel-loader'),
+        options: {
+            presets: [
+                '@babel/preset-typescript',
+                [
+                    '@babel/preset-env',
+                    {
+                        targets: {
+                            esmodules: true,
+                        },
+                    },
+                ],
+                [
+                  '@babel/preset-react',
+                  {
+                      'runtime': 'automatic',
+                      'importSource': '@emotion/core'
+                  }
+                ],
+                '@emotion/babel-preset-css-prop',
+            ],
+        },
+    });
 
       return config;
   },

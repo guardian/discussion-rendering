@@ -44,9 +44,11 @@
     "@babel/core": "^7.12.10",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
+    "@emotion/babel-plugin": "^11.1.2",
     "@emotion/babel-preset-css-prop": "^10.0.14",
+    "@emotion/core": "10.0.35",
     "@guardian/prettier": "^0.4.2",
     "@guardian/src-button": "2.7.1",
     "@guardian/src-foundations": "2.7.1",
@@ -63,8 +65,8 @@
     "@testing-library/user-event": "^12.6.2",
     "@types/jest": "^26.0.0",
     "@types/node": "^14.10.2",
-    "@types/react": "^16.9.34",
-    "@types/react-dom": "^16.9.5",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-const-enum": "^1.0.1",
     "emotion": "^10.0.27",
@@ -76,8 +78,8 @@
     "np": "^7.2.0",
     "prettier": "^2.2.1",
     "pretty-quick": "^2.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.12.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-scripts": "3.3.0",
     "rollup": "^1.17.0",
     "rollup-plugin-babel": "^4.3.3",
@@ -112,7 +114,9 @@
     ],
     "rules": {
       "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
+      "react-hooks/exhaustive-deps": "warn",
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off"
     },
     "ignorePatterns": [
       "build"
@@ -152,7 +156,8 @@
     "globals": {
       "ts-jest": {
         "diagnostics": false,
-        "tsConfigFile": "tsconfig.json"
+        "tsConfigFile": "tsconfig.json",
+        "babelConfig": true
       }
     },
     "testMatch": [

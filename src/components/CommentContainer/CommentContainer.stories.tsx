@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Pillar } from '@guardian/types';
 
 import { CommentContainer } from './CommentContainer';
