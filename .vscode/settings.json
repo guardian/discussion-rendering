@@ -16,7 +16,8 @@
     "source.fixAll.eslint": true
   },
   "workbench.colorCustomizations": {
-        "titleBar.activeBackground": "#DC267F",
-        "titleBar.activeForeground": "#000000"
-    }
+    "titleBar.activeBackground": "#DC267F",
+    "titleBar.activeForeground": "#000000"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
