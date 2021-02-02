@@ -46,7 +46,6 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
-    "@emotion/babel-plugin": "^11.1.2",
     "@emotion/core": "10.0.35",
     "@guardian/prettier": "^0.4.2",
     "@guardian/src-button": "2.7.1",
