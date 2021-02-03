@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import { pillarToEnum } from './lib/pillarToEnum';
@@ -30,7 +30,7 @@ const IndexPageWrapper = () => {
 	}
 
 	return (
-		<React.Fragment>
+		<>
 			<h1>Example Discussion</h1>
 			<p>
 				Set a specific discussion using the id in a query param like{' '}
@@ -53,7 +53,7 @@ const IndexPageWrapper = () => {
 				onPermalinkClick={() => {}}
 				apiKey="discussion-rendering"
 			/>
-		</React.Fragment>
+		</>
 	);
 };
 

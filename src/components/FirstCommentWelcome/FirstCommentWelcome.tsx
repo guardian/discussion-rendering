@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { css, cx } from 'emotion';
 import { textSans, headline } from '@guardian/src-foundations/typography';
 import { space, neutral } from '@guardian/src-foundations';
@@ -106,7 +106,7 @@ export const FirstCommentWelcome = ({
 					error={error}
 				/>
 				<Text>
-					<React.Fragment>
+					<>
 						Please keep your posts respectful and abide by the{' '}
 						<Link
 							href="/community-standards"
@@ -118,7 +118,7 @@ export const FirstCommentWelcome = ({
 						</Link>
 						{` -`} and if you spot a comment you think doesn’t adhere to the
 						guidelines, please use the ‘Report’ link next to it to let us know.
-					</React.Fragment>
+					</>
 				</Text>
 				<Text>
 					Please preview your comment below and click ‘post’ when you’re happy

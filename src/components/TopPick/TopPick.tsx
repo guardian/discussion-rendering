@@ -1,4 +1,3 @@
-import React from 'react';
 import { css, cx } from 'emotion';
 
 import { from } from '@guardian/src-foundations/mq';
@@ -229,7 +228,7 @@ export const TopPick = ({
 						.length ? (
 						<GuardianStaff />
 					) : (
-						<React.Fragment></React.Fragment>
+						<></>
 					)}
 				</Column>
 			</Row>

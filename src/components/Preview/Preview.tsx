@@ -1,4 +1,3 @@
-import React from 'react';
 import { css } from 'emotion';
 
 import { space, neutral } from '@guardian/src-foundations';
@@ -52,11 +51,11 @@ const spout = css`
 `;
 
 export const Preview = ({ previewHtml }: Props) => (
-	<React.Fragment>
+	<>
 		<div className={spout} />
 		<p
 			className={previewStyle}
 			dangerouslySetInnerHTML={{ __html: previewHtml || '' }}
 		/>
-	</React.Fragment>
+	</>
 );

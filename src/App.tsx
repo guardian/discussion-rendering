@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { css } from 'emotion';
 
 import { neutral } from '@guardian/src-foundations/palette';
@@ -398,7 +398,7 @@ export const App = ({
 						)}
 					</div>
 				) : (
-					<React.Fragment>
+					<>
 						<Filters
 							pillar={pillar}
 							filters={filters}
@@ -443,7 +443,7 @@ export const App = ({
 								))}
 							</ul>
 						)}
-					</React.Fragment>
+					</>
 				)}
 				{commentCount > 2 && (
 					<div
