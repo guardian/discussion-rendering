@@ -242,6 +242,7 @@ export const addUserName = (userName: string): Promise<UserNameResponse> => {
 		`https://idapi.theguardian.com/user/me` + objAsParams(defaultParams);
 	return fetch(url, {
 		method: 'POST',
+		credentials: 'include',
 		body: JSON.stringify({
 			publicFields: {
 				username: userName,
