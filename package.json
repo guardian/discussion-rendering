@@ -1,7 +1,7 @@
 {
   "name": "@guardian/discussion-rendering",
   "description": "This codebase started as a hack day project by @gtrufitt and @nicl. The purpose is parity of the existing discussion application on Frontend using the discussion API (search for Private Repo).",
-  "version": "6.0.2-0",
+  "version": "6.1.0",
   "author": "",
   "homepage": "https://github.com/guardian/discussion-rendering#readme",
   "license": "Apache",
@@ -80,7 +80,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
-    "rollup": "^1.17.0",
+    "rollup": "^2.38.5",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-commonjs": "^10.0.2",
