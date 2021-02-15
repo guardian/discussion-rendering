@@ -1,23 +1,33 @@
 {
-    "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "lib": ["es2017", "es7", "es6", "dom", "DOM.Iterable"],
-        "outDir": "build",
-        "strict": true,
-        "esModuleInterop": true,
-        "jsx": "react-jsx",
-        "jsxImportSource": "@emotion/react",
-        "moduleResolution": "node",
-        "allowJs": true,
-        "skipLibCheck": true,
-        "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true,
-        "isolatedModules": false,
-        "noEmit": false,
-    },
-    "files": ["src/types.ts"],
-    "include": ["src/"],
-    "exclude": []
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "lib": [
+      "es2017",
+      "es7",
+      "es6",
+      "dom",
+      "DOM.Iterable"
+    ],
+    "outDir": "build",
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "files": [
+    "src/types.ts"
+  ],
+  "include": [
+    "src/"
+  ],
+  "exclude": []
 }
