@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/react';
 
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, space, text } from '@guardian/src-foundations';
@@ -18,7 +18,7 @@ type Props = {
 
 const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 	<div
-		className={css`
+		css={css`
 			width: ${space[amount]}px;
 		`}
 	/>
@@ -87,11 +87,11 @@ export const CommentReplyPreview = ({
 	return (
 		<>
 			<Row>
-				<div className={indentStyles}>
+				<div css={indentStyles}>
 					<SvgIndent />
 				</div>
 				<Space amount={1} />
-				<div className={smallFontStyles}>
+				<div css={smallFontStyles}>
 					{commentBeingRepliedTo.userProfile.displayName}
 				</div>
 				<Space amount={3} />
@@ -126,13 +126,13 @@ export const Preview = ({
 	displayReplyComment: boolean;
 }) => {
 	return (
-		<div className={previewStyle}>
-			<p className={replyPreviewHeaderStyle}>
+		<div css={previewStyle}>
+			<p css={replyPreviewHeaderStyle}>
 				{commentBeingRepliedTo.userProfile.displayName} @{' '}
 				{commentBeingRepliedTo.date} said:
 			</p>
 			<div
-				className={commentStyles}
+				css={commentStyles}
 				dangerouslySetInnerHTML={{
 					__html: commentBeingRepliedTo.body || '',
 				}}
@@ -142,7 +142,7 @@ export const Preview = ({
 				onClick={() => setDisplayReplyComment(!displayReplyComment)}
 				linkName="hide-comment"
 			>
-				<span className={blueLink}>Hide Comment</span>
+				<span css={blueLink}>Hide Comment</span>
 			</ButtonLink>
 		</div>
 	);

@@ -70,7 +70,7 @@ const FullWidthColumn = ({
 	children: JSX.Element | JSX.Element[];
 }) => (
 	<div
-		className={css`
+		css={css`
 			display: flex;
 			flex-direction: column;
 			width: 100%;
@@ -92,7 +92,7 @@ const Grey = ({
 	spaceLeft?: 1 | 2 | 3 | 4 | 5 | 6 | 9;
 }) => (
 	<div
-		className={css`
+		css={css`
 			height: ${height}px;
 			width: ${width ? `${width}px` : '100%'};
 			margin-bottom: ${spaceBelow && space[spaceBelow]}px;
@@ -105,11 +105,11 @@ const Grey = ({
 );
 
 export const LoadingPicks = () => (
-	<div className={containerStyles}>
+	<div css={containerStyles}>
 		<FullWidthColumn>
-			<div className={pickBoxStyles} />
+			<div css={pickBoxStyles} />
 			<Row>
-				<div className={avatarStyles(48)} />
+				<div css={avatarStyles(48)} />
 				<FullWidthColumn>
 					<Grey height={20} width={90} spaceBelow={1} />
 					<Grey height={15} width={50} spaceBelow={9} />

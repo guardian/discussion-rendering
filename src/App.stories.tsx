@@ -1,6 +1,6 @@
 import React from 'react';
 import { App } from './App';
-import { css } from 'emotion';
+import { css } from '@emotion/react';
 
 import { Pillar } from '@guardian/types';
 
@@ -25,7 +25,7 @@ const aUser: UserProfile = {
 
 export const LoggedOutHiddenPicks = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 620px;
 		`}
@@ -51,7 +51,7 @@ LoggedOutHiddenPicks.story = {
 
 export const InitialPage = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 620px;
 		`}
@@ -76,7 +76,7 @@ InitialPage.story = { name: 'with initial page set to 3' };
 
 export const Overrides = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 620px;
 		`}
@@ -103,7 +103,7 @@ Overrides.story = { name: 'with page size overridden to 50' };
 
 export const LoggedInHiddenNoPicks = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 620px;
 		`}
@@ -130,7 +130,7 @@ LoggedInHiddenNoPicks.story = {
 
 export const LoggedOutHiddenNoPicks = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 620px;
 		`}
@@ -156,7 +156,7 @@ LoggedOutHiddenNoPicks.story = {
 
 export const Closed = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 620px;
 		`}
@@ -181,7 +181,7 @@ Closed.story = { name: 'Logged in but closed for comments' };
 
 export const NoComments = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 620px;
 		`}
@@ -207,7 +207,7 @@ NoComments.story = {
 
 export const LegacyDiscussion = () => (
 	<div
-		className={css`
+		css={css`
 			width: 100%;
 			max-width: 620px;
 		`}

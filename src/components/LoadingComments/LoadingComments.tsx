@@ -58,7 +58,7 @@ const Grey = ({
 	spaceLeft?: 1 | 2 | 3 | 4 | 5 | 6 | 9;
 }) => (
 	<div
-		className={css`
+		css={css`
 			height: ${height}px;
 			width: ${width ? `${width}px` : '100%'};
 			margin-bottom: ${spaceBelow && space[spaceBelow]}px;
@@ -71,8 +71,8 @@ const Grey = ({
 );
 
 export const LoadingComments = () => (
-	<div className={containerStyles} data-testid="loading-comments">
-		<div className={avatarStyles(48)} />
+	<div css={containerStyles} data-testid="loading-comments">
+		<div css={avatarStyles(48)} />
 		<Column>
 			<Row>
 				<Grey height={20} width={140} spaceBelow={9} />
