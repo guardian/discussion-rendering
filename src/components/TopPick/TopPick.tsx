@@ -160,7 +160,7 @@ const PickMeta = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 
 const truncateText = (input: string, limit: number) => {
 	// If input greater than limit trucate by limit and append an ellipsis
-	if (input.length > limit) return `${input.substr(0, limit)  }&#8230;`;
+	if (input.length > limit) return `${input.substr(0, limit)}&#8230;`;
 	return input;
 };
 
@@ -227,7 +227,7 @@ export const TopPick = ({
 					/>
 					{comment.userProfile.badge.filter((obj) => obj.name === 'Staff')
 						.length ? (
-							<GuardianStaff />
+						<GuardianStaff />
 					) : (
 						<></>
 					)}

@@ -100,14 +100,14 @@ export const FirstCommentWelcome = ({
 					supporting="Must be 6-20 characters, letters and/or numbers only, no spaces."
 					value={userName}
 					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-						setUserName(e.target.value)}
+						setUserName(e.target.value)
+					}
 					width={30}
 					error={error}
 				/>
 				<Text>
 					<>
-						Please keep your posts respectful and abide by the
-						{' '}
+						Please keep your posts respectful and abide by the{' '}
 						<Link
 							href="/community-standards"
 							priority="primary"
@@ -116,9 +116,7 @@ export const FirstCommentWelcome = ({
 						>
 							<span css={textStyling}>community guidelines</span>
 						</Link>
-						{` -`}
-						{' '}
-						and if you spot a comment you think doesn’t adhere to the
+						{` -`} and if you spot a comment you think doesn’t adhere to the
 						guidelines, please use the ‘Report’ link next to it to let us know.
 					</>
 				</Text>

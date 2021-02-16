@@ -85,7 +85,8 @@ export const Filters = ({
 					onFilterChange({
 						...filters,
 						orderBy: value as OrderByType,
-					})}
+					})
+				}
 			/>
 		</div>
 		<div css={dividerStyles} />
@@ -118,7 +119,8 @@ export const Filters = ({
 					onFilterChange({
 						...filters,
 						pageSize: parseInt(value, 10) as PageSizeType,
-					})}
+					})
+				}
 			/>
 		</div>
 		<div css={dividerStyles} />
@@ -148,7 +150,8 @@ export const Filters = ({
 					onFilterChange({
 						...filters,
 						threads: value as ThreadsType,
-					})}
+					})
+				}
 			/>
 		</div>
 	</div>
