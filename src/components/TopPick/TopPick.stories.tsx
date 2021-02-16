@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { Pillar } from '@guardian/types';
 
-import { TopPick } from '../TopPick/TopPick';
+import { TopPick } from "./TopPick";
 import { CommentType } from '../../types';
 
 export default { component: TopPick, title: 'TopPick' };

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 
@@ -115,32 +116,6 @@ const rememberFilters = (filtersToRemember: FilterOptions) => {
 	}
 };
 
-const initialiseFilters = ({
-	pageSizeOverride,
-	orderByOverride,
-	permalinkBeingUsed,
-	isClosedForComments,
-}: {
-	pageSizeOverride?: PageSizeType;
-	orderByOverride?: OrderByType;
-	permalinkBeingUsed: boolean;
-	isClosedForComments: boolean;
-}) => {
-	const initialisedFilters = initFiltersFromLocalStorage({
-		isClosedForComments,
-	});
-	return {
-		...initialisedFilters,
-		// Override if prop given
-		pageSize: pageSizeOverride || initialisedFilters.pageSize,
-		orderBy: orderByOverride || initialisedFilters.orderBy,
-		threads:
-			initialisedFilters.threads === 'collapsed' && permalinkBeingUsed
-				? 'expanded'
-				: initialisedFilters.threads,
-	};
-};
-
 const initFiltersFromLocalStorage = ({
 	isClosedForComments,
 }: {
@@ -149,6 +124,10 @@ const initFiltersFromLocalStorage = ({
 	let threads;
 	let pageSize;
 	let orderBy;
+
+	function decideDefaultOrderBy(isClosedForComment: boolean): OrderByType {
+		return isClosedForComments ? 'oldest' : 'newest';
+	}
 
 	try {
 		// Try to read from local storage
@@ -172,10 +151,6 @@ const initFiltersFromLocalStorage = ({
 		return size; // size is acceptable
 	}
 
-	function decideDefaultOrderBy(isClosedForComment: boolean): OrderByType {
-		return isClosedForComments ? 'oldest' : 'newest';
-	}
-
 	// If we found something in LS, use it, otherwise return defaults
 	return {
 		orderBy: orderBy
@@ -185,6 +160,32 @@ const initFiltersFromLocalStorage = ({
 		pageSize: pageSize
 			? checkPageSize(JSON.parse(pageSize).value)
 			: DEFAULT_FILTERS.pageSize,
+	};
+};
+
+const initialiseFilters = ({
+	pageSizeOverride,
+	orderByOverride,
+	permalinkBeingUsed,
+	isClosedForComments,
+}: {
+	pageSizeOverride?: PageSizeType;
+	orderByOverride?: OrderByType;
+	permalinkBeingUsed: boolean;
+	isClosedForComments: boolean;
+}) => {
+	const initialisedFilters = initFiltersFromLocalStorage({
+		isClosedForComments,
+	});
+	return {
+		...initialisedFilters,
+		// Override if prop given
+		pageSize: pageSizeOverride || initialisedFilters.pageSize,
+		orderBy: orderByOverride || initialisedFilters.orderBy,
+		threads:
+			initialisedFilters.threads === 'collapsed' && permalinkBeingUsed
+				? 'expanded'
+				: initialisedFilters.threads,
 	};
 };
 
@@ -317,7 +318,7 @@ export const App = ({
 		let maxPagePossible = Math.floor(commentCount / newFilterObject.pageSize);
 		// Add 1 if there is a remainder
 		if (commentCount % newFilterObject.pageSize) {
-			maxPagePossible = maxPagePossible + 1;
+			maxPagePossible += 1;
 		}
 		// Check
 		if (page > maxPagePossible) setPage(maxPagePossible);

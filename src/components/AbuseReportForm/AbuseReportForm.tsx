@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
 
-import { palette } from '@guardian/src-foundations';
+import { palette, space, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
-import { space, neutral } from '@guardian/src-foundations';
+
 import { Button } from '@guardian/src-button';
 import { SvgCross } from '@guardian/src-icons';
 
@@ -12,7 +13,7 @@ import { Theme } from '@guardian/types';
 import { reportAbuse } from '../../lib/api';
 import { pillarToString } from '../../lib/pillarToString';
 
-type formData = {
+type FormData = {
 	categoryId: number;
 	reason?: string;
 	email?: string;
@@ -59,11 +60,17 @@ const errorMessageStyles = css`
 	color: red;
 `;
 
-export const AbuseReportForm: React.FC<{
+interface Props {
 	commentId: number;
 	toggleSetShowForm: () => void;
 	pillar: Theme;
-}> = ({ commentId, toggleSetShowForm, pillar }) => {
+}
+
+export const AbuseReportForm: React.FC<Props> = ({
+	commentId,
+	toggleSetShowForm,
+	pillar,
+}: Props) => {
 	const modalRef = useRef<HTMLDivElement>(null);
 	// TODO: use ref once forwardRef is implemented @guardian/src-button
 	// We want to pull out the 1st and last elements of the form, and highlight the 1st element
@@ -119,7 +126,7 @@ export const AbuseReportForm: React.FC<{
 		return () => document.removeEventListener('keydown', keyListener);
 	});
 
-	const [formVariables, setFormVariables] = useState<formData>({
+	const [formVariables, setFormVariables] = useState<FormData>({
 		categoryId: 0,
 		reason: '',
 		email: '',
@@ -133,7 +140,9 @@ export const AbuseReportForm: React.FC<{
 	};
 	const [errors, setErrors] = useState(defaultErrorTexts);
 	const [successMessage, setSuccessMessage] = useState<string>();
-	const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+	const onSubmit = async (
+		event: React.FormEvent<HTMLFormElement>,
+	): Promise<void> => {
 		event.preventDefault();
 
 		const { categoryId, reason, email } = formVariables;
@@ -148,7 +157,7 @@ export const AbuseReportForm: React.FC<{
 				categoryId: 'You must select a category before submitting',
 			});
 
-			return false;
+			return;
 		}
 		const response = await reportAbuse({
 			categoryId,
@@ -215,7 +224,7 @@ export const AbuseReportForm: React.FC<{
 							})
 						}
 						value={formVariables.reason}
-					></textarea>
+					/>
 					{errors.reason && (
 						<span css={errorMessageStyles}>{errors.reason}</span>
 					)}
@@ -236,7 +245,7 @@ export const AbuseReportForm: React.FC<{
 							})
 						}
 						value={formVariables.email}
-					></input>
+					/>
 					{errors.email && <span css={errorMessageStyles}>{errors.email}</span>}
 				</div>
 

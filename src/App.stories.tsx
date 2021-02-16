@@ -1,8 +1,8 @@
 import React from 'react';
-import { App } from './App';
 import { css } from '@emotion/react';
 
 import { Pillar } from '@guardian/types';
+import { App } from './App';
 
 import { UserProfile } from './types';
 

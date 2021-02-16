@@ -92,7 +92,7 @@ export const DropdownActive = () => (
 				console.log('clicked: ', value);
 			}}
 		/>
-		<p>Hi, I'm some other content we want to overlay</p>
+		<p>{"Hi, I'm some other content we want to overlay"}</p>
 	</Container>
 );
 DropdownActive.story = { name: 'Dropdown with first item active' };

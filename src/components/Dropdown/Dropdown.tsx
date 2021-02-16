@@ -203,6 +203,7 @@ export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
 					css={[buttonStyles, isExpanded && expandedStyles]}
 					aria-controls={dropdownID}
 					aria-expanded={isExpanded ? 'true' : 'false'}
+					type="button"
 				>
 					{activeLink ? activeLink.title : 'Please select'}
 				</button>
@@ -219,6 +220,7 @@ export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
 									index === 0 && firstStyles,
 								]}
 								disabled={option.isActive || option.disabled}
+								type="button"
 							>
 								{option.title}
 							</button>

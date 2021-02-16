@@ -42,11 +42,12 @@ export const initialiseApi = ({
 const objAsParams = (obj: any): string => {
 	const params = Object.keys(obj)
 		.map((key) => {
+			// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 			return `${key}=${obj[key]}`; // type issues here cannot be avoided
 		})
 		.join('&');
 
-	return '?' + params;
+	return `?${params}`;
 };
 
 export const getDiscussion = (
@@ -238,8 +239,9 @@ export const recommend = (commentId: number): Promise<boolean> => {
 };
 
 export const addUserName = (userName: string): Promise<UserNameResponse> => {
-	const url =
-		`https://idapi.theguardian.com/user/me` + objAsParams(defaultParams);
+	const url = `https://idapi.theguardian.com/user/me${objAsParams(
+		defaultParams,
+	)}`;
 	return fetch(url, {
 		method: 'POST',
 		credentials: 'include',

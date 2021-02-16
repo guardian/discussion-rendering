@@ -153,6 +153,12 @@ const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 	/>
 );
 
+interface HighlightedString {
+	highlightedString: string;
+	startString: string;
+	endString: string;
+}
+
 export const CommentForm = ({
 	shortUrl,
 	pillar,
@@ -184,14 +190,9 @@ export const CommentForm = ({
 		}
 	}, [commentBeingRepliedTo]);
 
-	const getHighlightedString = ():
-		| {
-				highlightedString: string;
-				startString: string;
-				endString: string;
-		  }
-		| undefined => {
+	const getHighlightedString = (): HighlightedString | undefined => {
 		if (!textAreaRef || !textAreaRef.current) return;
+
 		const selectionStart = textAreaRef.current.selectionStart;
 		const selectionEnd = textAreaRef.current.selectionEnd;
 		const value = textAreaRef.current.value;
@@ -324,7 +325,7 @@ export const CommentForm = ({
 					simulateNewComment(
 						// response.errorCode is the id of the comment that was created on the server
 						// it is returned as a string, so we need to cast to an number to be compatable
-						parseInt(response.message),
+						parseInt(response.message, 10),
 						body,
 						user,
 						commentBeingRepliedTo,
@@ -347,6 +348,7 @@ export const CommentForm = ({
 		const response = await addUserName(userName);
 		if (response.status === 'ok') {
 			// If we are able to submit userName we should continue with submitting comment
+			// eslint-disable-next-line @typescript-eslint/no-floating-promises
 			submitForm();
 			setUserNameMissing(false);
 		} else {
@@ -373,6 +375,7 @@ export const CommentForm = ({
 				css={formWrapper}
 				onSubmit={(e) => {
 					e.preventDefault();
+					// eslint-disable-next-line @typescript-eslint/no-floating-promises
 					submitForm();
 				}}
 			>
@@ -472,6 +475,7 @@ export const CommentForm = ({
 								}}
 								css={commentAddOns}
 								data-link-name="formatting-controls-bold"
+								type="button"
 							>
 								B
 							</button>
@@ -482,6 +486,7 @@ export const CommentForm = ({
 								}}
 								css={commentAddOns}
 								data-link-name="formatting-controls-italic"
+								type="button"
 							>
 								i
 							</button>
@@ -492,6 +497,7 @@ export const CommentForm = ({
 								}}
 								css={commentAddOns}
 								data-link-name="formatting-controls-strikethrough"
+								type="button"
 							>
 								{`S̶`}
 							</button>
@@ -502,6 +508,7 @@ export const CommentForm = ({
 								}}
 								css={commentAddOns}
 								data-link-name="formatting-controls-code"
+								type="button"
 							>
 								{`<>`}
 							</button>
@@ -512,8 +519,9 @@ export const CommentForm = ({
 								}}
 								css={commentAddOns}
 								data-link-name="formatting-controls-quote"
+								type="button"
 							>
-								"
+								&quot;
 							</button>
 							<button
 								onClick={(e) => {
@@ -522,6 +530,7 @@ export const CommentForm = ({
 								}}
 								css={commentAddOns}
 								data-link-name="formatting-controls-link"
+								type="button"
 							>
 								Link
 							</button>
