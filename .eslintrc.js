@@ -56,5 +56,6 @@ module.exports = {
         // Conflicts with code formatting
         'react/jsx-one-expression-per-line': 'off',
         'react/jsx-curly-newline': 'off',
+        'react/jsx-indent': 'off',
     },
 };
