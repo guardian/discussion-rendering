@@ -1,11 +1,13 @@
 import pkg from './package.json';
-import babel from 'rollup-plugin-babel';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import babel from '@rollup/plugin-babel';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import clear from 'rollup-plugin-clear';
 import visualizer from 'rollup-plugin-visualizer';
+import { DEFAULT_EXTENSIONS } from '@babel/core';
+import replace from '@rollup/plugin-replace';
 
-const extensions = ['.ts', '.tsx'];
+const extensions = ['.ts', '.tsx', ...DEFAULT_EXTENSIONS];
 
 module.exports = {
     input: './src/App.tsx',
@@ -19,7 +21,7 @@ module.exports = {
             format: 'esm',
         },
     ],
-    external: [
+     external: [
         // Ignore all dependencies and PeerDependencies in build
         ...Object.keys(pkg.dependencies || {}),
         ...Object.keys(pkg.peerDependencies || {}),
@@ -33,9 +35,10 @@ module.exports = {
         clear({
             targets: ['build/'],
         }),
-        babel({ extensions }),
+        replace({ 'process.env.NODE_ENV': '"production"' }),
         resolve({ extensions }),
         commonjs(),
+        babel({ extensions }),
         visualizer({ filename: 'build/stats.html' }),
     ],
 };

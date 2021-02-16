@@ -57,6 +57,11 @@
     "@storybook/addon-essentials": "^6.1.18",
     "@storybook/addon-links": "^6.1.18",
     "@storybook/react": "^6.1.18",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@rollup/plugin-replace": "^2.3.4",
+    "@rollup/plugin-typescript": "^8.2.0",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.2",
@@ -66,6 +71,7 @@
     "@types/react-dom": "^16.9.5",
     "babel-loader": "^8.2.2",
     "babel-plugin-const-enum": "^1.0.1",
+    "concurrently": "^5.3.0",
     "emotion": "^10.0.27",
     "eslint-plugin-react-hooks": "^4.0.4",
     "fetch-mock": "^9.3.1",
@@ -78,22 +84,20 @@
     "pretty-quick": "^2.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-scripts": "3.4.4",
-    "rollup": "^1.17.0",
+    "rollup": "2.39.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-clear": "^2.0.7",
-    "rollup-plugin-commonjs": "^10.0.2",
-    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-visualizer": "^4.0.4",
     "storybook-chromatic": "^4.0.2",
     "ts-jest": "^26.5.0",
     "ts-loader": "^8.0.14",
+    "tslib": "^2.1.0",
     "typescript": "^4.1.3"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "rollup --config && yarn createTsDec",
-    "test": "jest",
+    "start": "NODE_ENV=development concurrently \"rollup -w --config rollup.config.dev.js\" \"node server.js\"",
+    "build": "rollup --config rollup.config.js && yarn createTsDec",
+    "test": "NODE_ENV=test jest",
     "tsc": "tsc",
     "validate": "yarn tsc && yarn test && yarn lint",
     "eject": "react-scripts eject",
@@ -138,7 +142,7 @@
   "jest": {
     "testEnvironment": "jest-environment-jsdom-sixteen",
     "transformIgnorePatterns": [
-      "node_modules/(?!(@guardian/src-foundations|@guardian/types|@guardian/libs)/)"
+      "/node_modules/(?!@guardian/)"
     ],
     "preset": "ts-jest/presets/js-with-babel",
     "moduleFileExtensions": [
