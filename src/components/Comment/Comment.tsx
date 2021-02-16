@@ -297,7 +297,7 @@ export const Comment = ({
 	};
 
 	const showStaffbadge = comment.userProfile.badge.find(
-		(obj) => obj['name'] === 'Staff',
+		(obj) => obj.name === 'Staff',
 	);
 
 	const showPickBadge = comment.status !== 'blocked' && isHighlighted;
@@ -573,8 +573,7 @@ export const Comment = ({
 									{user && comment.userProfile.userId !== user.userId ? (
 										<ButtonLink
 											onClick={() =>
-												toggleMuteStatus(comment.userProfile.userId)
-											}
+												toggleMuteStatus(comment.userProfile.userId)}
 											size="small"
 											linkName="mute-user"
 										>

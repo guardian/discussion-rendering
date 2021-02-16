@@ -14,6 +14,7 @@ export const useInterval = (callback: any, delay: number) => {
 	useEffect(() => {
 		function tick() {
 			const currentCallback: any = savedCallback.current;
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 			currentCallback();
 		}
 		if (delay !== null) {

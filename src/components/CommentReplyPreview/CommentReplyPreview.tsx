@@ -77,6 +77,38 @@ const blueLink = css`
 	color: ${text.anchorPrimary};
 `;
 
+export const Preview = ({
+	commentBeingRepliedTo,
+	setDisplayReplyComment,
+	displayReplyComment,
+}: {
+	commentBeingRepliedTo: CommentType;
+	setDisplayReplyComment: (displayReplyComment: boolean) => void;
+	displayReplyComment: boolean;
+}) => {
+	return (
+		<div css={previewStyle}>
+			<p css={replyPreviewHeaderStyle}>
+				{commentBeingRepliedTo.userProfile.displayName} @{' '}
+				{commentBeingRepliedTo.date} said:
+			</p>
+			<div
+				css={commentStyles}
+				dangerouslySetInnerHTML={{
+					__html: commentBeingRepliedTo.body || '',
+				}}
+			/>
+
+			<ButtonLink
+				onClick={() => setDisplayReplyComment(!displayReplyComment)}
+				linkName="hide-comment"
+			>
+				<span css={blueLink}>Hide Comment</span>
+			</ButtonLink>
+		</div>
+	);
+};
+
 export const CommentReplyPreview = ({
 	pillar,
 	commentBeingRepliedTo,
@@ -113,37 +145,5 @@ export const CommentReplyPreview = ({
 				/>
 			)}
 		</>
-	);
-};
-
-export const Preview = ({
-	commentBeingRepliedTo,
-	setDisplayReplyComment,
-	displayReplyComment,
-}: {
-	commentBeingRepliedTo: CommentType;
-	setDisplayReplyComment: (displayReplyComment: boolean) => void;
-	displayReplyComment: boolean;
-}) => {
-	return (
-		<div css={previewStyle}>
-			<p css={replyPreviewHeaderStyle}>
-				{commentBeingRepliedTo.userProfile.displayName} @{' '}
-				{commentBeingRepliedTo.date} said:
-			</p>
-			<div
-				css={commentStyles}
-				dangerouslySetInnerHTML={{
-					__html: commentBeingRepliedTo.body || '',
-				}}
-			/>
-
-			<ButtonLink
-				onClick={() => setDisplayReplyComment(!displayReplyComment)}
-				linkName="hide-comment"
-			>
-				<span css={blueLink}>Hide Comment</span>
-			</ButtonLink>
-		</div>
 	);
 };

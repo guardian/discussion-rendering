@@ -106,7 +106,7 @@ export const CommentContainer = ({
 			comment.metaData.responseCount &&
 			comment.metaData.responseCount - 3;
 		if (remainingResponses === 1) return `Show 1 more reply`;
-		return `Show ${remainingResponses} more replies`;
+		return `Show ${remainingResponses || '0'} more replies`;
 	};
 
 	useEffect(() => {

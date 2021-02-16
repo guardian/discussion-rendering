@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Pillar } from '@guardian/types';
 
+import { css } from '@emotion/react';
 import { CommentReplyPreview, Preview } from './CommentReplyPreview';
 import { CommentType } from '../../types';
-import { css } from '@emotion/react';
 
 export default { title: 'CommentReplyPreview' };
 

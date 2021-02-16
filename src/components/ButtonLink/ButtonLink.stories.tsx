@@ -28,7 +28,7 @@ export const Single = () => (
 		pillar={Pillar.Lifestyle}
 		linkName=""
 	>
-		I'm a button but I look like a link. Click me
+		{"I'm a button but I look like a link. Click me"}
 	</ButtonLink>
 );
 Single.story = { name: 'a single button' };
@@ -42,7 +42,7 @@ export const Small = () => (
 		pillar={Pillar.Lifestyle}
 		linkName=""
 	>
-		I'm small
+		{"I'm small"}
 	</ButtonLink>
 );
 Small.story = { name: 'a small button' };

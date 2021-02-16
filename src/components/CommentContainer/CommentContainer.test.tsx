@@ -63,7 +63,7 @@ describe('CommentContainer', () => {
 		const { getByTestId, queryByText, getByText, rerender } = render(
 			<CommentContainer
 				shortUrl=""
-				comment={commentWithoutReply} //TODO: should be comments with reponses
+				comment={commentWithoutReply} // TODO: should be comments with reponses
 				pillar={Pillar.News}
 				user={aUser}
 				threads="collapsed"
@@ -101,7 +101,7 @@ describe('CommentContainer', () => {
 		rerender(
 			<CommentContainer
 				shortUrl=""
-				comment={commentWithoutReply} //TODO: should be comments with reponses
+				comment={commentWithoutReply} // TODO: should be comments with reponses
 				pillar={Pillar.News}
 				user={aUser}
 				threads="collapsed"
@@ -137,7 +137,7 @@ describe('CommentContainer', () => {
 		const { getByTestId, queryByText, getByText, rerender } = render(
 			<CommentContainer
 				shortUrl=""
-				comment={commentWithReply} //TODO: should be comments with reponses
+				comment={commentWithReply} // TODO: should be comments with reponses
 				pillar={Pillar.News}
 				user={aUser}
 				threads="collapsed"
@@ -175,7 +175,7 @@ describe('CommentContainer', () => {
 		rerender(
 			<CommentContainer
 				shortUrl=""
-				comment={commentWithoutReply} //TODO: should be comments with reponses
+				comment={commentWithoutReply} // TODO: should be comments with reponses
 				pillar={Pillar.News}
 				user={aUser}
 				threads="collapsed"

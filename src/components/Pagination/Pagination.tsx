@@ -182,6 +182,7 @@ const PageButton = ({
 		css={pageButtonStyles(isSelected)}
 		onClick={() => setCurrentPage(currentPage)}
 		data-link-name={`Pagination view page ${currentPage}`}
+		type="submit"
 	>
 		{currentPage}
 	</button>

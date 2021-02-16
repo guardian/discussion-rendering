@@ -78,6 +78,7 @@ export const RecommendationCount = ({
 				onClick={() => tryToRecommend()}
 				disabled={recommended || !isSignedIn || userMadeComment}
 				data-link-name="Recommend comment"
+				type="button"
 			>
 				<div css={arrowStyles(recommended)}>
 					<SvgArrowUpStraight />
