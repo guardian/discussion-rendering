@@ -21,7 +21,7 @@
     "build/**/*"
   ],
   "dependencies": {
-    "babel-plugin-emotion": "^10.0.33",
+    "babel-plugin-emotion": "^11.0.0",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.1.6",
     "react-focus-lock": "^2.2.1",
