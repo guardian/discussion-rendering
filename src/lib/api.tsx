@@ -250,7 +250,7 @@ export const addUserName = (userName: string): Promise<UserNameResponse> => {
 			},
 		}),
 		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
+			'Content-Type': 'application/json',
 		},
 	})
 		.then((resp) => resp.json())
