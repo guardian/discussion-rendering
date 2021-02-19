@@ -104,7 +104,7 @@ export const preview = (body: string): Promise<string> => {
 
 	return fetch(url, {
 		method: 'POST',
-		body: data,
+		body: data.toString(),
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			...options.headers,
@@ -141,7 +141,7 @@ export const comment = (
 
 	return fetch(url, {
 		method: 'POST',
-		body: data,
+		body: data.toString(),
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			...options.headers,
@@ -169,7 +169,7 @@ export const reply = (
 
 	return fetch(url, {
 		method: 'POST',
-		body: data,
+		body: data.toString(),
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			...options.headers,
@@ -215,7 +215,7 @@ export const reportAbuse = ({
 
 	return fetch(url, {
 		method: 'POST',
-		body: data,
+		body: data.toString(),
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			...options.headers,
