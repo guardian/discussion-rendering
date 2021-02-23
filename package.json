@@ -180,9 +180,6 @@
     "testMatch": [
       "**/*.test.+(ts|tsx|js)"
     ],
-    "moduleNameMapper": {
-      "^@guardian/src-foundations/(.*)(?<!cjs)$": "@guardian/src-foundations/$1/cjs"
-    },
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}"
     ]
