@@ -1,4 +1,3 @@
-import React from 'react';
 import { css } from '@emotion/react';
 
 import { from } from '@guardian/src-foundations/mq';
@@ -160,11 +159,7 @@ const PickMeta = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 
 const truncateText = (input: string, limit: number) => {
 	// If input greater than limit trucate by limit and append an ellipsis
-<<<<<<< HEAD
-	if (input.length > limit) return `${input.substr(0, limit)  }&#8230;`;
-=======
 	if (input.length > limit) return `${input.substr(0, limit)}&#8230;`;
->>>>>>> 61313240e1e64ed741c0ae07b5c19cab80c4d413
 	return input;
 };
 
@@ -231,7 +226,7 @@ export const TopPick = ({
 					/>
 					{comment.userProfile.badge.filter((obj) => obj.name === 'Staff')
 						.length ? (
-							<GuardianStaff />
+						<GuardianStaff />
 					) : (
 						<></>
 					)}
