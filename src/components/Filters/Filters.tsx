@@ -1,4 +1,3 @@
-import React from 'react';
 import { css } from '@emotion/react';
 
 import { space } from '@guardian/src-foundations';
@@ -85,7 +84,8 @@ export const Filters = ({
 					onFilterChange({
 						...filters,
 						orderBy: value as OrderByType,
-					})}
+					})
+				}
 			/>
 		</div>
 		<div css={dividerStyles} />
@@ -118,12 +118,8 @@ export const Filters = ({
 					onFilterChange({
 						...filters,
 						pageSize: parseInt(value, 10) as PageSizeType,
-<<<<<<< HEAD
-					})}
-=======
 					})
 				}
->>>>>>> 61313240e1e64ed741c0ae07b5c19cab80c4d413
 			/>
 		</div>
 		<div css={dividerStyles} />
@@ -153,7 +149,8 @@ export const Filters = ({
 					onFilterChange({
 						...filters,
 						threads: value as ThreadsType,
-					})}
+					})
+				}
 			/>
 		</div>
 	</div>
