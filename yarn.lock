@@ -6123,6 +6123,10 @@ eslint-plugin-cypress@^2.11.2:
   dependencies:
     globals "^11.12.0"
 
+"eslint-plugin-dcr@https://github.com/guardian/eslint-plugin-dcr#v0.1.0":
+  version "1.0.0"
+  resolved "https://github.com/guardian/eslint-plugin-dcr#9aff46e4ce196e57ea29e25ee5c0a3eb8d129964"
+
 eslint-plugin-import@^2.22.1:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.22.1.tgz#0896c7e6a0cf44109a2d97b95903c2bb689d7702"
