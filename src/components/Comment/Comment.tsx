@@ -573,7 +573,8 @@ export const Comment = ({
 									{user && comment.userProfile.userId !== user.userId ? (
 										<ButtonLink
 											onClick={() =>
-												toggleMuteStatus(comment.userProfile.userId)}
+												toggleMuteStatus(comment.userProfile.userId)
+											}
 											size="small"
 											linkName="mute-user"
 										>
