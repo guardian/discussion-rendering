@@ -118,7 +118,12 @@ export const Filters = ({
 					onFilterChange({
 						...filters,
 						pageSize: parseInt(value, 10) as PageSizeType,
+<<<<<<< HEAD
 					})}
+=======
+					})
+				}
+>>>>>>> 61313240e1e64ed741c0ae07b5c19cab80c4d413
 			/>
 		</div>
 		<div css={dividerStyles} />

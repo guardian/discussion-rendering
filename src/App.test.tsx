@@ -75,8 +75,10 @@ describe('App', () => {
 			/>,
 		);
 
-		await waitForElementToBeRemoved(() =>
-			screen.getByTestId('loading-comments'),
+		jest.setTimeout(10000);
+		await waitForElementToBeRemoved(
+			() => screen.getByTestId('loading-comments'),
+			{ timeout: 10000 },
 		);
 
 		expect(screen.getByText('View more comments')).toBeInTheDocument();

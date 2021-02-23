@@ -25,7 +25,10 @@ module.exports = {
         'react-hooks',
         'dcr',
     ],
+<<<<<<< HEAD
     ignorePatterns: ['build'],
+=======
+>>>>>>> 61313240e1e64ed741c0ae07b5c19cab80c4d413
     rules: {
          // TODO tackle one at a time.
         'react/jsx-indent': [2, 'tab'],     
@@ -57,5 +60,9 @@ module.exports = {
         // Conflicts with code formatting
         'react/jsx-one-expression-per-line': 'off',
         'react/jsx-curly-newline': 'off',
+<<<<<<< HEAD
+=======
+        'react/jsx-indent': 'off',
+>>>>>>> 61313240e1e64ed741c0ae07b5c19cab80c4d413
     },
 };
