@@ -25,6 +25,7 @@ module.exports = {
         'react-hooks',
         'dcr',
     ],
+    ignorePatterns: ['build'],
     rules: {
          // TODO tackle one at a time.
         'react/jsx-indent': [2, 'tab'],     
