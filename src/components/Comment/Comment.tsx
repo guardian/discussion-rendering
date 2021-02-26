@@ -530,14 +530,14 @@ export const Comment = ({
 										buttonLinkBaseStyles,
 										css`
 											button {
-												${textSans.xsmall({ fontWeight: 'bold' })}
+												${textSans.xxsmall({ fontWeight: 'bold' })}
 											}
 										`,
 									)}
 								>
 									<Button
 										priority="subdued"
-										size="small"
+										size="xsmall"
 										onClick={() => toggleMuteStatus(comment.userProfile.userId)}
 										data-link-name="unmute-user"
 									>
