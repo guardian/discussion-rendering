@@ -81,7 +81,7 @@ export const FirstCommentWelcome = ({
 			>
 				<h3
 					className={css`
-						${headline.xxsmall({ fontWeight: 'bold' })};
+						${headline.xsmall({ fontWeight: 'bold' })};
 					`}
 				>
 					Welcome, you’re about to make your first comment!

@@ -530,7 +530,7 @@ export const Comment = ({
 										buttonLinkBaseStyles,
 										css`
 											button {
-												${textSans.xxsmall({ fontWeight: 'bold' })}
+												${textSans.xsmall({ fontWeight: 'bold' })}
 											}
 										`,
 									)}
@@ -578,7 +578,7 @@ export const Comment = ({
 														buttonLinkPillarBaseStyles(pillar),
 														css`
 															button {
-																${textSans.xsmall({ fontWeight: 'bold' })}
+																${textSans.small({ fontWeight: 'bold' })}
 															}
 														`,
 													)}
@@ -629,7 +629,7 @@ export const Comment = ({
 													buttonLinkPillarBaseStyles(pillar),
 													css`
 														button {
-															${textSans.xsmall({ fontWeight: 'bold' })}
+															${textSans.small({ fontWeight: 'bold' })}
 														}
 													`,
 												)}
