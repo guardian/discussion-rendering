@@ -104,7 +104,7 @@ const commentCss = css`
 
 const blockedCommentStyles = css`
 	color: ${neutral[46]};
-	${textSans.xsmall()}
+	${textSans.xxsmall()}
 `;
 
 // to override a tag styles from dangerouslySetInnerHTML
