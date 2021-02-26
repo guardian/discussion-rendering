@@ -7,6 +7,7 @@ import { neutral, border } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Link } from '@guardian/src-link';
 import { SvgIndent } from '@guardian/src-icons';
+import { Button } from '@guardian/src-button';
 
 import { Theme } from '@guardian/types';
 
@@ -17,7 +18,6 @@ import { Timestamp } from '../Timestamp/Timestamp';
 import { Avatar } from '../Avatar/Avatar';
 import { Row } from '../Row/Row';
 import { Column } from '../Column/Column';
-import { ButtonLink } from '../ButtonLink/ButtonLink';
 
 import { CommentType, UserProfile } from '../../types';
 import { pickComment, unPickComment } from '../../lib/api';
@@ -221,6 +221,38 @@ const cssReplyToWrapper = css`
 		padding-right: 10px;
 		width: calc(100% - 35px);
 		box-sizing: border-box;
+	}
+`;
+
+const buttonLinkPillarBaseStyles = (pillar: Theme) => css`
+	button {
+		color: ${palette[pillarToString(pillar)][400]};
+		background-color: transparent;
+		height: 18px;
+		min-height: 18px;
+		/* Radius 0 is used to style focus halo */
+		border-radius: 0;
+
+		:hover {
+			text-decoration: underline;
+			text-decoration-color: ${palette[pillarToString(pillar)][400]};
+		}
+	}
+`;
+
+const buttonLinkBaseStyles = css`
+	button {
+		color: ${neutral[46]};
+		background-color: transparent;
+		height: 18px;
+		min-height: 18px;
+		/* Radius 0 is used to style focus halo */
+		border-radius: 0;
+
+		:hover {
+			text-decoration: underline;
+			text-decoration-color: ${neutral[46]};
+		}
 	}
 `;
 
@@ -493,13 +525,25 @@ export const Comment = ({
 							<Row>
 								<>All posts from this user have been muted on this device.</>
 								<Space amount={1} />
-								<ButtonLink
-									onClick={() => toggleMuteStatus(comment.userProfile.userId)}
-									linkName="unmute-user"
-									size="xsmall"
+								<div
+									className={cx(
+										buttonLinkBaseStyles,
+										css`
+											button {
+												${textSans.xsmall({ fontWeight: 'bold' })}
+											}
+										`,
+									)}
 								>
-									Unmute?
-								</ButtonLink>
+									<Button
+										priority="subdued"
+										size="small"
+										onClick={() => toggleMuteStatus(comment.userProfile.userId)}
+										data-link-name="unmute-user"
+									>
+										Unmute?
+									</Button>
+								</div>
 							</Row>
 						</p>
 					)}
@@ -528,16 +572,26 @@ export const Comment = ({
 										<>
 											{/* If user is not logged in we link to the login page */}
 											{user ? (
-												<div className={svgReplyArrow}>
-													<ButtonLink
-														pillar={pillar}
+												<div
+													className={cx(
+														svgReplyArrow,
+														buttonLinkPillarBaseStyles(pillar),
+														css`
+															button {
+																${textSans.small({ fontWeight: 'bold' })}
+															}
+														`,
+													)}
+												>
+													<Button
+														priority="subdued"
 														onClick={() => setCommentBeingRepliedTo(comment)}
 														icon={<SvgIndent />}
 														iconSide="left"
-														linkName="reply to comment"
+														data-link-name="reply to comment"
 													>
 														Reply
-													</ButtonLink>
+													</Button>
 												</div>
 											) : (
 												<div
@@ -570,40 +624,75 @@ export const Comment = ({
 									{user &&
 										user.badge.some((e) => e.name === 'Staff') &&
 										user.userId !== comment.userProfile.userId && (
-											<ButtonLink
-												pillar={pillar}
-												onClick={isHighlighted ? unPick : pick}
-												linkName={
-													isHighlighted ? 'unpick-comment' : 'pick-comment'
-												}
+											<div
+												className={cx(
+													buttonLinkPillarBaseStyles(pillar),
+													css`
+														button {
+															${textSans.small({ fontWeight: 'bold' })}
+														}
+													`,
+												)}
 											>
-												{isHighlighted ? 'Unpick' : 'Pick'}
-											</ButtonLink>
+												<Button
+													priority="subdued"
+													onClick={isHighlighted ? unPick : pick}
+													data-link-name={
+														isHighlighted ? 'unpick-comment' : 'pick-comment'
+													}
+												>
+													{isHighlighted ? 'Unpick' : 'Pick'}
+												</Button>
+											</div>
 										)}
 								</Row>
 								<Row>
 									{/* You can't mute unless logged in and you can't yourself */}
 									{user && comment.userProfile.userId !== user.userId ? (
-										<ButtonLink
-											onClick={() =>
-												toggleMuteStatus(comment.userProfile.userId)
-											}
-											size="xsmall"
-											linkName="mute-user"
+										<div
+											className={cx(
+												buttonLinkBaseStyles,
+												css`
+													button {
+														${textSans.xsmall()}
+													}
+												`,
+											)}
 										>
-											Mute
-										</ButtonLink>
+											<Button
+												priority="subdued"
+												size="small"
+												onClick={() =>
+													toggleMuteStatus(comment.userProfile.userId)
+												}
+												data-link-name="mute-user"
+											>
+												Mute
+											</Button>
+										</div>
 									) : (
 										<></>
 									)}
 									<Space amount={4} />
-									<ButtonLink
-										size="xsmall"
-										onClick={toggleSetShowForm}
-										linkName="Open report abuse"
+									<div
+										className={cx(
+											buttonLinkBaseStyles,
+											css`
+												button {
+													${textSans.xsmall()}
+												}
+											`,
+										)}
 									>
-										Report
-									</ButtonLink>
+										<Button
+											priority="subdued"
+											size="small"
+											onClick={toggleSetShowForm}
+											data-link-name="Open report abuse"
+										>
+											Report
+										</Button>
+									</div>
 									{showAbuseReportForm && (
 										<div
 											className={css`
