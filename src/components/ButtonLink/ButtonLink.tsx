@@ -23,7 +23,7 @@ const buttonOverrides = (pillar?: Theme) => {
 	const pillarString = pillar || pillar === 0 ? pillarToString(pillar) : null;
 	return css`
 		button {
-			${textSans.xsmall({
+			${textSans.xxsmall({
 				fontWeight: pillarString ? 'bold' : 'regular',
 			})}
 			color: ${pillarString ? palette[pillarString][400] : neutral[46]};

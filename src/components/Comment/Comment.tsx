@@ -496,7 +496,7 @@ export const Comment = ({
 								<ButtonLink
 									onClick={() => toggleMuteStatus(comment.userProfile.userId)}
 									linkName="unmute-user"
-									size="small"
+									size="xsmall"
 								>
 									Unmute?
 								</ButtonLink>
