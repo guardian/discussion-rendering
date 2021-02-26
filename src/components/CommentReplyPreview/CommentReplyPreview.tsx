@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 
 import { textSans } from '@guardian/src-foundations/typography';
-import { neutral, space, text } from '@guardian/src-foundations';
+import { neutral, space, text, palette } from '@guardian/src-foundations';
 import { SvgIndent } from '@guardian/src-icons';
 import { Theme } from '@guardian/types';
+import { Button } from '@guardian/src-button';
 
-import { ButtonLink } from '../ButtonLink/ButtonLink';
 import { Row } from '../Row/Row';
+import { pillarToString } from '../../lib/pillarToString';
 
 import { CommentType } from '../../types';
 
@@ -77,6 +78,38 @@ const blueLink = css`
 	color: ${text.anchorPrimary};
 `;
 
+const buttonLinkPillarBaseStyles = (pillar: Theme) => css`
+	button {
+		color: ${palette[pillarToString(pillar)][400]};
+		background-color: transparent;
+		height: 18px;
+		min-height: 18px;
+		/* Radius 0 is used to style focus halo */
+		border-radius: 0;
+
+		:hover {
+			text-decoration: underline;
+			text-decoration-color: ${palette[pillarToString(pillar)][400]};
+		}
+	}
+`;
+
+const buttonLinkBaseStyles = css`
+	button {
+		color: ${neutral[46]};
+		background-color: transparent;
+		height: 18px;
+		min-height: 18px;
+		/* Radius 0 is used to style focus halo */
+		border-radius: 0;
+
+		:hover {
+			text-decoration: underline;
+			text-decoration-color: ${neutral[46]};
+		}
+	}
+`;
+
 export const CommentReplyPreview = ({
 	pillar,
 	commentBeingRepliedTo,
@@ -95,15 +128,26 @@ export const CommentReplyPreview = ({
 					{commentBeingRepliedTo.userProfile.displayName}
 				</div>
 				<Space amount={3} />
-				<ButtonLink
-					pillar={pillar}
-					onClick={() => setDisplayReplyComment(!displayReplyComment)}
-					linkName={
-						displayReplyComment ? 'reply-comment-hide' : 'reply-comment-show'
-					}
+				<div
+					className={cx(
+						buttonLinkPillarBaseStyles(pillar),
+						css`
+							button {
+								${textSans.small({ fontWeight: 'bold' })}
+							}
+						`,
+					)}
 				>
-					{displayReplyComment ? 'Hide Comment' : 'Show comment'}
-				</ButtonLink>
+					<Button
+						priority="subdued"
+						onClick={() => setDisplayReplyComment(!displayReplyComment)}
+						data-link-name={
+							displayReplyComment ? 'reply-comment-hide' : 'reply-comment-show'
+						}
+					>
+						{displayReplyComment ? 'Hide Comment' : 'Show comment'}
+					</Button>
+				</div>
 			</Row>
 			{displayReplyComment && (
 				<Preview
@@ -138,12 +182,24 @@ export const Preview = ({
 				}}
 			/>
 
-			<ButtonLink
-				onClick={() => setDisplayReplyComment(!displayReplyComment)}
-				linkName="hide-comment"
+			<div
+				className={cx(
+					buttonLinkBaseStyles,
+					css`
+						button {
+							${textSans.small()}
+						}
+					`,
+				)}
 			>
-				<span className={blueLink}>Hide Comment</span>
-			</ButtonLink>
+				<Button
+					priority="subdued"
+					onClick={() => setDisplayReplyComment(!displayReplyComment)}
+					data-link-name="hide-comment"
+				>
+					<span className={blueLink}>Hide Comment</span>
+				</Button>
+			</div>
 		</div>
 	);
 };
