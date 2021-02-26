@@ -588,7 +588,7 @@ export const Comment = ({
 											onClick={() =>
 												toggleMuteStatus(comment.userProfile.userId)
 											}
-											size="small"
+											size="xsmall"
 											linkName="mute-user"
 										>
 											Mute
@@ -598,7 +598,7 @@ export const Comment = ({
 									)}
 									<Space amount={4} />
 									<ButtonLink
-										size="small"
+										size="xsmall"
 										onClick={toggleSetShowForm}
 										linkName="Open report abuse"
 									>

@@ -12,14 +12,17 @@ import { pillarToString } from '../../lib/pillarToString';
 type Props = {
 	onClick: () => void;
 	pillar?: Theme;
-	size?: 'small' | 'default';
+	size?: 'xsmall' | 'small' | 'default';
 	icon?: JSX.Element;
 	iconSide?: 'left' | 'right';
 	children: string | JSX.Element;
 	linkName: string;
 };
 
-const buttonOverrides = (size: 'small' | 'default', pillar?: Theme) => {
+const buttonOverrides = (
+	size: 'xsmall' | 'small' | 'default',
+	pillar?: Theme,
+) => {
 	const pillarString = pillar || pillar === 0 ? pillarToString(pillar) : null;
 	return css`
 		button {
