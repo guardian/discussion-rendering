@@ -243,11 +243,7 @@ export const AbuseReportForm: React.FC<{
 				</div>
 
 				<div>
-					<Button
-						type="submit"
-						size="xsmall"
-						data-link-name="Post report abuse"
-					>
+					<Button type="submit" size="small" data-link-name="Post report abuse">
 						Report
 					</Button>
 
