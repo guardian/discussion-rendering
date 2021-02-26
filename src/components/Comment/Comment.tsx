@@ -654,7 +654,7 @@ export const Comment = ({
 												buttonLinkBaseStyles,
 												css`
 													button {
-														${textSans.xsmall()}
+														${textSans.xxsmall()}
 													}
 												`,
 											)}
