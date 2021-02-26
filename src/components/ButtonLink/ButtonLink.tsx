@@ -19,14 +19,11 @@ type Props = {
 	linkName: string;
 };
 
-const buttonOverrides = (
-	size: 'xsmall' | 'small' | 'default',
-	pillar?: Theme,
-) => {
+const buttonOverrides = (pillar?: Theme) => {
 	const pillarString = pillar || pillar === 0 ? pillarToString(pillar) : null;
 	return css`
 		button {
-			${textSans[size === 'small' ? 'xsmall' : 'small']({
+			${textSans.xsmall({
 				fontWeight: pillarString ? 'bold' : 'regular',
 			})}
 			color: ${pillarString ? palette[pillarString][400] : neutral[46]};
@@ -55,7 +52,7 @@ export const ButtonLink = ({
 	children,
 	linkName,
 }: Props) => (
-	<div className={cx(buttonOverrides(size, pillar))}>
+	<div className={cx(buttonOverrides(pillar))}>
 		<Button
 			priority="subdued"
 			size={size}
