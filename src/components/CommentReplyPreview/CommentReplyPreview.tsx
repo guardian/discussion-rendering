@@ -133,7 +133,7 @@ export const CommentReplyPreview = ({
 						buttonLinkPillarBaseStyles(pillar),
 						css`
 							button {
-								${textSans.xsmall({ fontWeight: 'bold' })}
+								${textSans.small({ fontWeight: 'bold' })}
 							}
 						`,
 					)}
