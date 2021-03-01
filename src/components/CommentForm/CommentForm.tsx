@@ -82,18 +82,18 @@ const blackPlaceholder = css`
 
 const headerTextStyles = css`
 	margin: 0;
-	${textSans.xsmall()};
+	${textSans.xxsmall()};
 `;
 
 const errorTextStyles = css`
 	margin: 0;
-	${textSans.xsmall()};
+	${textSans.xxsmall()};
 	color: ${text.error};
 `;
 
 const infoTextStyles = css`
 	margin: 0;
-	${textSans.xsmall()};
+	${textSans.xxsmall()};
 	color: ${text.supporting};
 `;
 

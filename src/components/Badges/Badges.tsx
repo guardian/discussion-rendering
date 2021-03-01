@@ -20,7 +20,7 @@ const labelText = css`
 	display: inline-block;
 	line-height: 15px;
 	margin: 0 0 0 ${space[1]}px;
-	${textSans.xsmall({ fontWeight: 'bold' })};
+	${textSans.xxsmall({ fontWeight: 'bold' })};
 `;
 
 const staffIcon = css`

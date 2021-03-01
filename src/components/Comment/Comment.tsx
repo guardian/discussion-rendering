@@ -104,7 +104,7 @@ const commentCss = css`
 
 const blockedCommentStyles = css`
 	color: ${neutral[46]};
-	${textSans.xsmall()}
+	${textSans.xxsmall()}
 `;
 
 // to override a tag styles from dangerouslySetInnerHTML
@@ -530,14 +530,14 @@ export const Comment = ({
 										buttonLinkBaseStyles,
 										css`
 											button {
-												${textSans.xsmall({ fontWeight: 'bold' })}
+												${textSans.xxsmall({ fontWeight: 'bold' })}
 											}
 										`,
 									)}
 								>
 									<Button
 										priority="subdued"
-										size="small"
+										size="xsmall"
 										onClick={() => toggleMuteStatus(comment.userProfile.userId)}
 										data-link-name="unmute-user"
 									>
@@ -654,7 +654,7 @@ export const Comment = ({
 												buttonLinkBaseStyles,
 												css`
 													button {
-														${textSans.xsmall()}
+														${textSans.xxsmall()}
 													}
 												`,
 											)}
@@ -679,7 +679,7 @@ export const Comment = ({
 											buttonLinkBaseStyles,
 											css`
 												button {
-													${textSans.xsmall()}
+													${textSans.xxsmall()}
 												}
 											`,
 										)}

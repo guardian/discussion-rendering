@@ -29,7 +29,7 @@ const formWrapper = css`
 	flex-direction: column;
 	padding: ${space[3]}px;
 	background-color: white;
-	${textSans.xsmall()};
+	${textSans.xxsmall()};
 `;
 
 const labelStyles = (pillar: Theme) => css`

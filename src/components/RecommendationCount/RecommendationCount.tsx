@@ -19,7 +19,7 @@ type Props = {
 };
 
 const countStyles = css`
-	${textSans.xsmall({ fontWeight: 'light' })}
+	${textSans.xxsmall({ fontWeight: 'light' })}
 	min-width: 0.75rem;
 	color: ${neutral[46]};
 	margin-right: 0.3125rem;
