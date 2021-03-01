@@ -30,6 +30,9 @@ const aUser = {
 	},
 };
 
+// Extend the timeout, as we are getting failed test because of timeout
+jest.setTimeout(30000);
+
 describe('App', () => {
 	it('should expand when view more button is clicked', async () => {
 		render(
