@@ -133,7 +133,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "pretty-quick --staged && yarn lint && yarn createTsDec && yarn test --watchAll=false && yarn prettier:check"
+      "pre-push": "pretty-quick --staged && yarn lint && yarn build && yarn test --watchAll=false && yarn prettier:check"
     }
   },
   "jest": {
