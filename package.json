@@ -160,9 +160,6 @@
     "testMatch": [
       "**/*.test.+(ts|tsx|js)"
     ],
-    "testPathIgnorePatterns": [
-      "build"
-    ],
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}"
     ]
