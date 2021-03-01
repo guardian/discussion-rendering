@@ -94,7 +94,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "rollup --config && yarn createTsDec",
+    "build": "rollup --config && yarn tsc",
     "test": "jest",
     "tsc": "tsc",
     "validate": "yarn tsc && yarn test && yarn lint",
@@ -104,7 +104,6 @@
     "storybook": "start-storybook",
     "build-storybook": "build-storybook",
     "lint": "eslint . --ext .ts,.tsx",
-    "createTsDec": "tsc --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false",
     "release": "yarn validate && yarn build && np"
   },
   "eslintConfig": {
