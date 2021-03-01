@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { css, cx } from 'emotion';
+import { css } from '@emotion/react';
 
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, space, text, palette } from '@guardian/src-foundations';
@@ -19,7 +19,7 @@ type Props = {
 
 const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 	<div
-		className={css`
+		css={css`
 			width: ${space[amount]}px;
 		`}
 	/>
@@ -120,23 +120,23 @@ export const CommentReplyPreview = ({
 	return (
 		<>
 			<Row>
-				<div className={indentStyles}>
+				<div css={indentStyles}>
 					<SvgIndent />
 				</div>
 				<Space amount={1} />
-				<div className={smallFontStyles}>
+				<div css={smallFontStyles}>
 					{commentBeingRepliedTo.userProfile.displayName}
 				</div>
 				<Space amount={3} />
 				<div
-					className={cx(
+					css={[
 						buttonLinkPillarBaseStyles(pillar),
 						css`
 							button {
 								${textSans.small({ fontWeight: 'bold' })}
 							}
 						`,
-					)}
+					]}
 				>
 					<Button
 						priority="subdued"
@@ -170,34 +170,34 @@ export const Preview = ({
 	displayReplyComment: boolean;
 }) => {
 	return (
-		<div className={previewStyle}>
-			<p className={replyPreviewHeaderStyle}>
+		<div css={previewStyle}>
+			<p css={replyPreviewHeaderStyle}>
 				{commentBeingRepliedTo.userProfile.displayName} @{' '}
 				{commentBeingRepliedTo.date} said:
 			</p>
 			<div
-				className={commentStyles}
+				css={commentStyles}
 				dangerouslySetInnerHTML={{
 					__html: commentBeingRepliedTo.body || '',
 				}}
 			/>
 
 			<div
-				className={cx(
+				css={[
 					buttonLinkBaseStyles,
 					css`
 						button {
 							${textSans.small()}
 						}
 					`,
-				)}
+				]}
 			>
 				<Button
 					priority="subdued"
 					onClick={() => setDisplayReplyComment(!displayReplyComment)}
 					data-link-name="hide-comment"
 				>
-					<span className={blueLink}>Hide Comment</span>
+					<span css={blueLink}>Hide Comment</span>
 				</Button>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { css, cx } from 'emotion';
+import { css } from '@emotion/react';
 
 import { space, palette, remSpace } from '@guardian/src-foundations';
 import { from, until } from '@guardian/src-foundations/mq';
@@ -281,7 +281,7 @@ const cssReplyBetaDisplayName = css`
 
 const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 	<div
-		className={css`
+		css={css`
 			width: ${space[amount]}px;
 		`}
 	/>
@@ -338,7 +338,7 @@ export const Comment = ({
 		<>
 			{error && (
 				<span
-					className={css`
+					css={css`
 						color: red;
 					`}
 				>
@@ -348,9 +348,9 @@ export const Comment = ({
 			<div
 				id={`comment-${comment.id}`}
 				data-testid={comment.id}
-				className={cx(commentWrapper, wasScrolledTo && selectedStyles)}
+				css={[commentWrapper, wasScrolledTo && selectedStyles]}
 			>
-				<div className={cx(avatarMargin)}>
+				<div css={avatarMargin}>
 					<Avatar
 						imageUrl={comment.userProfile.avatar}
 						displayName={comment.userProfile.displayName}
@@ -358,19 +358,19 @@ export const Comment = ({
 					/>
 				</div>
 
-				<div className={commentDetails}>
-					<header className={headerStyles}>
-						<div className={cssReplyToWrapper}>
+				<div css={commentDetails}>
+					<header css={headerStyles}>
+						<div css={cssReplyToWrapper}>
 							<Column>
 								<div
-									className={cx(
+									css={[
 										comment.responseTo && hideBelowMobileLandscape,
 										hideAboveMobileLandscape,
-									)}
+									]}
 								>
 									<Row>
 										<div
-											className={css`
+											css={css`
 												margin-right: ${space[2]}px;
 											`}
 										>
@@ -382,11 +382,7 @@ export const Comment = ({
 										</div>
 										<Column>
 											<div
-												className={cx(
-													colourStyles(pillar),
-													boldFont,
-													negativeMargin,
-												)}
+												css={[colourStyles(pillar), boldFont, negativeMargin]}
 											>
 												<Link
 													href={comment.userProfile.webUrl}
@@ -405,18 +401,14 @@ export const Comment = ({
 										</Column>
 									</Row>
 								</div>
-								<div
-									className={cx(
-										!comment.responseTo && hideBelowMobileLandscape,
-									)}
-								>
+								<div css={[!comment.responseTo && hideBelowMobileLandscape]}>
 									<Row>
 										<div
-											className={cx(
+											css={[
 												colourStyles(pillar),
 												boldFont,
 												cssReplyAlphaDisplayName,
-											)}
+											]}
 										>
 											<Link
 												href={comment.userProfile.webUrl}
@@ -428,12 +420,12 @@ export const Comment = ({
 										</div>
 										{comment.responseTo ? (
 											<div
-												className={cx(
+												css={[
 													colourStyles(pillar),
 													regularFont,
 													svgReplyArrow,
 													cssReplyBetaDisplayName,
-												)}
+												]}
 											>
 												<Link
 													href={`#comment-${comment.responseTo.commentId}`}
@@ -449,10 +441,10 @@ export const Comment = ({
 											<></>
 										)}
 										<div
-											className={cx(
+											css={[
 												timestampWrapperStyles,
 												comment.responseTo && hideBelowMobileLandscape,
-											)}
+											]}
 										>
 											<Timestamp
 												isoDateTime={comment.isoDateTime}
@@ -464,14 +456,14 @@ export const Comment = ({
 									</Row>
 									<Row>
 										{showStaffbadge ? (
-											<div className={iconWrapper}>
+											<div css={iconWrapper}>
 												<GuardianStaff />
 											</div>
 										) : (
 											<></>
 										)}
 										{showPickBadge ? (
-											<div className={iconWrapper}>
+											<div css={iconWrapper}>
 												<GuardianPick />
 											</div>
 										) : (
@@ -496,21 +488,21 @@ export const Comment = ({
 					</header>
 
 					<div
-						className={cx(
+						css={[
 							comment.responseTo && hideBelowMobileLandscape,
 							hideAboveMobileLandscape,
-						)}
+						]}
 					>
 						<Row>
 							{showStaffbadge ? (
-								<div className={iconWrapper}>
+								<div css={iconWrapper}>
 									<GuardianStaff />
 								</div>
 							) : (
 								<></>
 							)}
 							{showPickBadge ? (
-								<div className={iconWrapper}>
+								<div css={iconWrapper}>
 									<GuardianPick />
 								</div>
 							) : (
@@ -521,19 +513,19 @@ export const Comment = ({
 
 					{/* MUTED */}
 					{isMuted && (
-						<p className={blockedCommentStyles}>
+						<p css={blockedCommentStyles}>
 							<Row>
 								<>All posts from this user have been muted on this device.</>
 								<Space amount={1} />
 								<div
-									className={cx(
+									css={[
 										buttonLinkBaseStyles,
 										css`
 											button {
 												${textSans.xxsmall({ fontWeight: 'bold' })}
 											}
 										`,
-									)}
+									]}
 								>
 									<Button
 										priority="subdued"
@@ -551,7 +543,7 @@ export const Comment = ({
 					{/* BLOCKED */}
 					{!isMuted && comment.status === 'blocked' && (
 						<p
-							className={cx(blockedCommentStyles, commentLinkStyling)}
+							css={[blockedCommentStyles, commentLinkStyling]}
 							dangerouslySetInnerHTML={{ __html: comment.body }}
 						/>
 					)}
@@ -560,12 +552,12 @@ export const Comment = ({
 					{!isMuted && comment.status !== 'blocked' && (
 						<>
 							<div
-								className={cx(commentCss, commentLinkStyling)}
+								css={[commentCss, commentLinkStyling]}
 								dangerouslySetInnerHTML={{
 									__html: comment.body,
 								}}
 							/>
-							<div className={spaceBetween}>
+							<div css={spaceBetween}>
 								<Row>
 									{/* When commenting is closed, no reply link shows at all */}
 									{!isClosedForComments && (
@@ -573,7 +565,7 @@ export const Comment = ({
 											{/* If user is not logged in we link to the login page */}
 											{user ? (
 												<div
-													className={cx(
+													css={[
 														svgReplyArrow,
 														buttonLinkPillarBaseStyles(pillar),
 														css`
@@ -581,7 +573,7 @@ export const Comment = ({
 																${textSans.small({ fontWeight: 'bold' })}
 															}
 														`,
-													)}
+													]}
 												>
 													<Button
 														priority="subdued"
@@ -594,12 +586,7 @@ export const Comment = ({
 													</Button>
 												</div>
 											) : (
-												<div
-													className={cx(
-														svgReplyArrow,
-														commentControlsLink(pillar),
-													)}
-												>
+												<div css={[svgReplyArrow, commentControlsLink(pillar)]}>
 													<Link
 														href={`https://profile.theguardian.com/signin?returnUrl=${
 															comment.webUrl
@@ -625,14 +612,14 @@ export const Comment = ({
 										user.badge.some((e) => e.name === 'Staff') &&
 										user.userId !== comment.userProfile.userId && (
 											<div
-												className={cx(
+												css={[
 													buttonLinkPillarBaseStyles(pillar),
 													css`
 														button {
 															${textSans.small({ fontWeight: 'bold' })}
 														}
 													`,
-												)}
+												]}
 											>
 												<Button
 													priority="subdued"
@@ -650,14 +637,14 @@ export const Comment = ({
 									{/* You can't mute unless logged in and you can't yourself */}
 									{user && comment.userProfile.userId !== user.userId ? (
 										<div
-											className={cx(
+											css={[
 												buttonLinkBaseStyles,
 												css`
 													button {
 														${textSans.xxsmall()}
 													}
 												`,
-											)}
+											]}
 										>
 											<Button
 												priority="subdued"
@@ -675,14 +662,14 @@ export const Comment = ({
 									)}
 									<Space amount={4} />
 									<div
-										className={cx(
+										css={[
 											buttonLinkBaseStyles,
 											css`
 												button {
 													${textSans.xxsmall()}
 												}
 											`,
-										)}
+										]}
 									>
 										<Button
 											priority="subdued"
@@ -695,7 +682,7 @@ export const Comment = ({
 									</div>
 									{showAbuseReportForm && (
 										<div
-											className={css`
+											css={css`
 												position: relative;
 											`}
 										>

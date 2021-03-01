@@ -1,5 +1,5 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+import { css } from '@emotion/react';
 
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, border, space } from '@guardian/src-foundations';
@@ -131,7 +131,7 @@ const Forward = ({
 	currentPage: number;
 	setCurrentPage: Function;
 }) => (
-	<div className={cx(chevronButtonStyles({ isSelected: false }), shiftRight)}>
+	<div css={[chevronButtonStyles({ isSelected: false }), shiftRight]}>
 		<Button
 			onClick={() => setCurrentPage(currentPage + 1)}
 			aria-label="Previous discussion page"
@@ -154,7 +154,7 @@ const Back = ({
 	const newPage = Math.max(0, currentPage - 1);
 
 	return (
-		<div className={chevronButtonStyles({ isSelected: false })}>
+		<div css={chevronButtonStyles({ isSelected: false })}>
 			<Button
 				onClick={() => setCurrentPage(newPage)}
 				aria-label="Previous discussion page"
@@ -179,7 +179,7 @@ const PageButton = ({
 }) => (
 	<button
 		key={currentPage}
-		className={pageButtonStyles(isSelected)}
+		css={pageButtonStyles(isSelected)}
 		onClick={() => setCurrentPage(currentPage)}
 		data-link-name={`Pagination view page ${currentPage}`}
 	>
@@ -250,8 +250,8 @@ export const Pagination = ({
 	if (endIndex > commentCount) endIndex = commentCount; // If there are less total comments than allowed on the page, endIndex is total comment count
 
 	return (
-		<div className={wrapperStyles}>
-			<div className={paginationButtons}>
+		<div css={wrapperStyles}>
+			<div css={paginationButtons}>
 				{showBackButton && (
 					<Back currentPage={currentPage} setCurrentPage={setCurrentPage} />
 				)}
@@ -260,7 +260,7 @@ export const Pagination = ({
 					setCurrentPage={setCurrentPage}
 					isSelected={currentPage === 1}
 				/>
-				{showFirstElipsis && <div className={elipsisStyles}>&hellip;</div>}
+				{showFirstElipsis && <div css={elipsisStyles}>&hellip;</div>}
 				<PageButton
 					currentPage={secondPage}
 					setCurrentPage={setCurrentPage}
@@ -280,7 +280,7 @@ export const Pagination = ({
 						isSelected={currentPage === forthPage}
 					/>
 				)}
-				{showSecondElipsis && <div className={elipsisStyles}>&hellip;</div>}
+				{showSecondElipsis && <div css={elipsisStyles}>&hellip;</div>}
 				{showLastPage && (
 					<PageButton
 						currentPage={lastPage}
@@ -293,7 +293,7 @@ export const Pagination = ({
 				)}
 			</div>
 			{commentCount && (
-				<div className={paginationText}>
+				<div css={paginationText}>
 					{`Displaying ${
 						filters.threads === 'unthreaded' ? 'comments' : 'threads'
 					} ${startIndex} to ${endIndex} of ${commentCount}`}

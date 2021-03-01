@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/react';
 
 import { palette, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
@@ -94,7 +94,7 @@ export const PillarButton = ({
 	linkName,
 	size = 'default',
 }: Props) => (
-	<div className={buttonOverrides(pillar, priority)}>
+	<div css={buttonOverrides(pillar, priority)}>
 		<Button
 			priority={priority}
 			size={size}
