@@ -1,7 +1,7 @@
 import pkg from './package.json';
-import babel from 'rollup-plugin-babel';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import { babel } from '@rollup/plugin-babel';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import clear from 'rollup-plugin-clear';
 import visualizer from 'rollup-plugin-visualizer';
 
@@ -33,7 +33,9 @@ module.exports = {
         clear({
             targets: ['build/'],
         }),
-        babel({ extensions }),
+        babel({ 
+            extensions,
+        }),
         resolve({ extensions }),
         commonjs(),
         visualizer({ filename: 'build/stats.html' }),
