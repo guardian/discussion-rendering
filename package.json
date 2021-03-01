@@ -96,7 +96,6 @@
     "start": "react-app-rewired start",
     "build": "rollup --config && yarn createTsDec",
     "test": "jest",
-    "tsc": "tsc",
     "validate": "yarn tsc && yarn test && yarn lint",
     "eject": "react-scripts eject",
     "prettier:check": "prettier . --check",
@@ -134,7 +133,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "pretty-quick --staged && yarn lint && yarn tsc && yarn test --watchAll=false && yarn prettier:check"
+      "pre-push": "pretty-quick --staged && yarn lint && yarn createTsDec && yarn test --watchAll=false && yarn prettier:check"
     }
   },
   "jest": {
