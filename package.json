@@ -94,7 +94,7 @@
     "start": "react-app-rewired start",
     "build": "rollup --config && yarn tsc",
     "test": "jest",
-    "tsc": "tsc",
+    "tsc": "tsc --emitDeclarationOnly true",
     "validate": "yarn tsc && yarn test --watchAll=false && yarn lint",
     "eject": "react-scripts eject",
     "prettier:check": "prettier . --check",

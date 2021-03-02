@@ -29,7 +29,9 @@ module.exports = {
         clear({
             targets: ['build/'],
         }),
-        typescript(),
+        typescript({
+            emitDeclarationOnly: true
+        }),
         visualizer({ filename: 'build/stats.html' }),
     ],
 };
