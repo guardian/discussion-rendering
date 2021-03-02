@@ -97,7 +97,7 @@
     "build": "rollup --config && yarn tsc",
     "test": "jest",
     "tsc": "tsc",
-    "validate": "yarn tsc && yarn test && yarn lint",
+    "validate": "yarn tsc && yarn test --watchAll=false && yarn lint",
     "eject": "react-scripts eject",
     "prettier:check": "prettier . --check",
     "prettier:fix": "prettier . --write",
@@ -133,7 +133,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "pretty-quick --staged && yarn lint && yarn tsc && yarn test --watchAll=false && yarn prettier:check"
+      "pre-push": "pretty-quick --staged && validate && yarn prettier:check"
     }
   },
   "jest": {
