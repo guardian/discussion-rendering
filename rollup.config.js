@@ -1,11 +1,7 @@
 import pkg from './package.json';
-import { babel } from '@rollup/plugin-babel';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+import typescript from '@rollup/plugin-typescript';
 import clear from 'rollup-plugin-clear';
 import visualizer from 'rollup-plugin-visualizer';
-
-const extensions = ['.ts', '.tsx'];
 
 module.exports = {
     input: './src/App.tsx',
@@ -33,11 +29,7 @@ module.exports = {
         clear({
             targets: ['build/'],
         }),
-        babel({ 
-            extensions,
-        }),
-        resolve({ extensions }),
-        commonjs(),
+        typescript(),
         visualizer({ filename: 'build/stats.html' }),
     ],
 };
