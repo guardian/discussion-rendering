@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { css } from '@emotion/react';
+import { css } from 'emotion';
 
 import { neutral } from '@guardian/src-foundations/palette';
 import { textSans } from '@guardian/src-foundations/typography';
@@ -83,7 +83,7 @@ const DEFAULT_FILTERS: FilterOptions = {
 
 const NoComments = () => (
 	<div
-		css={css`
+		className={css`
 			color: ${neutral[46]};
 			${textSans.small()}
 			padding-top: ${space[5]}px;
@@ -373,7 +373,7 @@ export const App = ({
 
 	if (!isExpanded) {
 		return (
-			<div css={commentContainerStyles} data-component="discussion">
+			<div className={commentContainerStyles} data-component="discussion">
 				{user && !isClosedForComments && (
 					<CommentForm
 						pillar={pillar}
@@ -386,7 +386,7 @@ export const App = ({
 					/>
 				)}
 				{picks && picks.length ? (
-					<div css={picksWrapper}>
+					<div className={picksWrapper}>
 						{!!picks.length && (
 							<TopPicks
 								pillar={pillar}
@@ -422,7 +422,7 @@ export const App = ({
 						) : !comments.length ? (
 							<NoComments />
 						) : (
-							<ul css={commentContainerStyles}>
+							<ul className={commentContainerStyles}>
 								{comments.slice(0, 2).map((comment) => (
 									<li key={comment.id}>
 										<CommentContainer
@@ -447,7 +447,7 @@ export const App = ({
 				)}
 				{commentCount > 2 && (
 					<div
-						css={css`
+						className={css`
 							width: 250px;
 						`}
 					>
@@ -468,7 +468,7 @@ export const App = ({
 	}
 
 	return (
-		<div data-component="discussion" css={commentColumnWrapperStyles}>
+		<div data-component="discussion" className={commentColumnWrapperStyles}>
 			{user && !isClosedForComments && (
 				<CommentForm
 					pillar={pillar}
@@ -512,7 +512,7 @@ export const App = ({
 			) : !comments.length ? (
 				<NoComments />
 			) : (
-				<ul css={commentContainerStyles}>
+				<ul className={commentContainerStyles}>
 					{comments.map((comment) => (
 						<li key={comment.id}>
 							<CommentContainer
@@ -536,7 +536,7 @@ export const App = ({
 				</ul>
 			)}
 			{showPagination && (
-				<footer css={footerStyles}>
+				<footer className={footerStyles}>
 					<Pagination
 						totalPages={totalPages}
 						currentPage={page}
