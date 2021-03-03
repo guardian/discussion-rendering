@@ -93,7 +93,7 @@
     "typescript": "^4.1.3"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "SKIP_PREFLIGHT_CHECK=true react-app-rewired start",
     "build": "rollup --config && yarn createTsDec",
     "test": "jest",
     "tsc": "tsc",
