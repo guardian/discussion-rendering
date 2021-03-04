@@ -48,6 +48,7 @@ type Props = {
 		parentCommentId: number,
 	) => Promise<CommentResponse>;
 	onPreview?: (body: string) => Promise<string>;
+	onExpanded?: (expandedTime: number) => void;
 };
 
 const footerStyles = css`
@@ -211,7 +212,7 @@ const writeMutes = (mutes: string[]) => {
 		// capture these errors
 	}
 };
-
+let expandedStartTime: number;
 export const App = ({
 	baseUrl,
 	shortUrl,
@@ -230,6 +231,7 @@ export const App = ({
 	onComment,
 	onReply,
 	onPreview,
+	onExpanded,
 }: Props) => {
 	const [filters, setFilters] = useState<FilterOptions>(
 		initialiseFilters({
@@ -252,6 +254,16 @@ export const App = ({
 	const [commentCount, setCommentCount] = useState<number>(0);
 	const [mutes, setMutes] = useState<string[]>(readMutes());
 
+	useEffect(() => {
+		if (
+			isExpanded &&
+			onExpanded &&
+			window.performance &&
+			window.performance.now
+		) {
+			onExpanded(window.performance.now() - expandedStartTime);
+		}
+	}, [isExpanded]);
 	useEffect(() => {
 		setLoading(true);
 		getDiscussion(shortUrl, { ...filters, page }).then((json) => {
@@ -335,6 +347,10 @@ export const App = ({
 	};
 
 	const expandView = () => {
+		if (window.performance && window.performance.now) {
+			expandedStartTime = window.performance.now();
+		}
+
 		setIsExpanded(true);
 	};
 
