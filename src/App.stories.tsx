@@ -42,6 +42,9 @@ export const LoggedOutHiddenPicks = () => (
 			expanded={false}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			onExpanded={(expandedTime) => {
+				console.log(expandedTime);
+			}}
 		/>
 	</div>
 );
