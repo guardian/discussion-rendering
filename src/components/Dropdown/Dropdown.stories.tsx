@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/react';
 
 import { Pillar } from '@guardian/types';
 
@@ -8,7 +8,7 @@ import { Dropdown } from './Dropdown';
 
 const Container = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 	<div
-		className={css`
+		css={css`
 			padding: 10px;
 		`}
 	>

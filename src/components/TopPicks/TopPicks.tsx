@@ -1,5 +1,5 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+import { css } from '@emotion/react';
 
 import { until, from } from '@guardian/src-foundations/mq';
 import { Theme } from '@guardian/types';
@@ -65,9 +65,9 @@ export const TopPicks = ({
 			: rightColComments.push(comment),
 	);
 	return (
-		<div className={picksWrapper}>
-			<div className={twoColCommentsStyles}>
-				<div className={cx(columWrapperStyles, paddingRight)}>
+		<div css={picksWrapper}>
+			<div css={twoColCommentsStyles}>
+				<div css={[columWrapperStyles, paddingRight]}>
 					{leftColComments.map((comment) => (
 						<TopPick
 							key={comment.id}
@@ -82,7 +82,7 @@ export const TopPicks = ({
 						/>
 					))}
 				</div>
-				<div className={cx(columWrapperStyles, paddingLeft)}>
+				<div css={[columWrapperStyles, paddingLeft]}>
 					{rightColComments.map((comment) => (
 						<TopPick
 							key={comment.id}
@@ -98,7 +98,7 @@ export const TopPicks = ({
 					))}
 				</div>
 			</div>
-			<div className={oneColCommentsStyles}>
+			<div css={oneColCommentsStyles}>
 				{comments.map((comment) => (
 					<TopPick
 						key={comment.id}

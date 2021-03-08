@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/react';
 
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral } from '@guardian/src-foundations/palette';
@@ -72,14 +72,14 @@ export const RecommendationCount = ({
 
 	return (
 		<Row>
-			<div className={countStyles}>{count}</div>
+			<div css={countStyles}>{count}</div>
 			<button
-				className={buttonStyles(recommended, isSignedIn)}
+				css={buttonStyles(recommended, isSignedIn)}
 				onClick={() => tryToRecommend()}
 				disabled={recommended || !isSignedIn || userMadeComment}
 				data-link-name="Recommend comment"
 			>
-				<div className={arrowStyles(recommended)}>
+				<div css={arrowStyles(recommended)}>
 					<SvgArrowUpStraight />
 				</div>
 			</button>
