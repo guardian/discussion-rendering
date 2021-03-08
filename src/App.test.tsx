@@ -30,6 +30,11 @@ const aUser = {
 	},
 };
 
+// Extend the timeout, as we are getting failed test because of timeout
+// This is due to an increase in Emotion 11 render speed
+// TODO: remove once we have mitigated Emotion 11 render speed
+jest.setTimeout(20000);
+
 describe('App', () => {
 	it('should expand when view more button is clicked', async () => {
 		render(

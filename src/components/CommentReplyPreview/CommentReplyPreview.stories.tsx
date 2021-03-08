@@ -4,7 +4,7 @@ import { Pillar } from '@guardian/types';
 
 import { CommentReplyPreview, Preview } from './CommentReplyPreview';
 import { CommentType } from '../../types';
-import { css } from 'emotion';
+import { css } from '@emotion/react';
 
 export default { title: 'CommentReplyPreview' };
 
@@ -63,7 +63,7 @@ export const Default = () => (
 Default.story = { name: 'default' };
 
 export const SingleLinePreview = () => (
-	<div className={padding}>
+	<div css={padding}>
 		<Preview
 			commentBeingRepliedTo={{
 				...commentBeingRepliedTo,
@@ -77,7 +77,7 @@ export const SingleLinePreview = () => (
 SingleLinePreview.story = { name: 'Single line' };
 
 export const SingleBlockPreview = () => (
-	<div className={padding}>
+	<div css={padding}>
 		<Preview
 			commentBeingRepliedTo={{
 				...commentBeingRepliedTo,
@@ -91,7 +91,7 @@ export const SingleBlockPreview = () => (
 SingleBlockPreview.story = { name: 'Single Block' };
 
 export const MultiBlockPreview = () => (
-	<div className={padding}>
+	<div css={padding}>
 		<Preview
 			commentBeingRepliedTo={{
 				...commentBeingRepliedTo,

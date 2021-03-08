@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { css, cx } from 'emotion';
+import { css } from '@emotion/react';
 
 import FocusLock from 'react-focus-lock';
 
@@ -195,12 +195,12 @@ export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
 	const activeLink = options.find((option) => option.isActive);
 
 	return (
-		<div className={containerStyles}>
-			<div className={labelStyles}>
+		<div css={containerStyles}>
+			<div css={labelStyles}>
 				{label}
 				<button
 					onClick={() => setIsExpanded(!isExpanded)}
-					className={cx(buttonStyles, isExpanded && expandedStyles)}
+					css={[buttonStyles, isExpanded && expandedStyles]}
 					aria-controls={dropdownID}
 					aria-expanded={isExpanded ? 'true' : 'false'}
 				>
@@ -208,16 +208,16 @@ export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
 				</button>
 			</div>
 			<FocusLock>
-				<ul id={dropdownID} className={cx(ulStyles, isExpanded && ulExpanded)}>
+				<ul id={dropdownID} css={[ulStyles, isExpanded && ulExpanded]}>
 					{options.map((option, index) => (
 						<li key={option.title}>
 							<button
 								onClick={() => onSelect(option.value)}
-								className={cx(
+								css={[
 									linkStyles(!!option.disabled),
 									option.isActive && activeStyles(pillar),
 									index === 0 && firstStyles,
-								)}
+								]}
 								disabled={option.isActive || option.disabled}
 							>
 								{option.title}
