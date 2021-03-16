@@ -243,6 +243,7 @@ export const App = ({
 	);
 	const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
 	const [loading, setLoading] = useState<boolean>(true);
+	const [loadingMore, setLoadingMore] = useState<boolean>(false);
 	const [totalPages, setTotalPages] = useState<number>(0);
 	const [page, setPage] = useState<number>(initialPage || 1);
 	const [picks, setPicks] = useState<CommentType[]>([]);
@@ -273,12 +274,14 @@ export const App = ({
 			// to the total comment amount.
 			// This allows a quick render of minimal comments and then immediately begin rendering
 			// the remaining comments.
+			setLoadingMore(true);
 			const timer = setTimeout(() => {
 				setNumberOfCommentsToShow(comments.length);
+				setLoadingMore(false);
 			}, 0);
 			return () => clearTimeout(timer);
 		}
-	}, [isExpanded]);
+	}, [isExpanded, onExpanded, comments.length]);
 
 	useEffect(() => {
 		setLoading(true);
@@ -567,6 +570,7 @@ export const App = ({
 					))}
 				</ul>
 			)}
+			{loadingMore && <LoadingComments />}
 			{showPagination && (
 				<footer css={footerStyles}>
 					<Pagination
