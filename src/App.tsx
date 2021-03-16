@@ -251,6 +251,9 @@ export const App = ({
 		setCommentBeingRepliedTo,
 	] = useState<CommentType>();
 	const [comments, setComments] = useState<CommentType[]>([]);
+	const [numberOfCommentsToShow, setNumberOfCommentsToShow] = useState<number>(
+		10,
+	);
 	const [commentCount, setCommentCount] = useState<number>(0);
 	const [mutes, setMutes] = useState<string[]>(readMutes());
 
@@ -263,7 +266,20 @@ export const App = ({
 		) {
 			onExpanded(window.performance.now() - expandedStartTime);
 		}
+
+		if (isExpanded) {
+			// We want react to complete the current work and render, without trying to batch this update
+			// before resetting the number of comments
+			// to the total comment amount.
+			// This allows a quick render of minimal comments and then immediately begin rendering
+			// the remaining comments.
+			const timer = setTimeout(() => {
+				setNumberOfCommentsToShow(comments.length);
+			}, 0);
+			return () => clearTimeout(timer);
+		}
 	}, [isExpanded]);
+
 	useEffect(() => {
 		setLoading(true);
 		getDiscussion(shortUrl, { ...filters, page }).then((json) => {
@@ -529,7 +545,7 @@ export const App = ({
 				<NoComments />
 			) : (
 				<ul css={commentContainerStyles}>
-					{comments.map((comment) => (
+					{comments.slice(0, numberOfCommentsToShow).map((comment) => (
 						<li key={comment.id}>
 							<CommentContainer
 								comment={comment}
