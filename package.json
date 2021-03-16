@@ -6,7 +6,7 @@
   "homepage": "https://github.com/guardian/discussion-rendering#readme",
   "license": "Apache",
   "main": "build/App.js",
-  "module": "src/App.tsx",
+  "module": "build/App.esm.js",
   "publishConfig": {
     "access": "public"
   },
