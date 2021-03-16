@@ -33,11 +33,11 @@ module.exports = {
         clear({
             targets: ['build/'],
         }),
+        commonjs(),
         babel({ 
             extensions,
         }),
         resolve({ extensions }),
-        commonjs(),
         visualizer({ filename: 'build/stats.html' }),
     ],
 };
