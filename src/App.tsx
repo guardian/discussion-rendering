@@ -267,7 +267,9 @@ export const App = ({
 		) {
 			onExpanded(window.performance.now() - expandedStartTime);
 		}
+	}, [isExpanded, onExpanded]);
 
+	useEffect(() => {
 		if (isExpanded) {
 			// We want react to complete the current work and render, without trying to batch this update
 			// before resetting the number of comments
@@ -281,7 +283,7 @@ export const App = ({
 			}, 0);
 			return () => clearTimeout(timer);
 		}
-	}, [isExpanded, onExpanded, comments.length]);
+	}, [isExpanded, comments.length]);
 
 	useEffect(() => {
 		setLoading(true);
