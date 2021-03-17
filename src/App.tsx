@@ -276,7 +276,6 @@ export const App = ({
 			// to the total comment amount.
 			// This allows a quick render of minimal comments and then immediately begin rendering
 			// the remaining comments.
-			setLoadingMore(true);
 			const timer = setTimeout(() => {
 				setNumberOfCommentsToShow(comments.length);
 				setLoadingMore(false);
@@ -289,6 +288,7 @@ export const App = ({
 		setLoading(true);
 		getDiscussion(shortUrl, { ...filters, page }).then((json) => {
 			setLoading(false);
+			setLoadingMore(true);
 			if (json && json.status !== 'error') {
 				setComments(json && json.discussion && json.discussion.comments);
 				setCommentCount(
