@@ -108,7 +108,7 @@ describe('App', () => {
 		);
 
 		await waitForElementToBeRemoved(() =>
-			screen.getByTestId('loading-comments'),
+			screen.getAllByTestId('loading-comments'),
 		);
 
 		expect(screen.queryAllByPlaceholderText('Join the discussion').length).toBe(
