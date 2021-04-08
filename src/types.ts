@@ -83,6 +83,7 @@ type UserNameUser = {
 		userEmailValidated: boolean;
 	};
 	privateFields: {
+		googleTagId: string;
 		brazeUuid: string;
 		legacyPackages: string;
 		legacyProducts: string;
