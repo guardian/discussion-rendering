@@ -31,6 +31,7 @@ type Props = {
 	baseUrl: string;
 	pillar: Theme;
 	isClosedForComments: boolean;
+	isFullWidth?: boolean;
 	commentToScrollTo?: number;
 	initialPage?: number;
 	pageSizeOverride?: PageSizeType;
@@ -68,6 +69,10 @@ const commentContainerStyles = css`
 	list-style-type: none;
 	padding-left: 0;
 	margin: 0;
+`;
+
+const fullWidthStyles = css`
+	width: 100%;
 `;
 
 const picksWrapper = css`
@@ -218,6 +223,7 @@ export const App = ({
 	shortUrl,
 	pillar,
 	isClosedForComments,
+	isFullWidth,
 	initialPage,
 	commentToScrollTo,
 	pageSizeOverride,
@@ -410,7 +416,10 @@ export const App = ({
 
 	if (!isExpanded) {
 		return (
-			<div css={commentContainerStyles} data-component="discussion">
+			<div
+				css={[commentContainerStyles, isFullWidth && fullWidthStyles]}
+				data-component="discussion"
+			>
 				{user && !isClosedForComments && (
 					<CommentForm
 						pillar={pillar}
@@ -505,7 +514,10 @@ export const App = ({
 	}
 
 	return (
-		<div data-component="discussion" css={commentColumnWrapperStyles}>
+		<div
+			data-component="discussion"
+			css={[commentColumnWrapperStyles, isFullWidth && fullWidthStyles]}
+		>
 			{user && !isClosedForComments && (
 				<CommentForm
 					pillar={pillar}
