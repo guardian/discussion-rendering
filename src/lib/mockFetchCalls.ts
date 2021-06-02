@@ -7,6 +7,7 @@ import { noTopPicks } from '../fixtures/noTopPicks';
 import { discussionWithNoComments } from '../fixtures/discussionWithNoComments';
 import { discussionWithTwoComments } from '../fixtures/discussionWithTwoComments';
 import { legacyDiscussionWithoutThreading } from '../fixtures/legacyDiscussionWithoutThreading';
+import { legacyDiscussionWithoutFullWidthComment } from '../fixtures/legacyDiscussionWithoutFullWidthComment';
 
 export const mockedMessageID = '123456';
 
@@ -84,6 +85,19 @@ export const mockFetchCalls = () => {
 			},
 		)
 		.get(/.*\/discussion\/p\/32255\/topcomments.*/, {
+			status: 200,
+			body: noTopPicks,
+		})
+
+		// Get discussion 4v8kk
+		.get(
+			/.*\/discussion.theguardian.com\/discussion-api\/discussion\/p\/4v8kk\?.*/,
+			{
+				status: 200,
+				body: legacyDiscussionWithoutFullWidthComment,
+			},
+		)
+		.get(/.*\/discussion\/p\/4v8kk\/topcomments.*/, {
 			status: 200,
 			body: noTopPicks,
 		})

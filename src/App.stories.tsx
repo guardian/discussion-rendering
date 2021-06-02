@@ -233,3 +233,29 @@ export const LegacyDiscussion = () => (
 LegacyDiscussion.story = {
 	name: "a legacy discussion that doesn't allow threading",
 };
+
+export const FullWidthLegacyDiscussion = () => (
+	<div
+		css={css`
+			width: 1000px;
+		`}
+	>
+		<App
+			shortUrl="p/4v8kk"
+			baseUrl="https://discussion.theguardian.com/discussion-api"
+			pillar={Pillar.Culture}
+			isClosedForComments={false}
+			additionalHeaders={{
+				'D2-X-UID': 'testD2Header',
+				'GU-Client': 'testClientHeader',
+			}}
+			isFullWidth={true}
+			expanded={false}
+			onPermalinkClick={() => {}}
+			apiKey=""
+		/>
+	</div>
+);
+FullWidthLegacyDiscussion.story = {
+	name: 'a full width legacy discussion',
+};
