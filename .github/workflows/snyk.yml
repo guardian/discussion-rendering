@@ -34,7 +34,7 @@ jobs:
                   sarif_file: snyk-node.sarif
 
             - name: Run Snyk monitor to update snyk.io
-                if: github.ref == 'refs/heads/main'
+              if: github.ref == 'refs/heads/main'
               uses: snyk/actions/node@0.3.0
               continue-on-error: true # To make sure that SARIF upload gets called
               env:
