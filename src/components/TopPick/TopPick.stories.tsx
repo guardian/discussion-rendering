@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { Pillar } from '@guardian/types';
+import { ArticlePillar } from '@guardian/libs';
 
 import { TopPick } from '../TopPick/TopPick';
 import { CommentType } from '../../types';
@@ -58,7 +58,7 @@ export const LongPick = () => (
 		`}
 	>
 		<TopPick
-			pillar={Pillar.News}
+			pillar={ArticlePillar.News}
 			comment={comment}
 			isSignedIn={false}
 			userMadeComment={false}
@@ -76,7 +76,7 @@ export const ShortPick = () => (
 		`}
 	>
 		<TopPick
-			pillar={Pillar.Opinion}
+			pillar={ArticlePillar.Opinion}
 			comment={commentWithShortBody}
 			isSignedIn={true}
 			userMadeComment={false}

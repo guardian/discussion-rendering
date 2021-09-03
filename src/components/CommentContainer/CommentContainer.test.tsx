@@ -7,7 +7,7 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
-import { Pillar } from '@guardian/types';
+import { ArticlePillar } from '@guardian/libs';
 
 import { CommentType } from '../../types';
 import { comment } from '../../fixtures/comment';
@@ -64,7 +64,7 @@ describe('CommentContainer', () => {
 			<CommentContainer
 				shortUrl=""
 				comment={commentWithoutReply} //TODO: should be comments with reponses
-				pillar={Pillar.News}
+				pillar={ArticlePillar.News}
 				user={aUser}
 				threads="collapsed"
 				commentBeingRepliedTo={commentBeingRepliedTo}
@@ -102,7 +102,7 @@ describe('CommentContainer', () => {
 			<CommentContainer
 				shortUrl=""
 				comment={commentWithoutReply} //TODO: should be comments with reponses
-				pillar={Pillar.News}
+				pillar={ArticlePillar.News}
 				user={aUser}
 				threads="collapsed"
 				commentBeingRepliedTo={commentBeingRepliedTo}
@@ -138,7 +138,7 @@ describe('CommentContainer', () => {
 			<CommentContainer
 				shortUrl=""
 				comment={commentWithReply} //TODO: should be comments with reponses
-				pillar={Pillar.News}
+				pillar={ArticlePillar.News}
 				user={aUser}
 				threads="collapsed"
 				commentBeingRepliedTo={commentBeingRepliedTo}
@@ -176,7 +176,7 @@ describe('CommentContainer', () => {
 			<CommentContainer
 				shortUrl=""
 				comment={commentWithoutReply} //TODO: should be comments with reponses
-				pillar={Pillar.News}
+				pillar={ArticlePillar.News}
 				user={aUser}
 				threads="collapsed"
 				commentBeingRepliedTo={commentBeingRepliedTo}

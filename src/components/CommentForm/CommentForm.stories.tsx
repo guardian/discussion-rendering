@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pillar } from '@guardian/types';
+import { ArticlePillar } from '@guardian/libs';
 
 import { CommentType } from '../../types';
 
@@ -59,7 +59,7 @@ const aComment: CommentType = {
 export const Default = () => (
 	<CommentForm
 		shortUrl={shortUrl}
-		pillar={Pillar.News}
+		pillar={ArticlePillar.News}
 		user={aUser}
 		onAddComment={(comment) => {}}
 	/>
@@ -70,7 +70,7 @@ Default.story = { name: 'default' };
 export const Error = () => (
 	<CommentForm
 		shortUrl={'/p/g8g7v'}
-		pillar={Pillar.News}
+		pillar={ArticlePillar.News}
 		user={aUser}
 		onAddComment={(comment) => {}}
 	/>
@@ -80,7 +80,7 @@ Error.story = { name: 'form with errors' };
 export const Active = () => (
 	<CommentForm
 		shortUrl={shortUrl}
-		pillar={Pillar.Culture}
+		pillar={ArticlePillar.Culture}
 		user={aUser}
 		onAddComment={(comment) => {}}
 		commentBeingRepliedTo={aComment}
@@ -91,7 +91,7 @@ Active.story = { name: 'form is active' };
 export const Premoderated = () => (
 	<CommentForm
 		shortUrl={shortUrl}
-		pillar={Pillar.Opinion}
+		pillar={ArticlePillar.Opinion}
 		user={{
 			...aUser,
 			privateFields: {

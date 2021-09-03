@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pillar } from '@guardian/types';
+import { ArticlePillar } from '@guardian/libs';
 
 import { CommentReplyPreview, Preview } from './CommentReplyPreview';
 import { CommentType } from '../../types';
@@ -56,7 +56,7 @@ const padding = css`
 
 export const Default = () => (
 	<CommentReplyPreview
-		pillar={Pillar.News}
+		pillar={ArticlePillar.News}
 		commentBeingRepliedTo={commentBeingRepliedTo}
 	/>
 );

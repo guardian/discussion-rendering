@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { space } from '@guardian/src-foundations';
 import { border } from '@guardian/src-foundations/palette';
-import { Theme } from '@guardian/types';
+import { ArticleTheme } from '@guardian/libs';
 
 import { Dropdown } from '../Dropdown/Dropdown';
 
@@ -16,7 +16,7 @@ import {
 
 type Props = {
 	filters: FilterOptions;
-	pillar: Theme;
+	pillar: ArticleTheme;
 	onFilterChange: (newFilterObject: FilterOptions) => void;
 	totalPages: number;
 	commentCount: number;

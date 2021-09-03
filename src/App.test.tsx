@@ -7,7 +7,7 @@ import {
 	screen,
 } from '@testing-library/react';
 
-import { Pillar } from '@guardian/types';
+import { ArticlePillar } from '@guardian/libs';
 
 import { mockFetchCalls } from './lib/mockFetchCalls';
 
@@ -41,7 +41,7 @@ describe('App', () => {
 			<App
 				baseUrl=""
 				shortUrl="p/39f5z"
-				pillar={Pillar.News}
+				pillar={ArticlePillar.News}
 				isClosedForComments={false}
 				expanded={false}
 				additionalHeaders={{
@@ -68,7 +68,7 @@ describe('App', () => {
 			<App
 				shortUrl="p/39f5z"
 				baseUrl="https://discussion.theguardian.com/discussion-api"
-				pillar={Pillar.Culture}
+				pillar={ArticlePillar.Culture}
 				isClosedForComments={false}
 				additionalHeaders={{
 					'D2-X-UID': 'testD2Header',
@@ -94,7 +94,7 @@ describe('App', () => {
 			<App
 				baseUrl=""
 				shortUrl="p/39f5z"
-				pillar={Pillar.News}
+				pillar={ArticlePillar.News}
 				isClosedForComments={false}
 				user={aUser}
 				expanded={true}
@@ -121,7 +121,7 @@ describe('App', () => {
 			<App
 				baseUrl=""
 				shortUrl="p/39f5x" // A discussion with no comments
-				pillar={Pillar.News}
+				pillar={ArticlePillar.News}
 				isClosedForComments={false}
 				expanded={false}
 				additionalHeaders={{
@@ -146,7 +146,7 @@ describe('App', () => {
 			<App
 				baseUrl=""
 				shortUrl="p/39f5a" // A discussion with only two comments
-				pillar={Pillar.News}
+				pillar={ArticlePillar.News}
 				isClosedForComments={false}
 				expanded={false}
 				additionalHeaders={{

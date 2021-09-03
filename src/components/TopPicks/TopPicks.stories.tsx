@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pillar } from '@guardian/types';
+import { ArticlePillar } from '@guardian/libs';
 
 import { CommentType } from '../../types';
 
@@ -58,7 +58,7 @@ const commentWithShortBody: CommentType = {
 
 export const SingleComment = () => (
 	<TopPicks
-		pillar={Pillar.News}
+		pillar={ArticlePillar.News}
 		comments={[commentWithShortBody]}
 		isSignedIn={true}
 		onPermalinkClick={() => {}}
@@ -68,7 +68,7 @@ SingleComment.story = { name: 'Single Comment' };
 
 export const MulitColumn = () => (
 	<TopPicks
-		pillar={Pillar.Culture}
+		pillar={ArticlePillar.Culture}
 		comments={[
 			commentWithLongBody,
 			commentWithShortBody,
@@ -83,7 +83,7 @@ MulitColumn.story = { name: 'Mulitple Columns Comments' };
 
 export const SingleColumn = () => (
 	<TopPicks
-		pillar={Pillar.Sport}
+		pillar={ArticlePillar.Sport}
 		comments={[
 			commentWithLongBody,
 			commentWithShortBody,

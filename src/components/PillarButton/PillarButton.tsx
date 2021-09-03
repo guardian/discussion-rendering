@@ -4,12 +4,12 @@ import { css } from '@emotion/react';
 import { palette, neutral } from '@guardian/src-foundations';
 import { textSans } from '@guardian/src-foundations/typography';
 import { Button } from '@guardian/src-button';
-import { Pillar, Special, Theme } from '@guardian/types';
+import { ArticlePillar, ArticleSpecial, ArticleTheme } from '@guardian/libs';
 
 import { pillarToString } from '../../lib/pillarToString';
 
 type Props = {
-	pillar: Theme;
+	pillar: ArticleTheme;
 	onClick?: () => void;
 	children: string;
 	type?: 'submit';
@@ -22,26 +22,26 @@ type Props = {
 
 // Why this abstraction? To solve an issue where when we use the 800 key in `palette typescript throws errors. Most
 // likely caused by the fact labs only uses 300 & 400 so the union is restricted
-const dark = (pillar: Theme): string => {
+const dark = (pillar: ArticleTheme): string => {
 	switch (pillar) {
-		case Pillar.Culture:
+		case ArticlePillar.Culture:
 			return '#FBF6EF';
-		case Pillar.Opinion:
+		case ArticlePillar.Opinion:
 			return '#FEF9F5';
-		case Pillar.Lifestyle:
+		case ArticlePillar.Lifestyle:
 			return '#FEEEF7';
-		case Pillar.Sport:
+		case ArticlePillar.Sport:
 			return '#F1F8FC';
-		case Pillar.News:
-		case Special.SpecialReport:
-		case Special.Labs:
+		case ArticlePillar.News:
+		case ArticleSpecial.SpecialReport:
+		case ArticleSpecial.Labs:
 		default:
 			return '#FFF4F2';
 	}
 };
 
 const buttonOverrides = (
-	pillar: Theme,
+	pillar: ArticleTheme,
 	priority: 'primary' | 'secondary' | 'subdued',
 ) => {
 	switch (priority) {

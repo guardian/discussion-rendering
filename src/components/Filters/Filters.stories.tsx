@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Pillar } from '@guardian/types';
+import { ArticlePillar } from '@guardian/libs';
 
 import { FilterOptions } from '../../types';
 
@@ -16,7 +16,7 @@ export const Default = () => {
 	});
 	return (
 		<Filters
-			pillar={Pillar.Culture}
+			pillar={ArticlePillar.Culture}
 			filters={filters}
 			onFilterChange={setFilters}
 			totalPages={5}

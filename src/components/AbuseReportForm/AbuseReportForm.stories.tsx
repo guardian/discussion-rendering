@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { Pillar } from '@guardian/types';
+import { ArticlePillar } from '@guardian/libs';
 
 import { AbuseReportForm } from './AbuseReportForm';
 
@@ -19,7 +19,7 @@ export const Dialog = () => (
 	<div css={wrapperStyles}>
 		<AbuseReportForm
 			toggleSetShowForm={() => {}}
-			pillar={Pillar.Sport}
+			pillar={ArticlePillar.Sport}
 			commentId={123}
 		/>
 	</div>

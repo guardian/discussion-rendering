@@ -2,13 +2,13 @@ import React from 'react';
 import { css } from '@emotion/react';
 
 import { until, from } from '@guardian/src-foundations/mq';
-import { Theme } from '@guardian/types';
+import { ArticleTheme } from '@guardian/libs';
 
 import { CommentType, UserProfile } from '../../types';
 import { TopPick } from '../TopPick/TopPick';
 
 type Props = {
-	pillar: Theme;
+	pillar: ArticleTheme;
 	user?: UserProfile;
 	comments: CommentType[];
 	isSignedIn: boolean;
