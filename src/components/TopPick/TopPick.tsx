@@ -227,7 +227,7 @@ export const TopPick = ({
 					/>
 					{!!comment.userProfile.badge.filter((obj) => obj['name'] === 'Staff')
 						.length ? (
-						<GuardianStaff />
+						<GuardianStaff role={'Staff'} />
 					) : (
 						<></>
 					)}

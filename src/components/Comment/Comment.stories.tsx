@@ -26,6 +26,7 @@ const commentData: CommentType = {
 		avatar: 'https://avatar.guim.co.uk/user/2762428',
 		secureAvatarUrl: 'https://avatar.guim.co.uk/user/2762428',
 		badge: [],
+		isContributor: false,
 	},
 	responses: [],
 	metaData: {
@@ -46,6 +47,14 @@ const commentStaffData: CommentType = {
 				name: 'Staff',
 			},
 		],
+	},
+};
+
+const contributorData: CommentType = {
+	...commentData,
+	userProfile: {
+		...commentData.userProfile,
+		isContributor: true,
 	},
 };
 
@@ -317,6 +326,52 @@ export const PickedStaffUserCommentMobile = () => (
 );
 PickedStaffUserCommentMobile.story = {
 	name: 'with staff and picked badges on mobile',
+	parameters: {
+		viewport: { defaultViewport: 'mobileMedium' },
+		chromatic: { viewports: [375] },
+	},
+};
+
+export const ContributorUserComment = () => (
+	<Comment
+		comment={{
+			...contributorData,
+			isHighlighted: true,
+		}}
+		pillar={Pillar.News}
+		isClosedForComments={false}
+		setCommentBeingRepliedTo={() => {}}
+		isReply={false}
+		isMuted={false}
+		toggleMuteStatus={() => {}}
+		onPermalinkClick={() => {}}
+	/>
+);
+ContributorUserComment.story = {
+	name: 'with contributor and picked badges on desktop',
+	parameters: {
+		viewport: { defaultViewport: 'desktop' },
+		chromatic: { viewports: [1300] },
+	},
+};
+
+export const ContributorUserCommentMobile = () => (
+	<Comment
+		comment={{
+			...contributorData,
+			isHighlighted: true,
+		}}
+		pillar={Pillar.Sport}
+		isClosedForComments={false}
+		setCommentBeingRepliedTo={() => {}}
+		isReply={false}
+		isMuted={false}
+		toggleMuteStatus={() => {}}
+		onPermalinkClick={() => {}}
+	/>
+);
+ContributorUserCommentMobile.story = {
+	name: 'with contributor and picked badges on mobile',
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
 		chromatic: { viewports: [375] },

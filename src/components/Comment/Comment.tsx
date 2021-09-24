@@ -328,11 +328,16 @@ export const Comment = ({
 		}
 	};
 
-	const showStaffbadge = comment.userProfile.badge.find(
+	const showStaffBadge = comment.userProfile.badge.find(
 		(obj) => obj['name'] === 'Staff',
 	);
 
 	const showPickBadge = comment.status !== 'blocked' && isHighlighted;
+
+	// A contributor could be e.g. a freelancer that commonly comments on articles.
+	// In frontend we check/display the Staff badge else we check/display the
+	// Contributor - we shouldn't see both Staff & Contributor badges.
+	const showContributorBadge = comment.userProfile.isContributor;
 
 	return (
 		<>
@@ -455,9 +460,11 @@ export const Comment = ({
 										</div>
 									</Row>
 									<Row>
-										{showStaffbadge ? (
+										{showStaffBadge || showContributorBadge ? (
 											<div css={iconWrapper}>
-												<GuardianStaff />
+												<GuardianStaff
+													role={showStaffBadge ? 'Staff' : 'Contributor'}
+												/>
 											</div>
 										) : (
 											<></>
@@ -494,9 +501,11 @@ export const Comment = ({
 						]}
 					>
 						<Row>
-							{showStaffbadge ? (
+							{showStaffBadge || showContributorBadge ? (
 								<div css={iconWrapper}>
-									<GuardianStaff />
+									<GuardianStaff
+										role={showStaffBadge ? 'Staff' : 'Contributor'}
+									/>
 								</div>
 							) : (
 								<></>
