@@ -7,7 +7,7 @@ import { space, neutral } from '@guardian/src-foundations';
 import { Button } from '@guardian/src-button';
 import { SvgCross } from '@guardian/src-icons';
 
-import { Theme } from '@guardian/types';
+import { ArticleTheme } from '@guardian/libs';
 
 import { reportAbuse } from '../../lib/api';
 import { pillarToString } from '../../lib/pillarToString';
@@ -32,7 +32,7 @@ const formWrapper = css`
 	${textSans.xxsmall()};
 `;
 
-const labelStyles = (pillar: Theme) => css`
+const labelStyles = (pillar: ArticleTheme) => css`
 	color: ${palette[pillarToString(pillar)][400]};
 	${textSans.small({ fontWeight: 'bold' })}
 `;
@@ -62,7 +62,7 @@ const errorMessageStyles = css`
 export const AbuseReportForm: React.FC<{
 	commentId: number;
 	toggleSetShowForm: () => void;
-	pillar: Theme;
+	pillar: ArticleTheme;
 }> = ({ commentId, toggleSetShowForm, pillar }) => {
 	const modalRef = useRef<HTMLDivElement>(null);
 	// TODO: use ref once forwardRef is implemented @guardian/src-button

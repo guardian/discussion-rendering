@@ -8,7 +8,7 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
-import { Pillar } from '@guardian/types';
+import { ArticlePillar } from '@guardian/libs';
 
 import { AbuseReportForm } from './AbuseReportForm';
 
@@ -21,7 +21,7 @@ describe('Dropdown', () => {
 		const { getByText } = render(
 			<AbuseReportForm
 				toggleSetShowForm={() => {}}
-				pillar={Pillar.Sport}
+				pillar={ArticlePillar.Sport}
 				commentId={123}
 			/>,
 		);
@@ -35,7 +35,7 @@ describe('Dropdown', () => {
 		const { getByText } = render(
 			<AbuseReportForm
 				toggleSetShowForm={() => {}}
-				pillar={Pillar.Sport}
+				pillar={ArticlePillar.Sport}
 				commentId={123}
 			/>,
 		);
@@ -50,7 +50,7 @@ describe('Dropdown', () => {
 		const { getByText, getByLabelText, queryByText } = render(
 			<AbuseReportForm
 				toggleSetShowForm={() => {}}
-				pillar={Pillar.Sport}
+				pillar={ArticlePillar.Sport}
 				commentId={123}
 			/>,
 		);

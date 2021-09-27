@@ -4,7 +4,7 @@ import { textSans, headline } from '@guardian/src-foundations/typography';
 import { space, neutral } from '@guardian/src-foundations';
 import { TextInput } from '@guardian/src-text-input';
 import { Link } from '@guardian/src-link';
-import { Theme } from '@guardian/types';
+import { ArticleTheme } from '@guardian/libs';
 
 import { Row } from '../Row/Row';
 import { PillarButton } from '../PillarButton/PillarButton';
@@ -13,7 +13,7 @@ import { preview as defaultPreview } from '../../lib/api';
 
 type Props = {
 	body: string;
-	pillar: Theme;
+	pillar: ArticleTheme;
 	error?: string;
 	submitForm: (userName: string) => void;
 	cancelSubmit: () => void;

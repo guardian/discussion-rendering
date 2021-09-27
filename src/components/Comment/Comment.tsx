@@ -9,7 +9,7 @@ import { Link } from '@guardian/src-link';
 import { SvgIndent } from '@guardian/src-icons';
 import { Button } from '@guardian/src-button';
 
-import { Theme } from '@guardian/types';
+import { ArticleTheme } from '@guardian/libs';
 
 import {
 	GuardianStaff,
@@ -31,7 +31,7 @@ import { pillarToString } from '../../lib/pillarToString';
 type Props = {
 	user?: UserProfile;
 	comment: CommentType;
-	pillar: Theme;
+	pillar: ArticleTheme;
 	isClosedForComments: boolean;
 	setCommentBeingRepliedTo: (commentBeingRepliedTo?: CommentType) => void;
 	isReply: boolean;
@@ -42,7 +42,7 @@ type Props = {
 	onRecommend?: (commentId: number) => Promise<Boolean>;
 };
 
-const commentControlsLink = (pillar: Theme) => css`
+const commentControlsLink = (pillar: ArticleTheme) => css`
 	margin-top: -2px;
 
 	a {
@@ -144,7 +144,7 @@ const avatarMargin = css`
 	}
 `;
 
-const colourStyles = (pillar: Theme) => css`
+const colourStyles = (pillar: ArticleTheme) => css`
 	a {
 		color: ${palette[pillarToString(pillar)][400]};
 		text-decoration-color: ${palette[pillarToString(pillar)][400]};
@@ -228,7 +228,7 @@ const cssReplyToWrapper = css`
 	}
 `;
 
-const buttonLinkPillarBaseStyles = (pillar: Theme) => css`
+const buttonLinkPillarBaseStyles = (pillar: ArticleTheme) => css`
 	button {
 		color: ${palette[pillarToString(pillar)][400]};
 		background-color: transparent;

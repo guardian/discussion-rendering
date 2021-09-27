@@ -2411,6 +2411,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
+"@guardian/libs@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-3.1.0.tgz#44b0291741a0fce588167f4ec8c17fa9a7d41261"
+  integrity sha512-GJk34o9lUmP6FcBKd0FSV2RwvAKKJzcAV5mVdhgq/JmBNj8Ns5eiJlq8LG2ewIJJSzRaWT4h8Fg6n9KI8K0xDQ==
+
 "@guardian/prettier@^0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@guardian/prettier/-/prettier-0.4.2.tgz#2d08a8a50aad3911a88c9b53f92a37748694d551"
@@ -2471,11 +2476,6 @@
   dependencies:
     "@guardian/src-helpers" "^3.6.0"
     "@guardian/src-icons" "^3.6.0"
-
-"@guardian/types@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/types/-/types-3.0.0.tgz#bb2cc21f2436fca98143fb18bc58346e43ee9336"
-  integrity sha512-hTrk7EEsqSI/q7fyz2PuKMwKXuXRcwY7Ws+h72bvvimmpayfTwFQgEJfsjABxTSxdTw6bGA8T3F5GV4DJs9zog==
 
 "@hapi/address@2.x.x":
   version "2.1.4"

@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { textSans } from '@guardian/src-foundations/typography';
 import { neutral, space, text, palette } from '@guardian/src-foundations';
 import { SvgIndent } from '@guardian/src-icons';
-import { Theme } from '@guardian/types';
+import { ArticleTheme } from '@guardian/libs';
 import { Button } from '@guardian/src-button';
 
 import { Row } from '../Row/Row';
@@ -13,7 +13,7 @@ import { pillarToString } from '../../lib/pillarToString';
 import { CommentType } from '../../types';
 
 type Props = {
-	pillar: Theme;
+	pillar: ArticleTheme;
 	commentBeingRepliedTo: CommentType;
 };
 
@@ -78,7 +78,7 @@ const blueLink = css`
 	color: ${text.anchorPrimary};
 `;
 
-const buttonLinkPillarBaseStyles = (pillar: Theme) => css`
+const buttonLinkPillarBaseStyles = (pillar: ArticleTheme) => css`
 	button {
 		color: ${palette[pillarToString(pillar)][400]};
 		background-color: transparent;
