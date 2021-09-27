@@ -292,7 +292,7 @@ StaffUserComment.story = { name: 'Staff User Comment' };
 export const ContributorUserComment = () => (
 	<Comment
 		comment={commentContributorData}
-		pillar={Pillar.Opinion}
+		pillar={ArticlePillar.Opinion}
 		isClosedForComments={false}
 		setCommentBeingRepliedTo={() => {}}
 		isReply={false}
@@ -355,7 +355,7 @@ export const ContributorUserCommentDesktop = () => (
 			...commentContributorData,
 			isHighlighted: true,
 		}}
-		pillar={Pillar.News}
+		pillar={ArticlePillar.News}
 		isClosedForComments={false}
 		setCommentBeingRepliedTo={() => {}}
 		isReply={false}
@@ -378,7 +378,7 @@ export const ContributorUserCommentMobile = () => (
 			...commentContributorData,
 			isHighlighted: true,
 		}}
-		pillar={Pillar.Sport}
+		pillar={ArticlePillar.Sport}
 		isClosedForComments={false}
 		setCommentBeingRepliedTo={() => {}}
 		isReply={false}
