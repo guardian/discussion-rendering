@@ -26,7 +26,6 @@ const commentData: CommentType = {
 		avatar: 'https://avatar.guim.co.uk/user/2762428',
 		secureAvatarUrl: 'https://avatar.guim.co.uk/user/2762428',
 		badge: [],
-		isContributor: false,
 	},
 	responses: [],
 	metaData: {
@@ -50,11 +49,15 @@ const commentStaffData: CommentType = {
 	},
 };
 
-const contributorData: CommentType = {
+const commentContributorData: CommentType = {
 	...commentData,
 	userProfile: {
 		...commentData.userProfile,
-		isContributor: true,
+		badge: [
+			{
+				name: 'Contributor',
+			},
+		],
 	},
 };
 
@@ -286,6 +289,20 @@ export const StaffUserComment = () => (
 );
 StaffUserComment.story = { name: 'Staff User Comment' };
 
+export const ContributorUserComment = () => (
+	<Comment
+		comment={commentContributorData}
+		pillar={Pillar.Opinion}
+		isClosedForComments={false}
+		setCommentBeingRepliedTo={() => {}}
+		isReply={false}
+		isMuted={false}
+		toggleMuteStatus={() => {}}
+		onPermalinkClick={() => {}}
+	/>
+);
+ContributorUserComment.story = { name: 'Contributor User Comment' };
+
 export const PickedStaffUserComment = () => (
 	<Comment
 		comment={{
@@ -332,10 +349,10 @@ PickedStaffUserCommentMobile.story = {
 	},
 };
 
-export const ContributorUserComment = () => (
+export const ContributorUserCommentDesktop = () => (
 	<Comment
 		comment={{
-			...contributorData,
+			...commentContributorData,
 			isHighlighted: true,
 		}}
 		pillar={Pillar.News}
@@ -347,7 +364,7 @@ export const ContributorUserComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-ContributorUserComment.story = {
+ContributorUserCommentDesktop.story = {
 	name: 'with contributor and picked badges on desktop',
 	parameters: {
 		viewport: { defaultViewport: 'desktop' },
@@ -358,7 +375,7 @@ ContributorUserComment.story = {
 export const ContributorUserCommentMobile = () => (
 	<Comment
 		comment={{
-			...contributorData,
+			...commentContributorData,
 			isHighlighted: true,
 		}}
 		pillar={Pillar.Sport}

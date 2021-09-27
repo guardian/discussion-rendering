@@ -115,7 +115,6 @@ export interface UserProfile {
 	avatar: string;
 	secureAvatarUrl: string;
 	badge: any[];
-	isContributor?: boolean;
 
 	// only included from /profile/me endpoint
 	privateFields?: {
