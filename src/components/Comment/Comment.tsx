@@ -11,7 +11,11 @@ import { Button } from '@guardian/src-button';
 
 import { Theme } from '@guardian/types';
 
-import { GuardianStaff, GuardianPick } from '../Badges/Badges';
+import {
+	GuardianStaff,
+	GuardianPick,
+	GuardianContributor,
+} from '../Badges/Badges';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
 import { AbuseReportForm } from '../AbuseReportForm/AbuseReportForm';
 import { Timestamp } from '../Timestamp/Timestamp';
@@ -328,11 +332,19 @@ export const Comment = ({
 		}
 	};
 
-	const showStaffbadge = comment.userProfile.badge.find(
+	const showStaffBadge = comment.userProfile.badge.find(
 		(obj) => obj['name'] === 'Staff',
 	);
 
 	const showPickBadge = comment.status !== 'blocked' && isHighlighted;
+
+	// A contributor could be e.g. a freelancer that commonly comments on articles.
+	// In frontend we check/display the Staff badge else we check/display the
+	// Contributor - we shouldn't see both Staff & Contributor badges.
+	// https://github.com/guardian/frontend/blob/main/discussion/app/views/fragments/commentBadges.scala.html#L8
+	const showContributorBadge = comment.userProfile.badge.find(
+		(obj) => obj['name'] === 'Contributor',
+	);
 
 	return (
 		<>
@@ -455,19 +467,20 @@ export const Comment = ({
 										</div>
 									</Row>
 									<Row>
-										{showStaffbadge ? (
+										{showStaffBadge && (
 											<div css={iconWrapper}>
 												<GuardianStaff />
 											</div>
-										) : (
-											<></>
 										)}
-										{showPickBadge ? (
+										{showContributorBadge && !showStaffBadge && (
+											<div css={iconWrapper}>
+												<GuardianContributor />
+											</div>
+										)}
+										{showPickBadge && (
 											<div css={iconWrapper}>
 												<GuardianPick />
 											</div>
-										) : (
-											<></>
 										)}
 									</Row>
 								</div>
@@ -494,19 +507,20 @@ export const Comment = ({
 						]}
 					>
 						<Row>
-							{showStaffbadge ? (
+							{showStaffBadge && (
 								<div css={iconWrapper}>
 									<GuardianStaff />
 								</div>
-							) : (
-								<></>
 							)}
-							{showPickBadge ? (
+							{showContributorBadge && !showStaffBadge && (
+								<div css={iconWrapper}>
+									<GuardianContributor />
+								</div>
+							)}
+							{showPickBadge && (
 								<div css={iconWrapper}>
 									<GuardianPick />
 								</div>
-							) : (
-								<></>
 							)}
 						</Row>
 					</div>

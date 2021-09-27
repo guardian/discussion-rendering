@@ -49,6 +49,18 @@ const commentStaffData: CommentType = {
 	},
 };
 
+const commentContributorData: CommentType = {
+	...commentData,
+	userProfile: {
+		...commentData.userProfile,
+		badge: [
+			{
+				name: 'Contributor',
+			},
+		],
+	},
+};
+
 const blockedCommentData = {
 	...commentData,
 	status: 'blocked',
@@ -277,6 +289,20 @@ export const StaffUserComment = () => (
 );
 StaffUserComment.story = { name: 'Staff User Comment' };
 
+export const ContributorUserComment = () => (
+	<Comment
+		comment={commentContributorData}
+		pillar={Pillar.Opinion}
+		isClosedForComments={false}
+		setCommentBeingRepliedTo={() => {}}
+		isReply={false}
+		isMuted={false}
+		toggleMuteStatus={() => {}}
+		onPermalinkClick={() => {}}
+	/>
+);
+ContributorUserComment.story = { name: 'Contributor User Comment' };
+
 export const PickedStaffUserComment = () => (
 	<Comment
 		comment={{
@@ -317,6 +343,52 @@ export const PickedStaffUserCommentMobile = () => (
 );
 PickedStaffUserCommentMobile.story = {
 	name: 'with staff and picked badges on mobile',
+	parameters: {
+		viewport: { defaultViewport: 'mobileMedium' },
+		chromatic: { viewports: [375] },
+	},
+};
+
+export const ContributorUserCommentDesktop = () => (
+	<Comment
+		comment={{
+			...commentContributorData,
+			isHighlighted: true,
+		}}
+		pillar={Pillar.News}
+		isClosedForComments={false}
+		setCommentBeingRepliedTo={() => {}}
+		isReply={false}
+		isMuted={false}
+		toggleMuteStatus={() => {}}
+		onPermalinkClick={() => {}}
+	/>
+);
+ContributorUserCommentDesktop.story = {
+	name: 'with contributor and picked badges on desktop',
+	parameters: {
+		viewport: { defaultViewport: 'desktop' },
+		chromatic: { viewports: [1300] },
+	},
+};
+
+export const ContributorUserCommentMobile = () => (
+	<Comment
+		comment={{
+			...commentContributorData,
+			isHighlighted: true,
+		}}
+		pillar={Pillar.Sport}
+		isClosedForComments={false}
+		setCommentBeingRepliedTo={() => {}}
+		isReply={false}
+		isMuted={false}
+		toggleMuteStatus={() => {}}
+		onPermalinkClick={() => {}}
+	/>
+);
+ContributorUserCommentMobile.story = {
+	name: 'with contributor and picked badges on mobile',
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
 		chromatic: { viewports: [375] },
