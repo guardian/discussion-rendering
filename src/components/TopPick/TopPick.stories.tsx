@@ -45,8 +45,33 @@ const comment: CommentType = {
 	},
 };
 
+const commentContributor: CommentType = {
+	...comment,
+	userProfile: {
+		...comment.userProfile,
+		badge: [
+			{
+				name: 'Contributor',
+			},
+		],
+	},
+};
+
 const commentWithShortBody: CommentType = {
 	...comment,
+	body: "<p>It's still there FrankDeFord - and thanks, I will pass that on</p>",
+};
+
+const contributorCommentWithShortBody: CommentType = {
+	...comment,
+	userProfile: {
+		...comment.userProfile,
+		badge: [
+			{
+				name: 'Contributor',
+			},
+		],
+	},
 	body: "<p>It's still there FrankDeFord - and thanks, I will pass that on</p>",
 };
 
@@ -66,7 +91,7 @@ export const LongPick = () => (
 		/>
 	</div>
 );
-LongPick.story = { name: 'Long' };
+LongPick.story = { name: 'Long - Staff' };
 
 export const ShortPick = () => (
 	<div
@@ -84,4 +109,40 @@ export const ShortPick = () => (
 		/>
 	</div>
 );
-ShortPick.story = { name: 'Short' };
+ShortPick.story = { name: 'Short - Staff' };
+
+export const LongPickContributor = () => (
+	<div
+		css={css`
+			width: 100%;
+			max-width: 300px;
+		`}
+	>
+		<TopPick
+			pillar={ArticlePillar.News}
+			comment={commentContributor}
+			isSignedIn={false}
+			userMadeComment={false}
+			onPermalinkClick={() => {}}
+		/>
+	</div>
+);
+LongPickContributor.story = { name: 'Long - Contributor' };
+
+export const ShortPickContributor = () => (
+	<div
+		css={css`
+			width: 100%;
+			max-width: 300px;
+		`}
+	>
+		<TopPick
+			pillar={ArticlePillar.Opinion}
+			comment={contributorCommentWithShortBody}
+			isSignedIn={true}
+			userMadeComment={false}
+			onPermalinkClick={() => {}}
+		/>
+	</div>
+);
+ShortPickContributor.story = { name: 'Short - Contributor' };

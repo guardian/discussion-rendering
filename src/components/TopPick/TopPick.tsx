@@ -10,7 +10,7 @@ import { ArticleTheme } from '@guardian/libs';
 
 import { pillarToString } from '../../lib/pillarToString';
 
-import { GuardianStaff } from '../Badges/Badges';
+import { GuardianContributor, GuardianStaff } from '../Badges/Badges';
 import { CommentType } from '../../types';
 import { Avatar } from '../Avatar/Avatar';
 import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
@@ -171,76 +171,82 @@ export const TopPick = ({
 	userMadeComment,
 	onPermalinkClick,
 	onRecommend,
-}: Props) => (
-	<div css={pickStyles}>
-		<PickBubble>
-			<Top>
-				<h3 css={titleStyles}>Guardian Pick</h3>
-				<p
-					css={[wrapStyles, inCommentLinkStyling]}
-					dangerouslySetInnerHTML={{
-						__html: truncateText(comment.body, 450),
-					}}
-				></p>
-			</Top>
-			<Bottom>
-				<div css={smallFontSize}>
-					<Link
-						priority="primary"
-						subdued={true}
-						href={comment.webUrl}
-						onClick={(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-							onPermalinkClick(comment.id);
-							e.preventDefault();
+}: Props) => {
+	const showStaffBadge = comment.userProfile.badge.find(
+		(obj) => obj['name'] === 'Staff',
+	);
+
+	const showContributorBadge = comment.userProfile.badge.find(
+		(obj) => obj['name'] === 'Contributor',
+	);
+
+	return (
+		<div css={pickStyles}>
+			<PickBubble>
+				<Top>
+					<h3 css={titleStyles}>Guardian Pick</h3>
+					<p
+						css={[wrapStyles, inCommentLinkStyling]}
+						dangerouslySetInnerHTML={{
+							__html: truncateText(comment.body, 450),
 						}}
-						rel="nofollow"
-					>
-						Jump to comment
-					</Link>
-				</div>
-			</Bottom>
-		</PickBubble>
-		<PickMeta>
-			<Row>
-				<div css={avatarMargin}>
-					<Avatar
-						imageUrl={comment.userProfile.avatar}
-						displayName={''}
-						size="medium"
-					/>
-				</div>
-				<Column>
-					<span css={userNameStyles(pillar)}>
-						<a
-							href={comment.userProfile.webUrl}
-							css={[linkStyles, inheritColour]}
+					></p>
+				</Top>
+				<Bottom>
+					<div css={smallFontSize}>
+						<Link
+							priority="primary"
+							subdued={true}
+							href={comment.webUrl}
+							onClick={(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+								onPermalinkClick(comment.id);
+								e.preventDefault();
+							}}
 							rel="nofollow"
 						>
-							{comment.userProfile.displayName}
-						</a>
-					</span>
-					<Timestamp
-						isoDateTime={comment.isoDateTime}
-						webUrl={comment.webUrl}
-						commentId={comment.id}
-						onPermalinkClick={onPermalinkClick}
-					/>
-					{!!comment.userProfile.badge.filter((obj) => obj['name'] === 'Staff')
-						.length ? (
-						<GuardianStaff />
-					) : (
-						<></>
-					)}
-				</Column>
-			</Row>
-			<RecommendationCount
-				commentId={comment.id}
-				initialCount={comment.numRecommends}
-				alreadyRecommended={false}
-				isSignedIn={isSignedIn}
-				userMadeComment={userMadeComment}
-				onRecommend={onRecommend}
-			/>
-		</PickMeta>
-	</div>
-);
+							Jump to comment
+						</Link>
+					</div>
+				</Bottom>
+			</PickBubble>
+			<PickMeta>
+				<Row>
+					<div css={avatarMargin}>
+						<Avatar
+							imageUrl={comment.userProfile.avatar}
+							displayName={''}
+							size="medium"
+						/>
+					</div>
+					<Column>
+						<span css={userNameStyles(pillar)}>
+							<a
+								href={comment.userProfile.webUrl}
+								css={[linkStyles, inheritColour]}
+								rel="nofollow"
+							>
+								{comment.userProfile.displayName}
+							</a>
+						</span>
+						<Timestamp
+							isoDateTime={comment.isoDateTime}
+							webUrl={comment.webUrl}
+							commentId={comment.id}
+							onPermalinkClick={onPermalinkClick}
+						/>
+						{showStaffBadge && <GuardianStaff />}
+						{showContributorBadge && !showStaffBadge && <GuardianContributor />}
+					</Column>
+				</Row>
+				<RecommendationCount
+					commentId={comment.id}
+					initialCount={comment.numRecommends}
+					alreadyRecommended={false}
+					isSignedIn={isSignedIn}
+					userMadeComment={userMadeComment}
+					onRecommend={onRecommend}
+				/>
+			</PickMeta>
+		</div>
+	);
+};
