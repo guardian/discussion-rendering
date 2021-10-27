@@ -82,19 +82,21 @@ type UserNameUser = {
 	statusFields: {
 		userEmailValidated: boolean;
 	};
-	privateFields: Partial<{
-		brazeUuid: String,
-		puzzleUuid: string,
-		googleTagId: string,
-		firstName: string,
-		secondName: string,
-		registrationIp: string,
-		lastActiveIpAddress: string,
-		registrationType: string,
-		registrationPlatform: string,
-		telephoneNumber: string,
-		title: string,
-	}>;
+	privateFields: {
+		legacyPackages: string;
+		legacyProducts: string;
+		brazeUuid?: string,
+		puzzleUuid?: string,
+		googleTagId?: string,
+		firstName?: string,
+		secondName?: string,
+		registrationIp?: string,
+		lastActiveIpAddress?: string,
+		registrationType?: string,
+		registrationPlatform?: string,
+		telephoneNumber?: string,
+		title?: string,
+	};
 	primaryEmailAddress: string;
 	id: string;
 	hasPassword: boolean;
