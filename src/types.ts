@@ -86,17 +86,17 @@ type UserNameUser = {
 		legacyPackages: string;
 		legacyProducts: string;
 		// Optional fields. See scala @ https://git.io/JiKSd
-		brazeUuid?: string,
-		puzzleUuid?: string,
-		googleTagId?: string,
-		firstName?: string,
-		secondName?: string,
-		registrationIp?: string,
-		lastActiveIpAddress?: string,
-		registrationType?: string,
-		registrationPlatform?: string,
-		telephoneNumber?: string,
-		title?: string,
+		brazeUuid?: string;
+		puzzleUuid?: string;
+		googleTagId?: string;
+		firstName?: string;
+		secondName?: string;
+		registrationIp?: string;
+		lastActiveIpAddress?: string;
+		registrationType?: string;
+		registrationPlatform?: string;
+		telephoneNumber?: string;
+		title?: string;
 	};
 	primaryEmailAddress: string;
 	id: string;

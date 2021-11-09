@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { css } from '@emotion/react';
 
-import { palette, space } from '@guardian/src-foundations';
-import { neutral, text } from '@guardian/src-foundations/palette';
-import { textSans } from '@guardian/src-foundations/typography';
+import { space, neutral, text, textSans } from '@guardian/source-foundations';
 
 import { ArticleTheme } from '@guardian/libs';
 
@@ -58,9 +56,9 @@ const commentTextArea = css`
 	margin-bottom: ${space[3]}px;
 	padding: 8px 10px 10px 8px;
 	${textSans.small()};
-	border-color: ${palette.neutral[86]};
+	border-color: ${neutral[86]};
 	:focus {
-		border-color: ${palette.neutral[46]};
+		border-color: ${neutral[46]};
 		outline: none;
 	}
 `;
@@ -124,7 +122,7 @@ const commentAddOns = css`
 	height: 22px;
 	font-size: 13px;
 	line-height: 17px;
-	border: 1px solid ${palette.neutral[100]};
+	border: 1px solid ${neutral[100]};
 	color: ${neutral[46]};
 	text-align: center;
 	cursor: pointer;

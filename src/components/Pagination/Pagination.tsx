@@ -1,14 +1,18 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { textSans } from '@guardian/src-foundations/typography';
-import { neutral, border, space } from '@guardian/src-foundations';
-import { until } from '@guardian/src-foundations/mq';
-import { Button } from '@guardian/src-button';
 import {
+	textSans,
+	neutral,
+	border,
+	space,
+	until,
+} from '@guardian/source-foundations';
+import {
+	Button,
 	SvgChevronLeftSingle,
 	SvgChevronRightSingle,
-} from '@guardian/src-icons';
+} from '@guardian/source-react-components';
 
 import { FilterOptions } from '../../types';
 

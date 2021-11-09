@@ -1,8 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { space } from '@guardian/src-foundations';
-import { border } from '@guardian/src-foundations/palette';
+import { space, border } from '@guardian/source-foundations';
 import { ArticleTheme } from '@guardian/libs';
 
 import { Dropdown } from '../Dropdown/Dropdown';

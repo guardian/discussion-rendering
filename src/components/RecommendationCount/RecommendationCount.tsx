@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 
-import { textSans } from '@guardian/src-foundations/typography';
-import { neutral } from '@guardian/src-foundations/palette';
-import { brand } from '@guardian/src-foundations';
-import { SvgArrowUpStraight } from '@guardian/src-icons';
+import { brand, textSans, neutral } from '@guardian/source-foundations';
+import { SvgArrowUpStraight } from '@guardian/source-react-components';
 import { Row } from '../Row/Row';
 
 import { recommend as recommendDefault } from '../../lib/api';

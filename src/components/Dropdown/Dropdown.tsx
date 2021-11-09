@@ -3,20 +3,21 @@ import { css } from '@emotion/react';
 
 import FocusLock from 'react-focus-lock';
 
-import { palette } from '@guardian/src-foundations';
 import {
 	neutral,
 	border,
 	brandAlt,
 	background,
-} from '@guardian/src-foundations/palette';
-import { textSans } from '@guardian/src-foundations/typography';
-import { from, until } from '@guardian/src-foundations/mq';
+	textSans,
+	from,
+	until,
+} from '@guardian/source-foundations';
 import { ArticleTheme } from '@guardian/libs';
 
 import { DropdownOptionType } from '../../types';
 
 import { pillarToString } from '../../lib/pillarToString';
+import { palette } from '../../lib/palette';
 
 type Props = {
 	id: string;

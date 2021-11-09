@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 
-import { neutral } from '@guardian/src-foundations/palette';
-import { textSans } from '@guardian/src-foundations/typography';
-import { space } from '@guardian/src-foundations';
-import { SvgPlus } from '@guardian/src-icons';
+import { neutral, textSans, space } from '@guardian/source-foundations';
+import { SvgPlus } from '@guardian/source-react-components';
 
 import { ArticleTheme } from '@guardian/libs';
 

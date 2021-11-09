@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 
-import { textSans } from '@guardian/src-foundations/typography';
-import { neutral, space, text, palette } from '@guardian/src-foundations';
-import { SvgIndent } from '@guardian/src-icons';
+import { neutral, space, text, textSans } from '@guardian/source-foundations';
+import { Button, SvgIndent } from '@guardian/source-react-components';
 import { ArticleTheme } from '@guardian/libs';
-import { Button } from '@guardian/src-button';
 
 import { Row } from '../Row/Row';
 import { pillarToString } from '../../lib/pillarToString';
+import { palette } from '../../lib/palette';
 
 import { CommentType } from '../../types';
 
