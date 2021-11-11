@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { until, from } from '@guardian/src-foundations/mq';
+import { until, from } from '@guardian/source-foundations';
 import { ArticleTheme } from '@guardian/libs';
 
 import { CommentType, UserProfile } from '../../types';

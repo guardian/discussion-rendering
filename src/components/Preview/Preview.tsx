@@ -1,8 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { space, neutral } from '@guardian/src-foundations';
-import { textSans } from '@guardian/src-foundations/typography';
+import { space, neutral, textSans } from '@guardian/source-foundations';
 
 type Props = {
 	previewHtml: string;

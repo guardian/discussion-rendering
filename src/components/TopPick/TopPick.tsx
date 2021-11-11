@@ -1,14 +1,18 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { from } from '@guardian/src-foundations/mq';
-import { space, neutral, palette } from '@guardian/src-foundations';
-import { textSans } from '@guardian/src-foundations/typography';
-import { Link } from '@guardian/src-link';
-import { brand } from '@guardian/src-foundations/palette';
+import {
+	from,
+	space,
+	neutral,
+	textSans,
+	brand,
+} from '@guardian/source-foundations';
+import { Link } from '@guardian/source-react-components';
 import { ArticleTheme } from '@guardian/libs';
 
 import { pillarToString } from '../../lib/pillarToString';
+import { palette } from '../../lib/palette';
 
 import { GuardianContributor, GuardianStaff } from '../Badges/Badges';
 import { CommentType } from '../../types';

@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
 
-import { palette } from '@guardian/src-foundations';
-import { textSans } from '@guardian/src-foundations/typography';
-import { space, neutral } from '@guardian/src-foundations';
-import { Button } from '@guardian/src-button';
-import { SvgCross } from '@guardian/src-icons';
+import { textSans, space, neutral } from '@guardian/source-foundations';
+import { Button, SvgCross } from '@guardian/source-react-components';
 
 import { ArticleTheme } from '@guardian/libs';
 
 import { reportAbuse } from '../../lib/api';
 import { pillarToString } from '../../lib/pillarToString';
+import { palette } from '../../lib/palette';
 
 type formData = {
 	categoryId: number;
@@ -20,7 +18,7 @@ type formData = {
 
 const formWrapper = css`
 	z-index: 1;
-	border: 1px solid ${palette.neutral[86]};
+	border: 1px solid ${neutral[86]};
 	position: absolute;
 	width: 300px;
 	top: 0;

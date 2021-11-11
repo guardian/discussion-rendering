@@ -23,11 +23,7 @@ module.exports = {
         // Ignore all dependencies and PeerDependencies in build
         ...Object.keys(pkg.dependencies || {}),
         ...Object.keys(pkg.peerDependencies || {}),
-        'prop-types',
-        // Nested src-foundations
-        '@guardian/src-foundations/mq',
-        '@guardian/src-foundations/palette',
-        '@guardian/src-foundations/typography',
+        'prop-types'
     ],
     plugins: [
         clear({

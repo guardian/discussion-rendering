@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 
-import { space, palette, remSpace } from '@guardian/src-foundations';
-import { from, until } from '@guardian/src-foundations/mq';
-import { neutral, border } from '@guardian/src-foundations/palette';
-import { textSans } from '@guardian/src-foundations/typography';
-import { Link } from '@guardian/src-link';
-import { SvgIndent } from '@guardian/src-icons';
-import { Button } from '@guardian/src-button';
+import {
+	space,
+	remSpace,
+	from,
+	until,
+	neutral,
+	border,
+	textSans,
+	brand,
+} from '@guardian/source-foundations';
+import { Link, SvgIndent, Button } from '@guardian/source-react-components';
 
 import { ArticleTheme } from '@guardian/libs';
 
@@ -27,6 +31,7 @@ import { CommentType, UserProfile } from '../../types';
 import { pickComment, unPickComment } from '../../lib/api';
 import { createAuthenticationEventParams } from '../../lib/identity-component-event';
 import { pillarToString } from '../../lib/pillarToString';
+import { palette } from '../../lib/palette';
 
 type Props = {
 	user?: UserProfile;
@@ -114,7 +119,7 @@ const blockedCommentStyles = css`
 // to override a tag styles from dangerouslySetInnerHTML
 const commentLinkStyling = css`
 	a {
-		color: ${palette.brand[500]};
+		color: ${brand[500]};
 		text-decoration: none;
 		:hover {
 			text-decoration: underline;

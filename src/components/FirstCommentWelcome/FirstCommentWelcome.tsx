@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
-import { textSans, headline } from '@guardian/src-foundations/typography';
-import { space, neutral } from '@guardian/src-foundations';
-import { TextInput } from '@guardian/src-text-input';
-import { Link } from '@guardian/src-link';
+import {
+	textSans,
+	headline,
+	space,
+	neutral,
+} from '@guardian/source-foundations';
+import { Link, TextInput } from '@guardian/source-react-components';
 import { ArticleTheme } from '@guardian/libs';
 
 import { Row } from '../Row/Row';

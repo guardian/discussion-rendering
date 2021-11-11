@@ -1,8 +1,7 @@
 import React from 'react';
 import { css, keyframes } from '@emotion/react';
 
-import { space } from '@guardian/src-foundations';
-import { neutral } from '@guardian/src-foundations/palette';
+import { space, neutral } from '@guardian/source-foundations';
 
 import { Row } from '../Row/Row';
 import { Column } from '../Column/Column';

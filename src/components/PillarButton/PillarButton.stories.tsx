@@ -1,8 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import { space } from '@guardian/src-foundations';
-import { SvgCheckmark } from '@guardian/src-icons';
+import { space } from '@guardian/source-foundations';
+import { SvgCheckmark } from '@guardian/source-react-components';
 import { ArticlePillar } from '@guardian/libs';
 
 import { Row } from '../Row/Row';
