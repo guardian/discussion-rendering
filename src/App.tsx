@@ -239,7 +239,9 @@ export const App = ({
 			isClosedForComments,
 		}),
 	);
-	const [isExpanded, setIsExpanded] = useState<boolean>(expanded);
+	const [isExpanded, setIsExpanded] = useState<boolean>(
+		expanded || window.location.hash === '#comments',
+	);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [loadingMore, setLoadingMore] = useState<boolean>(false);
 	const [totalPages, setTotalPages] = useState<number>(0);
