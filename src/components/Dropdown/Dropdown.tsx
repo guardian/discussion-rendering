@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 
-import FocusLock from 'react-focus-lock';
-
 import {
 	neutral,
 	border,
@@ -208,25 +206,23 @@ export const Dropdown = ({ id, label, options, pillar, onSelect }: Props) => {
 					{activeLink ? activeLink.title : 'Please select'}
 				</button>
 			</div>
-			<FocusLock>
-				<ul id={dropdownID} css={[ulStyles, isExpanded && ulExpanded]}>
-					{options.map((option, index) => (
-						<li key={option.title}>
-							<button
-								onClick={() => onSelect(option.value)}
-								css={[
-									linkStyles(!!option.disabled),
-									option.isActive && activeStyles(pillar),
-									index === 0 && firstStyles,
-								]}
-								disabled={option.isActive || option.disabled}
-							>
-								{option.title}
-							</button>
-						</li>
-					))}
-				</ul>
-			</FocusLock>
+			<ul id={dropdownID} css={[ulStyles, isExpanded && ulExpanded]}>
+				{options.map((option, index) => (
+					<li key={option.title}>
+						<button
+							onClick={() => onSelect(option.value)}
+							css={[
+								linkStyles(!!option.disabled),
+								option.isActive && activeStyles(pillar),
+								index === 0 && firstStyles,
+							]}
+							disabled={option.isActive || option.disabled}
+						>
+							{option.title}
+						</button>
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 };
