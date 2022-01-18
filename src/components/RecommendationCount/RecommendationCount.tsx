@@ -76,6 +76,7 @@ export const RecommendationCount = ({
 				onClick={() => tryToRecommend()}
 				disabled={recommended || !isSignedIn || userMadeComment}
 				data-link-name="Recommend comment"
+				aria-label="Recommend comment"
 			>
 				<div css={arrowStyles(recommended)}>
 					<SvgArrowUpStraight />
