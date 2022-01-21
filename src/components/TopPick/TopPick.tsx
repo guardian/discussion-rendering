@@ -156,6 +156,10 @@ const PickMeta = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
 			display: flex;
 			justify-content: space-between;
 			padding-top: ${space[1]}px;
+
+			:hover .comment-permalink-icon {
+				display: inline-block;
+			}
 		`}
 	>
 		{children}

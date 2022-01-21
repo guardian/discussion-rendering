@@ -131,6 +131,10 @@ const commentWrapper = css`
 	border-top: 1px solid ${border.secondary};
 	display: flex;
 	padding: ${space[2]}px 0;
+
+	:hover .comment-permalink-icon {
+		display: inline-block;
+	}
 `;
 
 const selectedStyles = css`
