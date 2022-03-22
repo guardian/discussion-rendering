@@ -256,7 +256,6 @@ export const App = ({
 	const [commentCount, setCommentCount] = useState<number>(0);
 	const [mutes, setMutes] = useState<string[]>(readMutes());
 
-
 	useEffect(() => {
 		if (isExpanded) {
 			// We want react to complete the current work and render, without trying to batch this update
@@ -271,6 +270,12 @@ export const App = ({
 			return () => clearTimeout(timer);
 		}
 	}, [isExpanded, comments.length]);
+
+	useEffect(() => {
+		// We need this use effect to capture any changes in the expanded prop. This is typicallly
+		// seen when clicking permalinks
+		setIsExpanded(expanded);
+	}, [expanded]);
 
 	useEffect(() => {
 		setLoading(true);
