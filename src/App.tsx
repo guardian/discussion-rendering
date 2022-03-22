@@ -46,7 +46,6 @@ type Props = {
 		parentCommentId: number,
 	) => Promise<CommentResponse>;
 	onPreview?: (body: string) => Promise<string>;
-	onExpanded?: (expandedTime: number) => void;
 };
 
 const footerStyles = css`
@@ -210,7 +209,7 @@ const writeMutes = (mutes: string[]) => {
 		// capture these errors
 	}
 };
-let expandedStartTime: number;
+
 export const App = ({
 	baseUrl,
 	shortUrl,
@@ -229,7 +228,6 @@ export const App = ({
 	onComment,
 	onReply,
 	onPreview,
-	onExpanded,
 }: Props) => {
 	const [filters, setFilters] = useState<FilterOptions>(
 		initialiseFilters({
@@ -258,16 +256,6 @@ export const App = ({
 	const [commentCount, setCommentCount] = useState<number>(0);
 	const [mutes, setMutes] = useState<string[]>(readMutes());
 
-	useEffect(() => {
-		if (
-			isExpanded &&
-			onExpanded &&
-			window.performance &&
-			window.performance.now
-		) {
-			onExpanded(window.performance.now() - expandedStartTime);
-		}
-	}, [isExpanded, onExpanded]);
 
 	useEffect(() => {
 		if (isExpanded) {
@@ -367,14 +355,6 @@ export const App = ({
 		setPage(page);
 	};
 
-	const expandView = () => {
-		if (window.performance && window.performance.now) {
-			expandedStartTime = window.performance.now();
-		}
-
-		setIsExpanded(true);
-	};
-
 	const toggleMuteStatus = (userId: string) => {
 		let updatedMutes;
 		if (mutes.includes(userId)) {
@@ -397,7 +377,7 @@ export const App = ({
 
 		if (!isExpanded) {
 			// It's possible to post a comment without the view being expanded
-			expandView();
+			setIsExpanded(true);
 		}
 
 		const commentElement = document.getElementById(`comment-${comment.id}`);
@@ -490,7 +470,7 @@ export const App = ({
 					>
 						<PillarButton
 							pillar={pillar}
-							onClick={() => expandView()}
+							onClick={() => setIsExpanded(true)}
 							icon={<SvgPlus />}
 							iconSide="left"
 							linkName="more-comments"
