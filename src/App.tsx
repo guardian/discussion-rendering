@@ -44,6 +44,7 @@ type Props = {
 		parentCommentId: number,
 	) => Promise<CommentResponse>;
 	onPreview?: (body: string) => Promise<string>;
+	onExpand?: () => void;
 };
 
 const footerStyles = css`
@@ -226,6 +227,7 @@ export const App = ({
 	onComment,
 	onReply,
 	onPreview,
+	onExpand,
 }: Props) => {
 	const [filters, setFilters] = useState<FilterOptions>(
 		initialiseFilters({
@@ -349,6 +351,7 @@ export const App = ({
 		rememberFilters(newFilterObject);
 		// Filters also show when the view is not expanded but we want to expand when they're changed
 		setIsExpanded(true);
+		if (typeof onExpand === 'function') onExpand();
 		setFilters(newFilterObject);
 	};
 
@@ -381,6 +384,7 @@ export const App = ({
 		if (!isExpanded) {
 			// It's possible to post a comment without the view being expanded
 			setIsExpanded(true);
+			if (typeof onExpand === 'function') onExpand();
 		}
 
 		const commentElement = document.getElementById(`comment-${comment.id}`);
