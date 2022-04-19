@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 
 import { neutral, textSans, space } from '@guardian/source-foundations';
-import { SvgPlus } from '@guardian/source-react-components';
 
 import { ArticleTheme } from '@guardian/libs';
 
@@ -22,7 +21,6 @@ import { CommentForm } from './components/CommentForm/CommentForm';
 import { Filters } from './components/Filters/Filters';
 import { Pagination } from './components/Pagination/Pagination';
 import { LoadingComments } from './components/LoadingComments/LoadingComments';
-import { PillarButton } from './components/PillarButton/PillarButton';
 
 type Props = {
 	shortUrl: string;
@@ -466,24 +464,6 @@ export const App = ({
 							</ul>
 						)}
 					</>
-				)}
-				{commentCount > 2 && (
-					<div
-						css={css`
-							width: 250px;
-						`}
-					>
-						<PillarButton
-							pillar={pillar}
-							onClick={() => setIsExpanded(true)}
-							icon={<SvgPlus />}
-							iconSide="left"
-							linkName="more-comments"
-							size="small"
-						>
-							View more comments
-						</PillarButton>
-					</div>
 				)}
 			</div>
 		);
