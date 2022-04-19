@@ -2,7 +2,6 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import {
 	render,
-	fireEvent,
 	waitForElementToBeRemoved,
 	screen,
 } from '@testing-library/react';
@@ -36,33 +35,6 @@ const aUser = {
 jest.setTimeout(20000);
 
 describe('App', () => {
-	it('should expand when view more button is clicked', async () => {
-		render(
-			<App
-				baseUrl=""
-				shortUrl="p/39f5z"
-				pillar={ArticlePillar.News}
-				isClosedForComments={false}
-				expanded={false}
-				additionalHeaders={{
-					'D2-X-UID': 'testD2Header',
-					'GU-Client': 'testClientHeader',
-				}}
-				apiKey="discussion-rendering-test"
-				onPermalinkClick={() => {}}
-			/>,
-		);
-
-		await waitForElementToBeRemoved(() =>
-			screen.getByTestId('loading-comments'),
-		);
-
-		expect(screen.queryByText('View more comments')).toBeInTheDocument();
-		fireEvent.click(screen.getByText('View more comments'));
-		expect(screen.queryByText('View more comments')).not.toBeInTheDocument();
-		expect(screen.getByText('Display threads')).toBeInTheDocument();
-	});
-
 	it('should not render the comment form if user is logged out', async () => {
 		render(
 			<App
@@ -114,55 +86,5 @@ describe('App', () => {
 		expect(screen.queryAllByPlaceholderText('Join the discussion').length).toBe(
 			2,
 		);
-	});
-
-	it('should not render the view more button if there are zero comments', async () => {
-		render(
-			<App
-				baseUrl=""
-				shortUrl="p/39f5x" // A discussion with no comments
-				pillar={ArticlePillar.News}
-				isClosedForComments={false}
-				expanded={false}
-				additionalHeaders={{
-					'D2-X-UID': 'testD2Header',
-					'GU-Client': 'testClientHeader',
-				}}
-				apiKey="discussion-rendering-test"
-				onPermalinkClick={() => {}}
-			/>,
-		);
-
-		await waitForElementToBeRemoved(() =>
-			screen.getByTestId('loading-comments'),
-		);
-
-		expect(screen.getByText('Display threads')).toBeInTheDocument();
-		expect(screen.queryByText('View more comments')).not.toBeInTheDocument();
-	});
-
-	it('should not render the view more button if there are only two comments', async () => {
-		render(
-			<App
-				baseUrl=""
-				shortUrl="p/39f5a" // A discussion with only two comments
-				pillar={ArticlePillar.News}
-				isClosedForComments={false}
-				expanded={false}
-				additionalHeaders={{
-					'D2-X-UID': 'testD2Header',
-					'GU-Client': 'testClientHeader',
-				}}
-				apiKey="discussion-rendering-test"
-				onPermalinkClick={() => {}}
-			/>,
-		);
-
-		await waitForElementToBeRemoved(() =>
-			screen.getByTestId('loading-comments'),
-		);
-
-		expect(screen.getByText('Display threads')).toBeInTheDocument();
-		expect(screen.queryByText('View more comments')).not.toBeInTheDocument();
 	});
 });
