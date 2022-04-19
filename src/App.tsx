@@ -391,6 +391,8 @@ export const App = ({
 
 	const showPagination = totalPages > 1;
 
+	if (!isExpanded && loading) return <></>;
+
 	if (!isExpanded) {
 		return (
 			<div css={commentContainerStyles} data-component="discussion">
@@ -437,9 +439,7 @@ export const App = ({
 								filters={filters}
 							/>
 						)}
-						{loading ? (
-							<LoadingComments />
-						) : !comments.length ? (
+						{!comments.length ? (
 							<NoComments />
 						) : (
 							<ul css={commentContainerStyles}>
