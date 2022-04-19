@@ -56,7 +56,6 @@ describe('App', () => {
 			screen.getByTestId('loading-comments'),
 		);
 
-		expect(screen.getByText('View more comments')).toBeInTheDocument();
 		expect(screen.queryAllByText('jamesgorrie').length).toBeGreaterThan(0);
 		expect(screen.queryByPlaceholderText('Join the discussion')).toBeNull();
 	});
@@ -77,10 +76,6 @@ describe('App', () => {
 				apiKey="discussion-rendering-test"
 				onPermalinkClick={() => {}}
 			/>,
-		);
-
-		await waitForElementToBeRemoved(() =>
-			screen.getAllByTestId('loading-comments'),
 		);
 
 		expect(screen.queryAllByPlaceholderText('Join the discussion').length).toBe(

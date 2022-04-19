@@ -395,7 +395,9 @@ export const App = ({
 
 	const showPagination = totalPages > 1;
 
-	if (!isExpanded && loading) return <></>;
+	if (!isExpanded && loading) {
+		return <span data-testid="loading-comments"></span>;
+	}
 
 	if (!isExpanded) {
 		return (
