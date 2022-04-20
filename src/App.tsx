@@ -351,7 +351,7 @@ export const App = ({
 		rememberFilters(newFilterObject);
 		// Filters also show when the view is not expanded but we want to expand when they're changed
 		setIsExpanded(true);
-		if (typeof onExpand === 'function') onExpand();
+		onExpand?.();
 		setFilters(newFilterObject);
 	};
 
