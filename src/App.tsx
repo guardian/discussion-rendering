@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 
 import { neutral, textSans, space } from '@guardian/source-foundations';
-import { SvgPlus } from '@guardian/source-react-components';
 
 import { ArticleTheme } from '@guardian/libs';
 
@@ -22,7 +21,6 @@ import { CommentForm } from './components/CommentForm/CommentForm';
 import { Filters } from './components/Filters/Filters';
 import { Pagination } from './components/Pagination/Pagination';
 import { LoadingComments } from './components/LoadingComments/LoadingComments';
-import { PillarButton } from './components/PillarButton/PillarButton';
 
 type Props = {
 	shortUrl: string;
@@ -46,6 +44,7 @@ type Props = {
 		parentCommentId: number,
 	) => Promise<CommentResponse>;
 	onPreview?: (body: string) => Promise<string>;
+	onExpand?: () => void;
 };
 
 const footerStyles = css`
@@ -228,6 +227,7 @@ export const App = ({
 	onComment,
 	onReply,
 	onPreview,
+	onExpand,
 }: Props) => {
 	const [filters, setFilters] = useState<FilterOptions>(
 		initialiseFilters({
@@ -351,6 +351,7 @@ export const App = ({
 		rememberFilters(newFilterObject);
 		// Filters also show when the view is not expanded but we want to expand when they're changed
 		setIsExpanded(true);
+		onExpand?.();
 		setFilters(newFilterObject);
 	};
 
@@ -383,6 +384,7 @@ export const App = ({
 		if (!isExpanded) {
 			// It's possible to post a comment without the view being expanded
 			setIsExpanded(true);
+			if (typeof onExpand === 'function') onExpand();
 		}
 
 		const commentElement = document.getElementById(`comment-${comment.id}`);
@@ -392,6 +394,10 @@ export const App = ({
 	initialiseApi({ additionalHeaders, baseUrl, apiKey });
 
 	const showPagination = totalPages > 1;
+
+	if (!isExpanded && loading) {
+		return <span data-testid="loading-comments"></span>;
+	}
 
 	if (!isExpanded) {
 		return (
@@ -439,9 +445,7 @@ export const App = ({
 								filters={filters}
 							/>
 						)}
-						{loading ? (
-							<LoadingComments />
-						) : !comments.length ? (
+						{!comments.length ? (
 							<NoComments />
 						) : (
 							<ul css={commentContainerStyles}>
@@ -466,24 +470,6 @@ export const App = ({
 							</ul>
 						)}
 					</>
-				)}
-				{commentCount > 2 && (
-					<div
-						css={css`
-							width: 250px;
-						`}
-					>
-						<PillarButton
-							pillar={pillar}
-							onClick={() => setIsExpanded(true)}
-							icon={<SvgPlus />}
-							iconSide="left"
-							linkName="more-comments"
-							size="small"
-						>
-							View more comments
-						</PillarButton>
-					</div>
 				)}
 			</div>
 		);
