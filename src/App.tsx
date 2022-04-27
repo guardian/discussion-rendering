@@ -356,6 +356,8 @@ export const App = ({
 	};
 
 	const onPageChange = (page: number) => {
+		// Pagination also show when the view is not expanded so we want to expand when clicked
+		setIsExpanded(true);
 		const element = document.getElementById('comment-filters');
 		element && element.scrollIntoView();
 		setPage(page);
@@ -402,17 +404,6 @@ export const App = ({
 	if (!isExpanded) {
 		return (
 			<div css={commentContainerStyles} data-component="discussion">
-				{user && !isClosedForComments && (
-					<CommentForm
-						pillar={pillar}
-						shortUrl={shortUrl}
-						onAddComment={onAddComment}
-						user={user}
-						onComment={onComment}
-						onReply={onReply}
-						onPreview={onPreview}
-					/>
-				)}
 				{picks && picks.length ? (
 					<div css={picksWrapper}>
 						{!!picks.length && (

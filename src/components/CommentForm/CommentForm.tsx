@@ -175,10 +175,14 @@ export const CommentForm = ({
 
 	useEffect(() => {
 		if (commentBeingRepliedTo) {
-			const commentElement = document.getElementById(
-				`comment-reply-form-${commentBeingRepliedTo.id}`,
-			);
-			commentElement && commentElement.scrollIntoView();
+			document
+				.getElementById(`comment-${commentBeingRepliedTo.id}`)
+				?.scrollIntoView();
+			document
+				.querySelector<HTMLTextAreaElement>(
+					`#comment-reply-form-${commentBeingRepliedTo.id} textarea`,
+				)
+				?.focus();
 		}
 	}, [commentBeingRepliedTo]);
 
