@@ -356,6 +356,8 @@ export const App = ({
 	};
 
 	const onPageChange = (page: number) => {
+		// Pagination also show when the view is not expanded so we want to expand when clicked
+		setIsExpanded(true);
 		const element = document.getElementById('comment-filters');
 		element && element.scrollIntoView();
 		setPage(page);
