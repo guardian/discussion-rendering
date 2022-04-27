@@ -402,17 +402,6 @@ export const App = ({
 	if (!isExpanded) {
 		return (
 			<div css={commentContainerStyles} data-component="discussion">
-				{user && !isClosedForComments && (
-					<CommentForm
-						pillar={pillar}
-						shortUrl={shortUrl}
-						onAddComment={onAddComment}
-						user={user}
-						onComment={onComment}
-						onReply={onReply}
-						onPreview={onPreview}
-					/>
-				)}
 				{picks && picks.length ? (
 					<div css={picksWrapper}>
 						{!!picks.length && (
