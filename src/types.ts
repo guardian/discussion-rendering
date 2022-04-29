@@ -85,7 +85,7 @@ type UserNameUser = {
 	privateFields: {
 		legacyPackages: string;
 		legacyProducts: string;
-		// Optional fields. See scala @ https://git.io/JiKSd
+		// Optional fields. See scala @ https://github.com/guardian/identity/blob/d72ff3ed1f6d69800f0e3fee81cf49839d903f16/identity-model-play/src/main/scala/com/gu/identity/model/play/PrivateFields.scala#L6-L18
 		brazeUuid?: string;
 		puzzleUuid?: string;
 		googleTagId?: string;
