@@ -37,25 +37,30 @@ const previewStyle = css`
 		font-family: monospace;
 		font-size: 1em;
 	}
+
+	p {
+		margin-top: 0;
+		margin-bottom: ${space[3]}px;
+	}
 `;
 
 const spout = css`
-	display: block;
-	left: 0;
-	width: 0;
-	height: 0;
-	border-right: 1rem solid transparent;
-	border-bottom: 1rem solid ${neutral[93]};
-	margin-left: 12.5rem;
-	border-right-style: inset;
+	&::before {
+		content: '';
+		display: block;
+		left: 0;
+		width: 0;
+		height: 0;
+		border-right: 1rem solid transparent;
+		border-bottom: 1rem solid ${neutral[93]};
+		margin-left: 12.5rem;
+		border-right-style: inset;
+	}
 `;
 
 export const Preview = ({ previewHtml }: Props) => (
-	<>
-		<div css={spout} />
-		<p
-			css={previewStyle}
-			dangerouslySetInnerHTML={{ __html: previewHtml || '' }}
-		/>
-	</>
+	<div
+		css={[previewStyle, spout]}
+		dangerouslySetInnerHTML={{ __html: previewHtml || '' }}
+	/>
 );
