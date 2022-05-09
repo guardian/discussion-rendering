@@ -50,22 +50,22 @@ const previewStyle = css`
 `;
 
 const spout = css`
-	&::before {
-		content: '';
-		display: block;
-		left: 0;
-		width: 0;
-		height: 0;
-		border-right: 1rem solid transparent;
-		border-bottom: 1rem solid ${neutral[93]};
-		margin-left: 12.5rem;
-		border-right-style: inset;
-	}
+	display: block;
+	left: 0;
+	width: 0;
+	height: 0;
+	border-right: 1rem solid transparent;
+	border-bottom: 1rem solid ${neutral[93]};
+	margin-left: 12.5rem;
+	border-right-style: inset;
 `;
 
 export const Preview = ({ previewHtml }: Props) => (
-	<div
-		css={[previewStyle, spout]}
-		dangerouslySetInnerHTML={{ __html: previewHtml || '' }}
-	/>
+	<>
+		<div css={spout} />
+		<div
+			css={previewStyle}
+			dangerouslySetInnerHTML={{ __html: previewHtml || '' }}
+		/>
+	</>
 );
