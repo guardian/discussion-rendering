@@ -1,9 +1,15 @@
 import React, { useEffect } from "react"
-import { FocusStyleManager } from "@guardian/source-foundations"
+import { FocusStyleManager, resets } from "@guardian/source-foundations"
 import MockDate from 'mockdate';
 import { mockFetchCalls } from '../src/lib/mockFetchCalls';
 
 MockDate.set('Fri March 27 2020 12:00:00 GMT+0000 (Greenwich Mean Time)');
+
+// Add global CSS styles
+let head = document.querySelector('head');
+let style = document.createElement('style');
+head.appendChild(style);
+style.appendChild(document.createTextNode(resets.resetCSS));
 
 mockFetchCalls();
 
@@ -74,6 +80,7 @@ const FocusManagerDecorator = storyFn => {
 	})
 
 	return <div>{storyFn()}</div>
+	
 }
 
 export const decorators = [FocusManagerDecorator];
