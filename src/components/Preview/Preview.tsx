@@ -37,6 +37,16 @@ const previewStyle = css`
 		font-family: monospace;
 		font-size: 1em;
 	}
+
+	/*
+		todo: this spacing is currently repeated here, on regular comments, and
+		on TopPick comments; can we factor out the common styling for these
+		three components?
+	*/
+	p {
+		margin-top: 0;
+		margin-bottom: ${space[3]}px;
+	}
 `;
 
 const spout = css`
@@ -53,7 +63,7 @@ const spout = css`
 export const Preview = ({ previewHtml }: Props) => (
 	<>
 		<div css={spout} />
-		<p
+		<div
 			css={previewStyle}
 			dangerouslySetInnerHTML={{ __html: previewHtml || '' }}
 		/>
