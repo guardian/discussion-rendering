@@ -32,7 +32,7 @@ type Props = {
 	mutes: string[];
 	toggleMuteStatus: (userId: string) => void;
 	onPermalinkClick: (commentId: number) => void;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 	onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
 	onReply?: (
 		shortUrl: string,

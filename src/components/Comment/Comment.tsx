@@ -44,7 +44,7 @@ type Props = {
 	isMuted: boolean;
 	toggleMuteStatus: (userId: string) => void;
 	onPermalinkClick: (commentId: number) => void;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 };
 
 const commentControlsLink = (pillar: ArticleTheme) => css`
@@ -495,12 +495,9 @@ export const Comment = ({
 							<RecommendationCount
 								commentId={comment.id}
 								initialCount={comment.numRecommends}
-								alreadyRecommended={false}
 								isSignedIn={!!user}
 								onRecommend={onRecommend}
-								userMadeComment={
-									!!user && user.userId === comment.userProfile.userId
-								}
+								userMadeComment={user?.userId === comment.userProfile.userId}
 							/>
 						)}
 					</header>

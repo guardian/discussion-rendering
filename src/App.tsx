@@ -36,7 +36,7 @@ type Props = {
 	expanded: boolean;
 	onPermalinkClick: (commentId: number) => void;
 	apiKey: string;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 	onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
 	onReply?: (
 		shortUrl: string,

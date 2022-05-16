@@ -28,7 +28,7 @@ type Props = {
 	isSignedIn: boolean;
 	userMadeComment: boolean;
 	onPermalinkClick: (commentId: number) => void;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 };
 
 const pickStyles = css`
@@ -245,10 +245,9 @@ export const TopPick = ({
 				<RecommendationCount
 					commentId={comment.id}
 					initialCount={comment.numRecommends}
-					alreadyRecommended={false}
 					isSignedIn={isSignedIn}
-					userMadeComment={userMadeComment}
 					onRecommend={onRecommend}
+					userMadeComment={userMadeComment}
 				/>
 			</PickMeta>
 		</div>

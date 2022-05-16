@@ -13,7 +13,7 @@ type Props = {
 	comments: CommentType[];
 	isSignedIn: boolean;
 	onPermalinkClick: (commentId: number) => void;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 };
 
 const columWrapperStyles = css`

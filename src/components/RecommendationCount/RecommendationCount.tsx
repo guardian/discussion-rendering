@@ -5,15 +5,14 @@ import { brand, textSans, neutral } from '@guardian/source-foundations';
 import { SvgArrowUpStraight } from '@guardian/source-react-components';
 import { Row } from '../Row/Row';
 
-import { recommend as recommendDefault } from '../../lib/api';
+import { recommend } from '../../lib/api';
 
 type Props = {
 	commentId: number;
 	initialCount: number;
-	alreadyRecommended: boolean;
 	isSignedIn: boolean;
 	userMadeComment: boolean;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 };
 
 const countStyles = css`
@@ -46,24 +45,23 @@ const arrowStyles = (recommended: Boolean) => css`
 export const RecommendationCount = ({
 	commentId,
 	initialCount,
-	alreadyRecommended,
 	isSignedIn,
 	userMadeComment,
-	onRecommend,
+	onRecommend = recommend,
 }: Props) => {
 	const [count, setCount] = useState(initialCount);
-	const [recommended, setRecommended] = useState(alreadyRecommended);
+	const [recommended, setRecommended] = useState(false);
 
 	const tryToRecommend = () => {
-		const newCount = count + 1;
-		setCount(newCount);
+		// Be optimistic that the recommendation will succeed
+		setCount(initialCount + 1);
 		setRecommended(true);
-		const recommend = onRecommend || recommendDefault;
 
-		recommend(commentId).then((accepted) => {
+		onRecommend(commentId).then((accepted) => {
 			if (!accepted) {
-				setCount(newCount - 1);
-				setRecommended(alreadyRecommended);
+				// Catch if the recommendation failed
+				setCount(initialCount);
+				setRecommended(false); // TODO: do we want to leave this on?
 			}
 		});
 	};
