@@ -245,9 +245,7 @@ export const App = ({
 			isClosedForComments,
 		}),
 	);
-	const [isExpanded, setIsExpanded] = useState<boolean>(
-		expanded || window.location.hash === '#comments',
-	);
+
 	const [loading, setLoading] = useState<boolean>(true);
 	const [loadingMore, setLoadingMore] = useState<boolean>(false);
 	const [totalPages, setTotalPages] = useState<number>(1);
@@ -264,7 +262,7 @@ export const App = ({
 	const [mutes, setMutes] = useState<string[]>(readMutes());
 
 	useEffect(() => {
-		if (isExpanded) {
+		if (expanded) {
 			// We want react to complete the current work and render, without trying to batch this update
 			// before resetting the number of comments
 			// to the total comment amount.
@@ -276,13 +274,7 @@ export const App = ({
 			}, 0);
 			return () => clearTimeout(timer);
 		}
-	}, [isExpanded, comments.length]);
-
-	useEffect(() => {
-		// We need this use effect to capture any changes in the expanded prop. This is typicallly
-		// seen when clicking permalinks
-		setIsExpanded(expanded);
-	}, [expanded]);
+	}, [expanded, comments.length]);
 
 	useEffect(() => {
 		setLoading(true);
@@ -347,8 +339,7 @@ export const App = ({
 
 		rememberFilters(newFilterObject);
 		// Filters also show when the view is not expanded but we want to expand when they're changed
-		setIsExpanded(true);
-		onExpand?.();
+		onExpand();
 		setFilters(newFilterObject);
 	};
 
@@ -372,10 +363,9 @@ export const App = ({
 		// Replace it with this new comment at the start
 		setComments([comment, ...comments]);
 
-		if (!isExpanded) {
+		if (!expanded) {
 			// It's possible to post a comment without the view being expanded
-			setIsExpanded(true);
-			if (typeof onExpand === 'function') onExpand();
+			onExpand();
 		}
 
 		const commentElement = document.getElementById(`comment-${comment.id}`);
@@ -386,11 +376,11 @@ export const App = ({
 
 	const showPagination = totalPages > 1;
 
-	if (!isExpanded && loading) {
+	if (!expanded && loading) {
 		return <span data-testid="loading-comments"></span>;
 	}
 
-	if (!isExpanded) {
+	if (!expanded) {
 		return (
 			<div css={commentContainerStyles} data-component="discussion">
 				{picks && picks.length ? (
