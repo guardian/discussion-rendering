@@ -2421,15 +2421,17 @@
   resolved "https://registry.yarnpkg.com/@guardian/prettier/-/prettier-0.4.2.tgz#2d08a8a50aad3911a88c9b53f92a37748694d551"
   integrity sha512-f8MCY/s3rLNonqxITsqnqrPRt0r6hEyW6rGKqDexTt88fEQnA3BMtAlN2hqjuNfrOa9EQexEknZugRVdIpbijQ==
 
-"@guardian/source-foundations@^4.0.0-rc.0":
-  version "4.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@guardian/source-foundations/-/source-foundations-4.0.0-rc.1.tgz#981c0ec19a3d7b59ca6d604bf1cbcf9f8db8257f"
-  integrity sha512-I7Tb4xpjhOnjd4sCJ1YstkxMpYLxNMwdR0YZFatTGUWsWRGCUDk4vIwDbrzX2/SE/okSwOQ/UPc0bYqvdCOzzg==
+"@guardian/source-foundations@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@guardian/source-foundations/-/source-foundations-4.2.1.tgz#26bbc0976ccca9d2f57c87467945fd965166888e"
+  integrity sha512-9enZ10Tpe9ZCnY1rL1NdiFT1UFPoFWdo0CsKL7Fz1v0UDqvCsNk4OA/ppJkNF07tDSffPFDuQWi8EJaxGLy2Ow==
+  dependencies:
+    mini-svg-data-uri "^1.3.3"
 
-"@guardian/source-react-components@^4.0.0-rc.1":
-  version "4.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-4.0.0-rc.1.tgz#cd6f372471f8cc09d868ab0c8afd9d2dd7e428d7"
-  integrity sha512-C0hZuTpeJSv+GV9r4G8OTQRZt8SKjvFjtbYeXVCxccseDVq3tjT9eOKQg08X809PvYWtFOVgZR+ySHnqJVyiAg==
+"@guardian/source-react-components@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-4.4.0.tgz#69cf404b56db3ca507702d29dae6a40eeb145cf4"
+  integrity sha512-5Q4Vl8ek0UV0Y9ob5y3Smq5xHs1d3lEzLynv5qqlYqVBlhze5Ypg5IzrPcEpKtcUaCIQeI9d5FevHM9fmm18sQ==
 
 "@hapi/address@2.x.x":
   version "2.1.4"
@@ -14077,6 +14079,11 @@ mini-css-extract-plugin@0.8.0:
     normalize-url "1.9.1"
     schema-utils "^1.0.0"
     webpack-sources "^1.1.0"
+
+mini-svg-data-uri@^1.3.3:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz#8ab0aabcdf8c29ad5693ca595af19dd2ead09939"
+  integrity sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
 
 minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   version "1.0.1"
