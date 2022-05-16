@@ -136,13 +136,13 @@ export interface UserProfile {
 }
 
 export interface DiscussionResponse {
-	status: string;
+	status?: string;
 	errorCode?: string;
 	page: number;
-	pages: number;
+	pages?: number;
 	pageSize: number;
 	orderBy: string;
-	discussion: {
+	discussion?: {
 		key: string;
 		webUrl: string;
 		apiUrl: string;
@@ -152,7 +152,7 @@ export interface DiscussionResponse {
 		isClosedForRecommendation: boolean;
 		isThreaded: boolean;
 		title: string;
-		comments: CommentType[];
+		comments?: CommentType[];
 	};
 }
 

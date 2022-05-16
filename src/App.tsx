@@ -282,13 +282,11 @@ export const App = ({
 		getDiscussion(shortUrl, { ...filters, page }).then((json) => {
 			setLoading(false);
 			setLoadingMore(true);
-			if (json && json.status !== 'error') {
-				setComments(json && json.discussion && json.discussion.comments);
-				setCommentCount(
-					json && json.discussion && json.discussion.topLevelCommentCount,
-				);
+			if (json?.status === 'ok') {
+				setComments(json?.discussion?.comments ?? []);
+				setCommentCount(json?.discussion?.topLevelCommentCount ?? 0);
 			}
-			setTotalPages(json && json.pages);
+			setTotalPages(json?.pages ?? 1);
 		});
 	}, [filters, page, shortUrl]);
 
