@@ -359,8 +359,7 @@ export const App = ({
 	};
 
 	const onAddComment = (comment: CommentType) => {
-		comments.pop(); // Remove last item from our local array
-		// Replace it with this new comment at the start
+		// Insert this comment at the start
 		setComments([comment, ...comments]);
 
 		if (!expanded) {
