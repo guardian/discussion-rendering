@@ -7,6 +7,8 @@ import { CAPIPillar } from './types';
 import { App } from './App';
 
 const IndexPageWrapper = () => {
+	const [page, setPage] = useState(1);
+
 	const [options, setOptions] = useState({
 		shortUrl: '',
 		closedForComments: false,
@@ -52,6 +54,8 @@ const IndexPageWrapper = () => {
 				expanded={false}
 				onPermalinkClick={() => {}}
 				apiKey="discussion-rendering"
+				page={page}
+				onPageChange={setPage}
 			/>
 		</>
 	);

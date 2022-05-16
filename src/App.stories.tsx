@@ -58,7 +58,7 @@ export const InitialPage = () => (
 	>
 		<App
 			shortUrl="p/39f5z"
-			initialPage={3}
+			page={3}
 			baseUrl="https://discussion.theguardian.com/discussion-api"
 			pillar={ArticlePillar.Lifestyle}
 			isClosedForComments={false}
@@ -83,7 +83,7 @@ export const Overrides = () => (
 	>
 		<App
 			shortUrl="p/39f5z"
-			initialPage={3}
+			page={3}
 			pageSizeOverride={50}
 			orderByOverride="recommendations"
 			baseUrl="https://discussion.theguardian.com/discussion-api"

@@ -60,7 +60,7 @@ describe('App', () => {
 		expect(screen.queryByPlaceholderText('Join the discussion')).toBeNull();
 	});
 
-	it('should render two comment forms when user is logged in', async () => {
+	it('should render two comment forms when user is logged in', async () => {
 		render(
 			<App
 				baseUrl=""

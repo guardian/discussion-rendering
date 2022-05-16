@@ -28,7 +28,7 @@ type Props = {
 	pillar: ArticleTheme;
 	isClosedForComments: boolean;
 	commentToScrollTo?: number;
-	initialPage?: number;
+	page?: number;
 	pageSizeOverride?: PageSizeType;
 	orderByOverride?: OrderByType;
 	user?: UserProfile;
@@ -45,6 +45,7 @@ type Props = {
 	) => Promise<CommentResponse>;
 	onPreview?: (body: string) => Promise<string>;
 	onExpand?: () => void;
+	onPageChange?: (page: number) => void;
 };
 
 const footerStyles = css`
@@ -209,12 +210,18 @@ const writeMutes = (mutes: string[]) => {
 	}
 };
 
+const pageChange = (page: number) => {
+	const element = document.getElementById('comment-filters');
+	element?.scrollIntoView();
+	console.warn('Could not change page to: ', page);
+};
+
 export const App = ({
 	baseUrl,
 	shortUrl,
 	pillar,
 	isClosedForComments,
-	initialPage,
+	page = 1,
 	commentToScrollTo,
 	pageSizeOverride,
 	orderByOverride,
@@ -227,7 +234,8 @@ export const App = ({
 	onComment,
 	onReply,
 	onPreview,
-	onExpand,
+	onExpand = () => {},
+	onPageChange = pageChange,
 }: Props) => {
 	const [filters, setFilters] = useState<FilterOptions>(
 		initialiseFilters({
@@ -242,8 +250,7 @@ export const App = ({
 	);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [loadingMore, setLoadingMore] = useState<boolean>(false);
-	const [totalPages, setTotalPages] = useState<number>(0);
-	const [page, setPage] = useState<number>(initialPage || 1);
+	const [totalPages, setTotalPages] = useState<number>(1);
 	const [picks, setPicks] = useState<CommentType[]>([]);
 	const [
 		commentBeingRepliedTo,
@@ -309,18 +316,10 @@ export const App = ({
 		});
 	}, [pageSizeOverride, orderByOverride]);
 
-	// Keep initialPage prop in sync with page
-	useEffect(() => {
-		if (initialPage) setPage(initialPage);
-		// We added commentToScrollTo to the deps here because the initialPage alone wasn't triggered the effect
-		// and we want to ensure the discussion rerenders with the right page when the reader clicks Jump To Comment
-		// for a comment on a different page
-	}, [initialPage, commentToScrollTo]);
-
 	// Check if there is a comment to scroll to and if
 	// so, scroll to the div with this id.
 	// We need to do this in javascript like this because the comments list isn't
-	// loaded on the inital page load and only gets added to the dom later, after
+	// loaded on the initial page load and only gets added to the dom later, after
 	// an api call is made.
 	useEffect(() => {
 		if (commentToScrollTo) {
@@ -344,21 +343,13 @@ export const App = ({
 			maxPagePossible = maxPagePossible + 1;
 		}
 		// Check
-		if (page > maxPagePossible) setPage(maxPagePossible);
+		if (page > maxPagePossible) onPageChange(maxPagePossible);
 
 		rememberFilters(newFilterObject);
 		// Filters also show when the view is not expanded but we want to expand when they're changed
 		setIsExpanded(true);
 		onExpand?.();
 		setFilters(newFilterObject);
-	};
-
-	const onPageChange = (page: number) => {
-		// Pagination also show when the view is not expanded so we want to expand when clicked
-		setIsExpanded(true);
-		const element = document.getElementById('comment-filters');
-		element && element.scrollIntoView();
-		setPage(page);
 	};
 
 	const toggleMuteStatus = (userId: string) => {
