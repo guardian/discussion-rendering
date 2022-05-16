@@ -94,7 +94,7 @@
     "build-storybook": "build-storybook",
     "lint": "eslint . --ext .ts,.tsx",
     "createTsDec": "tsc --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false",
-    "release": "yarn validate && yarn build && np"
+    "release": "yarn validate && yarn build && yarn np"
   },
   "eslintConfig": {
     "extends": "react-app",
