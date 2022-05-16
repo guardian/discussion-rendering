@@ -1,7 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { css } from '@emotion/react';
 
-import { space, neutral, text, textSans } from '@guardian/source-foundations';
+import {
+	space,
+	neutral,
+	textSans,
+	brand,
+	error,
+} from '@guardian/source-foundations';
 
 import { ArticleTheme } from '@guardian/libs';
 
@@ -81,13 +87,13 @@ const headerTextStyles = css`
 const errorTextStyles = css`
 	margin: 0;
 	${textSans.xxsmall()};
-	color: ${text.error};
+	color: ${error[400]};
 `;
 
 const infoTextStyles = css`
 	margin: 0;
 	${textSans.xxsmall()};
-	color: ${text.supporting};
+	color: ${neutral[46]};
 `;
 
 const msgContainerStyles = css`
@@ -96,7 +102,7 @@ const msgContainerStyles = css`
 
 const linkStyles = css`
 	a {
-		color: ${text.anchorPrimary};
+		color: ${brand[500]};
 		text-decoration: none;
 		:hover,
 		:focus {
