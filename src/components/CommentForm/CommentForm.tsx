@@ -6,12 +6,7 @@ import { space, neutral, text, textSans } from '@guardian/source-foundations';
 import { ArticleTheme } from '@guardian/libs';
 
 import { simulateNewComment } from '../../lib/simulateNewComment';
-import {
-	comment as defaultComment,
-	reply as defaultReply,
-	preview as defaultPreview,
-	addUserName,
-} from '../../lib/api';
+import { comment, reply, preview, addUserName } from '../../lib/api';
 import { CommentResponse, UserProfile, CommentType } from '../../types';
 
 import { FirstCommentWelcome } from '../FirstCommentWelcome/FirstCommentWelcome';
@@ -158,9 +153,9 @@ export const CommentForm = ({
 	user,
 	setCommentBeingRepliedTo,
 	commentBeingRepliedTo,
-	onComment,
-	onReply,
-	onPreview,
+	onComment = comment,
+	onReply = reply,
+	onPreview = preview,
 }: Props) => {
 	const [isActive, setIsActive] = useState<boolean>(
 		commentBeingRepliedTo ? true : false,
@@ -228,8 +223,7 @@ export const CommentForm = ({
 		if (!body) return;
 
 		try {
-			const preview = onPreview || defaultPreview;
-			const response = await preview(body);
+			const response = await onPreview(body);
 			setPreviewBody(response);
 			setShowPreview(true);
 		} catch (e) {
@@ -253,11 +247,9 @@ export const CommentForm = ({
 		setInfo('');
 
 		if (body) {
-			const comment = onComment || defaultComment;
-			const reply = onReply || defaultReply;
 			const response: CommentResponse = commentBeingRepliedTo
-				? await reply(shortUrl, body, commentBeingRepliedTo.id)
-				: await comment(shortUrl, body);
+				? await onReply(shortUrl, body, commentBeingRepliedTo.id)
+				: await onComment(shortUrl, body);
 			// Check response message for error states
 			if (response.errorCode === 'USERNAME_MISSING') {
 				// Reader has never posted before and needs to choose a username
