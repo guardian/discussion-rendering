@@ -260,7 +260,7 @@ export const CommentForm = ({
 				setError('Your comment must be fewer than 5000 characters long.');
 			} else if (response.errorCode === 'USER_BANNED') {
 				setError(
-					'Commenting has been disabled for this account (<a href="/community-faqs#321a">why?</a>).',
+					'Commenting has been disabled for this account (<a href="/community-faqs">why?</a>).',
 				);
 			} else if (response.errorCode === 'IP_THROTTLED') {
 				setError(
@@ -317,7 +317,7 @@ export const CommentForm = ({
 				onAddComment(
 					simulateNewComment(
 						// response.errorCode is the id of the comment that was created on the server
-						// it is returned as a string, so we need to cast to an number to be compatable
+						// it is returned as a string, so we need to cast to an number to be compatible
 						parseInt(response.message),
 						body,
 						user,
