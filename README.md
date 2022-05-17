@@ -7,7 +7,7 @@ This codebase started as a hack day project by @gtrufitt and @nicl. The purpose 
 Once you've cloned the repo, run
 `yarn` to install and then
 `yarn storybook` to display the components
-`yarn start` will show the full discussion app with query parameter options
+`yarn dev` will show the full discussion app with query parameter options
 
 ### Publishing changes to NPM
 
