@@ -31,7 +31,7 @@ export const dateFormatter = (dateString: string) => {
 
 	return `${date.getDate()} ${
 		monthConverter[date.getMonth()]
-	} ${date.getFullYear()} ${date.getHours()}:${
-		(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
-	}`;
+	} ${date.getFullYear()} ${date.getHours()}.${String(
+		date.getMinutes(),
+	).padStart(2, '0')}`;
 };
