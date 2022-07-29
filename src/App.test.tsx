@@ -59,27 +59,4 @@ describe('App', () => {
 		expect(screen.queryAllByText('jamesgorrie').length).toBeGreaterThan(0);
 		expect(screen.queryByPlaceholderText('Join the discussion')).toBeNull();
 	});
-
-	it('should render two comment forms when user is logged in', async () => {
-		render(
-			<App
-				baseUrl=""
-				shortUrl="p/39f5z"
-				pillar={ArticlePillar.News}
-				isClosedForComments={false}
-				user={aUser}
-				expanded={true}
-				additionalHeaders={{
-					'D2-X-UID': 'testD2Header',
-					'GU-Client': 'testClientHeader',
-				}}
-				apiKey="discussion-rendering-test"
-				onPermalinkClick={() => {}}
-			/>,
-		);
-
-		expect(screen.queryAllByPlaceholderText('Join the discussion').length).toBe(
-			2,
-		);
-	});
 });
