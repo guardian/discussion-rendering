@@ -548,7 +548,7 @@ export const App = ({
 					/>
 				</footer>
 			)}
-			{user && !isClosedForComments && (
+			{user && !isClosedForComments && comments.length > 10 && (
 				<CommentForm
 					pillar={pillar}
 					shortUrl={shortUrl}
