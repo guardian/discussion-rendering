@@ -128,6 +128,32 @@ LoggedInHiddenNoPicks.story = {
 	name: 'when logged in, with no picks and not expanded',
 };
 
+export const LoggedIn = () => (
+	<div
+		css={css`
+			width: 100%;
+			max-width: 620px;
+		`}
+	>
+		<App
+			shortUrl="p/abc123"
+			pillar={ArticlePillar.News}
+			isClosedForComments={false}
+			user={aUser}
+			baseUrl="https://discussion.theguardian.com/discussion-api"
+			additionalHeaders={{
+				'D2-X-UID': 'testD2Header',
+				'GU-Client': 'testClientHeader',
+			}}
+			expanded={true}
+			onPermalinkClick={() => {}}
+			apiKey=""
+		/>
+	</div>
+);
+LoggedIn.story = {
+	name: 'when logged in and expanded',
+};
 export const LoggedOutHiddenNoPicks = () => (
 	<div
 		css={css`
