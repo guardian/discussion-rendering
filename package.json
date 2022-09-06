@@ -45,6 +45,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.12.7",
+    "@changesets/cli": "^2.24.1",
     "@emotion/babel-preset-css-prop": "^10.0.14",
     "@emotion/react": "^11.1.5",
     "@guardian/libs": "^3.1.0",
@@ -100,7 +101,8 @@
     "build-storybook": "build-storybook",
     "lint": "eslint . --ext .ts,.tsx",
     "createTsDec": "tsc --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false",
-    "release": "yarn validate && yarn build && yarn np"
+    "release": "yarn validate && yarn build && yarn np",
+    "release:changesets": "yarn validate && yarn build && changeset publish"
   },
   "eslintConfig": {
     "extends": "react-app",
