@@ -3,8 +3,8 @@ import { css } from '@emotion/react';
 
 import { textSans, neutral } from '@guardian/source-foundations';
 
-import { dateFormatter } from '../../lib/dateFormatter';
 import { useInterval } from '../../lib/useInterval';
+import { timeAgo as timeAgoFormatter } from '@guardian/libs';
 
 type Props = {
 	isoDateTime: string;
@@ -34,10 +34,11 @@ export const Timestamp = ({
 	commentId,
 	onPermalinkClick,
 }: Props) => {
-	let [timeAgo, setTimeAgo] = useState(dateFormatter(isoDateTime));
+	const epoch = Date.parse(isoDateTime);
+	const [timeAgo, setTimeAgo] = useState(timeAgoFormatter(epoch));
 
 	useInterval(() => {
-		setTimeAgo(dateFormatter(isoDateTime));
+		setTimeAgo(timeAgoFormatter(epoch));
 	}, 15000);
 
 	return (
