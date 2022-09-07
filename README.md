@@ -11,8 +11,24 @@ Once you've cloned the repo, run
 
 ### Publishing changes to NPM
 
-You need a @guardian scoped NPM user account to be able to publish changes. You then will need to login to this NPM account locally on your maching. Once authenticated, run:
-`yarn build && yarn publish` updating the version number as required. It will publish as `public` as The Guardian Organisation does not have private repos.
+Versioning and publishing for this package is managed through [changesets](https://github.com/changesets/changesets).
+
+If you make a change to the repo which merits a version bump, you should add a changeset
+to your PR:
+
+1. Run `yarn changeset`. This will run a CLI with prompts you have to complete.
+2. Choose the appropriate [semantic version bump](https://semver.org/): `major`, `minor`, or `patch`.
+3. Add a description of the change introduced.
+4. Merge the follow-up PR raised by the `changesets` bot`
+
+> **Note**
+> When a PR with a changeset is merged to `main`, changesets will automatically open a new PR
+> which, when merged, will automatically bump the version number (following [semver conventions](https://semver.org/)),
+> publish the new version to npm, and update the github changelog for this package.
+
+Changesets is a relatively new addition to this repo, so if you run into any difficulties using it, 
+please feel free to [open an issue](https://github.com/guardian/discussion-rendering/issues/new)
+in this repo.
 
 ### Connection this package to DCR/Frontend to test local changes
 
