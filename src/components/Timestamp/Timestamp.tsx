@@ -34,7 +34,7 @@ export const Timestamp = ({
 	commentId,
 	onPermalinkClick,
 }: Props) => {
-	let [timeAgo, setTimeAgo] = useState(dateFormatter(isoDateTime));
+	const [timeAgo, setTimeAgo] = useState(dateFormatter(isoDateTime));
 
 	useInterval(() => {
 		setTimeAgo(dateFormatter(isoDateTime));
