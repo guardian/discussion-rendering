@@ -17,13 +17,13 @@ If you make a change to the repo which merits a version bump, you should add a c
 to your PR:
 
 1. Run `yarn changeset`. This will run a CLI with prompts you have to complete.
-2. Choose the [semantic version bump]([semver conventions](https://semver.org/)): `major`, `minor`, or `patch`.
+2. Choose the appropriate [semantic version bump](https://semver.org/): `major`, `minor`, or `patch`.
 3. Add a description of the change introduced.
 4. Merge the follow-up PR raised by the `changesets` bot`
 
 > **Note**
 > When a PR with a changeset is merged to `main`, changesets will automatically open a new PR
-> which, when merged, will automatically bump the version number using (following [semver conventions](https://semver.org/)),
+> which, when merged, will automatically bump the version number (following [semver conventions](https://semver.org/)),
 > publish the new version to npm, and update the github changelog for this package.
 
 Changesets is a relatively new addition to this repo, so if you run into any difficulties using it, 
