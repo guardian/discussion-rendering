@@ -1,5 +1,12 @@
 # @guardian/discussion-rendering
 
+## 10.2.1
+
+### Patch Changes
+
+- 9767c2e: Usage of `timeAgo` from @guardian/libs. No visual change.
+- 72e9682: Keep `devDependencies` where they should be
+
 ## 10.2.0
 
 ### Minor Changes
