@@ -1,5 +1,4 @@
-// date.getMonth() gets months from index 0
-import { format } from 'timeago.js';
+import { timeAgo } from '@guardian/libs';
 
 const monthConverter: { [key: number]: string } = {
 	0: 'Jan',
@@ -26,7 +25,7 @@ export const dateFormatter = (dateString: string) => {
 	const date = new Date(dateString);
 
 	if (isLast24Hrs(date)) {
-		return format(date);
+		return timeAgo(date.getTime(), { verbose: true, daysUntilAbsolute: 1 });
 	}
 
 	return `${date.getDate()} ${
