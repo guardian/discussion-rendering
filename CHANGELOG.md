@@ -1,5 +1,11 @@
 # @guardian/discussion-rendering
 
+## 10.2.2
+
+### Patch Changes
+
+- f3c8e7f: Align peer and direct dependencies with dev ones.
+
 ## 10.2.1
 
 ### Patch Changes
