@@ -1,52 +1,39 @@
-const nodeModulesExclude = [
-  {
-      test: /node_modules/,
-      exclude: [
-          /@guardian\//,
-      ],
-  },
-]
-
 module.exports = {
-  "stories": [
+  addons: [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/preset-create-react-app",
+  ],
+  framework: '@storybook/react',
+  features: {
+    babelModeV7: true,
+  },
+  stories: [
     "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   webpackFinal: async config => {
-      config.module.rules.push({
-          test: /\.[jt]sx?|mjs$/,
-          exclude: nodeModulesExclude,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: [
-                  '@babel/preset-react',
-                  [
-                    '@babel/preset-env',
-                    {
-                      bugfixes: true,
-                      targets: {
-                        esmodules: true,
-                      },
+    config.module.rules.push({
+      test: /@guardian\/.+\.js$/,
+      use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    targets: {
+                      node: 'current',
                     },
-                  ],
+                  },
                 ],
-              },
+              ],
             },
-            {
-              loader: 'ts-loader',
-              options: {
-                transpileOnly: true,
-              },
-            }
-          ],
-      });
+          },
+      ]
+    })
 
-      return config;
+    return config;
   },
-  "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials"
-  ]
 }
