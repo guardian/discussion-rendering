@@ -1,5 +1,11 @@
 # @guardian/discussion-rendering
 
+## 10.3.0
+
+### Minor Changes
+
+- 8341d18: No underlines on Link
+
 ## 10.2.2
 
 ### Patch Changes

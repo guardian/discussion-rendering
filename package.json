@@ -1,7 +1,7 @@
 {
   "name": "@guardian/discussion-rendering",
   "description": "This codebase started as a hack day project by @gtrufitt and @nicl. The purpose is parity of the existing discussion application on Frontend using the discussion API (search for Private Repo).",
-  "version": "10.2.2",
+  "version": "10.3.0",
   "author": "",
   "homepage": "https://github.com/guardian/discussion-rendering#readme",
   "license": "Apache",
