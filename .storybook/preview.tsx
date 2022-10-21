@@ -6,10 +6,9 @@ import { mockFetchCalls } from '../src/lib/mockFetchCalls';
 MockDate.set('Fri March 27 2020 12:00:00 GMT+0000 (Greenwich Mean Time)');
 
 // Add global CSS styles
-let head = document.querySelector('head');
-let style = document.createElement('style');
-head.appendChild(style);
+const style = document.createElement('style');
 style.appendChild(document.createTextNode(resets.resetCSS));
+document.head.appendChild(style);
 
 mockFetchCalls();
 
