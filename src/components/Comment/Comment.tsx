@@ -265,6 +265,10 @@ const buttonLinkBaseStyles = css`
 	}
 `;
 
+const subdued = css`
+	text-decoration: none;
+`;
+
 // In order to show as much of the usernames as possible without fixed widths:
 // - First label should shrink to contents but be no bigger than 60%
 // - Second label should never force first label less than its contents if less than 60%
@@ -403,7 +407,7 @@ export const Comment = ({
 											>
 												<Link
 													href={comment.userProfile.webUrl}
-													subdued={true}
+													cssOverrides={subdued}
 													rel="nofollow"
 												>
 													{comment.userProfile.displayName}
@@ -429,7 +433,7 @@ export const Comment = ({
 										>
 											<Link
 												href={comment.userProfile.webUrl}
-												subdued={true}
+												cssOverrides={subdued}
 												rel="nofollow"
 											>
 												{comment.userProfile.displayName}
@@ -446,7 +450,7 @@ export const Comment = ({
 											>
 												<Link
 													href={`#comment-${comment.responseTo.commentId}`}
-													subdued={true}
+													cssOverrides={subdued}
 													icon={<SvgIndent />}
 													iconSide="left"
 													rel="nofollow"
@@ -612,7 +616,7 @@ export const Comment = ({
 														}&${createAuthenticationEventParams(
 															'signin_to_reply_comment',
 														)}`}
-														subdued={true}
+														cssOverrides={subdued}
 														icon={<SvgIndent />}
 														iconSide="left"
 														rel="nofollow"

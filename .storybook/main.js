@@ -18,10 +18,32 @@ module.exports = {
           exclude: nodeModulesExclude,
           use: [
               {
-                  loader: require.resolve('ts-loader'),
+                  loader: 'ts-loader',
               },
           ],
       });
+
+      config.module.rules.push({
+        // @guardian packages must be transpiled
+        // https://github.com/guardian/recommendations/blob/main/npm-packages.md#using-guardian-npm-packages
+        test: /@guardian\/.+\.js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    targets: { node: '14' },
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      });
+
 
       // update storybook webpack config to transpile *all* JS
       config.module.rules.find(rule => String(rule.test) === String(/\.(mjs|tsx?|jsx?)$/))
