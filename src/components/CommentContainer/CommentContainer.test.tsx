@@ -1,23 +1,21 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
+
+import { ArticlePillar } from '@guardian/libs';
 import {
 	render,
 	fireEvent,
-	// @ts-ignore : https://github.com/testing-library/react-testing-library/issues/610
+	// @ts-expect-error : https://github.com/testing-library/react-testing-library/issues/610
 	waitFor,
 } from '@testing-library/react';
-
-import { ArticlePillar } from '@guardian/libs';
-
-import { CommentType } from '../../types';
 import { comment } from '../../fixtures/comment';
-import { mockFetchCalls, mockedMessageID } from '../../lib/mockFetchCalls';
-
+import { mockedMessageID, mockFetchCalls } from '../../lib/mockFetchCalls';
+import type { CommentType } from '../../types';
 import { CommentContainer } from './CommentContainer';
 
 mockFetchCalls();
 
-// @ts-ignore
+// @ts-expect-error
 const firstCommentResponse: CommentType = comment.responses[0];
 
 const commentWithReply: CommentType = {

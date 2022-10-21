@@ -1,17 +1,14 @@
-import React from 'react';
 import { css } from '@emotion/react';
-
-import { space, border } from '@guardian/source-foundations';
-import { ArticleTheme } from '@guardian/libs';
-
-import { Dropdown } from '../Dropdown/Dropdown';
-
-import {
+import type { ArticleTheme } from '@guardian/libs';
+import { border, space } from '@guardian/source-foundations';
+import React from 'react';
+import type {
 	FilterOptions,
 	OrderByType,
-	ThreadsType,
 	PageSizeType,
+	ThreadsType,
 } from '../../types';
+import { Dropdown } from '../Dropdown/Dropdown';
 
 type Props = {
 	filters: FilterOptions;

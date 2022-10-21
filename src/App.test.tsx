@@ -2,15 +2,12 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import {
 	render,
-	waitForElementToBeRemoved,
 	screen,
+	waitForElementToBeRemoved,
 } from '@testing-library/react';
-
 import { ArticlePillar } from '@guardian/libs';
-
-import { mockFetchCalls } from './lib/mockFetchCalls';
-
 import { App } from './App';
+import { mockFetchCalls } from './lib/mockFetchCalls';
 
 mockFetchCalls();
 

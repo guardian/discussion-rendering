@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-
-import { pillarToEnum } from './lib/pillarToEnum';
-import { CAPIPillar } from './types';
-
 import { App } from './App';
+import { pillarToEnum } from './lib/pillarToEnum';
+import type { CAPIPillar } from './types';
 
 const getQueryParam = (queryParam: string, defaultValue: string): string =>
 	new URLSearchParams(window.location.search).get(queryParam) ?? defaultValue;
@@ -101,7 +99,9 @@ const IndexPageWrapper = () => {
 						'GU-Client': 'testClientHeader',
 					}}
 					expanded={expanded}
-					onPermalinkClick={() => {}}
+					onPermalinkClick={() => {
+						/* Do nothing */
+					}}
 					apiKey="discussion-rendering"
 					initialPage={1}
 					// page={page}

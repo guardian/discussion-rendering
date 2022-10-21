@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
-
 import { ArticlePillar } from '@guardian/libs';
-
-import { FilterOptions } from '../../types';
-
+import React, { useState } from 'react';
+import type { FilterOptions } from '../../types';
 import { Filters } from './Filters';
 
 export default { title: 'Filters' };

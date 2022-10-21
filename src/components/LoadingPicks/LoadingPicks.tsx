@@ -1,8 +1,6 @@
-import React from 'react';
 import { css, keyframes } from '@emotion/react';
-
-import { space, neutral } from '@guardian/source-foundations';
-
+import { neutral, space } from '@guardian/source-foundations';
+import React from 'react';
 import { Row } from '../Row/Row';
 
 const BACKGROUND_COLOUR = neutral[93];

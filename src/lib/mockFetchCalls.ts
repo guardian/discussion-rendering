@@ -1,12 +1,11 @@
 import fetchMock from 'fetch-mock';
-
-import { discussion } from '../fixtures/discussion';
 import { comment } from '../fixtures/comment';
-import { topPicks } from '../fixtures/topPicks';
-import { noTopPicks } from '../fixtures/noTopPicks';
+import { discussion } from '../fixtures/discussion';
 import { discussionWithNoComments } from '../fixtures/discussionWithNoComments';
 import { discussionWithTwoComments } from '../fixtures/discussionWithTwoComments';
 import { legacyDiscussionWithoutThreading } from '../fixtures/legacyDiscussionWithoutThreading';
+import { noTopPicks } from '../fixtures/noTopPicks';
+import { topPicks } from '../fixtures/topPicks';
 
 export const mockedMessageID = '123456';
 

@@ -1,4 +1,4 @@
-import { DiscussionResponse } from '../types';
+import type { DiscussionResponse } from '../types';
 
 export const discussion: DiscussionResponse = {
 	status: 'ok',

@@ -1,7 +1,5 @@
-import React from 'react';
-
 import { ArticlePillar } from '@guardian/libs';
-
+import React from 'react';
 import { FirstCommentWelcome } from './FirstCommentWelcome';
 
 export default { title: 'FirstCommentWelcome' };

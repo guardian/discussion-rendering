@@ -1,8 +1,8 @@
-import React from 'react';
 import { css } from '@emotion/react';
-
+import React from 'react';
 import { Preview } from './Preview';
 
+// eslint-disable-next-line import/no-default-export -- it’s a story
 export default { component: Preview, title: 'Preview' };
 
 export const PreviewStory = () => (

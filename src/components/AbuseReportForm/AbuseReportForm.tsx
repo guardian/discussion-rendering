@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
-
-import { textSans, space, neutral } from '@guardian/source-foundations';
+import type { ArticleTheme } from '@guardian/libs';
+import { neutral, space, textSans } from '@guardian/source-foundations';
 import { Button, SvgCross } from '@guardian/source-react-components';
-
-import { ArticleTheme } from '@guardian/libs';
-
+import React, { useEffect, useRef, useState } from 'react';
 import { reportAbuse } from '../../lib/api';
-import { pillarToString } from '../../lib/pillarToString';
 import { palette } from '../../lib/palette';
+import { pillarToString } from '../../lib/pillarToString';
 
 type formData = {
 	categoryId: number;

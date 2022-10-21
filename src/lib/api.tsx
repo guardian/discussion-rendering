@@ -1,25 +1,25 @@
-import { joinUrl } from './joinUrl';
-
-import {
+/* eslint-disable @typescript-eslint/no-unsafe-return -- it’s all JSON */
+import type {
+	AdditionalHeadersType,
+	CommentResponse,
+	CommentType,
+	DiscussionOptions,
+	DiscussionResponse,
 	OrderByType,
 	ThreadsType,
-	DiscussionResponse,
-	DiscussionOptions,
-	UserProfile,
-	CommentType,
-	CommentResponse,
 	UserNameResponse,
-	AdditionalHeadersType,
+	UserProfile,
 } from '../types';
+import { joinUrl } from './joinUrl';
 
-let options = {
+const options = {
 	// Defaults
 	baseUrl: 'https://discussion.theguardian.com/discussion-api',
 	apiKey: 'discussion-rendering',
 	headers: {},
 };
 
-let defaultParams = {
+const defaultParams = {
 	'api-key': options.apiKey,
 };
 
@@ -33,16 +33,18 @@ export const initialiseApi = ({
 	apiKey: string;
 }) => {
 	options.baseUrl = baseUrl || options.baseUrl;
+	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- it may be missing
 	options.headers = additionalHeaders || options.headers;
 	options.apiKey = apiKey || options.apiKey;
 
 	defaultParams['api-key'] = options.apiKey;
 };
 
-const objAsParams = (obj: any): string => {
-	const params = Object.keys(obj)
-		.map((key) => {
-			return `${key}=${obj[key]}`; // type issues here cannot be avoided
+const objAsParams = (obj: Record<string, unknown>): string => {
+	const params = Object.entries(obj)
+		.map(([key, value]) => {
+			// eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- type issues here cannot be avoided
+			return `${key}=${value}`;
 		})
 		.join('&');
 
@@ -71,6 +73,8 @@ export const getDiscussion = (
 			page: opts.page,
 		},
 	};
+	
+	// @ts-expect-error -- not sure why this is not working
 	const params = objAsParams(apiOpts);
 
 	const url = joinUrl([options.baseUrl, 'discussion', shortUrl]) + params;
@@ -82,6 +86,7 @@ export const getDiscussion = (
 	})
 		.then((resp) => resp.json())
 		.then((json) => {
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- it’s JSON
 			if (json.errorCode === 'DISCUSSION_ONLY_AVAILABLE_IN_LINEAR_FORMAT') {
 				// We need force a refetch with unthreaded set, as we don't know
 				// that this discussion is only available in linear format until
@@ -102,17 +107,20 @@ export const preview = (body: string): Promise<string> => {
 	const data = new URLSearchParams();
 	data.append('body', body);
 
-	return fetch(url, {
-		method: 'POST',
-		body: data.toString(),
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
-			...options.headers,
-		},
-	})
-		.then((resp) => resp.json())
-		.then((json) => json.commentBody)
-		.catch((error) => console.error(`Error fetching ${url}`, error));
+	return (
+		fetch(url, {
+			method: 'POST',
+			body: data.toString(),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+				...options.headers,
+			},
+		})
+			.then((resp) => resp.json())
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- it’s JSON
+			.then((json) => json.commentBody)
+			.catch((error) => console.error(`Error fetching ${url}`, error))
+	);
 };
 
 export const getProfile = (): Promise<UserProfile> => {
@@ -183,14 +191,17 @@ export const getPicks = (shortUrl: string): Promise<CommentType[]> => {
 		joinUrl([options.baseUrl, 'discussion', shortUrl, 'topcomments']) +
 		objAsParams(defaultParams);
 
-	return fetch(url, {
-		headers: {
-			...options.headers,
-		},
-	})
-		.then((resp) => resp.json())
-		.then((json) => json.discussion.comments)
-		.catch((error) => console.error(`Error fetching ${url}`, error));
+	return (
+		fetch(url, {
+			headers: {
+				...options.headers,
+			},
+		})
+			.then((resp) => resp.json())
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- it’s JSON,
+			.then((json) => json.discussion.comments)
+			.catch((error) => console.error(`Error fetching ${url}`, error))
+	);
 };
 
 export const reportAbuse = ({

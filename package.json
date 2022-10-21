@@ -104,7 +104,7 @@
     "release:changesets": "yarn validate && yarn build && changeset publish"
   },
   "eslintConfig": {
-    "extends": "react-app",
+    "extends": "@guardian/eslint-config-typescript",
     "plugins": [
       "react-hooks"
     ],
@@ -159,5 +159,8 @@
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}"
     ]
+  },
+  "dependencies": {
+    "@guardian/eslint-config-typescript": "^1.0.11"
   }
 }

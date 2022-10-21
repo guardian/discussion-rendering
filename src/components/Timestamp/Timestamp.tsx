@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
 import { css } from '@emotion/react';
-
-import { textSans, neutral } from '@guardian/source-foundations';
-
+import { neutral, textSans } from '@guardian/source-foundations';
+import React, { useState } from 'react';
 import { dateFormatter } from '../../lib/dateFormatter';
 import { useInterval } from '../../lib/useInterval';
 

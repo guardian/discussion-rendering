@@ -1,11 +1,11 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-empty-function -- it’s a story */
 import { css } from '@emotion/react';
-
 import { ArticlePillar } from '@guardian/libs';
-
+import React from 'react';
+import type { CommentType } from '../../types';
 import { TopPick } from '../TopPick/TopPick';
-import { CommentType } from '../../types';
 
+// eslint-disable-next-line import/no-default-export -- it’s a story
 export default { component: TopPick, title: 'TopPick' };
 
 const comment: CommentType = {

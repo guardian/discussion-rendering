@@ -1,26 +1,23 @@
-import React from 'react';
 import { css } from '@emotion/react';
-
+import type { ArticleTheme } from '@guardian/libs';
 import {
-	from,
-	space,
-	neutral,
-	textSans,
 	brand,
+	from,
+	neutral,
+	space,
+	textSans,
 } from '@guardian/source-foundations';
 import { Link } from '@guardian/source-react-components';
-import { ArticleTheme } from '@guardian/libs';
-
-import { pillarToString } from '../../lib/pillarToString';
+import React from 'react';
 import { palette } from '../../lib/palette';
-
-import { GuardianContributor, GuardianStaff } from '../Badges/Badges';
-import { CommentType } from '../../types';
+import { pillarToString } from '../../lib/pillarToString';
+import type { CommentType } from '../../types';
 import { Avatar } from '../Avatar/Avatar';
-import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
-import { Timestamp } from '../Timestamp/Timestamp';
-import { Row } from '../Row/Row';
+import { GuardianContributor, GuardianStaff } from '../Badges/Badges';
 import { Column } from '../Column/Column';
+import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
+import { Row } from '../Row/Row';
+import { Timestamp } from '../Timestamp/Timestamp';
 
 type Props = {
 	pillar: ArticleTheme;
@@ -28,7 +25,7 @@ type Props = {
 	isSignedIn: boolean;
 	userMadeComment: boolean;
 	onPermalinkClick: (commentId: number) => void;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 };
 
 const pickStyles = css`
@@ -176,11 +173,15 @@ export const TopPick = ({
 	onPermalinkClick,
 	onRecommend,
 }: Props) => {
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- it works
 	const showStaffBadge = comment.userProfile.badge.find(
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- it works
 		(obj) => obj['name'] === 'Staff',
 	);
 
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- it works
 	const showContributorBadge = comment.userProfile.badge.find(
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- it works
 		(obj) => obj['name'] === 'Contributor',
 	);
 
@@ -202,7 +203,7 @@ export const TopPick = ({
 							priority="primary"
 							subdued={true}
 							href={comment.webUrl}
-							onClick={(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+							onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
 								onPermalinkClick(comment.id);
 								e.preventDefault();
 							}}

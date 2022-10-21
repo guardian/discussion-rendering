@@ -1,9 +1,6 @@
-import React from 'react';
-
 import { ArticlePillar } from '@guardian/libs';
-
-import { CommentType } from '../../types';
-
+import React from 'react';
+import type { CommentType } from '../../types';
 import { TopPicks } from './TopPicks';
 
 export default { component: TopPicks, title: 'TopPicks' };

@@ -1,4 +1,4 @@
-import { UserProfile, CommentType } from '../types';
+import type { CommentType, UserProfile } from '../types';
 
 export const simulateNewComment = (
 	commentId: number,

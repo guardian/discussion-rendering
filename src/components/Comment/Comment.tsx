@@ -1,37 +1,33 @@
-import React, { useState } from 'react';
 import { css } from '@emotion/react';
-
+import type { ArticleTheme } from '@guardian/libs';
 import {
-	space,
-	remSpace,
-	from,
-	until,
-	neutral,
 	border,
-	textSans,
 	brand,
+	from,
+	neutral,
+	remSpace,
+	space,
+	textSans,
+	until,
 } from '@guardian/source-foundations';
-import { Link, SvgIndent, Button } from '@guardian/source-react-components';
-
-import { ArticleTheme } from '@guardian/libs';
-
-import {
-	GuardianStaff,
-	GuardianPick,
-	GuardianContributor,
-} from '../Badges/Badges';
-import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
-import { AbuseReportForm } from '../AbuseReportForm/AbuseReportForm';
-import { Timestamp } from '../Timestamp/Timestamp';
-import { Avatar } from '../Avatar/Avatar';
-import { Row } from '../Row/Row';
-import { Column } from '../Column/Column';
-
-import { CommentType, UserProfile } from '../../types';
+import { Button, Link, SvgIndent } from '@guardian/source-react-components';
+import React, { useState } from 'react';
 import { pickComment, unPickComment } from '../../lib/api';
 import { createAuthenticationEventParams } from '../../lib/identity-component-event';
-import { pillarToString } from '../../lib/pillarToString';
 import { palette } from '../../lib/palette';
+import { pillarToString } from '../../lib/pillarToString';
+import type { CommentType, UserProfile } from '../../types';
+import { AbuseReportForm } from '../AbuseReportForm/AbuseReportForm';
+import { Avatar } from '../Avatar/Avatar';
+import {
+	GuardianContributor,
+	GuardianPick,
+	GuardianStaff,
+} from '../Badges/Badges';
+import { Column } from '../Column/Column';
+import { RecommendationCount } from '../RecommendationCount/RecommendationCount';
+import { Row } from '../Row/Row';
+import { Timestamp } from '../Timestamp/Timestamp';
 
 type Props = {
 	user?: UserProfile;
@@ -44,7 +40,7 @@ type Props = {
 	isMuted: boolean;
 	toggleMuteStatus: (userId: string) => void;
 	onPermalinkClick: (commentId: number) => void;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 };
 
 const commentControlsLink = (pillar: ArticleTheme) => css`

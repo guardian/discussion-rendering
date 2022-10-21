@@ -1,12 +1,9 @@
-import React from 'react';
 import { css } from '@emotion/react';
-
+import { ArticlePillar } from '@guardian/libs';
 import { space } from '@guardian/source-foundations';
 import { SvgCheckmark } from '@guardian/source-react-components';
-import { ArticlePillar } from '@guardian/libs';
-
+import React from 'react';
 import { Row } from '../Row/Row';
-
 import { PillarButton } from './PillarButton';
 
 const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
@@ -17,6 +14,7 @@ const Space = ({ amount }: { amount: 1 | 2 | 3 | 4 | 5 | 6 | 9 | 12 | 24 }) => (
 	/>
 );
 
+// eslint-disable-next-line import/no-default-export -- it’s a story
 export default { component: PillarButton, title: 'PillarButton' };
 
 export const EachPillar = () => (

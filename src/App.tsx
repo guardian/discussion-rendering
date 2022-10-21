@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
-
-import { neutral, textSans, space } from '@guardian/source-foundations';
-
-import { ArticleTheme } from '@guardian/libs';
-
-import {
-	CommentType,
-	FilterOptions,
-	UserProfile,
-	AdditionalHeadersType,
-	PageSizeType,
-	OrderByType,
-	CommentResponse,
-} from './types';
-import { getDiscussion, getPicks, initialiseApi } from './lib/api';
+import type { ArticleTheme } from '@guardian/libs';
+import { neutral, space, textSans } from '@guardian/source-foundations';
+import React, { useEffect, useState } from 'react';
 import { CommentContainer } from './components/CommentContainer/CommentContainer';
-import { TopPicks } from './components/TopPicks/TopPicks';
 import { CommentForm } from './components/CommentForm/CommentForm';
 import { Filters } from './components/Filters/Filters';
-import { Pagination } from './components/Pagination/Pagination';
 import { LoadingComments } from './components/LoadingComments/LoadingComments';
+import { Pagination } from './components/Pagination/Pagination';
+import { TopPicks } from './components/TopPicks/TopPicks';
+import { getDiscussion, getPicks, initialiseApi } from './lib/api';
+import type {
+	AdditionalHeadersType,
+	CommentResponse,
+	CommentType,
+	FilterOptions,
+	OrderByType,
+	PageSizeType,
+	UserProfile,
+} from './types';
 
 type Props = {
 	shortUrl: string;
@@ -36,7 +33,7 @@ type Props = {
 	expanded: boolean;
 	onPermalinkClick: (commentId: number) => void;
 	apiKey: string;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 	onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
 	onReply?: (
 		shortUrl: string,

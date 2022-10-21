@@ -1,6 +1,6 @@
 import { timeAgo } from '@guardian/libs';
 
-const monthConverter: { [key: number]: string } = {
+const monthConverter: Record<number, string> = {
 	0: 'Jan',
 	1: 'Feb',
 	2: 'Mar',

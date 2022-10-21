@@ -1,7 +1,6 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-
-import { FilterOptions } from '../../types';
+import React from 'react';
+import type { FilterOptions } from '../../types';
 import { Pagination } from './Pagination';
 
 const DEFAULT_FILTERS: FilterOptions = {

@@ -1,10 +1,8 @@
-import React from 'react';
-
-import { ArticlePillar } from '@guardian/libs';
-
-import { CommentReplyPreview, Preview } from './CommentReplyPreview';
-import { CommentType } from '../../types';
 import { css } from '@emotion/react';
+import { ArticlePillar } from '@guardian/libs';
+import React from 'react';
+import type { CommentType } from '../../types';
+import { CommentReplyPreview, Preview } from './CommentReplyPreview';
 
 export default { title: 'CommentReplyPreview' };
 

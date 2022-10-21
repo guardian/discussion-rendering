@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
-
+import type { ArticleTheme } from '@guardian/libs';
 import {
-	neutral,
+	background,
 	border,
 	brandAlt,
-	background,
-	textSans,
 	from,
+	neutral,
+	textSans,
 	until,
 } from '@guardian/source-foundations';
-import { ArticleTheme } from '@guardian/libs';
-
-import { DropdownOptionType } from '../../types';
-
-import { pillarToString } from '../../lib/pillarToString';
+import React, { useEffect, useState } from 'react';
 import { palette } from '../../lib/palette';
+import { pillarToString } from '../../lib/pillarToString';
+import type { DropdownOptionType } from '../../types';
 
 type Props = {
 	id: string;

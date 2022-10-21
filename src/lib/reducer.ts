@@ -1,10 +1,10 @@
-import {
-	DiscussionResponse,
+import type {
 	CommentType,
-	UserProfile,
-	OrderByType,
+	DiscussionResponse,
 	FilterOptions,
+	OrderByType,
 	ThreadsType,
+	UserProfile,
 } from '../types';
 
 interface OrderBy {

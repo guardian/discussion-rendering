@@ -1,12 +1,11 @@
-import React from 'react';
 import { css } from '@emotion/react';
-
+import type { ArticleTheme } from '@guardian/libs';
+import { ArticlePillar, ArticleSpecial } from '@guardian/libs';
 import { neutral, textSans } from '@guardian/source-foundations';
 import { Button } from '@guardian/source-react-components';
-import { ArticlePillar, ArticleSpecial, ArticleTheme } from '@guardian/libs';
-
-import { pillarToString } from '../../lib/pillarToString';
+import React from 'react';
 import { palette } from '../../lib/palette';
+import { pillarToString } from '../../lib/pillarToString';
 
 type Props = {
 	pillar: ArticleTheme;

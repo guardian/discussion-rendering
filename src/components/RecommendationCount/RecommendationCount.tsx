@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
 import { css } from '@emotion/react';
-
-import { brand, textSans, neutral } from '@guardian/source-foundations';
+import { brand, neutral, textSans } from '@guardian/source-foundations';
 import { SvgArrowUpStraight } from '@guardian/source-react-components';
-import { Row } from '../Row/Row';
-
+import React, { useState } from 'react';
 import { recommend as recommendDefault } from '../../lib/api';
+import { Row } from '../Row/Row';
 
 type Props = {
 	commentId: number;
@@ -13,7 +11,7 @@ type Props = {
 	alreadyRecommended: boolean;
 	isSignedIn: boolean;
 	userMadeComment: boolean;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 };
 
 const countStyles = css`
@@ -32,7 +30,7 @@ const buttonStyles = (recommended: boolean, isSignedIn: boolean) => css`
 	border: none;
 `;
 
-const arrowStyles = (recommended: Boolean) => css`
+const arrowStyles = (recommended: boolean) => css`
 	display: flex;
 	flex-direction: column;
 	align-items: center;

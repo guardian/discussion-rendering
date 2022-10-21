@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
-
-import { space, neutral, border } from '@guardian/source-foundations';
+import type { ArticleTheme } from '@guardian/libs';
+import { border, neutral, space } from '@guardian/source-foundations';
 import { SvgPlus } from '@guardian/source-react-components';
-
-import { ArticleTheme } from '@guardian/libs';
-
-import {
-	CommentType,
-	UserProfile,
-	ThreadsType,
-	CommentResponse,
-} from '../../types';
-import { CommentForm } from '../CommentForm/CommentForm';
-import { Comment } from '../Comment/Comment';
-import { PillarButton } from '../PillarButton/PillarButton';
-import { CommentReplyPreview } from '../CommentReplyPreview/CommentReplyPreview';
-
+import React, { useEffect, useState } from 'react';
 import { getMoreResponses } from '../../lib/api';
+import type {
+	CommentResponse,
+	CommentType,
+	ThreadsType,
+	UserProfile,
+} from '../../types';
+import { Comment } from '../Comment/Comment';
+import { CommentForm } from '../CommentForm/CommentForm';
+import { CommentReplyPreview } from '../CommentReplyPreview/CommentReplyPreview';
+import { PillarButton } from '../PillarButton/PillarButton';
 
 type Props = {
 	comment: CommentType;
@@ -32,7 +28,7 @@ type Props = {
 	mutes: string[];
 	toggleMuteStatus: (userId: string) => void;
 	onPermalinkClick: (commentId: number) => void;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 	onComment?: (shortUrl: string, body: string) => Promise<CommentResponse>;
 	onReply?: (
 		shortUrl: string,

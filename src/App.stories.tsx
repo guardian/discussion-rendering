@@ -1,10 +1,8 @@
+import { css } from '@emotion/react';
+import { ArticlePillar } from '@guardian/libs';
 import React from 'react';
 import { App } from './App';
-import { css } from '@emotion/react';
-
-import { ArticlePillar } from '@guardian/libs';
-
-import { UserProfile } from './types';
+import type { UserProfile } from './types';
 
 export default { component: App, title: 'App' };
 

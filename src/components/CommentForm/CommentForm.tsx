@@ -1,23 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
 import { css } from '@emotion/react';
-
-import { space, neutral, text, textSans } from '@guardian/source-foundations';
-
-import { ArticleTheme } from '@guardian/libs';
-
-import { simulateNewComment } from '../../lib/simulateNewComment';
+import type { ArticleTheme } from '@guardian/libs';
+import { neutral, space, text, textSans } from '@guardian/source-foundations';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-	comment as defaultComment,
-	reply as defaultReply,
-	preview as defaultPreview,
 	addUserName,
+	comment as defaultComment,
+	preview as defaultPreview,
+	reply as defaultReply,
 } from '../../lib/api';
-import { CommentResponse, UserProfile, CommentType } from '../../types';
-
+import { simulateNewComment } from '../../lib/simulateNewComment';
+import type { CommentResponse, CommentType, UserProfile } from '../../types';
 import { FirstCommentWelcome } from '../FirstCommentWelcome/FirstCommentWelcome';
+import { PillarButton } from '../PillarButton/PillarButton';
 import { Preview } from '../Preview/Preview';
 import { Row } from '../Row/Row';
-import { PillarButton } from '../PillarButton/PillarButton';
 
 type Props = {
 	shortUrl: string;

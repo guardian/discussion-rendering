@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-empty-function -- it’s a story */
 import React from 'react';
-
 import { Timestamp } from './Timestamp';
 
+// eslint-disable-next-line import/no-default-export -- it’s a story
 export default { component: Timestamp, title: 'Timestamp' };
 
 // Date is mocked to "Fri March 27 2020 12:00:00 GMT+0000 (Greenwich Mean Time)" in config

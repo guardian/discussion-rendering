@@ -165,7 +165,7 @@ export interface DiscussionOptions {
 	'api-key': string;
 }
 
-export type AdditionalHeadersType = { [key: string]: string };
+export type AdditionalHeadersType = Record<string, string>;
 
 export type DropdownOptionType = {
 	value: string;

@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
 import { css } from '@emotion/react';
-
+import type { ArticleTheme } from '@guardian/libs';
 import { neutral, space, text, textSans } from '@guardian/source-foundations';
 import { Button, SvgIndent } from '@guardian/source-react-components';
-import { ArticleTheme } from '@guardian/libs';
-
-import { Row } from '../Row/Row';
-import { pillarToString } from '../../lib/pillarToString';
+import React, { useState } from 'react';
 import { palette } from '../../lib/palette';
-
-import { CommentType } from '../../types';
+import { pillarToString } from '../../lib/pillarToString';
+import type { CommentType } from '../../types';
+import { Row } from '../Row/Row';
 
 type Props = {
 	pillar: ArticleTheme;

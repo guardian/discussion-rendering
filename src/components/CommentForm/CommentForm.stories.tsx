@@ -1,9 +1,6 @@
-import React from 'react';
-
 import { ArticlePillar } from '@guardian/libs';
-
-import { CommentType } from '../../types';
-
+import React from 'react';
+import type { CommentType } from '../../types';
 import { CommentForm } from './CommentForm';
 
 export default { component: CommentForm, title: 'CommentForm' };

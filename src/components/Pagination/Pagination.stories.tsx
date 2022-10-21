@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import type { FilterOptions } from '../../types';
 import { Pagination } from './Pagination';
 
-import { FilterOptions } from '../../types';
-
+// eslint-disable-next-line import/no-default-export -- it’s a story
 export default { component: Pagination, title: 'Pagination' };
 
 const DEFAULT_FILTERS: FilterOptions = {

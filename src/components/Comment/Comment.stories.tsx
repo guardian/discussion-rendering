@@ -1,9 +1,7 @@
-import React from 'react';
-
 import { ArticlePillar } from '@guardian/libs';
-
+import React from 'react';
+import type { CommentType, UserProfile } from '../../types';
 import { Comment } from './Comment';
-import { CommentType, UserProfile } from '../../types';
 
 export default { title: 'Comment' };
 

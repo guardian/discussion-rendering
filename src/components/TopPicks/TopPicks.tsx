@@ -1,10 +1,8 @@
-import React from 'react';
 import { css } from '@emotion/react';
-
-import { until, from } from '@guardian/source-foundations';
-import { ArticleTheme } from '@guardian/libs';
-
-import { CommentType, UserProfile } from '../../types';
+import type { ArticleTheme } from '@guardian/libs';
+import { from, until } from '@guardian/source-foundations';
+import React from 'react';
+import type { CommentType, UserProfile } from '../../types';
 import { TopPick } from '../TopPick/TopPick';
 
 type Props = {
@@ -13,7 +11,7 @@ type Props = {
 	comments: CommentType[];
 	isSignedIn: boolean;
 	onPermalinkClick: (commentId: number) => void;
-	onRecommend?: (commentId: number) => Promise<Boolean>;
+	onRecommend?: (commentId: number) => Promise<boolean>;
 };
 
 const columWrapperStyles = css`

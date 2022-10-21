@@ -1,7 +1,6 @@
-import React from 'react';
 import { css } from '@emotion/react';
-
-import { space, neutral, brand, textSans } from '@guardian/source-foundations';
+import { brand, neutral, space, textSans } from '@guardian/source-foundations';
+import React from 'react';
 
 const staffBadge = css`
 	display: flex;

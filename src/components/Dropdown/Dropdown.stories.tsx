@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
 import { css } from '@emotion/react';
-
 import { ArticlePillar } from '@guardian/libs';
-
-import { DropdownOptionType } from '../../types';
+import React, { useState } from 'react';
+import type { DropdownOptionType } from '../../types';
 import { Dropdown } from './Dropdown';
 
 const Container = ({ children }: { children: JSX.Element | JSX.Element[] }) => (

@@ -1,6 +1,6 @@
-import { ArticlePillar, ArticleTheme, ArticleSpecial } from '@guardian/libs';
-
-import { CAPIPillar } from '../types';
+import type { ArticleTheme } from '@guardian/libs';
+import { ArticlePillar, ArticleSpecial } from '@guardian/libs';
+import type { CAPIPillar } from '../types';
 
 export const pillarToEnum = (pillar: CAPIPillar): ArticleTheme => {
 	switch (pillar) {

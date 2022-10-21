@@ -4,15 +4,12 @@ import '@testing-library/jest-dom/extend-expect';
 import {
 	render,
 	fireEvent,
-	// @ts-ignore : https://github.com/testing-library/react-testing-library/issues/610
+	// @ts-expect-error : https://github.com/testing-library/react-testing-library/issues/610
 	waitFor,
 } from '@testing-library/react';
-
 import { ArticlePillar } from '@guardian/libs';
-
-import { AbuseReportForm } from './AbuseReportForm';
-
 import { mockFetchCalls } from '../../lib/mockFetchCalls';
+import { AbuseReportForm } from './AbuseReportForm';
 
 const fetchMock = mockFetchCalls();
 
@@ -59,7 +56,7 @@ describe('Dropdown', () => {
 
 		fireEvent.click(getByText('Report'));
 
-		let options: any = getByLabelText('Category');
+		const options: any = getByLabelText('Category');
 		expect(options[1].selected).toBeFalsy();
 		expect(options[3].selected).toBeTruthy();
 
