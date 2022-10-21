@@ -14,18 +14,34 @@ module.exports = {
   ],
   webpackFinal: async config => {
       config.module.rules.push({
-          test: /\.(ts|tsx)$/,
+          test: /\.[jt]sx?|mjs$/,
           exclude: nodeModulesExclude,
           use: [
-              {
-                  loader: require.resolve('ts-loader'),
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  '@babel/preset-react',
+                  [
+                    '@babel/preset-env',
+                    {
+                      bugfixes: true,
+                      targets: {
+                        esmodules: true,
+                      },
+                    },
+                  ],
+                ],
               },
+            },
+            {
+              loader: 'ts-loader',
+              options: {
+                transpileOnly: true,
+              },
+            }
           ],
       });
-
-      // update storybook webpack config to transpile *all* JS
-      config.module.rules.find(rule => String(rule.test) === String(/\.(mjs|tsx?|jsx?)$/))
-      .exclude = nodeModulesExclude;
 
       return config;
   },

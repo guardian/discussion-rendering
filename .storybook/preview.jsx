@@ -77,7 +77,7 @@ export const parameters = {
 const FocusManagerDecorator = storyFn => {
 	useEffect(() => {
 		FocusStyleManager.onlyShowFocusOnTabs()
-	})
+	}, [])
 
 	return <div>{storyFn()}</div>
 	
