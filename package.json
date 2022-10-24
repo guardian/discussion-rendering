@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@babel/helper-environment-visitor": "^7.18.9",
+    "@babel/helper-string-parser": "^7.19.4",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
@@ -42,6 +44,7 @@
     "@guardian/prettier": "^0.4.2",
     "@guardian/source-foundations": "^4.2.1",
     "@guardian/source-react-components": "^4.4.0",
+    "@jridgewell/gen-mapping": "^0.3.2",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-html": "^0.2.4",
