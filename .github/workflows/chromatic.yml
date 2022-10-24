@@ -5,7 +5,11 @@ jobs:
   chromatic:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+        with:
+          # This fetches all Git history, which is required for Chromatic
+          # https://www.chromatic.com/docs/github-actions#support-for-codeactionscheckoutv2code-and-above
+          fetch-depth: 0
       - run: |
           yarn && yarn build
       - uses: chromaui/action@v1
