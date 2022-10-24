@@ -25,9 +25,6 @@ const config: StorybookViteConfig = {
       plugins: [react({
         jsxImportSource: "@emotion/react",
       })],
-      define: {
-        global: 'globalThis',
-      }
     })
   }
 }
