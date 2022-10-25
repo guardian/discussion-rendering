@@ -1,8 +1,8 @@
-name: 🕵‍♀
+name: 📦
 on: [push]
 
 jobs:
-  typescript:
+  deps:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
