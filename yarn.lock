@@ -2674,10 +2674,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@guardian/libs@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-3.1.0.tgz#44b0291741a0fce588167f4ec8c17fa9a7d41261"
-  integrity sha512-GJk34o9lUmP6FcBKd0FSV2RwvAKKJzcAV5mVdhgq/JmBNj8Ns5eiJlq8LG2ewIJJSzRaWT4h8Fg6n9KI8K0xDQ==
+"@guardian/libs@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-9.0.1.tgz#0cae687b733d8ab34af6482edb5da07e815eb58f"
+  integrity sha512-3nDfG/wRjhAXejQH4MCc0C0fpl5aSDQhuyOYqi5lb+nfrpw5uldH89xVIB/fcIK+OcrrCeCEndbPvpP41298vw==
 
 "@guardian/prettier@^0.4.2":
   version "0.4.2"
@@ -17787,6 +17787,11 @@ web-namespaces@^1.0.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/web-namespaces/-/web-namespaces-1.1.4.tgz#bc98a3de60dadd7faefc403d1076d529f5e030ec"
   integrity sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==
+
+web-vitals@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-3.0.4.tgz#a78ea93e95f7d7961dd151e0a76ac132c5dee2c9"
+  integrity sha512-Yau8qf1AJ/dm6MY180Bi0qpCIuWmAfKAnOqmxLecGfIHn0+ND3H4JOhXeY73Pyi9zjSF5J4SNUewHLNUzU7mmA==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"
