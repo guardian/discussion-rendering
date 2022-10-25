@@ -200,7 +200,6 @@ export const TopPick = ({
 					<div css={smallFontSize}>
 						<Link
 							priority="primary"
-							subdued={true}
 							href={comment.webUrl}
 							onClick={(e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 								onPermalinkClick(comment.id);
