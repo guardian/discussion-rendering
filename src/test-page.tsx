@@ -1,27 +1,10 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-import { pillarToEnum } from '../src/lib/pillarToEnum';
-import { CAPIPillar } from '../src/types';
+import { pillarToEnum } from './lib/pillarToEnum';
+import { CAPIPillar } from './types';
 
-import { App } from '../src/App';
-
-const styles = `
-body {
-	padding: 0 10px;
-	font-family: monospace;
-	max-width: 1300px;
-	margin: auto;
-}
-
-.options {
-	display: flex;
-	gap: 20px
-}
-
-main { margin-block: 10px }
-
-hr { border: solid 1px }`;
+import { App } from './App';
 
 const getQueryParam = (queryParam: string, defaultValue: string): string =>
 	new URLSearchParams(window.location.search).get(queryParam) ?? defaultValue;
@@ -60,7 +43,6 @@ const IndexPageWrapper = () => {
 
 	return (
 		<>
-			<style>{styles}</style>
 			<h1>Discussion-rendering Test Page</h1>
 			<p>
 				Set a specific discussion using the id in a query param like{' '}
