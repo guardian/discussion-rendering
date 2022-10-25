@@ -30,6 +30,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@babel/helper-builder-react-jsx": "^7.19.0",
+    "@babel/helper-builder-react-jsx-experimental": "^7.12.11",
     "@babel/helper-environment-visitor": "^7.18.9",
     "@babel/helper-string-parser": "^7.19.4",
     "@babel/plugin-transform-runtime": "^7.9.0",
@@ -101,6 +103,14 @@
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn"
     },
+    "overrides": [
+      {
+        "files": ["src/**/*.stories.tsx"],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ],
     "ignorePatterns": [
       "build"
     ]

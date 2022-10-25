@@ -14,21 +14,6 @@ import { App } from './App';
 
 mockFetchCalls();
 
-const aUser = {
-	userId: 'abc123',
-	displayName: 'Jane Smith',
-	webUrl: '',
-	apiUrl: '',
-	avatar: '',
-	secureAvatarUrl: '',
-	badge: [],
-	privateFields: {
-		canPostComment: true,
-		isPremoderated: false,
-		hasCommented: true,
-	},
-};
-
 // Extend the timeout, as we are getting failed test because of timeout
 // This is due to an increase in Emotion 11 render speed
 // TODO: remove once we have mitigated Emotion 11 render speed
