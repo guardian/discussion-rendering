@@ -1,5 +1,11 @@
 # @guardian/discussion-rendering
 
+## 10.3.1
+
+### Patch Changes
+
+- 25b84b2: Use Vite’s library mode for bundling the package. No expected change.
+
 ## 10.3.0
 
 ### Minor Changes
