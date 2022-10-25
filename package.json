@@ -23,8 +23,8 @@
   "peerDependencies": {
     "@emotion/react": "^11.1.5",
     "@guardian/libs": "^3.1.0",
-    "@guardian/source-foundations": "^4.2.1",
-    "@guardian/source-react-components": "^4.4.0",
+    "@guardian/source-foundations": "^7.0.1",
+    "@guardian/source-react-components": "^9.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
@@ -43,8 +43,8 @@
     "@emotion/react": "^11.1.5",
     "@guardian/libs": "^3.1.0",
     "@guardian/prettier": "^0.4.2",
-    "@guardian/source-foundations": "^4.2.1",
-    "@guardian/source-react-components": "^4.4.0",
+    "@guardian/source-foundations": "^7.0.1",
+    "@guardian/source-react-components": "^9.0.1",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-links": "^6.5.13",
@@ -105,7 +105,9 @@
     },
     "overrides": [
       {
-        "files": ["src/**/*.stories.tsx"],
+        "files": [
+          "src/**/*.stories.tsx"
+        ],
         "rules": {
           "import/no-anonymous-default-export": "off"
         }

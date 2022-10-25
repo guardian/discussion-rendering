@@ -2684,17 +2684,17 @@
   resolved "https://registry.yarnpkg.com/@guardian/prettier/-/prettier-0.4.2.tgz#2d08a8a50aad3911a88c9b53f92a37748694d551"
   integrity sha512-f8MCY/s3rLNonqxITsqnqrPRt0r6hEyW6rGKqDexTt88fEQnA3BMtAlN2hqjuNfrOa9EQexEknZugRVdIpbijQ==
 
-"@guardian/source-foundations@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@guardian/source-foundations/-/source-foundations-4.2.1.tgz#26bbc0976ccca9d2f57c87467945fd965166888e"
-  integrity sha512-9enZ10Tpe9ZCnY1rL1NdiFT1UFPoFWdo0CsKL7Fz1v0UDqvCsNk4OA/ppJkNF07tDSffPFDuQWi8EJaxGLy2Ow==
+"@guardian/source-foundations@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@guardian/source-foundations/-/source-foundations-7.0.1.tgz#b838ab2cf0e2d7b93a617552730eec5b86f6292c"
+  integrity sha512-23dyR0Z/dmly9H2H+6Z0YLOP3vpThE979k9b+jDND6TExcSxo6GTFllvUYNRJb7KZ3pJPqG0wYMGg1q+2o9ogQ==
   dependencies:
     mini-svg-data-uri "^1.3.3"
 
-"@guardian/source-react-components@^4.4.0":
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-4.4.0.tgz#69cf404b56db3ca507702d29dae6a40eeb145cf4"
-  integrity sha512-5Q4Vl8ek0UV0Y9ob5y3Smq5xHs1d3lEzLynv5qqlYqVBlhze5Ypg5IzrPcEpKtcUaCIQeI9d5FevHM9fmm18sQ==
+"@guardian/source-react-components@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-9.0.1.tgz#468fd1739dbb53363be5a4e9d0ed552013e74f0d"
+  integrity sha512-d6go5ySn1rynKcg/NZjIBVZtefJNgreA06u8MNh1o6jdNGNug+NCGG8ztAL6aq8IdKtJw5vRvbeSGjh6bAAViQ==
 
 "@humanwhocodes/config-array@^0.11.6":
   version "0.11.6"
