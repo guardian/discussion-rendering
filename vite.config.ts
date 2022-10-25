@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 import visualizer from 'rollup-plugin-visualizer';
 import pkg from './package.json';
 
+/** Get build directory from package.json */
+const outDir = pkg.module.split("/")[0];
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -11,13 +14,15 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: "build",
+    outDir,
     lib: {
       entry: "./src/App.tsx",
       formats: ["cjs","es"],
       fileName: (format) => {
+        // Ensure the file names matches the package.json’s ones
         const path = format === "es" ? pkg.module : pkg.main
-        return path.split("/").slice(-1)[0];
+        // Strip out the build directory from the filename
+        return path.replace(`${outDir}/`, "");
       },
     },
     rollupOptions: 
