@@ -1,5 +1,15 @@
 # @guardian/discussion-rendering
 
+## 11.0.0
+
+### Major Changes
+
+- 17eb3f3: Bring in the latest Source packages, which bring major visual changes to:
+  - Line height, which is now a little bit tighter
+  - `Link` & `LinkButton`, which no longer have a subdued setting and come with
+    an underline for accessibility
+  - Pillar colours, which have been tweaked to provide higher contrast
+
 ## 10.3.1
 
 ### Patch Changes
