@@ -11,10 +11,12 @@ export default defineConfig({
   plugins: [
     react({
         jsxImportSource: "@emotion/react",
+        jsxRuntime: 'classic',
     }),
   ],
   build: {
     outDir,
+    minify: false,
     lib: {
       entry: "./src/App.tsx",
       formats: ["cjs","es"],
