@@ -1,5 +1,11 @@
 # @guardian/discussion-rendering
 
+## 11.0.1
+
+### Patch Changes
+
+- 33e5bc7: Externalise react-is and react/jsx-runtime
+
 ## 11.0.0
 
 ### Major Changes
