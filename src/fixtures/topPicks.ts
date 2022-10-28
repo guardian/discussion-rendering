@@ -21,8 +21,7 @@ export const topPicks: DiscussionResponse = {
 		comments: [
 			{
 				id: 37678414,
-				body:
-					'<p>This is how <code>code</code> looks. And this is how <del>strikethrough</del> looks</p><p><strong>strong</strong></p><p><i>italic</i></p><p><blockquote><p>blockquote</p></blockquote></p><p><a href="http://www.mydomain.com">link to mydomain.com</a></p><p>And this is what get withareallyreallyreallylonglonglongwordthatissupersuperlonglikelonnnnngggggggggImeanreallylong</p></p>',
+				body: '<p>This is how <code>code</code> looks. And this is how <del>strikethrough</del> looks</p><p><strong>strong</strong></p><p><i>italic</i></p><p><blockquote><p>blockquote</p></blockquote></p><p><a href="http://www.mydomain.com">link to mydomain.com</a></p><p>And this is what get withareallyreallyreallylonglonglongwordthatissupersuperlonglikelonnnnngggggggggImeanreallylong</p></p>',
 				date: '02 July 2014 11:20am',
 				isoDateTime: '2014-07-02T10:20:56Z',
 				status: 'visible',
@@ -48,8 +47,7 @@ export const topPicks: DiscussionResponse = {
 			},
 			{
 				id: 37772513,
-				body:
-					'<p>Lovely chickens! <a href="http://www.mydomain.com">https://www.supersupersuperlongdomainnameImeanitneverstopsatallevereveritmakesyouwonderiftheremightbealimittothesethings.com</a></p>',
+				body: '<p>Lovely chickens! <a href="http://www.mydomain.com">https://www.supersupersuperlongdomainnameImeanitneverstopsatallevereveritmakesyouwonderiftheremightbealimittothesethings.com</a></p>',
 				date: '04 July 2014 1:57pm',
 				isoDateTime: '2014-07-04T12:57:48Z',
 				status: 'visible',
