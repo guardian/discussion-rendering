@@ -8,11 +8,16 @@ const outDir = pkg.module.split('/')[0];
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	esbuild: {
+		jsxFactory: 'jsx',
+		jsxImportSource: '@emotion/react',
+		jsxInject: `import { jsx } from '@emotion/react';`,
+	},
 	plugins: [
 		react({
 			jsxRuntime: 'classic',
 			babel: {
-				plugins: ['@emotion/babel-plugin'],
+				plugins: ['@emotion'],
 			},
 		}),
 	],
