@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ArticlePillar } from '@guardian/libs';
 
 import { CommentType } from '../../types';
