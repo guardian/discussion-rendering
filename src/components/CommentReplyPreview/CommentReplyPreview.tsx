@@ -113,9 +113,8 @@ export const CommentReplyPreview = ({
 	pillar,
 	commentBeingRepliedTo,
 }: Props) => {
-	const [displayReplyComment, setDisplayReplyComment] = useState<boolean>(
-		false,
-	);
+	const [displayReplyComment, setDisplayReplyComment] =
+		useState<boolean>(false);
 	return (
 		<>
 			<Row>

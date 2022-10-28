@@ -21,8 +21,7 @@ export const discussion: DiscussionResponse = {
 		comments: [
 			{
 				id: 23628300,
-				body:
-					"This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
+				body: "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
 				date: '17 May 2013 3:15pm',
 				isoDateTime: '2013-05-17T14:15:14Z',
 				status: 'blocked',
@@ -44,8 +43,7 @@ export const discussion: DiscussionResponse = {
 			},
 			{
 				id: 37678414,
-				body:
-					'<p>This is how <code>code</code> looks. And this is how <del>strikethrough</del> looks</p><p><strong>strong</strong></p><p><i>italic</i></p><p><blockquote><p>blockquote</p></blockquote></p><p><a href="http://www.mydomain.com">link to mydomain.com</a></p><p>And this is what get withareallyreallyreallylonglonglongwordthatissupersuperlonglikelonnnnngggggggggImeanreallylong</p></p>',
+				body: '<p>This is how <code>code</code> looks. And this is how <del>strikethrough</del> looks</p><p><strong>strong</strong></p><p><i>italic</i></p><p><blockquote><p>blockquote</p></blockquote></p><p><a href="http://www.mydomain.com">link to mydomain.com</a></p><p>And this is what get withareallyreallyreallylonglonglongwordthatissupersuperlonglikelonnnnngggggggggImeanreallylong</p></p>',
 				date: '02 July 2014 11:20am',
 				isoDateTime: '2014-07-02T10:20:56Z',
 				status: 'visible',
@@ -71,8 +69,7 @@ export const discussion: DiscussionResponse = {
 			},
 			{
 				id: 37772513,
-				body:
-					'<p>Lovely chickens! <a href="http://www.mydomain.com">https://www.supersupersuperlongdomainnameImeanitneverstopsatallevereveritmakesyouwonderiftheremightbealimittothesethings.com</a></p>',
+				body: '<p>Lovely chickens! <a href="http://www.mydomain.com">https://www.supersupersuperlongdomainnameImeanitneverstopsatallevereveritmakesyouwonderiftheremightbealimittothesethings.com</a></p>',
 				date: '04 July 2014 1:57pm',
 				isoDateTime: '2014-07-04T12:57:48Z',
 				status: 'visible',
@@ -286,8 +283,7 @@ export const discussion: DiscussionResponse = {
 			},
 			{
 				id: 49450704,
-				body:
-					"This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
+				body: "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
 				date: '25 March 2015 3:06pm',
 				isoDateTime: '2015-03-25T15:06:53Z',
 				status: 'blocked',
@@ -465,8 +461,7 @@ export const discussion: DiscussionResponse = {
 			},
 			{
 				id: 50230774,
-				body:
-					"This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
+				body: "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
 				date: '10 April 2015 10:43am',
 				isoDateTime: '2015-04-10T09:43:27Z',
 				status: 'blocked',
@@ -834,8 +829,7 @@ export const discussion: DiscussionResponse = {
 			},
 			{
 				id: 52412721,
-				body:
-					"This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
+				body: "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
 				date: '19 May 2015 10:56am',
 				isoDateTime: '2015-05-19T09:56:47Z',
 				status: 'blocked',
@@ -981,8 +975,7 @@ export const discussion: DiscussionResponse = {
 			},
 			{
 				id: 53984125,
-				body:
-					"This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
+				body: "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
 				date: '17 June 2015 6:08pm',
 				isoDateTime: '2015-06-17T17:08:32Z',
 				status: 'blocked',

@@ -21,8 +21,7 @@ export const discussionWithTwoComments: DiscussionResponse = {
 		comments: [
 			{
 				id: 37772513,
-				body:
-					'<p>Lovely chickens! <a href="http://www.mydomain.com">https://www.supersupersuperlongdomainnameImeanitneverstopsatallevereveritmakesyouwonderiftheremightbealimittothesethings.com</a></p>',
+				body: '<p>Lovely chickens! <a href="http://www.mydomain.com">https://www.supersupersuperlongdomainnameImeanitneverstopsatallevereveritmakesyouwonderiftheremightbealimittothesethings.com</a></p>',
 				date: '04 July 2014 1:57pm',
 				isoDateTime: '2014-07-04T12:57:48Z',
 				status: 'visible',
