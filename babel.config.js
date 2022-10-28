@@ -1,3 +1,4 @@
+/** @type {import('@babel/core').TransformOptions} */
 module.exports = {
     plugins: ["const-enum", "@babel/transform-typescript"],
     presets: [
