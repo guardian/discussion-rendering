@@ -2,21 +2,28 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import visualizer from 'rollup-plugin-visualizer';
 import pkg from './package.json';
+import { Plugin } from 'vite';
 
 /** Get build directory from package.json */
 const outDir = pkg.module.split('/')[0];
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
 	esbuild: {
+		// These values
 		jsxFactory: 'jsx',
 		jsxImportSource: '@emotion/react',
-		jsxInject: `import { jsx } from '@emotion/react';`,
+		// This command ensures that the bundle works in the dev build
+		jsxInject:
+			command === 'serve' ? `import { jsx } from '@emotion/react';` : undefined,
 	},
 	plugins: [
 		react({
+			// The automatic runtime injects `react-is` and `react/jsx-runtime`,
+			// which we do not want as part of our bundle.
 			jsxRuntime: 'classic',
 			babel: {
+				// https://emotion.sh/docs/install#babelrc
 				plugins: ['@emotion'],
 			},
 		}),
@@ -42,9 +49,11 @@ export default defineConfig({
 				'prop-types',
 			],
 			plugins: [
-				//@ts-expect-error -- it works
-				visualizer({ filename: 'build/stats.html' }),
+				// The Rollup and Vite `Plugin` types do not perfectly overlap,
+				// but there is no bug in production, so asserting the type
+				// is acceptable in this instance
+				visualizer({ filename: 'build/stats.html' }) as Plugin,
 			],
 		},
 	},
-});
+}));
