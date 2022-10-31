@@ -10,7 +10,8 @@ const outDir = pkg.module.split('/')[0];
 // https://vitejs.dev/config/
 export default defineConfig({
 	esbuild: {
-		// These values
+		// When using the “classic” JSX runtime in the react plugin,
+		// we need to set these options: https://esbuild.github.io/api/#jsx-dev
 		jsxFactory: 'jsx',
 		jsxImportSource: '@emotion/react',
 		// This command ensures that the jsx method points to Emotion
