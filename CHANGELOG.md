@@ -1,5 +1,11 @@
 # @guardian/discussion-rendering
 
+## 11.0.2
+
+### Patch Changes
+
+- d1ca477: Fix Emotion class names
+
 ## 11.0.1
 
 ### Patch Changes
