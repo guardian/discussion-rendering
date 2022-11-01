@@ -24,7 +24,14 @@ export default defineConfig({
 			jsxRuntime: 'classic',
 			babel: {
 				// https://emotion.sh/docs/install#babelrc
-				plugins: ['@emotion'],
+				plugins: [
+					[
+						'@emotion',
+						{
+							sourceMap: false,
+						},
+					],
+				],
 			},
 		}),
 	],
