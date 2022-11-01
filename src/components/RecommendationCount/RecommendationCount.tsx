@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { css } from '@emotion/react';
 
 import { brand, textSans, neutral } from '@guardian/source-foundations';

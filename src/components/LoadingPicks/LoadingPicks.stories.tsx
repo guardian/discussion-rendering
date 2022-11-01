@@ -1,4 +1,3 @@
-import React from 'react';
 import { LoadingPicks } from './LoadingPicks';
 
 export default { component: LoadingPicks, title: 'LoadingPicks' };

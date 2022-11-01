@@ -15,3 +15,5 @@ node_modules/
 !/src/**/*.tsx
 !/src/**/*.js
 !/test-page/*
+
+!vite.config.ts

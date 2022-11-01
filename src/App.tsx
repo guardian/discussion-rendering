@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 
 import { neutral, textSans, space } from '@guardian/source-foundations';
@@ -245,14 +245,11 @@ export const App = ({
 	const [totalPages, setTotalPages] = useState<number>(0);
 	const [page, setPage] = useState<number>(initialPage || 1);
 	const [picks, setPicks] = useState<CommentType[]>([]);
-	const [
-		commentBeingRepliedTo,
-		setCommentBeingRepliedTo,
-	] = useState<CommentType>();
+	const [commentBeingRepliedTo, setCommentBeingRepliedTo] =
+		useState<CommentType>();
 	const [comments, setComments] = useState<CommentType[]>([]);
-	const [numberOfCommentsToShow, setNumberOfCommentsToShow] = useState<number>(
-		10,
-	);
+	const [numberOfCommentsToShow, setNumberOfCommentsToShow] =
+		useState<number>(10);
 	const [commentCount, setCommentCount] = useState<number>(0);
 	const [mutes, setMutes] = useState<string[]>(readMutes());
 

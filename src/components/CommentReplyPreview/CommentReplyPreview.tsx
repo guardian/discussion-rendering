@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { css } from '@emotion/react';
 
 import { neutral, space, text, textSans } from '@guardian/source-foundations';
@@ -113,9 +113,8 @@ export const CommentReplyPreview = ({
 	pillar,
 	commentBeingRepliedTo,
 }: Props) => {
-	const [displayReplyComment, setDisplayReplyComment] = useState<boolean>(
-		false,
-	);
+	const [displayReplyComment, setDisplayReplyComment] =
+		useState<boolean>(false);
 	return (
 		<>
 			<Row>

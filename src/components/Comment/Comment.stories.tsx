@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ArticlePillar } from '@guardian/libs';
 
 import { Comment } from './Comment';
@@ -64,8 +62,7 @@ const commentContributorData: CommentType = {
 const blockedCommentData = {
 	...commentData,
 	status: 'blocked',
-	body:
-		"This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
+	body: "This comment was removed by a moderator because it didn't abide by our <a href='http://www.theguardian.com/community-standards'>community standards</a>. Replies may also be deleted. For more detail see <a href='http://www.guardian.co.uk/community-faqs'>our FAQs</a>.",
 };
 
 const replyCommentData: CommentType = {
