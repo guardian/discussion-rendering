@@ -1,5 +1,11 @@
 # @guardian/discussion-rendering
 
+## 11.0.3
+
+### Patch Changes
+
+- 18ac401: Drop sourcemaps from build
+
 ## 11.0.2
 
 ### Patch Changes
