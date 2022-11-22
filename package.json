@@ -22,7 +22,7 @@
   ],
   "peerDependencies": {
     "@emotion/react": "^11.5.0",
-    "@guardian/libs": "^9.0.1",
+    "@guardian/libs": "^10.0.0",
     "@guardian/source-foundations": "^7.0.1",
     "@guardian/source-react-components": "^9.0.1",
     "react": "^17.0.1",
@@ -42,7 +42,7 @@
     "@changesets/cli": "^2.24.1",
     "@emotion/babel-preset-css-prop": "^11.10.0",
     "@emotion/react": "^11.5.0",
-    "@guardian/libs": "^9.0.1",
+    "@guardian/libs": "^10.0.0",
     "@guardian/prettier": "^0.4.2",
     "@guardian/source-foundations": "^7.0.1",
     "@guardian/source-react-components": "^9.0.1",
