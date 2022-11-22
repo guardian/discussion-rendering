@@ -265,7 +265,7 @@ export const App = ({
 				setLoadingMore(false);
 			}, 0);
 			return () => clearTimeout(timer);
-		}
+		} else return;
 	}, [isExpanded, comments.length]);
 
 	useEffect(() => {

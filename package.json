@@ -46,6 +46,7 @@
     "@guardian/prettier": "^0.4.2",
     "@guardian/source-foundations": "7.0.1",
     "@guardian/source-react-components": "9.0.1",
+    "@guardian/tsconfig": "^0.1.6",
     "@rollup/plugin-babel": "^6.0.2",
     "@rollup/plugin-commonjs": "^23.0.2",
     "@rollup/plugin-node-resolve": "^15.0.1",

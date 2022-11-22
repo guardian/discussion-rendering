@@ -146,7 +146,7 @@ export const AbuseReportForm: React.FC<{
 				categoryId: 'You must select a category before submitting',
 			});
 
-			return false;
+			return;
 		}
 		const response = await reportAbuse({
 			categoryId,

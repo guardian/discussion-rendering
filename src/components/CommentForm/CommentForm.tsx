@@ -352,7 +352,8 @@ export const CommentForm = ({
 			submitForm();
 			setUserNameMissing(false);
 		} else {
-			response.errors && setError(response.errors[0].message);
+			response.errors &&
+				setError(response.errors[0]?.message ?? 'unknown error');
 		}
 	};
 
