@@ -70,7 +70,7 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react-hooks": "^4.0.4",
     "fetch-mock": "^9.3.1",
-    "husky": "^8.0.2",
+    "husky": "^8.0.0",
     "jest": "^26.6.3",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "mockdate": "^3.0.2",
@@ -101,7 +101,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "createTsDec": "tsc --emitDeclarationOnly true --declaration true --declarationDir build/ --noEmit false",
     "release": "yarn validate && yarn build && yarn np",
-    "release:changesets": "yarn validate && yarn build && changeset publish"
+    "release:changesets": "yarn validate && yarn build && changeset publish",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -134,11 +135,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "pretty-quick --staged && yarn lint && yarn tsc && yarn test --watchAll=false && yarn prettier:check"
-    }
   },
   "jest": {
     "testEnvironment": "jest-environment-jsdom-sixteen",
