@@ -45,6 +45,7 @@ type Props = {
 	) => Promise<CommentResponse>;
 	onPreview?: (body: string) => Promise<string>;
 	onExpand?: () => void;
+	stage?: string;
 };
 
 const footerStyles = css`
@@ -228,6 +229,7 @@ export const App = ({
 	onReply,
 	onPreview,
 	onExpand,
+	stage,
 }: Props) => {
 	const [filters, setFilters] = useState<FilterOptions>(
 		initialiseFilters({
@@ -474,6 +476,7 @@ export const App = ({
 					onComment={onComment}
 					onReply={onReply}
 					onPreview={onPreview}
+					stage={stage}
 				/>
 			)}
 			{!!picks.length && (
@@ -554,6 +557,7 @@ export const App = ({
 					onComment={onComment}
 					onReply={onReply}
 					onPreview={onPreview}
+					stage={stage}
 				/>
 			)}
 		</div>

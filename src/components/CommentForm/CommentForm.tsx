@@ -33,6 +33,7 @@ type Props = {
 		parentCommentId: number,
 	) => Promise<CommentResponse>;
 	onPreview?: (body: string) => Promise<string>;
+	stage?: string;
 };
 
 const boldString = (text: string) => `<b>${text}</b>`;
@@ -161,6 +162,7 @@ export const CommentForm = ({
 	onComment,
 	onReply,
 	onPreview,
+	stage,
 }: Props) => {
 	const [isActive, setIsActive] = useState<boolean>(
 		commentBeingRepliedTo ? true : false,
@@ -339,14 +341,14 @@ export const CommentForm = ({
 		}
 	};
 
-	const submitUserName = async (userName: string) => {
+	const submitUserName = async (userName: string, stage?: string) => {
 		setError('');
 		if (!userName) {
 			setError('Username field cannot be empty');
 			return;
 		}
 
-		const response = await addUserName(userName);
+		const response = await addUserName(userName, stage);
 		if (response.status === 'ok') {
 			// If we are able to submit userName we should continue with submitting comment
 			submitForm();

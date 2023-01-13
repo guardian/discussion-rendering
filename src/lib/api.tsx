@@ -237,9 +237,23 @@ export const recommend = (commentId: number): Promise<boolean> => {
 	}).then((resp) => resp.ok);
 };
 
-export const addUserName = (userName: string): Promise<UserNameResponse> => {
-	const url =
-		`https://idapi.theguardian.com/user/me` + objAsParams(defaultParams);
+const decideIdentityApiUrl = (stage?: string): string => {
+	switch (stage) {
+		case 'DEV':
+			return `https://idapi.code.dev-theguardian.com/user/me`;
+		case 'CODE':
+			return `https://idapi.code.dev-theguardian.com/user/me`;
+		default:
+			return `https://idapi.theguardian.com/user/me`;
+	}
+};
+
+export const addUserName = (
+	userName: string,
+	stage?: string,
+): Promise<UserNameResponse> => {
+	const url = decideIdentityApiUrl(stage) + objAsParams(defaultParams);
+
 	return fetch(url, {
 		method: 'POST',
 		credentials: 'include',

@@ -18,7 +18,7 @@ type Props = {
 	body: string;
 	pillar: ArticleTheme;
 	error?: string;
-	submitForm: (userName: string) => void;
+	submitForm: (userName: string, stage?: string) => void;
 	cancelSubmit: () => void;
 	onPreview?: (body: string) => Promise<string>;
 };
