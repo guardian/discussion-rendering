@@ -12,11 +12,21 @@ import {
 	AdditionalHeadersType,
 } from '../types';
 
-let options = {
+const options = {
 	// Defaults
 	baseUrl: 'https://discussion.theguardian.com/discussion-api',
 	apiKey: 'discussion-rendering',
 	headers: {},
+	idApiUrl: (stage?: string) => {
+		switch (stage) {
+			case 'DEV':
+				return `https://idapi.code.dev-theguardian.com/user/me`;
+			case 'CODE':
+				return `https://idapi.code.dev-theguardian.com/user/me`;
+			default:
+				return `https://idapi.theguardian.com/user/me`;
+		}
+	},
 };
 
 let defaultParams = {
@@ -237,22 +247,11 @@ export const recommend = (commentId: number): Promise<boolean> => {
 	}).then((resp) => resp.ok);
 };
 
-const decideIdentityApiUrl = (stage?: string): string => {
-	switch (stage) {
-		case 'DEV':
-			return `https://idapi.code.dev-theguardian.com/user/me`;
-		case 'CODE':
-			return `https://idapi.code.dev-theguardian.com/user/me`;
-		default:
-			return `https://idapi.theguardian.com/user/me`;
-	}
-};
-
 export const addUserName = (
 	userName: string,
 	stage?: string,
 ): Promise<UserNameResponse> => {
-	const url = decideIdentityApiUrl(stage) + objAsParams(defaultParams);
+	const url = options.idApiUrl(stage) + objAsParams(defaultParams);
 
 	return fetch(url, {
 		method: 'POST',
