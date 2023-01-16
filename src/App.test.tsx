@@ -33,6 +33,7 @@ describe('App', () => {
 				expanded={false}
 				onPermalinkClick={() => {}}
 				apiKey=""
+				idApiUrl="https://idapi.theguardian.com"
 			/>,
 		);
 
