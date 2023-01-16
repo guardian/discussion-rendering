@@ -7,7 +7,11 @@ import { ArticlePillar } from '@guardian/libs';
 import { DropdownOptionType } from '../../types';
 import { Dropdown } from './Dropdown';
 
-const threadOptions: DropdownOptionType[] = [
+const threadOptions: [
+	DropdownOptionType,
+	DropdownOptionType,
+	DropdownOptionType,
+] = [
 	{
 		value: 'collapsed',
 		title: 'Collapsed',

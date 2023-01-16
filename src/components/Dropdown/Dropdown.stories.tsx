@@ -49,7 +49,11 @@ const DropdownParent = () => {
 	);
 };
 
-const threadOptions: DropdownOptionType[] = [
+const threadOptions: [
+	DropdownOptionType,
+	DropdownOptionType,
+	DropdownOptionType,
+] = [
 	{
 		value: 'collapsed',
 		title: 'Collapsed',
