@@ -17,6 +17,7 @@ let options = {
 	baseUrl: 'https://discussion.theguardian.com/discussion-api',
 	apiKey: 'discussion-rendering',
 	headers: {},
+	idApiUrl: 'https://idapi.theguardian.com',
 };
 
 let defaultParams = {
@@ -27,14 +28,17 @@ export const initialiseApi = ({
 	baseUrl,
 	additionalHeaders,
 	apiKey,
+	idApiUrl,
 }: {
 	baseUrl: string;
 	additionalHeaders: AdditionalHeadersType;
 	apiKey: string;
+	idApiUrl: string;
 }) => {
 	options.baseUrl = baseUrl || options.baseUrl;
 	options.headers = additionalHeaders || options.headers;
 	options.apiKey = apiKey || options.apiKey;
+	options.idApiUrl = idApiUrl || options.idApiUrl;
 
 	defaultParams['api-key'] = options.apiKey;
 };
@@ -238,8 +242,8 @@ export const recommend = (commentId: number): Promise<boolean> => {
 };
 
 export const addUserName = (userName: string): Promise<UserNameResponse> => {
-	const url =
-		`https://idapi.theguardian.com/user/me` + objAsParams(defaultParams);
+	const url = options.idApiUrl + `/user/me` + objAsParams(defaultParams);
+
 	return fetch(url, {
 		method: 'POST',
 		credentials: 'include',

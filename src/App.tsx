@@ -45,6 +45,7 @@ type Props = {
 	) => Promise<CommentResponse>;
 	onPreview?: (body: string) => Promise<string>;
 	onExpand?: () => void;
+	idApiUrl: string;
 };
 
 const footerStyles = css`
@@ -228,6 +229,7 @@ export const App = ({
 	onReply,
 	onPreview,
 	onExpand,
+	idApiUrl,
 }: Props) => {
 	const [filters, setFilters] = useState<FilterOptions>(
 		initialiseFilters({
@@ -390,7 +392,7 @@ export const App = ({
 		commentElement && commentElement.scrollIntoView();
 	};
 
-	initialiseApi({ additionalHeaders, baseUrl, apiKey });
+	initialiseApi({ additionalHeaders, baseUrl, apiKey, idApiUrl });
 
 	const showPagination = totalPages > 1;
 

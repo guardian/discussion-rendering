@@ -41,6 +41,7 @@ export const LoggedOutHiddenPicks = () => (
 			expanded={false}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );
@@ -68,6 +69,7 @@ export const InitialPage = () => (
 			expanded={true}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );
@@ -95,6 +97,7 @@ export const Overrides = () => (
 			expanded={true}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );
@@ -120,6 +123,7 @@ export const LoggedInHiddenNoPicks = () => (
 			expanded={false}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );
@@ -147,6 +151,7 @@ export const LoggedIn = () => (
 			expanded={true}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );
@@ -174,6 +179,7 @@ export const LoggedInShortDiscussion = () => (
 			expanded={true}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );
@@ -200,6 +206,7 @@ export const LoggedOutHiddenNoPicks = () => (
 			expanded={false}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );
@@ -227,6 +234,7 @@ export const Closed = () => (
 			expanded={true}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );
@@ -251,6 +259,7 @@ export const NoComments = () => (
 			expanded={false}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );
@@ -277,6 +286,7 @@ export const LegacyDiscussion = () => (
 			expanded={false}
 			onPermalinkClick={() => {}}
 			apiKey=""
+			idApiUrl="https://idapi.theguardian.com"
 		/>
 	</div>
 );

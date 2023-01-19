@@ -104,6 +104,7 @@ const IndexPageWrapper = () => {
 					onPermalinkClick={() => {}}
 					apiKey="discussion-rendering"
 					initialPage={1}
+					idApiUrl="https://idapi.theguardian.com"
 					// page={page}
 					// onPageChange={setPage}
 				/>
