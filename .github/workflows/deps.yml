@@ -1,5 +1,9 @@
 name: 📦
-on: [push]
+on: 
+  pull_request:
+    paths:
+      - "./package.json"
+  worflow_dispatch:
 
 jobs:
   deps:
@@ -8,9 +12,18 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Setup deno
-        uses: denolib/setup-deno@v2
+        uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.25.0
+          deno-version: v1.30.0
+
+      - name: Check peer dependencies
+        run: deno run --allow-read scripts/dependencies.ts
 
       - name: Check dependencies
-        run: deno run --allow-read scripts/dependencies.ts
+        run: |
+          deno run \
+            --allow-read=. \
+            --allow-net=unpkg.com \
+            https://deno.land/x/package_health@0.1.0/src/main.ts \
+            package.json \
+            --cache
