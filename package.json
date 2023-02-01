@@ -43,7 +43,7 @@
     "@emotion/babel-preset-css-prop": "^11.10.0",
     "@emotion/react": "11.5.0",
     "@guardian/libs": "12.0.0",
-    "@guardian/prettier": "^0.4.2",
+    "@guardian/prettier": "^2.1.5",
     "@guardian/source-foundations": "7.0.1",
     "@guardian/source-react-components": "9.0.1",
     "@guardian/tsconfig": "^0.1.6",
