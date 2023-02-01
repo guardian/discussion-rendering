@@ -2,8 +2,8 @@ name: 📦
 on: 
   pull_request:
     paths:
-      - "./package.json"
-  worflow_dispatch:
+      - "package.json"
+  workflow_dispatch:
 
 jobs:
   deps:
