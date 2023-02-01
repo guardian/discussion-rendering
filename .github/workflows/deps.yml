@@ -24,6 +24,6 @@ jobs:
           deno run \
             --allow-read=. \
             --allow-net=unpkg.com \
-            https://deno.land/x/package_health@0.1.0/src/main.ts \
+            https://deno.land/x/package_health@0.1.1/src/main.ts \
             package.json \
             --cache
