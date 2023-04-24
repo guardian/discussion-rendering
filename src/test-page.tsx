@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { pillarToEnum } from './lib/pillarToEnum';
 import { CAPIPillar } from './types';
@@ -114,7 +114,8 @@ const IndexPageWrapper = () => {
 	);
 };
 
-const root = document.createElement('div');
-document.body.appendChild(root);
+const container = document.createElement('div');
+document.body.appendChild(container);
 
-ReactDOM.render(<IndexPageWrapper />, root);
+const root = createRoot(container);
+root.render(<IndexPageWrapper />);
