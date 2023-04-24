@@ -1592,27 +1592,27 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@guardian/libs@12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-12.0.0.tgz#cb9f78d2d0c04a5afc46d2efaa540d95dccb49f9"
-  integrity sha512-Xjg/GC11x/YhereuwAZt8yKhWafJ49ak7kZJFE5nIc7MlPLAwr5xv+83vFKvYiqbHSnq4P/OHXA2Da9RkEIgsw==
+"@guardian/libs@14.0.0":
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/@guardian/libs/-/libs-14.0.0.tgz#07022b652430a1c5d6b16f8aa105ae3d73da4e7c"
+  integrity sha512-rB4h4FlD3EcoCY66f3xjO7alnXiimPOynL9znvX/xP2nAVpG4UyedJnIpupw4KPqJuB0lZMih6EeXq0a1XnI3w==
 
 "@guardian/prettier@^0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@guardian/prettier/-/prettier-0.4.2.tgz#2d08a8a50aad3911a88c9b53f92a37748694d551"
   integrity sha512-f8MCY/s3rLNonqxITsqnqrPRt0r6hEyW6rGKqDexTt88fEQnA3BMtAlN2hqjuNfrOa9EQexEknZugRVdIpbijQ==
 
-"@guardian/source-foundations@7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@guardian/source-foundations/-/source-foundations-7.0.1.tgz#b838ab2cf0e2d7b93a617552730eec5b86f6292c"
-  integrity sha512-23dyR0Z/dmly9H2H+6Z0YLOP3vpThE979k9b+jDND6TExcSxo6GTFllvUYNRJb7KZ3pJPqG0wYMGg1q+2o9ogQ==
+"@guardian/source-foundations@10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@guardian/source-foundations/-/source-foundations-10.0.1.tgz#fe9d5d1bee9dd1b0d3d579d21a99f6051aa47649"
+  integrity sha512-q7FHvQO2JN463SHRjLNKeywW8KUfjoao6oiULoyHssI07saol2rE0W8BdPCeD9337FNztiOxMGOmXWSBUIdYJw==
   dependencies:
-    mini-svg-data-uri "^1.3.3"
+    mini-svg-data-uri "1.4.4"
 
-"@guardian/source-react-components@9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-9.0.1.tgz#468fd1739dbb53363be5a4e9d0ed552013e74f0d"
-  integrity sha512-d6go5ySn1rynKcg/NZjIBVZtefJNgreA06u8MNh1o6jdNGNug+NCGG8ztAL6aq8IdKtJw5vRvbeSGjh6bAAViQ==
+"@guardian/source-react-components@13.0.0":
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/@guardian/source-react-components/-/source-react-components-13.0.0.tgz#11157b8b7615b371a6f6ab96d2efdfe5a20c6ea2"
+  integrity sha512-mhWHSUSCr8PjkajzsQs0yMFch1h9BONTlgV96T+niPkrtqn+xWvkQJeaBsN/X/QLSqweBLCjo6yvPdGxgJgaWw==
 
 "@guardian/tsconfig@^0.1.6":
   version "0.1.6"
@@ -11893,7 +11893,7 @@ min-indent@^1.0.0:
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.0.tgz#cfc45c37e9ec0d8f0a0ec3dd4ef7f7c3abe39256"
   integrity sha1-z8RcN+nsDY8KDsPdTvf3w6vjklY=
 
-mini-svg-data-uri@^1.3.3:
+mini-svg-data-uri@1.4.4:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz#8ab0aabcdf8c29ad5693ca595af19dd2ead09939"
   integrity sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
