@@ -10,8 +10,12 @@ jobs:
           # This fetches all Git history, which is required for Chromatic
           # https://www.chromatic.com/docs/github-actions#support-for-codeactionscheckoutv2code-and-above
           fetch-depth: 0
-      - run: |
-          yarn && yarn build
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
       - uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
