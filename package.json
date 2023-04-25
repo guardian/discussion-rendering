@@ -1,7 +1,7 @@
 {
   "name": "@guardian/discussion-rendering",
   "description": "This codebase started as a hack day project by @gtrufitt and @nicl. The purpose is parity of the existing discussion application on Frontend using the discussion API (search for Private Repo).",
-  "version": "13.0.0",
+  "version": "14.0.0",
   "author": "",
   "homepage": "https://github.com/guardian/discussion-rendering#readme",
   "license": "Apache",
@@ -94,10 +94,16 @@
   },
   "known_issues": {
     "react@18.2.0": {
-      "@types/react": ["~18.0.38", "18.2.0"]
+      "@types/react": [
+        "~18.0.38",
+        "18.2.0"
+      ]
     },
     "react-dom@18.2.0": {
-      "@types/react-dom": ["~18.0.11", "18.2.0"]
+      "@types/react-dom": [
+        "~18.0.11",
+        "18.2.0"
+      ]
     },
     "jest@~26.6.3": {
       "@types/jest": [

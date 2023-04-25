@@ -1,5 +1,17 @@
 # @guardian/discussion-rendering
 
+## 14.0.0
+
+### Major Changes
+
+- d0721e7: Update project to React 18:
+
+  - Update `react`, `react-dom` & corresponding types.
+  - Use the new `react-dom` `createRoot` syntax for rendering
+  - Upgrade @guardian dependencies to latest version, including source-react-components v13 which is on React 18
+  - Upgrade @testing-library dependencies to support React 18
+  - Upgrade Typescript to v4.9.5
+
 ## 13.0.0
 
 ### Major Changes
