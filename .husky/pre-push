@@ -3,5 +3,5 @@
 
 yarn lint \
     && yarn tsc \
-    && yarn test --watchAll=false \
+    && yarn test --changed \
     && yarn prettier:check

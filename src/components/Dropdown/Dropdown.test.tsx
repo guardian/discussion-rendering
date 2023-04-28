@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/extend-expect';
 
 import { render, fireEvent, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 
 import { ArticlePillar } from '@guardian/libs';
 
@@ -134,7 +135,7 @@ describe('Dropdown', () => {
 });
 
 it('should trigger the correct onSelect callbacks when an option is clicked', () => {
-	const mockCallback = jest.fn();
+	const mockCallback = vi.fn();
 	render(
 		<Dropdown
 			id="abc"

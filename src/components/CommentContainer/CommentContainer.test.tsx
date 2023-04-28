@@ -6,6 +6,8 @@ import {
 	waitFor,
 } from '@testing-library/react';
 
+import { vi } from 'vitest';
+
 import { ArticlePillar } from '@guardian/libs';
 
 import { CommentType } from '../../types';
@@ -50,7 +52,7 @@ describe('CommentContainer', () => {
 
 		// a workaround to emulating hooks outside of render
 		let commentBeingRepliedTo: CommentType | undefined = commentWithoutReply;
-		const mockSetCommentBeingRepliedTo = jest.fn(
+		const mockSetCommentBeingRepliedTo = vi.fn(
 			(newCommentBeingRepliedTo?: CommentType) => {
 				commentBeingRepliedTo = newCommentBeingRepliedTo;
 			},
@@ -124,7 +126,7 @@ describe('CommentContainer', () => {
 
 		// a workaround to emulating hooks outside of render
 		let commentBeingRepliedTo: CommentType | undefined = firstCommentResponse;
-		const mockSetCommentBeingRepliedTo = jest.fn(
+		const mockSetCommentBeingRepliedTo = vi.fn(
 			(newCommentBeingRepliedTo?: CommentType) => {
 				commentBeingRepliedTo = newCommentBeingRepliedTo;
 			},
