@@ -12,7 +12,7 @@ export const defaultStory = () => (
 		cancelSubmit={() => {}}
 	/>
 );
-defaultStory.story = { name: 'Welcome message' };
+defaultStory.storyName = 'Welcome message';
 
 export const CommentWithError = () => (
 	<FirstCommentWelcome
@@ -23,6 +23,4 @@ export const CommentWithError = () => (
 		cancelSubmit={() => {}}
 	/>
 );
-CommentWithError.story = {
-	name: 'Welcome message with error',
-};
+CommentWithError.storyName = 'Welcome message with error';

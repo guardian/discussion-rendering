@@ -89,7 +89,7 @@ export const LongPick = () => (
 		/>
 	</div>
 );
-LongPick.story = { name: 'Long - Staff' };
+LongPick.storyName = 'Long - Staff';
 
 export const ShortPick = () => (
 	<div
@@ -107,7 +107,7 @@ export const ShortPick = () => (
 		/>
 	</div>
 );
-ShortPick.story = { name: 'Short - Staff' };
+ShortPick.storyName = 'Short - Staff';
 
 export const LongPickContributor = () => (
 	<div
@@ -125,7 +125,7 @@ export const LongPickContributor = () => (
 		/>
 	</div>
 );
-LongPickContributor.story = { name: 'Long - Contributor' };
+LongPickContributor.storyName = 'Long - Contributor';
 
 export const ShortPickContributor = () => (
 	<div
@@ -143,4 +143,4 @@ export const ShortPickContributor = () => (
 		/>
 	</div>
 );
-ShortPickContributor.story = { name: 'Short - Contributor' };
+ShortPickContributor.storyName = 'Short - Contributor';

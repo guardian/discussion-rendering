@@ -45,9 +45,7 @@ export const LoggedOutHiddenPicks = () => (
 		/>
 	</div>
 );
-LoggedOutHiddenPicks.story = {
-	name: 'when logged out, unexpanded and with picks',
-};
+LoggedOutHiddenPicks.storyName = 'when logged out, unexpanded and with picks';
 
 export const InitialPage = () => (
 	<div
@@ -73,7 +71,7 @@ export const InitialPage = () => (
 		/>
 	</div>
 );
-InitialPage.story = { name: 'with initial page set to 3' };
+InitialPage.storyName = 'with initial page set to 3';
 
 export const Overrides = () => (
 	<div
@@ -101,7 +99,7 @@ export const Overrides = () => (
 		/>
 	</div>
 );
-Overrides.story = { name: 'with page size overridden to 50' };
+Overrides.storyName = 'with page size overridden to 50';
 
 export const LoggedInHiddenNoPicks = () => (
 	<div
@@ -127,9 +125,7 @@ export const LoggedInHiddenNoPicks = () => (
 		/>
 	</div>
 );
-LoggedInHiddenNoPicks.story = {
-	name: 'when logged in, with no picks and not expanded',
-};
+LoggedInHiddenNoPicks.storyName = 'when logged in, with no picks and not expanded';
 
 export const LoggedIn = () => (
 	<div
@@ -155,9 +151,7 @@ export const LoggedIn = () => (
 		/>
 	</div>
 );
-LoggedIn.story = {
-	name: 'when logged in and expanded',
-};
+LoggedIn.storyName = 'when logged in and expanded';
 
 export const LoggedInShortDiscussion = () => (
 	<div
@@ -183,9 +177,7 @@ export const LoggedInShortDiscussion = () => (
 		/>
 	</div>
 );
-LoggedInShortDiscussion.story = {
-	name: 'when logged in but only wo comments made',
-};
+LoggedInShortDiscussion.storyName = 'when logged in but only wo comments made';
 
 export const LoggedOutHiddenNoPicks = () => (
 	<div
@@ -210,9 +202,7 @@ export const LoggedOutHiddenNoPicks = () => (
 		/>
 	</div>
 );
-LoggedOutHiddenNoPicks.story = {
-	name: 'when logged out, with no picks and not expanded',
-};
+LoggedOutHiddenNoPicks.storyName = 'when logged out, with no picks and not expanded';
 
 export const Closed = () => (
 	<div
@@ -238,7 +228,7 @@ export const Closed = () => (
 		/>
 	</div>
 );
-Closed.story = { name: 'Logged in but closed for comments' };
+Closed.storyName = 'Logged in but closed for comments';
 
 export const NoComments = () => (
 	<div
@@ -263,9 +253,7 @@ export const NoComments = () => (
 		/>
 	</div>
 );
-NoComments.story = {
-	name: 'when no comments have been made',
-};
+NoComments.storyName = 'when no comments have been made';
 
 export const LegacyDiscussion = () => (
 	<div
@@ -290,6 +278,4 @@ export const LegacyDiscussion = () => (
 		/>
 	</div>
 );
-LegacyDiscussion.story = {
-	name: "a legacy discussion that doesn't allow threading",
-};
+LegacyDiscussion.storyName = "a legacy discussion that doesn't allow threading";

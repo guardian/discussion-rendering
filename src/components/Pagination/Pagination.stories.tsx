@@ -23,7 +23,7 @@ export const Default = () => {
 		/>
 	);
 };
-Default.story = { name: 'default' };
+Default.storyName = 'default';
 
 export const TwoPages = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -37,7 +37,7 @@ export const TwoPages = () => {
 		/>
 	);
 };
-TwoPages.story = { name: 'with two pages' };
+TwoPages.storyName = 'with two pages';
 
 export const WithBackground = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -51,8 +51,8 @@ export const WithBackground = () => {
 		/>
 	);
 };
+WithBackground.storyName = 'with a dark background';
 WithBackground.story = {
-	name: 'with a dark background',
 	parameters: { backgrounds: { default: 'dark' } },
 };
 
@@ -68,7 +68,7 @@ export const ThreePages = () => {
 		/>
 	);
 };
-ThreePages.story = { name: 'with three pages' };
+ThreePages.storyName = 'with three pages';
 
 export const FourPages = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -82,7 +82,7 @@ export const FourPages = () => {
 		/>
 	);
 };
-FourPages.story = { name: 'with four pages' };
+FourPages.storyName = 'with four pages';
 
 export const FivePages = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -96,7 +96,7 @@ export const FivePages = () => {
 		/>
 	);
 };
-FivePages.story = { name: 'with five pages' };
+FivePages.storyName = 'with five pages';
 
 export const SixPages = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -110,7 +110,7 @@ export const SixPages = () => {
 		/>
 	);
 };
-SixPages.story = { name: 'with six pages' };
+SixPages.storyName = 'with six pages';
 
 export const SevenPages = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -124,7 +124,7 @@ export const SevenPages = () => {
 		/>
 	);
 };
-SevenPages.story = { name: 'with seven pages' };
+SevenPages.storyName = 'with seven pages';
 
 export const TwelvePages = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -138,7 +138,7 @@ export const TwelvePages = () => {
 		/>
 	);
 };
-TwelvePages.story = { name: 'with twelve pages' };
+TwelvePages.storyName = 'with twelve pages';
 
 export const LotsOfPages = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -152,7 +152,7 @@ export const LotsOfPages = () => {
 		/>
 	);
 };
-LotsOfPages.story = { name: 'with many pages' };
+LotsOfPages.storyName = 'with many pages';
 
 export const WhenExpanded = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -166,7 +166,7 @@ export const WhenExpanded = () => {
 		/>
 	);
 };
-WhenExpanded.story = { name: 'when expanded' };
+WhenExpanded.storyName = 'when expanded';
 
 export const WhenCollapsed = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -180,7 +180,7 @@ export const WhenCollapsed = () => {
 		/>
 	);
 };
-WhenCollapsed.story = { name: 'when collapsed' };
+WhenCollapsed.storyName = 'when collapsed';
 
 export const WhenUnthreaded = () => {
 	const [page, setCurrentPage] = useState(1);
@@ -194,4 +194,4 @@ export const WhenUnthreaded = () => {
 		/>
 	);
 };
-WhenUnthreaded.story = { name: 'when unthreaded' };
+WhenUnthreaded.storyName = 'when unthreaded';

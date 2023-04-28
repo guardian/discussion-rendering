@@ -147,8 +147,8 @@ export const Root = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+Root.storyName = 'A root comment on desktop view';
 Root.story = {
-	name: 'A root comment on desktop view',
 	parameters: {
 		viewport: { defaultViewport: 'desktop' },
 		chromatic: { viewports: [1300] },
@@ -167,8 +167,8 @@ export const RootMobile = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+RootMobile.storyName = 'A root comment on mobile view';
 RootMobile.story = {
-	name: 'A root comment on mobile view',
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
 		chromatic: { viewports: [375] },
@@ -187,8 +187,8 @@ export const ReplyComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+ReplyComment.storyName = 'A reply on desktop view';
 ReplyComment.story = {
-	name: 'A reply on desktop view',
 	parameters: {
 		viewport: { defaultViewport: 'desktop' },
 		chromatic: { viewports: [1300] },
@@ -207,8 +207,8 @@ export const MobileReply = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+MobileReply.storyName = 'A reply on mobile view';
 MobileReply.story = {
-	name: 'A reply on mobile view',
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
 		chromatic: { viewports: [375] },
@@ -227,8 +227,8 @@ export const LongMobileReply = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+LongMobileReply.storyName = 'A long username reply on mobile view';
 LongMobileReply.story = {
-	name: 'A long username reply on mobile view',
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
 		chromatic: { viewports: [375] },
@@ -247,8 +247,8 @@ export const LongBothMobileReply = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+LongBothMobileReply.storyName = 'Both long usernames replying on mobile view';
 LongBothMobileReply.story = {
-	name: 'Both long usernames replying on mobile view',
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
 		chromatic: { viewports: [375] },
@@ -270,7 +270,7 @@ export const PickedComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-PickedComment.story = { name: 'Picked Comment' };
+PickedComment.storyName = 'Picked Comment';
 
 export const StaffUserComment = () => (
 	<Comment
@@ -284,7 +284,7 @@ export const StaffUserComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-StaffUserComment.story = { name: 'Staff User Comment' };
+StaffUserComment.storyName = 'Staff User Comment';
 
 export const ContributorUserComment = () => (
 	<Comment
@@ -298,7 +298,7 @@ export const ContributorUserComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-ContributorUserComment.story = { name: 'Contributor User Comment' };
+ContributorUserComment.storyName = 'Contributor User Comment';
 
 export const PickedStaffUserComment = () => (
 	<Comment
@@ -315,8 +315,8 @@ export const PickedStaffUserComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+PickedStaffUserComment.storyName = 'with staff and picked badges on desktop';
 PickedStaffUserComment.story = {
-	name: 'with staff and picked badges on desktop',
 	parameters: {
 		viewport: { defaultViewport: 'desktop' },
 		chromatic: { viewports: [1300] },
@@ -338,8 +338,8 @@ export const PickedStaffUserCommentMobile = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+PickedStaffUserCommentMobile.storyName = 'with staff and picked badges on mobile';
 PickedStaffUserCommentMobile.story = {
-	name: 'with staff and picked badges on mobile',
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
 		chromatic: { viewports: [375] },
@@ -361,8 +361,8 @@ export const ContributorUserCommentDesktop = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+ContributorUserCommentDesktop.storyName = 'with contributor and picked badges on desktop';
 ContributorUserCommentDesktop.story = {
-	name: 'with contributor and picked badges on desktop',
 	parameters: {
 		viewport: { defaultViewport: 'desktop' },
 		chromatic: { viewports: [1300] },
@@ -384,8 +384,8 @@ export const ContributorUserCommentMobile = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+ContributorUserCommentMobile.storyName = 'with contributor and picked badges on mobile';
 ContributorUserCommentMobile.story = {
-	name: 'with contributor and picked badges on mobile',
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
 		chromatic: { viewports: [375] },
@@ -405,7 +405,7 @@ export const LoggedInAsModerator = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-LoggedInAsModerator.story = { name: 'Logged in as moderator' };
+LoggedInAsModerator.storyName = 'Logged in as moderator';
 
 export const LoggedInAsUser = () => (
 	<Comment
@@ -420,7 +420,7 @@ export const LoggedInAsUser = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-LoggedInAsUser.story = { name: 'Logged in as normal user' };
+LoggedInAsUser.storyName = 'Logged in as normal user';
 
 export const BlockedComment = () => (
 	<Comment
@@ -434,7 +434,7 @@ export const BlockedComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-BlockedComment.story = { name: 'Blocked comment' };
+BlockedComment.storyName = 'Blocked comment';
 
 export const MutedComment = () => (
 	<Comment
@@ -448,7 +448,7 @@ export const MutedComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-MutedComment.story = { name: 'Muted comment' };
+MutedComment.storyName = 'Muted comment';
 
 export const ClosedForComments = () => (
 	<Comment
@@ -462,8 +462,8 @@ export const ClosedForComments = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+ClosedForComments.storyName = 'A closed comment on desktop view';
 ClosedForComments.story = {
-	name: 'A closed comment on desktop view',
 	parameters: {
 		viewport: { defaultViewport: 'desktop' },
 		chromatic: { viewports: [1300] },

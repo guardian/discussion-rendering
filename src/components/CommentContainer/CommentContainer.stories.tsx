@@ -187,7 +187,7 @@ export const defaultStory = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-defaultStory.story = { name: 'default' };
+defaultStory.storyName = 'default';
 
 export const threadedComment = () => (
 	<CommentContainer
@@ -203,7 +203,7 @@ export const threadedComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-threadedComment.story = { name: 'threaded' };
+threadedComment.storyName = 'threaded';
 
 export const threadedCommentWithShowMore = () => (
 	<CommentContainer
@@ -219,7 +219,7 @@ export const threadedCommentWithShowMore = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-threadedCommentWithShowMore.story = { name: 'threaded with show more button' };
+threadedCommentWithShowMore.storyName = 'threaded with show more button';
 
 export const threadedCommentWithLongUsernames = () => (
 	<CommentContainer
@@ -235,9 +235,7 @@ export const threadedCommentWithLongUsernames = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-threadedCommentWithLongUsernames.story = {
-	name: 'threaded with long usernames',
-};
+threadedCommentWithLongUsernames.storyName = 'threaded with long usernames';
 
 export const threadedCommentWithLongUsernamesMobile = () => (
 	<CommentContainer
@@ -253,8 +251,8 @@ export const threadedCommentWithLongUsernamesMobile = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+threadedCommentWithLongUsernamesMobile.storyName = 'threaded with long usernames on mobile display';
 threadedCommentWithLongUsernamesMobile.story = {
-	name: 'threaded with long usernames on mobile display',
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
 		chromatic: { viewports: [375] },
