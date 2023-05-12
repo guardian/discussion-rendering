@@ -112,7 +112,7 @@
   "scripts": {
     "build": "vite build && yarn tsc",
     "dev": "vite",
-    "test": "vitest",
+    "test": "vitest run",
     "validate": "yarn tsc && yarn test && yarn lint",
     "prettier:check": "prettier . --check",
     "prettier:fix": "prettier . --write",
