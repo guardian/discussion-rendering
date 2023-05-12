@@ -90,24 +90,10 @@
     "web-vitals": "3.0.4"
   },
   "known_issues": {
-    "react@18.2.0": {
-      "@types/react": [
-        "~18.0.38",
-        "18.2.0"
-      ]
-    },
-    "react-dom@18.2.0": {
-      "@types/react-dom": [
-        "~18.0.11",
-        "18.2.0"
-      ]
-    },
-    "rollup-plugin-visualizer@~5.9.0": {
-      "@types/rollup-plugin-visualizer": [
-        "~4.2.1",
-        "~5.9.0"
-      ]
-    }
+    "rollup-plugin-visualizer@5.9.0": [
+      "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/rollup-plugin-visualizer",
+      "@types/rollup-plugin-visualizer@4.2.1"
+    ]
   },
   "scripts": {
     "build": "vite build && yarn tsc",
