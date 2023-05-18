@@ -11,9 +11,6 @@ const config: StorybookViteConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials"
   ],
-  core: {
-    builder: '@storybook/builder-vite',
-  },
   async viteFinal(config) {
     config.plugins = config.plugins?.filter(
       (plugin) => 
@@ -26,6 +23,10 @@ const config: StorybookViteConfig = {
         jsxImportSource: "@emotion/react",
       })],
     })
+  },
+  framework: {
+    name: "@storybook/react-vite",
+    options: {}
   }
 }
 
