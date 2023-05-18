@@ -61,7 +61,7 @@ export const Default = () => (
 		onAddComment={(comment) => {}}
 	/>
 );
-Default.story = { name: 'default' };
+Default.storyName = 'default';
 
 // This story has a mocked post endpoint that returns an error, see 97d6eab4a98917f63bc96a7ac64f7ca7
 export const Error = () => (
@@ -72,7 +72,7 @@ export const Error = () => (
 		onAddComment={(comment) => {}}
 	/>
 );
-Error.story = { name: 'form with errors' };
+Error.storyName = 'form with errors';
 
 export const Active = () => (
 	<CommentForm
@@ -83,7 +83,7 @@ export const Active = () => (
 		commentBeingRepliedTo={aComment}
 	/>
 );
-Active.story = { name: 'form is active' };
+Active.storyName = 'form is active';
 
 export const Premoderated = () => (
 	<CommentForm
@@ -100,4 +100,4 @@ export const Premoderated = () => (
 		commentBeingRepliedTo={aComment}
 	/>
 );
-Premoderated.story = { name: 'user is premoderated' };
+Premoderated.storyName = 'user is premoderated';

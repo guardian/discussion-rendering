@@ -99,7 +99,7 @@ export const DropdownActive = () => (
 		<p>Hi, I'm some other content we want to overlay</p>
 	</Container>
 );
-DropdownActive.story = { name: 'Dropdown with first item active' };
+DropdownActive.storyName = 'Dropdown with first item active';
 
 export const DropdownNoActive = () => (
 	<Container>
@@ -114,11 +114,11 @@ export const DropdownNoActive = () => (
 		/>
 	</Container>
 );
-DropdownNoActive.story = { name: 'Dropdown with nothing active' };
+DropdownNoActive.storyName = 'Dropdown with nothing active';
 
 export const DropdownWithState = () => (
 	<Container>
 		<DropdownParent />
 	</Container>
 );
-DropdownWithState.story = { name: 'Dropdown with working selection' };
+DropdownWithState.storyName = 'Dropdown with working selection';

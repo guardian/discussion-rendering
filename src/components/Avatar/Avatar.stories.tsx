@@ -23,7 +23,7 @@ export const Sizes = () => {
 		</>
 	);
 };
-Sizes.story = { name: 'different sizes' };
+Sizes.storyName = 'different sizes';
 
 export const NoImage = () => {
 	return (
@@ -32,4 +32,4 @@ export const NoImage = () => {
 		</>
 	);
 };
-NoImage.story = { name: 'with no image url given' };
+NoImage.storyName = 'with no image url given';

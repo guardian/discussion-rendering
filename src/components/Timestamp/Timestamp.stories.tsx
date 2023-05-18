@@ -12,7 +12,7 @@ export const TwoMonths = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-TwoMonths.story = { name: 'Two months' };
+TwoMonths.storyName = 'Two months';
 
 export const OneHour = () => (
 	<Timestamp
@@ -22,7 +22,7 @@ export const OneHour = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-OneHour.story = { name: 'One Hour' };
+OneHour.storyName = 'One Hour';
 
 export const TwentyThreeHours = () => (
 	<Timestamp
@@ -32,7 +32,7 @@ export const TwentyThreeHours = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-TwentyThreeHours.story = { name: 'Twenty three hours' };
+TwentyThreeHours.storyName = 'Twenty three hours';
 
 export const TwentyFiveHours = () => (
 	<Timestamp
@@ -42,4 +42,4 @@ export const TwentyFiveHours = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-TwentyFiveHours.story = { name: 'Twenty five hours' };
+TwentyFiveHours.storyName = 'Twenty five hours';

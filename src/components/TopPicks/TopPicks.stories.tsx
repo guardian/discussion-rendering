@@ -60,7 +60,7 @@ export const SingleComment = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-SingleComment.story = { name: 'Single Comment' };
+SingleComment.storyName = 'Single Comment';
 
 export const MulitColumn = () => (
 	<TopPicks
@@ -75,7 +75,7 @@ export const MulitColumn = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-MulitColumn.story = { name: 'Mulitple Columns Comments' };
+MulitColumn.storyName = 'Mulitple Columns Comments';
 
 export const SingleColumn = () => (
 	<TopPicks
@@ -90,8 +90,8 @@ export const SingleColumn = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
+SingleColumn.storyName = 'Single Column Comments';
 SingleColumn.story = {
-	name: 'Single Column Comments',
 	parameters: {
 		viewport: { defaultViewport: 'phablet' },
 	},

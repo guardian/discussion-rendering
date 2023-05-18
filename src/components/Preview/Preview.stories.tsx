@@ -14,7 +14,7 @@ export const PreviewStory = () => (
 		<Preview previewHtml="<p>This is some preview text</p>" />
 	</div>
 );
-PreviewStory.story = { name: 'default' };
+PreviewStory.storyName = 'default';
 
 export const PreviewStoryLinebreaks = () => (
 	<div
@@ -26,4 +26,4 @@ export const PreviewStoryLinebreaks = () => (
 		<Preview previewHtml="<p>Hello world!<br>this is a line break </p> <p>this is two</p> <p><br>this is three</p>" />
 	</div>
 );
-PreviewStoryLinebreaks.story = { name: 'Preview comment with linebreaks' };
+PreviewStoryLinebreaks.storyName = 'Preview comment with linebreaks';

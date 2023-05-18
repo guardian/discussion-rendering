@@ -58,7 +58,7 @@ export const Default = () => (
 		commentBeingRepliedTo={commentBeingRepliedTo}
 	/>
 );
-Default.story = { name: 'default' };
+Default.storyName = 'default';
 
 export const SingleLinePreview = () => (
 	<div css={padding}>
@@ -72,7 +72,7 @@ export const SingleLinePreview = () => (
 		/>
 	</div>
 );
-SingleLinePreview.story = { name: 'Single line' };
+SingleLinePreview.storyName = 'Single line';
 
 export const SingleBlockPreview = () => (
 	<div css={padding}>
@@ -86,7 +86,7 @@ export const SingleBlockPreview = () => (
 		/>
 	</div>
 );
-SingleBlockPreview.story = { name: 'Single Block' };
+SingleBlockPreview.storyName = 'Single Block';
 
 export const MultiBlockPreview = () => (
 	<div css={padding}>
@@ -100,4 +100,4 @@ export const MultiBlockPreview = () => (
 		/>
 	</div>
 );
-MultiBlockPreview.story = { name: 'Multi Block' };
+MultiBlockPreview.storyName = 'Multi Block';

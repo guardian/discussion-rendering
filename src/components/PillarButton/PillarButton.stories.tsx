@@ -71,7 +71,7 @@ export const EachPillar = () => (
 		</PillarButton>
 	</Row>
 );
-EachPillar.story = { name: 'with each pillar' };
+EachPillar.storyName = 'with each pillar';
 
 export const EachSize = () => (
 	<Row>
@@ -109,7 +109,7 @@ export const EachSize = () => (
 		</PillarButton>
 	</Row>
 );
-EachSize.story = { name: 'with each size' };
+EachSize.storyName = 'with each size';
 
 export const IconLeft = () => (
 	<PillarButton
@@ -124,7 +124,7 @@ export const IconLeft = () => (
 		Left
 	</PillarButton>
 );
-IconLeft.story = { name: 'with an icon on the left' };
+IconLeft.storyName = 'with an icon on the left';
 
 export const IconRight = () => (
 	<PillarButton
@@ -198,7 +198,7 @@ export const Secondary = () => (
 		</PillarButton>
 	</Row>
 );
-Secondary.story = { name: 'with secondary priority' };
+Secondary.storyName = 'with secondary priority';
 
 export const Subdued = () => (
 	<Row>
@@ -258,4 +258,4 @@ export const Subdued = () => (
 		</PillarButton>
 	</Row>
 );
-Subdued.story = { name: 'with subdued priority' };
+Subdued.storyName = 'with subdued priority';
