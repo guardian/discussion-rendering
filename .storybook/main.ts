@@ -1,8 +1,8 @@
 import { mergeConfig } from 'vite';
-import type { StorybookViteConfig } from '@storybook/builder-vite';
+import type { StorybookConfig } from '@storybook/react-vite';
 import react from '@vitejs/plugin-react';
 
-const config: StorybookViteConfig = {
+const config: StorybookConfig = {
   stories: [
     "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
@@ -11,10 +11,10 @@ const config: StorybookViteConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials"
   ],
-  core: {
-    builder: '@storybook/builder-vite',
-  },
+  // Custom React integration for storybook, as main vite config includes
+  // workarounds for Preact.
   async viteFinal(config) {
+    config.esbuild = undefined;
     config.plugins = config.plugins?.filter(
       (plugin) => 
         //@ts-expect-error -- https://github.com/storybookjs/builder-vite/issues/210
@@ -26,6 +26,10 @@ const config: StorybookViteConfig = {
         jsxImportSource: "@emotion/react",
       })],
     })
+  },
+  framework: {
+    name: "@storybook/react-vite",
+    options: {}
   }
 }
 
