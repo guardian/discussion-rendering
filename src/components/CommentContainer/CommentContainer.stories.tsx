@@ -251,7 +251,8 @@ export const threadedCommentWithLongUsernamesMobile = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-threadedCommentWithLongUsernamesMobile.storyName = 'threaded with long usernames on mobile display';
+threadedCommentWithLongUsernamesMobile.storyName =
+	'threaded with long usernames on mobile display';
 threadedCommentWithLongUsernamesMobile.story = {
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
