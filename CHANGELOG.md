@@ -1,5 +1,11 @@
 # @guardian/discussion-rendering
 
+## 15.0.0
+
+### Major Changes
+
+- b6d2cb3: Update TS to version 5.1.3
+
 ## 14.0.0
 
 ### Major Changes
