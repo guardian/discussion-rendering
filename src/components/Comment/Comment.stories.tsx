@@ -338,7 +338,8 @@ export const PickedStaffUserCommentMobile = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-PickedStaffUserCommentMobile.storyName = 'with staff and picked badges on mobile';
+PickedStaffUserCommentMobile.storyName =
+	'with staff and picked badges on mobile';
 PickedStaffUserCommentMobile.story = {
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },
@@ -361,7 +362,8 @@ export const ContributorUserCommentDesktop = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-ContributorUserCommentDesktop.storyName = 'with contributor and picked badges on desktop';
+ContributorUserCommentDesktop.storyName =
+	'with contributor and picked badges on desktop';
 ContributorUserCommentDesktop.story = {
 	parameters: {
 		viewport: { defaultViewport: 'desktop' },
@@ -384,7 +386,8 @@ export const ContributorUserCommentMobile = () => (
 		onPermalinkClick={() => {}}
 	/>
 );
-ContributorUserCommentMobile.storyName = 'with contributor and picked badges on mobile';
+ContributorUserCommentMobile.storyName =
+	'with contributor and picked badges on mobile';
 ContributorUserCommentMobile.story = {
 	parameters: {
 		viewport: { defaultViewport: 'mobileMedium' },

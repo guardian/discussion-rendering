@@ -125,7 +125,8 @@ export const LoggedInHiddenNoPicks = () => (
 		/>
 	</div>
 );
-LoggedInHiddenNoPicks.storyName = 'when logged in, with no picks and not expanded';
+LoggedInHiddenNoPicks.storyName =
+	'when logged in, with no picks and not expanded';
 
 export const LoggedIn = () => (
 	<div
@@ -202,7 +203,8 @@ export const LoggedOutHiddenNoPicks = () => (
 		/>
 	</div>
 );
-LoggedOutHiddenNoPicks.storyName = 'when logged out, with no picks and not expanded';
+LoggedOutHiddenNoPicks.storyName =
+	'when logged out, with no picks and not expanded';
 
 export const Closed = () => (
 	<div
