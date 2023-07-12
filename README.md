@@ -1,5 +1,9 @@
 # Discussion Rendering
 
+> **Warning**
+> 
+> This library is **deprecated**. It was previously used by the dotcom-rendering (DCR) and apps-rendering (AR) projects. However, the dependency was removed from AR in https://github.com/guardian/dotcom-rendering/pull/7374 and the code was then merged directly into DCR in https://github.com/guardian/dotcom-rendering/pull/8057.
+
 This codebase started as a hack day project by @gtrufitt and @nicl. The purpose is parity of the existing discussion application on Frontend using the discussion API (search for Private Repo).
 
 ### Getting up and running for local development
